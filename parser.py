@@ -34,31 +34,19 @@ def p_optionsyesno(p):
 
 # <body>
 def p_body(p):
-    '''body : declarations func funcB main func funcB'''
+    '''body : declarationsOpt funcsOpt main funcsOpt'''
 
-def p_funcB(p):
-    '''funcB : func
-             | empty'''
+def p_funcsOpt(p):
+    '''funcsOpt : func funcsOpt
+                | empty'''
 
-# <declarations>
-def p_declarations(p):
-    '''declarations : type declarationsB ';' declarations
-                    | empty'''
+def p_declarationsOpt(p):
+    '''declarationsOpt : declaration declarationsOpt
+                       | empty'''
 
-def p_declarationsB(p):
-    '''declarationsB : ID dimensionB constantB declarationsC'''
-
-def p_declarationsC(p):
-    '''declarationsC : ',' declarationsB
-                     | empty'''
-
-def p_dimensionB(p):
-    '''dimensionB : dimension
-                  | empty'''
-
-def p_constantB(p):
-    '''constantB : '=' constant
-                 | empty'''
+# <declaration>
+def p_declaration(p):
+    '''declaration : type assign '''
 
 # <main>
 def p_main(p):
@@ -66,20 +54,30 @@ def p_main(p):
 
 # <func>
 def p_func(p):
-    '''func : DEF returntype ID '(' optionalparams ')' block
-            | empty'''
+    '''func : DEF returntype ID '(' paramsOpt ')' block'''
 
-def p_optionalparams(p):
-    '''optionalparams : params
-                      | empty'''
+def p_paramsOpt(p):
+    '''paramsOpt : params
+                 | empty'''
 
 # <block>
 def p_block(p):
-    '''block : '{' instruction '}' '''
+    '''block : '{' instructionsOpt '}' '''
 
-# <asign>
-def p_asign(p):
-    '''asign : ID dimensionB '=' superexpression'''
+def p_instructionsOpt(p):
+    '''instructionsOpt : instruction instructionsOpt
+                       | empty'''
+
+# <assign>
+def p_assign(p):
+    '''assign : ID dimensionsOpt '=' superexpression'''
+
+def p_assignB(p):
+    '''assignB : dimensionsOpt '=' superexpression'''
+
+def p_dimensionsOpt(p):
+    '''dimensionsOpt : dimensions
+                    | empty'''
 
 # <condition>
 def p_condition(p):
@@ -90,23 +88,26 @@ def p_else(p):
     '''else : ELSE block
             | empty'''
 
-# question: Does the whileloop and forloops end with a ';'?
 # <instruction>
 def p_instruction(p):
-    '''instruction : asign ';' instructionB
-                   | condition ';' instructionB
-                   | output ';' instructionB
-                   | whileloop instructionB
-                   | forloop instructionB
-                   | input ';' instructionB
-                   | funccall ';' instructionB
-                   | return ';' instructionB
-                   | localdirective instructionB
-                   | declarations instructionB'''
+    '''instruction : assignfunccall ';'
+                   | output ';'
+                   | input ';'
+                   | return ';'
+                   | declaration ';'
+                   | condition
+                   | whileloop
+                   | forloop
+                   | localdirective '''
 
-def p_instructionB(p):
-    '''instructionB : instruction
-                    | empty'''
+# <assignfunccall>
+# left factor the assign and funccall rules
+def p_assignfunccall(p):
+    '''assignfunccall : ID assignfunccallB'''
+
+def p_assignfunccallB(p):
+    '''assignfunccallB : '(' funccallB
+                       | assignB'''
 
 # <localdirective>
 def p_localdirective(p):
@@ -251,8 +252,11 @@ def p_funccallC(p):
                  | empty'''
 
 # <dimension>
-def p_dimension(p):
-    '''dimension : '[' superexpression ']' dimensionB '''
+def p_dimensions(p):
+    '''dimensions : '[' superexpression ']' dimensionsB '''
+
+def p_dimensionsB(p):
+    '''dimensionsB : '[' superexpression ']' '''
 
 # <return>
 def p_return(p):
