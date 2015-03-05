@@ -6,9 +6,9 @@ literals = "#(){}<>=+*/,|&:;"
 
 # reserved words
 reserved = {
-    'vars'      : 'VARS',
-    'decisions' : 'DECISIONS',
-    'complexity': 'COMPLEXITY',
+    #'vars'      : 'VARS',
+    #'decisions' : 'DECISIONS',
+    #'complexity': 'COMPLEXITY',
     'SOME'      : 'SOME',
     'ALL'       : 'ALL',
     'MOST'      : 'MOST',
@@ -22,7 +22,7 @@ reserved = {
     'track'     : 'TRACK',
     'forget'    : 'FORGET',
     'show'      : 'SHOW',
-    'decision'  : 'DECISION',
+    #'decision'  : 'DECISION',
     'true'      : 'TRUE',
     'false'     : 'FALSE',
     'while'     : 'WHILE',
@@ -36,12 +36,22 @@ reserved = {
     'def'      : 'DEF'
 }
 
+
 tokens = [
+          # Config vars
+          'VARSCONFIG', 'DECISIONSCONFIG', 'COMPLEXITYCONFIG',
+          # Decision directives
+          'TRACKDECISION', 'FORGETDECISION',
           # Constantes
           'STRING','ICONST','FCONST','ID'
 ] +  list(reserved.values())
 
 # non-terminals or tokens
+t_VARSCONFIG = r'\#vars'
+t_DECISIONSCONFIG = r'\#decisions'
+t_COMPLEXITYCONFIG = r'\#complexity'
+t_TRACKDECISION = r'\#trackdecision'
+t_FORGETDECISION = r'\#forgetdecision'
 t_STRING = r'".*"'
 t_ICONST = r'\d+'
 t_FCONST = r'\d+\.\d+'
