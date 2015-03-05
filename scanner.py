@@ -65,12 +65,12 @@ def p_main(p):
 
 # <func>
 def p_func(p):
-    '''func : returntype ID '(' paramsB ')' block
+    '''func : returntype ID '(' optionalparams ')' block
             | empty'''
 
-def p_paramsB(p):
-    '''paramsB : params
-               | empty'''
+def p_optionalparams(p):
+    '''optionalparams : params
+                      | empty'''
 
 # <block>
 def p_block(p):
@@ -248,10 +248,6 @@ def p_funccallC(p):
 # <dimension>
 def p_dimension(p):
     '''dimension : '[' superexpression ']' dimensionB '''
-
-def p_dimensionB(p):
-    '''dimensionB : '[' superexpression ']'
-                  | empty'''
 
 # <return>
 def p_return(p):
