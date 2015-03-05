@@ -203,16 +203,67 @@ def p_input(p):
 def p_inputB(p):
     '''inputB : ',' ID inputB
               | empty'''
-
-
 # <output>
+def p_output(p):
+    '''output : PRINT '(' outputB '''
+
+def p_outputB(p):
+    '''outputB : CSTRING outputC
+               | superexpression outpuC'''
+
+def p_outputC(p):
+    '''outputC : ')' | ',' outputB '''
+
 # <localvardirective>
+def p_localvardirective(p):
+    '''localvardirective : '#' localvardirectiveB ID'''
+
+def p_localvardirectiveB(p):
+    '''localvardirectiveB : TRACK | FORGET'''
+
 # <localmsgdirective>
+def p_localmsgdirective(p):
+    '''localmsgdirective : '#' SHOW CSTRING'''
+
 # <localdecisiondirective>
+def p_localdecisiondirective(p):
+    '''localdecisiondirective : '#' localdecisiondirectiveB DECISION
+                              | empty'''
+
+def p_localdecisiondirectiveB(p):
+    '''localdecisiondirectiveB : TRACK | FORGET'''
+
 # <funccall>
+def p_funccall(p):
+    '''funccall : ID '(' funccallB ')' '''
+
+def p_funccallB(p):
+    '''funccallB : superexpression funccallC
+                 | empty'''
+
+def p_funccallC(p):
+    '''funccallC : ',' superexpression funccallC
+                 | empty'''
+
 # <dimension>
+def p_dimension(p):
+    '''dimension : '[' superexpression ']' dimensionB '''
+
+def p_dimensionB(p):
+    '''dimensionB : '[' superexpression ']'
+                  | empty'''
+
 # <return>
+def p_return(p):
+    '''return : RETURN superexpresion'''
+
 # <params>
+def p_params(p):
+    '''params : type ID paramsB'''
+
+def p_paramsB(p):
+    '''paramsB : ',' type ID paramsB
+               | empty'''
 
 def p_empty(p):
     '''empty : '''
