@@ -60,12 +60,12 @@ def t_ID(t):
 # gather line info
 def t_newline(t):
     r'\n+'
-    t.lexer.lineno += len(t.value)
+    t.lineno += len(t.value)
 
 # get error
 def t_error(t):
     if(t.value[0] != None):
-        print "Illegal character ", t.value[0] ,
+        print "Illegal character {0} in {1}. Line number: {2}".format( t.value[0] , t.value, t.lineno ),
         t.lexer.skip(1)
 
 

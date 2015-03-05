@@ -1,5 +1,6 @@
 import ply.yacc as yacc
 import lexer
+import logging
 import sys
 
 tokens = lexer.tokens
@@ -39,6 +40,14 @@ def p_funcB(p):
     '''funcB : func
              | empty'''
 
+# <func declarations factorization>
+#def p_funcdec(p):
+    #'''funcdec : type ID funcdecB | VOID ID func'''
+#
+#def p_funcdecB(p):
+    #'''funcdecB : func
+                #| dimensionB constantB ';' '''
+
 # <declarations>
 def p_declarations(p):
     '''declarations : type declarationsB ';' declarations
@@ -65,8 +74,8 @@ def p_main(p):
 
 # <func>
 def p_func(p):
-    '''func : returntype ID '(' optionalparams ')' block
-            | empty'''
+    '''func : '(' optionalparams ')' block
+            '''
 
 def p_optionalparams(p):
     '''optionalparams : params
@@ -269,9 +278,11 @@ def p_empty(p):
     '''empty : '''
 
 def p_error(p):
-    print "Syntax error in input {0} at char {1}".format(p.type, p.lexpos)
+    print "Syntax error in input {0} at char {1}, and line {2}".format(p.type,  p.lexpos, p.lineno)
+    print p.value
 
 parser = yacc.yacc()
+
 
 if(len(sys.argv) > 1):
     if sys.argv[1] == "-f":
@@ -279,8 +290,11 @@ if(len(sys.argv) > 1):
         s = f.readlines()
     string = ""
     for line in s:
-        string += line
+        string += line + '\n'
     print string
-    result = parser.parse(string)
+    logging.basicConfig(filename='example.log', filemode='w', level=logging.DEBUG)
+    log = logging.getLogger()
+    result = parser.parse(string, debug=log)
 else:
     print "Error"
+
