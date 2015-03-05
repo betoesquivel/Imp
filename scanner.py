@@ -131,7 +131,7 @@ def p_expressionB(p):
                    | '>' exp
                    | '<' '>' exp
                    | '=' '=' exp
-                   | '>' '=' exp
+                   | '<' '=' exp
                    | '>' '=' exp
                    | empty'''
 
