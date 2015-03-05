@@ -153,9 +153,10 @@ def p_termB(p):
              | '*' term
              | empty'''
 
+# our lexer gets the sign with the int in case it has one.
 # <factor>
 def p_factor(p):
-    '''factor : signB constant
+    '''factor : constant
               | '(' superexpression ')'
               | funccall
               | ID dimensionB'''
