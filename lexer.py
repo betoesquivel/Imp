@@ -9,17 +9,11 @@ reserved = {
     'vars'      : 'VARS',
     'decisions' : 'DECISIONS',
     'complexity': 'COMPLEXITY',
-    'some'      : 'SOME',
     'SOME'      : 'SOME',
-    'all'       : 'ALL',
     'ALL'       : 'ALL',
-    'most'      : 'MOST',
     'MOST'      : 'MOST',
-    'none'      : 'NONE',
     'NONE'      : 'NONE',
-    'yes'       : 'YES',
     'YES'       : 'YES',
-    'no'        : 'NO',
     'NO'        : 'NO',
     'main'      : 'MAIN',
     'if'        : 'IF',
@@ -38,7 +32,8 @@ reserved = {
     'for'       : 'FOR',
     'input'     : 'INPUT',
     'return'    : 'RETURN',
-    'bool'      : 'BOOL'
+    'bool'      : 'BOOL',
+    'def'      : 'DEF'
 }
 
 tokens = [

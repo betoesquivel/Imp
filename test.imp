@@ -1,7 +1,7 @@
 #vars=SOME
 #decisions=ALL
 
-int sum(int a, float b) {
+def int sum(int a, float b) {
 
   return a+b;
 
@@ -9,7 +9,7 @@ int sum(int a, float b) {
 
 int cont = 0; cont2 = 1;
 
-main () {
+def main () {
   #track cont
   #track cont2
   while(cont2 < 10) {
@@ -22,7 +22,7 @@ main () {
 
 }
 
-void miFunc() {
+def void miFunc() {
 
   sum(1, 2);
   sum(3, -3);

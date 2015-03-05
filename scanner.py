@@ -61,11 +61,11 @@ def p_constantB(p):
 
 # <main>
 def p_main(p):
-    '''main : MAIN '(' ')' block'''
+    '''main : DEF MAIN '(' ')' block'''
 
 # <func>
 def p_func(p):
-    '''func : returntype ID '(' optionalparams ')' block
+    '''func : DEF returntype ID '(' optionalparams ')' block
             | empty'''
 
 def p_optionalparams(p):
