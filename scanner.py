@@ -1,4 +1,5 @@
 import ply.yacc as yacc
+import logging
 import lexer
 import sys
 
@@ -61,7 +62,7 @@ def p_constantB(p):
 
 # <main>
 def p_main(p):
-    '''main : DEF MAIN '(' ')' block'''
+    '''main : MAIN '(' ')' block'''
 
 # <func>
 def p_func(p):
@@ -281,6 +282,8 @@ if(len(sys.argv) > 1):
     for line in s:
         string += line
     print string
-    result = parser.parse(string)
+    logging.basicConfig(filename='example.log',level=logging.DEBUG)
+    log = logging.getLogger()
+    result = parser.parse(string, debug=log)
 else:
     print "Error"

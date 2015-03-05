@@ -9,7 +9,7 @@ def int sum(int a, float b) {
 
 int cont = 0; cont2 = 1;
 
-def main () {
+main () {
   #track cont
   #track cont2
   while(cont2 < 10) {

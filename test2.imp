@@ -1,0 +1,9 @@
+#vars=SOME
+
+def void algo() {
+  int a = b + a;
+}
+
+main() {
+  algo();
+}
