@@ -82,7 +82,7 @@ def p_asign(p):
 
 # <condition>
 def p_condition(p):
-    '''condition : IF '(' superexression ')' block else'''
+    '''condition : IF '(' superexpression ')' block else'''
 
 # <else>
 def p_else(p):
@@ -111,7 +111,7 @@ def p_instructionB(p):
 def p_localdirective(p):
     '''localdirective : localvardirective
                       | localdecisiondirective
-                      | lcoalmsgdirective'''
+                      | localmsgdirective'''
 
 # <superexpression>
 def p_superexpression(p):
@@ -208,8 +208,8 @@ def p_output(p):
     '''output : PRINT '(' outputB '''
 
 def p_outputB(p):
-    '''outputB : CSTRING outputC
-               | superexpression outpuC'''
+    '''outputB : STRING outputC
+               | superexpression outputC'''
 
 def p_outputC(p):
     '''outputC : ')'
@@ -225,7 +225,7 @@ def p_localvardirectiveB(p):
 
 # <localmsgdirective>
 def p_localmsgdirective(p):
-    '''localmsgdirective : '#' SHOW CSTRING'''
+    '''localmsgdirective : '#' SHOW STRING'''
 
 # <localdecisiondirective>
 def p_localdecisiondirective(p):
@@ -254,7 +254,7 @@ def p_dimension(p):
 
 # <return>
 def p_return(p):
-    '''return : RETURN superexpresion'''
+    '''return : RETURN superexpression'''
 
 # <params>
 def p_params(p):

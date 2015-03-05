@@ -1,1 +1,236 @@
 Created by PLY version 3.4 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    BOOL
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> config body
+Rule 2     config -> configdirective config
+Rule 3     config -> empty
+Rule 4     configdirective -> # VARS = options
+Rule 5     configdirective -> # DECISIONS = options
+Rule 6     configdirective -> # COMPLEXITY = optionsyesno
+Rule 7     options -> SOME
+Rule 8     options -> ALL
+Rule 9     options -> MOST
+Rule 10    options -> NONE
+Rule 11    optionsyesno -> YES
+Rule 12    optionsyesno -> NO
+Rule 13    body -> declarations func funcB main func funcB
+Rule 14    funcB -> func
+Rule 15    funcB -> empty
+Rule 16    declarations -> type declarationsB ; declarations
+Rule 17    declarations -> empty
+Rule 18    declarationsB -> ID dimensionB constantB declarationsC
+Rule 19    declarationsC -> , declarationsB
+Rule 20    declarationsC -> empty
+Rule 21    dimensionB -> dimension
+Rule 22    dimensionB -> empty
+Rule 23    constantB -> = constant
+Rule 24    constantB -> empty
+Rule 25    main -> MAIN ( ) block
+Rule 26    func -> returntype ID ( optionalparams ) block
+Rule 27    func -> empty
+Rule 28    optionalparams -> params
+Rule 29    optionalparams -> empty
+Rule 30    block -> { instruction }
+Rule 31    asign -> ID dimensionB = superexpression
+Rule 32    condition -> IF ( superexression ) block else
+Rule 33    else -> ELSE block
+Rule 34    else -> empty
+Rule 35    instruction -> asign ; instructionB
+Rule 36    instruction -> condition ; instructionB
+Rule 37    instruction -> output ; instructionB
+Rule 38    instruction -> whileloop instructionB
+Rule 39    instruction -> forloop instructionB
+Rule 40    instruction -> input ; instructionB
+Rule 41    instruction -> funccall ; instructionB
+Rule 42    instruction -> return ; instructionB
+Rule 43    instruction -> localdirective instructionB
+Rule 44    instruction -> declarations instructionB
+Rule 45    instructionB -> instruction
+Rule 46    instructionB -> empty
+Rule 47    localdirective -> localvardirective
+Rule 48    localdirective -> localdecisiondirective
+Rule 49    localdirective -> lcoalmsgdirective
+Rule 50    superexpression -> expression superexpressionB
+Rule 51    superexpressionB -> & & superexpression
+Rule 52    superexpressionB -> | | superexpression
+Rule 53    superexpressionB -> empty
+Rule 54    expression -> exp expressionB
+Rule 55    expressionB -> < exp
+Rule 56    expressionB -> > exp
+Rule 57    expressionB -> < > exp
+Rule 58    expressionB -> = = exp
+Rule 59    expressionB -> < = exp
+Rule 60    expressionB -> > = exp
+Rule 61    expressionB -> empty
+Rule 62    exp -> term expB
+Rule 63    expB -> - exp
+Rule 64    expB -> + exp
+Rule 65    expB -> empty
+Rule 66    term -> factor termB
+Rule 67    termB -> / term
+Rule 68    termB -> * term
+Rule 69    termB -> empty
+Rule 70    factor -> constant
+Rule 71    factor -> ( superexpression )
+Rule 72    factor -> funccall
+Rule 73    factor -> ID dimensionB
+Rule 74    constant -> FCONST
+Rule 75    constant -> ICONST
+Rule 76    constant -> TRUE
+Rule 77    constant -> FALSE
+Rule 78    whileloop -> WHILE ( superexpression ) block
+Rule 79    type -> INT
+Rule 80    type -> FLOAT
+Rule 81    type -> STRING
+Rule 82    returntype -> VOID
+Rule 83    returntype -> type
+Rule 84    forloop -> FOR ( asign ; superexpression ; superexpression ) block
+Rule 85    input -> INPUT ( ID inputB )
+Rule 86    inputB -> , ID inputB
+Rule 87    inputB -> empty
+Rule 88    output -> PRINT ( outputB
+Rule 89    outputB -> CSTRING outputC
+Rule 90    outputB -> superexpression outpuC
+Rule 91    outputC -> )
+Rule 92    outputC -> , outputB
+Rule 93    localvardirective -> # localvardirectiveB ID
+Rule 94    localvardirectiveB -> TRACK
+Rule 95    localvardirectiveB -> FORGET
+Rule 96    localmsgdirective -> # SHOW CSTRING
+Rule 97    localdecisiondirective -> # localdecisiondirectiveB DECISION
+Rule 98    localdecisiondirective -> empty
+Rule 99    localdecisiondirectiveB -> TRACK
+Rule 100   localdecisiondirectiveB -> FORGET
+Rule 101   funccall -> ID ( funccallB )
+Rule 102   funccallB -> superexpression funccallC
+Rule 103   funccallB -> empty
+Rule 104   funccallC -> , superexpression funccallC
+Rule 105   funccallC -> empty
+Rule 106   dimension -> [ superexpression ] dimensionB
+Rule 107   return -> RETURN superexpresion
+Rule 108   params -> type ID paramsB
+Rule 109   paramsB -> , type ID paramsB
+Rule 110   paramsB -> empty
+Rule 111   empty -> <empty>
+
+Terminals, with rules where they appear
+
+#                    : 4 5 6 93 96 97
+&                    : 51 51
+(                    : 25 26 32 71 78 84 85 88 101
+)                    : 25 26 32 71 78 84 85 91 101
+*                    : 68
++                    : 64
+,                    : 19 86 92 104 109
+-                    : 63
+/                    : 67
+;                    : 16 35 36 37 40 41 42 84 84
+<                    : 55 57 59
+=                    : 4 5 6 23 31 58 58 59 60
+>                    : 56 57 60
+ALL                  : 8
+BOOL                 : 
+COMPLEXITY           : 6
+DECISION             : 97
+DECISIONS            : 5
+ELSE                 : 33
+FALSE                : 77
+FCONST               : 74
+FLOAT                : 80
+FOR                  : 84
+FORGET               : 95 100
+ICONST               : 75
+ID                   : 18 26 31 73 85 86 93 101 108 109
+IF                   : 32
+INPUT                : 85
+INT                  : 79
+MAIN                 : 25
+MOST                 : 9
+NO                   : 12
+NONE                 : 10
+PRINT                : 88
+RETURN               : 107
+SHOW                 : 96
+SOME                 : 7
+STRING               : 81
+TRACK                : 94 99
+TRUE                 : 76
+VARS                 : 4
+VOID                 : 82
+WHILE                : 78
+YES                  : 11
+[                    : 106
+]                    : 106
+error                : 
+{                    : 30
+|                    : 52 52
+}                    : 30
+
+Nonterminals, with rules where they appear
+
+CSTRING              : 89 96
+asign                : 35 84
+block                : 25 26 32 33 78 84
+body                 : 1
+condition            : 36
+config               : 1 2
+configdirective      : 2
+constant             : 23 70
+constantB            : 18
+declarations         : 13 16 44
+declarationsB        : 16 19
+declarationsC        : 18
+dimension            : 21
+dimensionB           : 18 31 73 106
+else                 : 32
+empty                : 3 15 17 20 22 24 27 29 34 46 53 61 65 69 87 98 103 105 110
+exp                  : 54 55 56 57 58 59 60 63 64
+expB                 : 62
+expression           : 50
+expressionB          : 54
+factor               : 66
+forloop              : 39
+func                 : 13 13 14
+funcB                : 13 13
+funccall             : 41 72
+funccallB            : 101
+funccallC            : 102 104
+input                : 40
+inputB               : 85 86
+instruction          : 30 45
+instructionB         : 35 36 37 38 39 40 41 42 43 44
+lcoalmsgdirective    : 49
+localdecisiondirective : 48
+localdecisiondirectiveB : 97
+localdirective       : 43
+localmsgdirective    : 
+localvardirective    : 47
+localvardirectiveB   : 93
+main                 : 13
+optionalparams       : 26
+options              : 4 5
+optionsyesno         : 6
+outpuC               : 90
+output               : 37
+outputB              : 88 92
+outputC              : 89
+params               : 28
+paramsB              : 108 109
+program              : 0
+return               : 42
+returntype           : 26
+superexpresion       : 107
+superexpression      : 31 51 52 71 78 84 84 90 102 104 106
+superexpressionB     : 50
+superexression       : 32
+term                 : 62 67 68
+termB                : 66
+type                 : 16 83 108 109
+whileloop            : 38
+
