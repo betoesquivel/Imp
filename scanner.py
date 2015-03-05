@@ -154,16 +154,17 @@ def p_termB(p):
              | empty'''
 
 # our lexer gets the sign with the int in case it has one.
+# And I just found out this is wrong. Removed the sign from the lexer and added it here.
 # <factor>
 def p_factor(p):
-    '''factor : constant
+    '''factor : signB constant
               | '(' superexpression ')'
               | funccall
               | ID dimensionB'''
 
-#def p_signB(p):
-#    '''signB : sign
-#             | empty'''
+def p_signB(p):
+    '''signB : sign
+             | empty'''
 
 # <constant>
 def p_constant(p):
@@ -173,9 +174,9 @@ def p_constant(p):
                 | FALSE'''
 
 # <sign>
-#def p_sign(p):
-#    """sign : '+'
-#            | '-' """
+def p_sign(p):
+    """sign : '+'
+            | '-' """
 
 # <whileloop>
 def p_whileloop(p):
@@ -268,7 +269,7 @@ def p_empty(p):
     '''empty : '''
 
 def p_error(p):
-    print "Syntax error in input!", p.type
+    print "Syntax error in input {0} at char {1}".format(p.type, p.lexpos)
 
 parser = yacc.yacc()
 

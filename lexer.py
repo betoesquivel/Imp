@@ -10,11 +10,17 @@ reserved = {
     'decisions' : 'DECISIONS',
     'complexity': 'COMPLEXITY',
     'some'      : 'SOME',
+    'SOME'      : 'SOME',
     'all'       : 'ALL',
+    'ALL'       : 'ALL',
     'most'      : 'MOST',
+    'MOST'      : 'MOST',
     'none'      : 'NONE',
+    'NONE'      : 'NONE',
     'yes'       : 'YES',
+    'YES'       : 'YES',
     'no'        : 'NO',
+    'NO'        : 'NO',
     'main'      : 'MAIN',
     'if'        : 'IF',
     'else'      : 'ELSE',
@@ -42,8 +48,8 @@ tokens = [
 
 # non-terminals or tokens
 t_STRING = r'".*"'
-t_ICONST = r'[\+-]?\d+'
-t_FCONST = r'[\+-]?\d+\.\d+'
+t_ICONST = r'\d+'
+t_FCONST = r'\d+\.\d+'
 t_ignore = ' \t\n\r'
 
 def t_ID(t):
@@ -51,11 +57,17 @@ def t_ID(t):
     t.type = reserved.get(t.value,'ID')
     return t
 
+# gather line info
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
 # get error
 def t_error(t):
     if(t.value[0] != None):
         print "Illegal character ", t.value[0] ,
         t.lexer.skip(1)
+
 
 # Build the lexer
 lexer = lex.lex()
