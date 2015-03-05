@@ -89,13 +89,14 @@ def p_else(p):
     '''else : ELSE block
             | empty'''
 
+# question: Does the whileloop and forloops end with a ';'?
 # <instruction>
 def p_instruction(p):
     '''instruction : asign ';' instructionB
                    | condition ';' instructionB
                    | output ';' instructionB
-                   | whileloop ';' instructionB
-                   | forloop ';' instructionB
+                   | whileloop instructionB
+                   | forloop instructionB
                    | input ';' instructionB
                    | funccall ';' instructionB
                    | return ';' instructionB
