@@ -212,14 +212,16 @@ def p_outputB(p):
                | superexpression outpuC'''
 
 def p_outputC(p):
-    '''outputC : ')' | ',' outputB '''
+    '''outputC : ')'
+               | ',' outputB '''
 
 # <localvardirective>
 def p_localvardirective(p):
     '''localvardirective : '#' localvardirectiveB ID'''
 
 def p_localvardirectiveB(p):
-    '''localvardirectiveB : TRACK | FORGET'''
+    '''localvardirectiveB : TRACK
+                          | FORGET'''
 
 # <localmsgdirective>
 def p_localmsgdirective(p):
@@ -231,7 +233,8 @@ def p_localdecisiondirective(p):
                               | empty'''
 
 def p_localdecisiondirectiveB(p):
-    '''localdecisiondirectiveB : TRACK | FORGET'''
+    '''localdecisiondirectiveB : TRACK
+                               | FORGET'''
 
 # <funccall>
 def p_funccall(p):
