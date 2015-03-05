@@ -61,7 +61,7 @@ def p_constantB(p):
 
 # <main>
 def p_main(p):
-    '''main : main '(' ')' block'''
+    '''main : MAIN '(' ')' block'''
 
 # <func>
 def p_func(p):
