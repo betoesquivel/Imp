@@ -5,4 +5,4 @@ program = f.readlines()
 
 for l in program:
     lexer.lexer.input(l)
-    print [x.lineno for x in lexer.lexer]
+    print [ (x.type, x.lexpos) for x in lexer.lexer]
