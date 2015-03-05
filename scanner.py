@@ -161,9 +161,9 @@ def p_factor(p):
               | funccall
               | ID dimensionB'''
 
-def p_signB(p):
-    '''signB : sign
-             | empty'''
+#def p_signB(p):
+#    '''signB : sign
+#             | empty'''
 
 # <constant>
 def p_constant(p):
@@ -173,9 +173,9 @@ def p_constant(p):
                 | FALSE'''
 
 # <sign>
-def p_sign(p):
-    """sign : '+'
-            | '-' """
+#def p_sign(p):
+#    """sign : '+'
+#            | '-' """
 
 # <whileloop>
 def p_whileloop(p):
