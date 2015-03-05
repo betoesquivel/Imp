@@ -192,9 +192,9 @@ def p_returntype(p):
     '''returntype : VOID
                   | type'''
 
-# <foorloop>
-def p_foorloop(p):
-    '''foorloop : FOR '(' asign ';' superexpression ';' superexpression ')' block'''
+# <forloop>
+def p_forloop(p):
+    '''forloop : FOR '(' asign ';' superexpression ';' superexpression ')' block'''
 
 # <input>
 def p_input(p):
