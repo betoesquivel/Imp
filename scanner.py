@@ -17,9 +17,9 @@ def p_config(p):
 
 # <configdirective>
 def p_configdirective(p):
-    '''configdirective : HASHTAG VARS EQUAL options
-                       | HASHTAG DECISIONS EQUAL options
-                       | HASHTAG COMPLEXITY EQUAL optionsyesno'''
+    '''configdirective : '#' VARS '=' options
+                       | '#' DECISIONS '=' options
+                       | '#' COMPLEXITY '=' optionsyesno'''
 
 def p_options(p):
     '''options : SOME
@@ -41,14 +41,14 @@ def p_funcB(p):
 
 # <declarations>
 def p_declarations(p):
-    '''declarations : type declarationsB SEMI declarations
+    '''declarations : type declarationsB ';' declarations
                     | empty'''
 
 def p_declarationsB(p):
     '''declarationsB : ID dimensionB constantB declarationsC'''
 
 def p_declarationsC(p):
-    '''declarationsC : COMMA declarationsB
+    '''declarationsC : ',' declarationsB
                      | empty'''
 
 def p_dimensionB(p):
@@ -56,16 +56,16 @@ def p_dimensionB(p):
                   | empty'''
 
 def p_constantB(p):
-    '''constantB : EQUAL constant
+    '''constantB : '=' constant
                  | empty'''
 
 # <main>
 def p_main(p):
-    '''main : main LPAREN RPAREN block'''
+    '''main : main '(' ')' block'''
 
 # <func>
 def p_func(p):
-    '''func : returntype ID LPAREN paramsB RPAREN block
+    '''func : returntype ID '(' paramsB ')' block
             | empty'''
 
 def p_paramsB(p):
@@ -74,15 +74,15 @@ def p_paramsB(p):
 
 # <block>
 def p_block(p):
-    '''block : LBRACE instruction RBRACE'''
+    '''block : '{' instruction '}' '''
 
 # <asign>
 def p_asign(p):
-    '''asign : ID dimensionB EQUAL superexpression'''
+    '''asign : ID dimensionB '=' superexpression'''
 
 # <condition>
 def p_condition(p):
-    '''condition : IF LPAREN superexression RPAREN block else'''
+    '''condition : IF '(' superexression ')' block else'''
 
 # <else>
 def p_else(p):
@@ -91,14 +91,14 @@ def p_else(p):
 
 # <instruction>
 def p_instruction(p):
-    '''instruction : asign SEMI instructionB
-                   | condition SEMI instructionB
-                   | output SEMI instructionB
-                   | whileloop SEMI instructionB
-                   | forloop SEMI instructionB
-                   | input SEMI instructionB
-                   | funccall SEMI instructionB
-                   | return SEMI instructionB
+    '''instruction : asign ';' instructionB
+                   | condition ';' instructionB
+                   | output ';' instructionB
+                   | whileloop ';' instructionB
+                   | forloop ';' instructionB
+                   | input ';' instructionB
+                   | funccall ';' instructionB
+                   | return ';' instructionB
                    | localdirective instructionB
                    | declarations instructionB'''
 
@@ -117,8 +117,8 @@ def p_superexpression(p):
     '''superexpression : expression superexpressionB'''
 
 def p_superexpressionB(p):
-    '''superexpressionB : AND superexpression
-                        | OR superexpression
+    '''superexpressionB : '&' '&' superexpression
+                        | '|' '|' superexpression
                         | empty'''
 
 # <expression>
@@ -126,12 +126,12 @@ def p_expression(p):
     '''expression : exp expressionB'''
 
 def p_expressionB(p):
-    '''expressionB : LESSTHAN exp
-                   | GREATHAN exp
-                   | DIFFERENT exp
-                   | TWOEQUAL exp
-                   | GREATEQUAL exp
-                   | LESSEQUAL exp
+    '''expressionB : '<' exp
+                   | '>' exp
+                   | '<' '>' exp
+                   | '=' '=' exp
+                   | '>' '=' exp
+                   | '>' '=' exp
                    | empty'''
 
 # <exp>
@@ -139,8 +139,8 @@ def p_exp(p):
     '''exp : term expB'''
 
 def p_expB(p):
-    '''expB : MINUS exp
-            | PLUS exp
+    '''expB : '-' exp
+            | '+' exp
             | empty'''
 
 # <term>
@@ -148,14 +148,14 @@ def p_term(p):
     '''term : factor termB'''
 
 def p_termB(p):
-    '''termB : DIVIDE term
-             | TIMES term
+    '''termB : '/' term
+             | '*' term
              | empty'''
 
 # <factor>
 def p_factor(p):
     '''factor : signB constant
-              | LPAREN superexpression RPAREN
+              | '(' superexpression ')'
               | funccall
               | ID dimensionB'''
 
@@ -172,12 +172,12 @@ def p_constant(p):
 
 # <sign>
 def p_sign(p):
-    '''sign : PLUS
-            | MINUS'''
+    """sign : '+'
+            | '-' """
 
 # <whileloop>
 def p_whileloop(p):
-    '''whileloop : WHILE LPAREN superexpression RPAREN block'''
+    '''whileloop : WHILE '(' superexpression ')' block'''
 
 # <type>
 def p_type(p):
@@ -192,17 +192,17 @@ def p_returntype(p):
 
 # <foorloop>
 def p_foorloop(p):
-    '''foorloop : FOR LPAREN asign SEMI superexpression SEMI superexpression RPAREN block'''
+    '''foorloop : FOR '(' asign ';' superexpression ';' superexpression ')' block'''
 
 # <input>
 def p_input(p):
-    '''input : INPUT LPAREN inputB RPAREN'''
+    """input : INPUT '(' inputB ')' """
 
 def p_inputB(p):
     '''inputB : ID inputC'''
 
 def p_inputC(p):
-    '''inputC : COMMA inputB
+    '''inputC : ',' inputB
               | empty'''
 
 
