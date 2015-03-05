@@ -240,16 +240,13 @@ def p_localdecisiondirectiveB(p):
                                | FORGET'''
 
 # <funccall>
-def p_funccall(p):
-    '''funccall : ID '(' funccallB ')' '''
-
 def p_funccallB(p):
     '''funccallB : superexpression funccallC
-                 | empty'''
+                 | ')' '''
 
 def p_funccallC(p):
     '''funccallC : ',' superexpression funccallC
-                 | empty'''
+                 | ')' '''
 
 # <dimension>
 def p_dimensions(p):
