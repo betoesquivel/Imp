@@ -198,13 +198,10 @@ def p_forloop(p):
 
 # <input>
 def p_input(p):
-    """input : INPUT '(' inputB ')' """
+    """input : INPUT '(' ID inputB ')' """
 
 def p_inputB(p):
-    '''inputB : ID inputC'''
-
-def p_inputC(p):
-    '''inputC : ',' inputB
+    '''inputB : ',' ID inputB
               | empty'''
 
 
