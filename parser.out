@@ -21,222 +21,224 @@ Rule 9     options -> MOST
 Rule 10    options -> NONE
 Rule 11    optionsyesno -> YES
 Rule 12    optionsyesno -> NO
-Rule 13    body -> declarations func funcB main func funcB
-Rule 14    funcB -> func
-Rule 15    funcB -> empty
-Rule 16    declarations -> type declarationsB ; declarations
-Rule 17    declarations -> empty
-Rule 18    declarationsB -> ID dimensionB constantB declarationsC
-Rule 19    declarationsC -> , declarationsB
-Rule 20    declarationsC -> empty
-Rule 21    dimensionB -> dimension
-Rule 22    dimensionB -> empty
-Rule 23    constantB -> = constant
-Rule 24    constantB -> empty
-Rule 25    main -> MAIN ( ) block
-Rule 26    func -> DEF returntype ID ( optionalparams ) block
-Rule 27    func -> empty
-Rule 28    optionalparams -> params
-Rule 29    optionalparams -> empty
-Rule 30    block -> { instruction }
-Rule 31    asign -> ID dimensionB = superexpression
-Rule 32    condition -> IF ( superexpression ) block else
-Rule 33    else -> ELSE block
-Rule 34    else -> empty
-Rule 35    instruction -> asign ; instructionB
-Rule 36    instruction -> condition ; instructionB
-Rule 37    instruction -> output ; instructionB
-Rule 38    instruction -> whileloop instructionB
-Rule 39    instruction -> forloop instructionB
-Rule 40    instruction -> input ; instructionB
-Rule 41    instruction -> funccall ; instructionB
-Rule 42    instruction -> return ; instructionB
-Rule 43    instruction -> localdirective instructionB
-Rule 44    instruction -> declarations instructionB
-Rule 45    instructionB -> instruction
-Rule 46    instructionB -> empty
-Rule 47    localdirective -> localvardirective
-Rule 48    localdirective -> localdecisiondirective
-Rule 49    localdirective -> localmsgdirective
-Rule 50    superexpression -> expression superexpressionB
-Rule 51    superexpressionB -> & & superexpression
-Rule 52    superexpressionB -> | | superexpression
-Rule 53    superexpressionB -> empty
-Rule 54    expression -> exp expressionB
-Rule 55    expressionB -> < exp
-Rule 56    expressionB -> > exp
-Rule 57    expressionB -> < > exp
-Rule 58    expressionB -> = = exp
-Rule 59    expressionB -> < = exp
-Rule 60    expressionB -> > = exp
-Rule 61    expressionB -> empty
-Rule 62    exp -> term expB
-Rule 63    expB -> - exp
-Rule 64    expB -> + exp
-Rule 65    expB -> empty
-Rule 66    term -> factor termB
-Rule 67    termB -> / term
-Rule 68    termB -> * term
-Rule 69    termB -> empty
-Rule 70    factor -> signB constant
-Rule 71    factor -> ( superexpression )
-Rule 72    factor -> funccall
-Rule 73    factor -> ID dimensionB
-Rule 74    signB -> sign
-Rule 75    signB -> empty
-Rule 76    constant -> FCONST
-Rule 77    constant -> ICONST
-Rule 78    constant -> TRUE
-Rule 79    constant -> FALSE
-Rule 80    sign -> +
-Rule 81    sign -> -
-Rule 82    whileloop -> WHILE ( superexpression ) block
-Rule 83    type -> INT
-Rule 84    type -> FLOAT
-Rule 85    type -> STRING
-Rule 86    returntype -> VOID
-Rule 87    returntype -> type
-Rule 88    forloop -> FOR ( asign ; superexpression ; superexpression ) block
-Rule 89    input -> INPUT ( ID inputB )
-Rule 90    inputB -> , ID inputB
-Rule 91    inputB -> empty
-Rule 92    output -> PRINT ( outputB
-Rule 93    outputB -> STRING outputC
-Rule 94    outputB -> superexpression outputC
-Rule 95    outputC -> )
-Rule 96    outputC -> , outputB
-Rule 97    localvardirective -> # localvardirectiveB ID
-Rule 98    localvardirectiveB -> TRACK
-Rule 99    localvardirectiveB -> FORGET
-Rule 100   localmsgdirective -> # SHOW STRING
-Rule 101   localdecisiondirective -> # localdecisiondirectiveB DECISION
-Rule 102   localdecisiondirective -> empty
-Rule 103   localdecisiondirectiveB -> TRACK
-Rule 104   localdecisiondirectiveB -> FORGET
-Rule 105   funccall -> ID ( funccallB )
-Rule 106   funccallB -> superexpression funccallC
-Rule 107   funccallB -> empty
-Rule 108   funccallC -> , superexpression funccallC
-Rule 109   funccallC -> empty
-Rule 110   dimension -> [ superexpression ] dimensionB
-Rule 111   return -> RETURN superexpression
-Rule 112   params -> type ID paramsB
-Rule 113   paramsB -> , type ID paramsB
-Rule 114   paramsB -> empty
-Rule 115   empty -> <empty>
+Rule 13    body -> declarationsOpt funcsOpt main funcsOpt
+Rule 14    funcsOpt -> func funcsOpt
+Rule 15    funcsOpt -> empty
+Rule 16    declarationsOpt -> declaration declarationsOpt
+Rule 17    declarationsOpt -> empty
+Rule 18    declaration -> type assign
+Rule 19    main -> MAIN ( ) block
+Rule 20    func -> DEF returntype ID ( paramsOpt ) block
+Rule 21    paramsOpt -> params
+Rule 22    paramsOpt -> empty
+Rule 23    block -> { instructionsOpt }
+Rule 24    instructionsOpt -> instruction instructionsOpt
+Rule 25    instructionsOpt -> empty
+Rule 26    assign -> ID dimensionsOpt = superexpression
+Rule 27    assignB -> dimensionsOpt = superexpression
+Rule 28    dimensionsOpt -> dimensions
+Rule 29    dimensionsOpt -> empty
+Rule 30    condition -> IF ( superexpression ) block else
+Rule 31    else -> ELSE block
+Rule 32    else -> empty
+Rule 33    instruction -> assignfunccall ;
+Rule 34    instruction -> output ;
+Rule 35    instruction -> input ;
+Rule 36    instruction -> return ;
+Rule 37    instruction -> declaration ;
+Rule 38    instruction -> condition
+Rule 39    instruction -> whileloop
+Rule 40    instruction -> forloop
+Rule 41    instruction -> localdirective
+Rule 42    assignfunccall -> ID assignfunccallB
+Rule 43    assignfunccallB -> ( funccallB
+Rule 44    assignfunccallB -> assignB
+Rule 45    localdirective -> localvardirective
+Rule 46    localdirective -> localdecisiondirective
+Rule 47    localdirective -> localmsgdirective
+Rule 48    superexpression -> expression superexpressionB
+Rule 49    superexpressionB -> & & superexpression
+Rule 50    superexpressionB -> | | superexpression
+Rule 51    superexpressionB -> empty
+Rule 52    expression -> exp expressionB
+Rule 53    expressionB -> < exp
+Rule 54    expressionB -> > exp
+Rule 55    expressionB -> < > exp
+Rule 56    expressionB -> = = exp
+Rule 57    expressionB -> < = exp
+Rule 58    expressionB -> > = exp
+Rule 59    expressionB -> empty
+Rule 60    exp -> term expB
+Rule 61    expB -> - exp
+Rule 62    expB -> + exp
+Rule 63    expB -> empty
+Rule 64    term -> factor termB
+Rule 65    termB -> / term
+Rule 66    termB -> * term
+Rule 67    termB -> empty
+Rule 68    factor -> signB constant
+Rule 69    factor -> ( superexpression )
+Rule 70    factor -> funccall
+Rule 71    factor -> ID dimensionB
+Rule 72    signB -> sign
+Rule 73    signB -> empty
+Rule 74    constant -> FCONST
+Rule 75    constant -> ICONST
+Rule 76    constant -> TRUE
+Rule 77    constant -> FALSE
+Rule 78    sign -> +
+Rule 79    sign -> -
+Rule 80    whileloop -> WHILE ( superexpression ) block
+Rule 81    type -> INT
+Rule 82    type -> FLOAT
+Rule 83    type -> STRING
+Rule 84    returntype -> VOID
+Rule 85    returntype -> type
+Rule 86    forloop -> FOR ( asign ; superexpression ; superexpression ) block
+Rule 87    input -> INPUT ( ID inputB )
+Rule 88    inputB -> , ID inputB
+Rule 89    inputB -> empty
+Rule 90    output -> PRINT ( outputB
+Rule 91    outputB -> STRING outputC
+Rule 92    outputB -> superexpression outputC
+Rule 93    outputC -> )
+Rule 94    outputC -> , outputB
+Rule 95    localvardirective -> # localvardirectiveB ID
+Rule 96    localvardirectiveB -> TRACK
+Rule 97    localvardirectiveB -> FORGET
+Rule 98    localmsgdirective -> # SHOW STRING
+Rule 99    localdecisiondirective -> # localdecisiondirectiveB DECISION
+Rule 100   localdecisiondirective -> empty
+Rule 101   localdecisiondirectiveB -> TRACK
+Rule 102   localdecisiondirectiveB -> FORGET
+Rule 103   funccallB -> superexpression funccallC
+Rule 104   funccallB -> )
+Rule 105   funccallC -> , superexpression funccallC
+Rule 106   funccallC -> )
+Rule 107   dimensions -> [ superexpression ] dimensionsB
+Rule 108   dimensionsB -> [ superexpression ]
+Rule 109   return -> RETURN superexpression
+Rule 110   params -> type ID paramsB
+Rule 111   paramsB -> , type ID paramsB
+Rule 112   paramsB -> empty
+Rule 113   empty -> <empty>
 
 Terminals, with rules where they appear
 
-#                    : 97 100 101
-&                    : 51 51
-(                    : 25 26 32 71 82 88 89 92 105
-)                    : 25 26 32 71 82 88 89 95 105
-*                    : 68
-+                    : 64 80
-,                    : 19 90 96 108 113
--                    : 63 81
-/                    : 67
-;                    : 16 35 36 37 40 41 42 88 88
-<                    : 55 57 59
-=                    : 4 5 6 23 31 58 58 59 60
->                    : 56 57 60
+#                    : 95 98 99
+&                    : 49 49
+(                    : 19 20 30 43 69 80 86 87 90
+)                    : 19 20 30 69 80 86 87 93 104 106
+*                    : 66
++                    : 62 78
+,                    : 88 94 105 111
+-                    : 61 79
+/                    : 65
+;                    : 33 34 35 36 37 86 86
+<                    : 53 55 57
+=                    : 4 5 6 26 27 56 56 57 58
+>                    : 54 55 58
 ALL                  : 8
 BOOL                 : 
 COMPLEXITYCONFIG     : 6
 DECISIONSCONFIG      : 5
-DEF                  : 26
-ELSE                 : 33
-FALSE                : 79
-FCONST               : 76
-FLOAT                : 84
-FOR                  : 88
-FORGET               : 99 104
+DEF                  : 20
+ELSE                 : 31
+FALSE                : 77
+FCONST               : 74
+FLOAT                : 82
+FOR                  : 86
+FORGET               : 97 102
 FORGETDECISION       : 
-ICONST               : 77
-ID                   : 18 26 31 73 89 90 97 105 112 113
-IF                   : 32
-INPUT                : 89
-INT                  : 83
-MAIN                 : 25
+ICONST               : 75
+ID                   : 20 26 42 71 87 88 95 110 111
+IF                   : 30
+INPUT                : 87
+INT                  : 81
+MAIN                 : 19
 MOST                 : 9
 NO                   : 12
 NONE                 : 10
-PRINT                : 92
-RETURN               : 111
-SHOW                 : 100
+PRINT                : 90
+RETURN               : 109
+SHOW                 : 98
 SOME                 : 7
-STRING               : 85 93 100
-TRACK                : 98 103
+STRING               : 83 91 98
+TRACK                : 96 101
 TRACKDECISION        : 
-TRUE                 : 78
+TRUE                 : 76
 VARSCONFIG           : 4
-VOID                 : 86
-WHILE                : 82
+VOID                 : 84
+WHILE                : 80
 YES                  : 11
-[                    : 110
-]                    : 110
+[                    : 107 108
+]                    : 107 108
 error                : 
-{                    : 30
-|                    : 52 52
-}                    : 30
+{                    : 23
+|                    : 50 50
+}                    : 23
 
 Nonterminals, with rules where they appear
 
-DECISION             : 101
-asign                : 35 88
-block                : 25 26 32 33 82 88
+DECISION             : 99
+asign                : 86
+assign               : 18
+assignB              : 44
+assignfunccall       : 33
+assignfunccallB      : 42
+block                : 19 20 30 31 80 86
 body                 : 1
-condition            : 36
+condition            : 38
 config               : 1 2
 configdirective      : 2
-constant             : 23 70
-constantB            : 18
-declarations         : 13 16 44
-declarationsB        : 16 19
-declarationsC        : 18
-dimension            : 21
-dimensionB           : 18 31 73 110
-else                 : 32
-empty                : 3 15 17 20 22 24 27 29 34 46 53 61 65 69 75 91 102 107 109 114
-exp                  : 54 55 56 57 58 59 60 63 64
-expB                 : 62
-expression           : 50
-expressionB          : 54
-factor               : 66
-forloop              : 39
-func                 : 13 13 14
-funcB                : 13 13
-funccall             : 41 72
-funccallB            : 105
-funccallC            : 106 108
-input                : 40
-inputB               : 89 90
-instruction          : 30 45
-instructionB         : 35 36 37 38 39 40 41 42 43 44
-localdecisiondirective : 48
-localdecisiondirectiveB : 101
-localdirective       : 43
-localmsgdirective    : 49
-localvardirective    : 47
-localvardirectiveB   : 97
+constant             : 68
+declaration          : 16 37
+declarationsOpt      : 13 16
+dimensionB           : 71
+dimensions           : 28
+dimensionsB          : 107
+dimensionsOpt        : 26 27
+else                 : 30
+empty                : 3 15 17 22 25 29 32 51 59 63 67 73 89 100 112
+exp                  : 52 53 54 55 56 57 58 61 62
+expB                 : 60
+expression           : 48
+expressionB          : 52
+factor               : 64
+forloop              : 40
+func                 : 14
+funccall             : 70
+funccallB            : 43
+funccallC            : 103 105
+funcsOpt             : 13 13 14
+input                : 35
+inputB               : 87 88
+instruction          : 24
+instructionsOpt      : 23 24
+localdecisiondirective : 46
+localdecisiondirectiveB : 99
+localdirective       : 41
+localmsgdirective    : 47
+localvardirective    : 45
+localvardirectiveB   : 95
 main                 : 13
-optionalparams       : 26
 options              : 4 5
 optionsyesno         : 6
-output               : 37
-outputB              : 92 96
-outputC              : 93 94
-params               : 28
-paramsB              : 112 113
+output               : 34
+outputB              : 90 94
+outputC              : 91 92
+params               : 21
+paramsB              : 110 111
+paramsOpt            : 20
 program              : 0
-return               : 42
-returntype           : 26
-sign                 : 74
-signB                : 70
-superexpression      : 31 32 51 52 71 82 88 88 94 106 108 110 111
-superexpressionB     : 50
-term                 : 62 67 68
-termB                : 66
-type                 : 16 87 112 113
-whileloop            : 38
+return               : 36
+returntype           : 20
+sign                 : 72
+signB                : 68
+superexpression      : 26 27 30 49 50 69 80 86 86 92 103 105 107 108 109
+superexpressionB     : 48
+term                 : 60 65 66
+termB                : 64
+type                 : 18 85 110 111
+whileloop            : 39
 

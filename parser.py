@@ -232,14 +232,14 @@ def p_localmsgdirective(p):
 
 # <localdecisiondirective>
 def p_localdecisiondirective(p):
-    '''localdecisiondirective : '#' localdecisiondirectiveB DECISION
+    '''localdecisiondirective : TRACKDECISION
+                              | FORGETDECISION
                               | empty'''
 
-def p_localdecisiondirectiveB(p):
-    '''localdecisiondirectiveB : TRACK
-                               | FORGET'''
-
 # <funccall>
+def p_funccall(p):
+    '''funccall : DEF ID '(' funccallB '''
+
 def p_funccallB(p):
     '''funccallB : superexpression funccallC
                  | ')' '''
