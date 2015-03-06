@@ -46,7 +46,19 @@ def p_declarationsOpt(p):
 
 # <declaration>
 def p_declaration(p):
-    '''declaration : type assign '''
+    '''declaration : type declarationB '''
+
+def p_declarationB(p):
+    '''declarationB : ID dimensionsOpt declarationC  '''
+
+def p_declarationC(p):
+    '''declarationC : '=' superexpression declarationD
+                    | ',' declarationB
+                    | ';' '''
+
+def p_declarationD(p):
+    '''declarationD : ',' declarationB
+                    | ';' '''
 
 # <main>
 def p_main(p):
