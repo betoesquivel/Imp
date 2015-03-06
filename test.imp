@@ -28,6 +28,6 @@ def void miFunc() {
 
   sum(1, 2);
   sum(3, -3);
-  print(sum(4,4));
+  print( sum(4,4));
 
 }
