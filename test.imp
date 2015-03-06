@@ -1,13 +1,14 @@
 #vars=SOME
 #decisions=ALL
 
-def int sum(int a, float b) {
+int cont = 0, cont2 = 1;
+
+def int sum(float a, float b) {
 
   return a+b;
 
 }
 
-int cont = 0; cont2 = 1;
 
 main () {
   #track cont
@@ -17,7 +18,7 @@ main () {
   }
   #forgetdecision
   for (cont=0; cont<cont2; cont+1) {
-    print ("contador= ", cont);
+    print("contador= ", cont);
   } print(miFunc(), sum(cont,cont2));
 
 

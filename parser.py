@@ -162,7 +162,7 @@ def p_factor(p):
     '''factor : signB constant
               | '(' superexpression ')'
               | funccall
-              | ID dimensionB'''
+              | ID dimensionsOpt'''
 
 def p_signB(p):
     '''signB : sign
@@ -197,7 +197,7 @@ def p_returntype(p):
 
 # <forloop>
 def p_forloop(p):
-    '''forloop : FOR '(' asign ';' superexpression ';' superexpression ')' block'''
+    '''forloop : FOR '(' assign ';' superexpression ';' superexpression ')' block'''
 
 # <input>
 def p_input(p):
@@ -248,7 +248,7 @@ def p_funccallC(p):
     '''funccallC : ',' superexpression funccallC
                  | ')' '''
 
-# <dimension>
+# <dimensions>
 def p_dimensions(p):
     '''dimensions : '[' superexpression ']' dimensionsB '''
 
