@@ -2,7 +2,7 @@
 import ply.lex as lex
 
 # literal characters
-literals = "#(){}<>=+*/,|&:;"
+literals = "#(){}<>=-+*/,|&:;"
 
 # reserved words
 reserved = {
