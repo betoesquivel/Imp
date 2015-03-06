@@ -250,7 +250,7 @@ def p_localdecisiondirective(p):
 
 # <funccall>
 def p_funccall(p):
-    '''funccall : DEF ID '(' funccallB '''
+    '''funccall : ID '(' funccallB '''
 
 def p_funccallB(p):
     '''funccallB : superexpression funccallC

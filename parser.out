@@ -114,7 +114,7 @@ Rule 104   localmsgdirective -> # SHOW STRING
 Rule 105   localdecisiondirective -> TRACKDECISION
 Rule 106   localdecisiondirective -> FORGETDECISION
 Rule 107   localdecisiondirective -> empty
-Rule 108   funccall -> DEF ID ( funccallB
+Rule 108   funccall -> ID ( funccallB
 Rule 109   funccallB -> superexpression funccallC
 Rule 110   funccallB -> )
 Rule 111   funccallC -> , superexpression funccallC
@@ -146,7 +146,7 @@ ALL                  : 8
 BOOL                 : 
 COMPLEXITYCONFIG     : 6
 DECISIONSCONFIG      : 5
-DEF                  : 26 108
+DEF                  : 26
 ELSE                 : 37
 FALSE                : 83
 FCONST               : 80
@@ -772,18 +772,18 @@ state 43
 
     (34) dimensionsOpt -> dimensions .
 
-    =               reduce using rule 34 (dimensionsOpt -> dimensions .)
-    ,               reduce using rule 34 (dimensionsOpt -> dimensions .)
-    ;               reduce using rule 34 (dimensionsOpt -> dimensions .)
     /               reduce using rule 34 (dimensionsOpt -> dimensions .)
     *               reduce using rule 34 (dimensionsOpt -> dimensions .)
     -               reduce using rule 34 (dimensionsOpt -> dimensions .)
     +               reduce using rule 34 (dimensionsOpt -> dimensions .)
     <               reduce using rule 34 (dimensionsOpt -> dimensions .)
     >               reduce using rule 34 (dimensionsOpt -> dimensions .)
+    =               reduce using rule 34 (dimensionsOpt -> dimensions .)
     &               reduce using rule 34 (dimensionsOpt -> dimensions .)
     |               reduce using rule 34 (dimensionsOpt -> dimensions .)
     ]               reduce using rule 34 (dimensionsOpt -> dimensions .)
+    ,               reduce using rule 34 (dimensionsOpt -> dimensions .)
+    ;               reduce using rule 34 (dimensionsOpt -> dimensions .)
     )               reduce using rule 34 (dimensionsOpt -> dimensions .)
 
 
@@ -800,47 +800,46 @@ state 44
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    superexpression                shift and go to state 62
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
-    empty                          shift and go to state 60
+    superexpression                shift and go to state 61
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
+    empty                          shift and go to state 59
 
 state 45
 
     (35) dimensionsOpt -> empty .
 
-    =               reduce using rule 35 (dimensionsOpt -> empty .)
-    ,               reduce using rule 35 (dimensionsOpt -> empty .)
-    ;               reduce using rule 35 (dimensionsOpt -> empty .)
     /               reduce using rule 35 (dimensionsOpt -> empty .)
     *               reduce using rule 35 (dimensionsOpt -> empty .)
     -               reduce using rule 35 (dimensionsOpt -> empty .)
     +               reduce using rule 35 (dimensionsOpt -> empty .)
     <               reduce using rule 35 (dimensionsOpt -> empty .)
     >               reduce using rule 35 (dimensionsOpt -> empty .)
+    =               reduce using rule 35 (dimensionsOpt -> empty .)
     &               reduce using rule 35 (dimensionsOpt -> empty .)
     |               reduce using rule 35 (dimensionsOpt -> empty .)
     ]               reduce using rule 35 (dimensionsOpt -> empty .)
+    ,               reduce using rule 35 (dimensionsOpt -> empty .)
+    ;               reduce using rule 35 (dimensionsOpt -> empty .)
     )               reduce using rule 35 (dimensionsOpt -> empty .)
 
 
@@ -848,7 +847,7 @@ state 46
 
     (25) main -> MAIN ( . ) block
 
-    )               shift and go to state 67
+    )               shift and go to state 66
 
 
 state 47
@@ -862,7 +861,7 @@ state 48
 
     (26) func -> DEF returntype ID . ( paramsOpt ) block
 
-    (               shift and go to state 68
+    (               shift and go to state 67
 
 
 state 49
@@ -878,30 +877,29 @@ state 49
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    superexpression                shift and go to state 69
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
-    empty                          shift and go to state 60
+    superexpression                shift and go to state 68
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
+    empty                          shift and go to state 59
 
 state 50
 
@@ -910,7 +908,7 @@ state 50
 
     ID              shift and go to state 34
 
-    declarationB                   shift and go to state 70
+    declarationB                   shift and go to state 69
 
 state 51
 
@@ -948,27 +946,20 @@ state 53
 
 state 54
 
-    (108) funccall -> DEF . ID ( funccallB
-
-    ID              shift and go to state 71
-
-
-state 55
-
     (74) factor -> signB . constant
     (80) constant -> . FCONST
     (81) constant -> . ICONST
     (82) constant -> . TRUE
     (83) constant -> . FALSE
 
-    FCONST          shift and go to state 73
-    ICONST          shift and go to state 74
-    TRUE            shift and go to state 76
-    FALSE           shift and go to state 72
+    FCONST          shift and go to state 71
+    ICONST          shift and go to state 72
+    TRUE            shift and go to state 74
+    FALSE           shift and go to state 70
 
-    constant                       shift and go to state 75
+    constant                       shift and go to state 73
 
-state 56
+state 55
 
     (75) factor -> ( . superexpression )
     (54) superexpression -> . expression superexpressionB
@@ -981,32 +972,31 @@ state 56
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    superexpression                shift and go to state 77
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
-    empty                          shift and go to state 60
+    superexpression                shift and go to state 75
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
+    empty                          shift and go to state 59
 
-state 57
+state 56
 
     (84) sign -> + .
 
@@ -1016,7 +1006,7 @@ state 57
     FALSE           reduce using rule 84 (sign -> + .)
 
 
-state 58
+state 57
 
     (85) sign -> - .
 
@@ -1026,7 +1016,7 @@ state 58
     FALSE           reduce using rule 85 (sign -> - .)
 
 
-state 59
+state 58
 
     (70) term -> factor . termB
     (71) termB -> . / term
@@ -1034,8 +1024,8 @@ state 59
     (73) termB -> . empty
     (119) empty -> .
 
-    /               shift and go to state 79
-    *               shift and go to state 78
+    /               shift and go to state 77
+    *               shift and go to state 76
     -               reduce using rule 119 (empty -> .)
     +               reduce using rule 119 (empty -> .)
     <               reduce using rule 119 (empty -> .)
@@ -1048,10 +1038,10 @@ state 59
     ;               reduce using rule 119 (empty -> .)
     )               reduce using rule 119 (empty -> .)
 
-    termB                          shift and go to state 80
-    empty                          shift and go to state 81
+    termB                          shift and go to state 78
+    empty                          shift and go to state 79
 
-state 60
+state 59
 
     (79) signB -> empty .
 
@@ -1061,7 +1051,7 @@ state 60
     FALSE           reduce using rule 79 (signB -> empty .)
 
 
-state 61
+state 60
 
     (76) factor -> funccall .
 
@@ -1074,27 +1064,29 @@ state 61
     =               reduce using rule 76 (factor -> funccall .)
     &               reduce using rule 76 (factor -> funccall .)
     |               reduce using rule 76 (factor -> funccall .)
-    ;               reduce using rule 76 (factor -> funccall .)
     ]               reduce using rule 76 (factor -> funccall .)
     ,               reduce using rule 76 (factor -> funccall .)
+    ;               reduce using rule 76 (factor -> funccall .)
     )               reduce using rule 76 (factor -> funccall .)
+
+
+state 61
+
+    (113) dimensions -> [ superexpression . ] dimensionsB
+
+    ]               shift and go to state 80
 
 
 state 62
 
-    (113) dimensions -> [ superexpression . ] dimensionsB
-
-    ]               shift and go to state 82
-
-
-state 63
-
     (77) factor -> ID . dimensionsOpt
+    (108) funccall -> ID . ( funccallB
     (34) dimensionsOpt -> . dimensions
     (35) dimensionsOpt -> . empty
     (113) dimensions -> . [ superexpression ] dimensionsB
     (119) empty -> .
 
+    (               shift and go to state 81
     [               shift and go to state 44
     /               reduce using rule 119 (empty -> .)
     *               reduce using rule 119 (empty -> .)
@@ -1110,11 +1102,11 @@ state 63
     ;               reduce using rule 119 (empty -> .)
     )               reduce using rule 119 (empty -> .)
 
-    dimensionsOpt                  shift and go to state 83
     dimensions                     shift and go to state 43
+    dimensionsOpt                  shift and go to state 82
     empty                          shift and go to state 45
 
-state 64
+state 63
 
     (66) exp -> term . expB
     (67) expB -> . - exp
@@ -1122,8 +1114,8 @@ state 64
     (69) expB -> . empty
     (119) empty -> .
 
-    -               shift and go to state 85
-    +               shift and go to state 84
+    -               shift and go to state 84
+    +               shift and go to state 83
     <               reduce using rule 119 (empty -> .)
     >               reduce using rule 119 (empty -> .)
     =               reduce using rule 119 (empty -> .)
@@ -1134,10 +1126,10 @@ state 64
     ;               reduce using rule 119 (empty -> .)
     )               reduce using rule 119 (empty -> .)
 
-    expB                           shift and go to state 86
-    empty                          shift and go to state 87
+    expB                           shift and go to state 85
+    empty                          shift and go to state 86
 
-state 65
+state 64
 
     (58) expression -> exp . expressionB
     (59) expressionB -> . < exp
@@ -1149,9 +1141,9 @@ state 65
     (65) expressionB -> . empty
     (119) empty -> .
 
-    <               shift and go to state 90
-    >               shift and go to state 92
-    =               shift and go to state 89
+    <               shift and go to state 89
+    >               shift and go to state 91
+    =               shift and go to state 88
     &               reduce using rule 119 (empty -> .)
     |               reduce using rule 119 (empty -> .)
     ]               reduce using rule 119 (empty -> .)
@@ -1159,10 +1151,10 @@ state 65
     ;               reduce using rule 119 (empty -> .)
     )               reduce using rule 119 (empty -> .)
 
-    expressionB                    shift and go to state 88
-    empty                          shift and go to state 91
+    expressionB                    shift and go to state 87
+    empty                          shift and go to state 90
 
-state 66
+state 65
 
     (54) superexpression -> expression . superexpressionB
     (55) superexpressionB -> . & & superexpression
@@ -1170,26 +1162,26 @@ state 66
     (57) superexpressionB -> . empty
     (119) empty -> .
 
-    &               shift and go to state 93
-    |               shift and go to state 95
+    &               shift and go to state 92
+    |               shift and go to state 94
     ]               reduce using rule 119 (empty -> .)
     ,               reduce using rule 119 (empty -> .)
     ;               reduce using rule 119 (empty -> .)
     )               reduce using rule 119 (empty -> .)
 
-    empty                          shift and go to state 96
-    superexpressionB               shift and go to state 94
+    empty                          shift and go to state 95
+    superexpressionB               shift and go to state 93
 
-state 67
+state 66
 
     (25) main -> MAIN ( ) . block
     (29) block -> . { instructionsOpt }
 
-    {               shift and go to state 97
+    {               shift and go to state 96
 
-    block                          shift and go to state 98
+    block                          shift and go to state 97
 
-state 68
+state 67
 
     (26) func -> DEF returntype ID ( . paramsOpt ) block
     (27) paramsOpt -> . params
@@ -1205,23 +1197,23 @@ state 68
     FLOAT           shift and go to state 17
     STRING          shift and go to state 14
 
-    paramsOpt                      shift and go to state 99
-    params                         shift and go to state 101
-    type                           shift and go to state 102
-    empty                          shift and go to state 100
+    paramsOpt                      shift and go to state 98
+    params                         shift and go to state 100
+    type                           shift and go to state 101
+    empty                          shift and go to state 99
 
-state 69
+state 68
 
     (20) declarationC -> = superexpression . declarationD
     (23) declarationD -> . , declarationB
     (24) declarationD -> . ;
 
-    ,               shift and go to state 103
-    ;               shift and go to state 105
+    ,               shift and go to state 102
+    ;               shift and go to state 104
 
-    declarationD                   shift and go to state 104
+    declarationD                   shift and go to state 103
 
-state 70
+state 69
 
     (21) declarationC -> , declarationB .
 
@@ -1233,14 +1225,7 @@ state 70
     ;               reduce using rule 21 (declarationC -> , declarationB .)
 
 
-state 71
-
-    (108) funccall -> DEF ID . ( funccallB
-
-    (               shift and go to state 106
-
-
-state 72
+state 70
 
     (83) constant -> FALSE .
 
@@ -1259,7 +1244,7 @@ state 72
     )               reduce using rule 83 (constant -> FALSE .)
 
 
-state 73
+state 71
 
     (80) constant -> FCONST .
 
@@ -1278,7 +1263,7 @@ state 73
     )               reduce using rule 80 (constant -> FCONST .)
 
 
-state 74
+state 72
 
     (81) constant -> ICONST .
 
@@ -1297,7 +1282,7 @@ state 74
     )               reduce using rule 81 (constant -> ICONST .)
 
 
-state 75
+state 73
 
     (74) factor -> signB constant .
 
@@ -1310,13 +1295,13 @@ state 75
     =               reduce using rule 74 (factor -> signB constant .)
     &               reduce using rule 74 (factor -> signB constant .)
     |               reduce using rule 74 (factor -> signB constant .)
-    ;               reduce using rule 74 (factor -> signB constant .)
     ]               reduce using rule 74 (factor -> signB constant .)
     ,               reduce using rule 74 (factor -> signB constant .)
+    ;               reduce using rule 74 (factor -> signB constant .)
     )               reduce using rule 74 (factor -> signB constant .)
 
 
-state 76
+state 74
 
     (82) constant -> TRUE .
 
@@ -1335,14 +1320,14 @@ state 76
     )               reduce using rule 82 (constant -> TRUE .)
 
 
-state 77
+state 75
 
     (75) factor -> ( superexpression . )
 
-    )               shift and go to state 107
+    )               shift and go to state 105
 
 
-state 78
+state 76
 
     (72) termB -> * . term
     (70) term -> . factor termB
@@ -1352,29 +1337,28 @@ state 78
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 108
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 106
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    factor                         shift and go to state 59
-    empty                          shift and go to state 60
+    factor                         shift and go to state 58
+    empty                          shift and go to state 59
 
-state 79
+state 77
 
     (71) termB -> / . term
     (70) term -> . factor termB
@@ -1384,46 +1368,45 @@ state 79
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 109
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 107
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    factor                         shift and go to state 59
-    empty                          shift and go to state 60
+    factor                         shift and go to state 58
+    empty                          shift and go to state 59
 
-state 80
+state 78
 
     (70) term -> factor termB .
 
     -               reduce using rule 70 (term -> factor termB .)
     +               reduce using rule 70 (term -> factor termB .)
-    <               reduce using rule 70 (term -> factor termB .)
-    >               reduce using rule 70 (term -> factor termB .)
-    =               reduce using rule 70 (term -> factor termB .)
     &               reduce using rule 70 (term -> factor termB .)
     |               reduce using rule 70 (term -> factor termB .)
-    )               reduce using rule 70 (term -> factor termB .)
     ]               reduce using rule 70 (term -> factor termB .)
     ,               reduce using rule 70 (term -> factor termB .)
     ;               reduce using rule 70 (term -> factor termB .)
+    )               reduce using rule 70 (term -> factor termB .)
+    <               reduce using rule 70 (term -> factor termB .)
+    >               reduce using rule 70 (term -> factor termB .)
+    =               reduce using rule 70 (term -> factor termB .)
 
 
-state 81
+state 79
 
     (73) termB -> empty .
 
@@ -1440,16 +1423,57 @@ state 81
     )               reduce using rule 73 (termB -> empty .)
 
 
-state 82
+state 80
 
     (113) dimensions -> [ superexpression ] . dimensionsB
     (114) dimensionsB -> . [ superexpression ]
 
-    [               shift and go to state 111
+    [               shift and go to state 109
 
-    dimensionsB                    shift and go to state 110
+    dimensionsB                    shift and go to state 108
 
-state 83
+state 81
+
+    (108) funccall -> ID ( . funccallB
+    (109) funccallB -> . superexpression funccallC
+    (110) funccallB -> . )
+    (54) superexpression -> . expression superexpressionB
+    (58) expression -> . exp expressionB
+    (66) exp -> . term expB
+    (70) term -> . factor termB
+    (74) factor -> . signB constant
+    (75) factor -> . ( superexpression )
+    (76) factor -> . funccall
+    (77) factor -> . ID dimensionsOpt
+    (78) signB -> . sign
+    (79) signB -> . empty
+    (108) funccall -> . ID ( funccallB
+    (84) sign -> . +
+    (85) sign -> . -
+    (119) empty -> .
+
+    )               shift and go to state 111
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
+    FCONST          reduce using rule 119 (empty -> .)
+    ICONST          reduce using rule 119 (empty -> .)
+    TRUE            reduce using rule 119 (empty -> .)
+    FALSE           reduce using rule 119 (empty -> .)
+
+    funccallB                      shift and go to state 110
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
+    sign                           shift and go to state 53
+    superexpression                shift and go to state 112
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
+    empty                          shift and go to state 59
+
+state 82
 
     (77) factor -> ID dimensionsOpt .
 
@@ -1462,13 +1486,13 @@ state 83
     =               reduce using rule 77 (factor -> ID dimensionsOpt .)
     &               reduce using rule 77 (factor -> ID dimensionsOpt .)
     |               reduce using rule 77 (factor -> ID dimensionsOpt .)
-    ;               reduce using rule 77 (factor -> ID dimensionsOpt .)
     ]               reduce using rule 77 (factor -> ID dimensionsOpt .)
     ,               reduce using rule 77 (factor -> ID dimensionsOpt .)
+    ;               reduce using rule 77 (factor -> ID dimensionsOpt .)
     )               reduce using rule 77 (factor -> ID dimensionsOpt .)
 
 
-state 84
+state 83
 
     (68) expB -> + . exp
     (66) exp -> . term expB
@@ -1479,30 +1503,29 @@ state 84
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    exp                            shift and go to state 112
-    factor                         shift and go to state 59
-    empty                          shift and go to state 60
+    exp                            shift and go to state 113
+    factor                         shift and go to state 58
+    empty                          shift and go to state 59
 
-state 85
+state 84
 
     (67) expB -> - . exp
     (66) exp -> . term expB
@@ -1513,45 +1536,44 @@ state 85
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    exp                            shift and go to state 113
-    factor                         shift and go to state 59
-    empty                          shift and go to state 60
+    exp                            shift and go to state 114
+    factor                         shift and go to state 58
+    empty                          shift and go to state 59
 
-state 86
+state 85
 
     (66) exp -> term expB .
 
+    &               reduce using rule 66 (exp -> term expB .)
+    |               reduce using rule 66 (exp -> term expB .)
+    ]               reduce using rule 66 (exp -> term expB .)
+    ,               reduce using rule 66 (exp -> term expB .)
+    ;               reduce using rule 66 (exp -> term expB .)
+    )               reduce using rule 66 (exp -> term expB .)
     <               reduce using rule 66 (exp -> term expB .)
     >               reduce using rule 66 (exp -> term expB .)
     =               reduce using rule 66 (exp -> term expB .)
-    &               reduce using rule 66 (exp -> term expB .)
-    |               reduce using rule 66 (exp -> term expB .)
-    ;               reduce using rule 66 (exp -> term expB .)
-    ]               reduce using rule 66 (exp -> term expB .)
-    ,               reduce using rule 66 (exp -> term expB .)
-    )               reduce using rule 66 (exp -> term expB .)
 
 
-state 87
+state 86
 
     (69) expB -> empty .
 
@@ -1566,26 +1588,26 @@ state 87
     )               reduce using rule 69 (expB -> empty .)
 
 
-state 88
+state 87
 
     (58) expression -> exp expressionB .
 
     &               reduce using rule 58 (expression -> exp expressionB .)
     |               reduce using rule 58 (expression -> exp expressionB .)
-    ,               reduce using rule 58 (expression -> exp expressionB .)
-    )               reduce using rule 58 (expression -> exp expressionB .)
-    ;               reduce using rule 58 (expression -> exp expressionB .)
     ]               reduce using rule 58 (expression -> exp expressionB .)
+    ,               reduce using rule 58 (expression -> exp expressionB .)
+    ;               reduce using rule 58 (expression -> exp expressionB .)
+    )               reduce using rule 58 (expression -> exp expressionB .)
 
 
-state 89
+state 88
 
     (62) expressionB -> = . = exp
 
-    =               shift and go to state 114
+    =               shift and go to state 115
 
 
-state 90
+state 89
 
     (59) expressionB -> < . exp
     (61) expressionB -> < . > exp
@@ -1598,32 +1620,31 @@ state 90
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    >               shift and go to state 116
-    =               shift and go to state 115
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    >               shift and go to state 118
+    =               shift and go to state 117
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    exp                            shift and go to state 117
-    factor                         shift and go to state 59
-    empty                          shift and go to state 60
+    exp                            shift and go to state 116
+    factor                         shift and go to state 58
+    empty                          shift and go to state 59
 
-state 91
+state 90
 
     (65) expressionB -> empty .
 
@@ -1635,7 +1656,7 @@ state 91
     )               reduce using rule 65 (expressionB -> empty .)
 
 
-state 92
+state 91
 
     (60) expressionB -> > . exp
     (64) expressionB -> > . = exp
@@ -1647,55 +1668,54 @@ state 92
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    =               shift and go to state 119
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    =               shift and go to state 120
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    exp                            shift and go to state 118
-    factor                         shift and go to state 59
-    empty                          shift and go to state 60
+    exp                            shift and go to state 119
+    factor                         shift and go to state 58
+    empty                          shift and go to state 59
 
-state 93
+state 92
 
     (55) superexpressionB -> & . & superexpression
 
-    &               shift and go to state 120
+    &               shift and go to state 121
+
+
+state 93
+
+    (54) superexpression -> expression superexpressionB .
+
+    ,               reduce using rule 54 (superexpression -> expression superexpressionB .)
+    )               reduce using rule 54 (superexpression -> expression superexpressionB .)
+    ]               reduce using rule 54 (superexpression -> expression superexpressionB .)
+    ;               reduce using rule 54 (superexpression -> expression superexpressionB .)
 
 
 state 94
 
-    (54) superexpression -> expression superexpressionB .
+    (56) superexpressionB -> | . | superexpression
 
-    )               reduce using rule 54 (superexpression -> expression superexpressionB .)
-    ;               reduce using rule 54 (superexpression -> expression superexpressionB .)
-    ,               reduce using rule 54 (superexpression -> expression superexpressionB .)
-    ]               reduce using rule 54 (superexpression -> expression superexpressionB .)
+    |               shift and go to state 122
 
 
 state 95
-
-    (56) superexpressionB -> | . | superexpression
-
-    |               shift and go to state 121
-
-
-state 96
 
     (57) superexpressionB -> empty .
 
@@ -1705,7 +1725,7 @@ state 96
     )               reduce using rule 57 (superexpressionB -> empty .)
 
 
-state 97
+state 96
 
     (29) block -> { . instructionsOpt }
     (30) instructionsOpt -> . instruction instructionsOpt
@@ -1754,19 +1774,19 @@ state 97
   ! shift/reduce conflict for TRACKDECISION resolved as shift
   ! shift/reduce conflict for FORGETDECISION resolved as shift
     }               reduce using rule 119 (empty -> .)
-    ID              shift and go to state 140
-    PRINT           shift and go to state 125
-    INPUT           shift and go to state 139
-    RETURN          shift and go to state 122
-    IF              shift and go to state 142
-    WHILE           shift and go to state 124
-    FOR             shift and go to state 134
+    ID              shift and go to state 141
+    PRINT           shift and go to state 126
+    INPUT           shift and go to state 140
+    RETURN          shift and go to state 123
+    IF              shift and go to state 143
+    WHILE           shift and go to state 125
+    FOR             shift and go to state 135
     INT             shift and go to state 15
     FLOAT           shift and go to state 17
     STRING          shift and go to state 14
-    #               shift and go to state 127
-    TRACKDECISION   shift and go to state 129
-    FORGETDECISION  shift and go to state 136
+    #               shift and go to state 128
+    TRACKDECISION   shift and go to state 130
+    FORGETDECISION  shift and go to state 137
 
   ! ID              [ reduce using rule 119 (empty -> .) ]
   ! PRINT           [ reduce using rule 119 (empty -> .) ]
@@ -1782,24 +1802,24 @@ state 97
   ! TRACKDECISION   [ reduce using rule 119 (empty -> .) ]
   ! FORGETDECISION  [ reduce using rule 119 (empty -> .) ]
 
-    assignfunccall                 shift and go to state 123
-    whileloop                      shift and go to state 126
-    localvardirective              shift and go to state 128
-    input                          shift and go to state 130
+    assignfunccall                 shift and go to state 124
+    whileloop                      shift and go to state 127
+    localvardirective              shift and go to state 129
+    input                          shift and go to state 131
     type                           shift and go to state 16
-    empty                          shift and go to state 131
-    forloop                        shift and go to state 132
-    return                         shift and go to state 133
-    instructionsOpt                shift and go to state 135
-    localdirective                 shift and go to state 137
-    declaration                    shift and go to state 138
-    condition                      shift and go to state 141
-    instruction                    shift and go to state 143
-    localmsgdirective              shift and go to state 144
-    localdecisiondirective         shift and go to state 145
-    output                         shift and go to state 146
+    empty                          shift and go to state 132
+    forloop                        shift and go to state 133
+    return                         shift and go to state 134
+    instructionsOpt                shift and go to state 136
+    localdirective                 shift and go to state 138
+    declaration                    shift and go to state 139
+    condition                      shift and go to state 142
+    instruction                    shift and go to state 144
+    localmsgdirective              shift and go to state 145
+    localdecisiondirective         shift and go to state 146
+    output                         shift and go to state 147
 
-state 98
+state 97
 
     (25) main -> MAIN ( ) block .
 
@@ -1807,44 +1827,44 @@ state 98
     $end            reduce using rule 25 (main -> MAIN ( ) block .)
 
 
-state 99
+state 98
 
     (26) func -> DEF returntype ID ( paramsOpt . ) block
 
-    )               shift and go to state 147
+    )               shift and go to state 148
 
 
-state 100
+state 99
 
     (28) paramsOpt -> empty .
 
     )               reduce using rule 28 (paramsOpt -> empty .)
 
 
-state 101
+state 100
 
     (27) paramsOpt -> params .
 
     )               reduce using rule 27 (paramsOpt -> params .)
 
 
-state 102
+state 101
 
     (116) params -> type . ID paramsB
 
-    ID              shift and go to state 148
+    ID              shift and go to state 149
 
 
-state 103
+state 102
 
     (23) declarationD -> , . declarationB
     (19) declarationB -> . ID dimensionsOpt declarationC
 
     ID              shift and go to state 34
 
-    declarationB                   shift and go to state 149
+    declarationB                   shift and go to state 150
 
-state 104
+state 103
 
     (20) declarationC -> = superexpression declarationD .
 
@@ -1856,7 +1876,7 @@ state 104
     ;               reduce using rule 20 (declarationC -> = superexpression declarationD .)
 
 
-state 105
+state 104
 
     (24) declarationD -> ; .
 
@@ -1868,49 +1888,7 @@ state 105
     ;               reduce using rule 24 (declarationD -> ; .)
 
 
-state 106
-
-    (108) funccall -> DEF ID ( . funccallB
-    (109) funccallB -> . superexpression funccallC
-    (110) funccallB -> . )
-    (54) superexpression -> . expression superexpressionB
-    (58) expression -> . exp expressionB
-    (66) exp -> . term expB
-    (70) term -> . factor termB
-    (74) factor -> . signB constant
-    (75) factor -> . ( superexpression )
-    (76) factor -> . funccall
-    (77) factor -> . ID dimensionsOpt
-    (78) signB -> . sign
-    (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
-    (84) sign -> . +
-    (85) sign -> . -
-    (119) empty -> .
-
-    )               shift and go to state 151
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
-    FCONST          reduce using rule 119 (empty -> .)
-    ICONST          reduce using rule 119 (empty -> .)
-    TRUE            reduce using rule 119 (empty -> .)
-    FALSE           reduce using rule 119 (empty -> .)
-
-    funccallB                      shift and go to state 150
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
-    sign                           shift and go to state 53
-    superexpression                shift and go to state 152
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
-    empty                          shift and go to state 60
-
-state 107
+state 105
 
     (75) factor -> ( superexpression ) .
 
@@ -1923,13 +1901,13 @@ state 107
     =               reduce using rule 75 (factor -> ( superexpression ) .)
     &               reduce using rule 75 (factor -> ( superexpression ) .)
     |               reduce using rule 75 (factor -> ( superexpression ) .)
-    ;               reduce using rule 75 (factor -> ( superexpression ) .)
     ]               reduce using rule 75 (factor -> ( superexpression ) .)
     ,               reduce using rule 75 (factor -> ( superexpression ) .)
+    ;               reduce using rule 75 (factor -> ( superexpression ) .)
     )               reduce using rule 75 (factor -> ( superexpression ) .)
 
 
-state 108
+state 106
 
     (72) termB -> * term .
 
@@ -1946,7 +1924,7 @@ state 108
     )               reduce using rule 72 (termB -> * term .)
 
 
-state 109
+state 107
 
     (71) termB -> / term .
 
@@ -1963,7 +1941,7 @@ state 109
     )               reduce using rule 71 (termB -> / term .)
 
 
-state 110
+state 108
 
     (113) dimensions -> [ superexpression ] dimensionsB .
 
@@ -1982,7 +1960,7 @@ state 110
     )               reduce using rule 113 (dimensions -> [ superexpression ] dimensionsB .)
 
 
-state 111
+state 109
 
     (114) dimensionsB -> [ . superexpression ]
     (54) superexpression -> . expression superexpressionB
@@ -1995,32 +1973,80 @@ state 111
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    superexpression                shift and go to state 153
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
-    empty                          shift and go to state 60
+    superexpression                shift and go to state 151
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
+    empty                          shift and go to state 59
+
+state 110
+
+    (108) funccall -> ID ( funccallB .
+
+    /               reduce using rule 108 (funccall -> ID ( funccallB .)
+    *               reduce using rule 108 (funccall -> ID ( funccallB .)
+    -               reduce using rule 108 (funccall -> ID ( funccallB .)
+    +               reduce using rule 108 (funccall -> ID ( funccallB .)
+    <               reduce using rule 108 (funccall -> ID ( funccallB .)
+    >               reduce using rule 108 (funccall -> ID ( funccallB .)
+    =               reduce using rule 108 (funccall -> ID ( funccallB .)
+    &               reduce using rule 108 (funccall -> ID ( funccallB .)
+    |               reduce using rule 108 (funccall -> ID ( funccallB .)
+    ]               reduce using rule 108 (funccall -> ID ( funccallB .)
+    ,               reduce using rule 108 (funccall -> ID ( funccallB .)
+    ;               reduce using rule 108 (funccall -> ID ( funccallB .)
+    )               reduce using rule 108 (funccall -> ID ( funccallB .)
+
+
+state 111
+
+    (110) funccallB -> ) .
+
+    /               reduce using rule 110 (funccallB -> ) .)
+    *               reduce using rule 110 (funccallB -> ) .)
+    -               reduce using rule 110 (funccallB -> ) .)
+    +               reduce using rule 110 (funccallB -> ) .)
+    <               reduce using rule 110 (funccallB -> ) .)
+    >               reduce using rule 110 (funccallB -> ) .)
+    =               reduce using rule 110 (funccallB -> ) .)
+    &               reduce using rule 110 (funccallB -> ) .)
+    |               reduce using rule 110 (funccallB -> ) .)
+    ]               reduce using rule 110 (funccallB -> ) .)
+    ,               reduce using rule 110 (funccallB -> ) .)
+    ;               reduce using rule 110 (funccallB -> ) .)
+    )               reduce using rule 110 (funccallB -> ) .)
+
 
 state 112
+
+    (109) funccallB -> superexpression . funccallC
+    (111) funccallC -> . , superexpression funccallC
+    (112) funccallC -> . )
+
+    ,               shift and go to state 154
+    )               shift and go to state 153
+
+    funccallC                      shift and go to state 152
+
+state 113
 
     (68) expB -> + exp .
 
@@ -2035,7 +2061,7 @@ state 112
     )               reduce using rule 68 (expB -> + exp .)
 
 
-state 113
+state 114
 
     (67) expB -> - exp .
 
@@ -2050,7 +2076,7 @@ state 113
     )               reduce using rule 67 (expB -> - exp .)
 
 
-state 114
+state 115
 
     (62) expressionB -> = = . exp
     (66) exp -> . term expB
@@ -2061,98 +2087,29 @@ state 114
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
-    sign                           shift and go to state 53
-    exp                            shift and go to state 154
-    factor                         shift and go to state 59
-    empty                          shift and go to state 60
-
-state 115
-
-    (63) expressionB -> < = . exp
-    (66) exp -> . term expB
-    (70) term -> . factor termB
-    (74) factor -> . signB constant
-    (75) factor -> . ( superexpression )
-    (76) factor -> . funccall
-    (77) factor -> . ID dimensionsOpt
-    (78) signB -> . sign
-    (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
-    (84) sign -> . +
-    (85) sign -> . -
-    (119) empty -> .
-
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
-    FCONST          reduce using rule 119 (empty -> .)
-    ICONST          reduce using rule 119 (empty -> .)
-    TRUE            reduce using rule 119 (empty -> .)
-    FALSE           reduce using rule 119 (empty -> .)
-
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
     exp                            shift and go to state 155
-    factor                         shift and go to state 59
-    empty                          shift and go to state 60
+    factor                         shift and go to state 58
+    empty                          shift and go to state 59
 
 state 116
-
-    (61) expressionB -> < > . exp
-    (66) exp -> . term expB
-    (70) term -> . factor termB
-    (74) factor -> . signB constant
-    (75) factor -> . ( superexpression )
-    (76) factor -> . funccall
-    (77) factor -> . ID dimensionsOpt
-    (78) signB -> . sign
-    (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
-    (84) sign -> . +
-    (85) sign -> . -
-    (119) empty -> .
-
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
-    FCONST          reduce using rule 119 (empty -> .)
-    ICONST          reduce using rule 119 (empty -> .)
-    TRUE            reduce using rule 119 (empty -> .)
-    FALSE           reduce using rule 119 (empty -> .)
-
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
-    sign                           shift and go to state 53
-    exp                            shift and go to state 156
-    factor                         shift and go to state 59
-    empty                          shift and go to state 60
-
-state 117
 
     (59) expressionB -> < exp .
 
@@ -2164,7 +2121,73 @@ state 117
     )               reduce using rule 59 (expressionB -> < exp .)
 
 
+state 117
+
+    (63) expressionB -> < = . exp
+    (66) exp -> . term expB
+    (70) term -> . factor termB
+    (74) factor -> . signB constant
+    (75) factor -> . ( superexpression )
+    (76) factor -> . funccall
+    (77) factor -> . ID dimensionsOpt
+    (78) signB -> . sign
+    (79) signB -> . empty
+    (108) funccall -> . ID ( funccallB
+    (84) sign -> . +
+    (85) sign -> . -
+    (119) empty -> .
+
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
+    FCONST          reduce using rule 119 (empty -> .)
+    ICONST          reduce using rule 119 (empty -> .)
+    TRUE            reduce using rule 119 (empty -> .)
+    FALSE           reduce using rule 119 (empty -> .)
+
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
+    sign                           shift and go to state 53
+    exp                            shift and go to state 156
+    factor                         shift and go to state 58
+    empty                          shift and go to state 59
+
 state 118
+
+    (61) expressionB -> < > . exp
+    (66) exp -> . term expB
+    (70) term -> . factor termB
+    (74) factor -> . signB constant
+    (75) factor -> . ( superexpression )
+    (76) factor -> . funccall
+    (77) factor -> . ID dimensionsOpt
+    (78) signB -> . sign
+    (79) signB -> . empty
+    (108) funccall -> . ID ( funccallB
+    (84) sign -> . +
+    (85) sign -> . -
+    (119) empty -> .
+
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
+    FCONST          reduce using rule 119 (empty -> .)
+    ICONST          reduce using rule 119 (empty -> .)
+    TRUE            reduce using rule 119 (empty -> .)
+    FALSE           reduce using rule 119 (empty -> .)
+
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
+    sign                           shift and go to state 53
+    exp                            shift and go to state 157
+    factor                         shift and go to state 58
+    empty                          shift and go to state 59
+
+state 119
 
     (60) expressionB -> > exp .
 
@@ -2176,7 +2199,7 @@ state 118
     )               reduce using rule 60 (expressionB -> > exp .)
 
 
-state 119
+state 120
 
     (64) expressionB -> > = . exp
     (66) exp -> . term expB
@@ -2187,30 +2210,29 @@ state 119
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    exp                            shift and go to state 157
-    factor                         shift and go to state 59
-    empty                          shift and go to state 60
+    exp                            shift and go to state 158
+    factor                         shift and go to state 58
+    empty                          shift and go to state 59
 
-state 120
+state 121
 
     (55) superexpressionB -> & & . superexpression
     (54) superexpression -> . expression superexpressionB
@@ -2223,32 +2245,31 @@ state 120
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    superexpression                shift and go to state 158
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
-    empty                          shift and go to state 60
+    superexpression                shift and go to state 159
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
+    empty                          shift and go to state 59
 
-state 121
+state 122
 
     (56) superexpressionB -> | | . superexpression
     (54) superexpression -> . expression superexpressionB
@@ -2261,32 +2282,31 @@ state 121
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    superexpression                shift and go to state 159
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
-    empty                          shift and go to state 60
+    superexpression                shift and go to state 160
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
+    empty                          shift and go to state 59
 
-state 122
+state 123
 
     (115) return -> RETURN . superexpression
     (54) superexpression -> . expression superexpressionB
@@ -2299,53 +2319,52 @@ state 122
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    superexpression                shift and go to state 160
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
-    empty                          shift and go to state 60
-
-state 123
-
-    (39) instruction -> assignfunccall . ;
-
-    ;               shift and go to state 161
-
+    superexpression                shift and go to state 161
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
+    empty                          shift and go to state 59
 
 state 124
 
-    (86) whileloop -> WHILE . ( superexpression ) block
+    (39) instruction -> assignfunccall . ;
 
-    (               shift and go to state 162
+    ;               shift and go to state 162
 
 
 state 125
 
-    (96) output -> PRINT . ( outputB
+    (86) whileloop -> WHILE . ( superexpression ) block
 
     (               shift and go to state 163
 
 
 state 126
+
+    (96) output -> PRINT . ( outputB
+
+    (               shift and go to state 164
+
+
+state 127
 
     (45) instruction -> whileloop .
 
@@ -2365,20 +2384,20 @@ state 126
     }               reduce using rule 45 (instruction -> whileloop .)
 
 
-state 127
+state 128
 
     (101) localvardirective -> # . localvardirectiveB ID
     (104) localmsgdirective -> # . SHOW STRING
     (102) localvardirectiveB -> . TRACK
     (103) localvardirectiveB -> . FORGET
 
-    SHOW            shift and go to state 164
-    TRACK           shift and go to state 165
-    FORGET          shift and go to state 167
+    SHOW            shift and go to state 165
+    TRACK           shift and go to state 166
+    FORGET          shift and go to state 168
 
-    localvardirectiveB             shift and go to state 166
+    localvardirectiveB             shift and go to state 167
 
-state 128
+state 129
 
     (51) localdirective -> localvardirective .
 
@@ -2398,7 +2417,7 @@ state 128
     }               reduce using rule 51 (localdirective -> localvardirective .)
 
 
-state 129
+state 130
 
     (105) localdecisiondirective -> TRACKDECISION .
 
@@ -2418,14 +2437,14 @@ state 129
     }               reduce using rule 105 (localdecisiondirective -> TRACKDECISION .)
 
 
-state 130
+state 131
 
     (41) instruction -> input . ;
 
-    ;               shift and go to state 168
+    ;               shift and go to state 169
 
 
-state 131
+state 132
 
     (31) instructionsOpt -> empty .
     (107) localdecisiondirective -> empty .
@@ -2449,7 +2468,7 @@ state 131
   ! }               [ reduce using rule 107 (localdecisiondirective -> empty .) ]
 
 
-state 132
+state 133
 
     (46) instruction -> forloop .
 
@@ -2469,28 +2488,28 @@ state 132
     }               reduce using rule 46 (instruction -> forloop .)
 
 
-state 133
+state 134
 
     (42) instruction -> return . ;
 
-    ;               shift and go to state 169
-
-
-state 134
-
-    (92) forloop -> FOR . ( assign ; superexpression ; superexpression ) block
-
-    (               shift and go to state 170
+    ;               shift and go to state 170
 
 
 state 135
 
-    (29) block -> { instructionsOpt . }
+    (92) forloop -> FOR . ( assign ; superexpression ; superexpression ) block
 
-    }               shift and go to state 171
+    (               shift and go to state 171
 
 
 state 136
+
+    (29) block -> { instructionsOpt . }
+
+    }               shift and go to state 172
+
+
+state 137
 
     (106) localdecisiondirective -> FORGETDECISION .
 
@@ -2510,7 +2529,7 @@ state 136
     }               reduce using rule 106 (localdecisiondirective -> FORGETDECISION .)
 
 
-state 137
+state 138
 
     (47) instruction -> localdirective .
 
@@ -2530,21 +2549,21 @@ state 137
     }               reduce using rule 47 (instruction -> localdirective .)
 
 
-state 138
+state 139
 
     (43) instruction -> declaration . ;
 
-    ;               shift and go to state 172
-
-
-state 139
-
-    (93) input -> INPUT . ( ID inputB )
-
-    (               shift and go to state 173
+    ;               shift and go to state 173
 
 
 state 140
+
+    (93) input -> INPUT . ( ID inputB )
+
+    (               shift and go to state 174
+
+
+state 141
 
     (48) assignfunccall -> ID . assignfunccallB
     (49) assignfunccallB -> . ( funccallB
@@ -2555,17 +2574,17 @@ state 140
     (113) dimensions -> . [ superexpression ] dimensionsB
     (119) empty -> .
 
-    (               shift and go to state 175
+    (               shift and go to state 176
     [               shift and go to state 44
     =               reduce using rule 119 (empty -> .)
 
     dimensions                     shift and go to state 43
-    assignfunccallB                shift and go to state 174
-    assignB                        shift and go to state 176
-    dimensionsOpt                  shift and go to state 177
+    assignfunccallB                shift and go to state 175
+    assignB                        shift and go to state 177
+    dimensionsOpt                  shift and go to state 178
     empty                          shift and go to state 45
 
-state 141
+state 142
 
     (44) instruction -> condition .
 
@@ -2585,14 +2604,14 @@ state 141
     }               reduce using rule 44 (instruction -> condition .)
 
 
-state 142
+state 143
 
     (36) condition -> IF . ( superexpression ) block else
 
-    (               shift and go to state 178
+    (               shift and go to state 179
 
 
-state 143
+state 144
 
     (30) instructionsOpt -> instruction . instructionsOpt
     (30) instructionsOpt -> . instruction instructionsOpt
@@ -2641,19 +2660,19 @@ state 143
   ! shift/reduce conflict for TRACKDECISION resolved as shift
   ! shift/reduce conflict for FORGETDECISION resolved as shift
     }               reduce using rule 119 (empty -> .)
-    ID              shift and go to state 140
-    PRINT           shift and go to state 125
-    INPUT           shift and go to state 139
-    RETURN          shift and go to state 122
-    IF              shift and go to state 142
-    WHILE           shift and go to state 124
-    FOR             shift and go to state 134
+    ID              shift and go to state 141
+    PRINT           shift and go to state 126
+    INPUT           shift and go to state 140
+    RETURN          shift and go to state 123
+    IF              shift and go to state 143
+    WHILE           shift and go to state 125
+    FOR             shift and go to state 135
     INT             shift and go to state 15
     FLOAT           shift and go to state 17
     STRING          shift and go to state 14
-    #               shift and go to state 127
-    TRACKDECISION   shift and go to state 129
-    FORGETDECISION  shift and go to state 136
+    #               shift and go to state 128
+    TRACKDECISION   shift and go to state 130
+    FORGETDECISION  shift and go to state 137
 
   ! ID              [ reduce using rule 119 (empty -> .) ]
   ! PRINT           [ reduce using rule 119 (empty -> .) ]
@@ -2669,24 +2688,24 @@ state 143
   ! TRACKDECISION   [ reduce using rule 119 (empty -> .) ]
   ! FORGETDECISION  [ reduce using rule 119 (empty -> .) ]
 
-    assignfunccall                 shift and go to state 123
-    whileloop                      shift and go to state 126
-    localvardirective              shift and go to state 128
-    input                          shift and go to state 130
+    assignfunccall                 shift and go to state 124
+    whileloop                      shift and go to state 127
+    localvardirective              shift and go to state 129
+    input                          shift and go to state 131
     type                           shift and go to state 16
-    empty                          shift and go to state 131
-    forloop                        shift and go to state 132
-    return                         shift and go to state 133
-    instructionsOpt                shift and go to state 179
-    localdirective                 shift and go to state 137
-    declaration                    shift and go to state 138
-    condition                      shift and go to state 141
-    instruction                    shift and go to state 143
-    localmsgdirective              shift and go to state 144
-    localdecisiondirective         shift and go to state 145
-    output                         shift and go to state 146
+    empty                          shift and go to state 132
+    forloop                        shift and go to state 133
+    return                         shift and go to state 134
+    instructionsOpt                shift and go to state 180
+    localdirective                 shift and go to state 138
+    declaration                    shift and go to state 139
+    condition                      shift and go to state 142
+    instruction                    shift and go to state 144
+    localmsgdirective              shift and go to state 145
+    localdecisiondirective         shift and go to state 146
+    output                         shift and go to state 147
 
-state 144
+state 145
 
     (53) localdirective -> localmsgdirective .
 
@@ -2706,7 +2725,7 @@ state 144
     }               reduce using rule 53 (localdirective -> localmsgdirective .)
 
 
-state 145
+state 146
 
     (52) localdirective -> localdecisiondirective .
 
@@ -2726,36 +2745,36 @@ state 145
     }               reduce using rule 52 (localdirective -> localdecisiondirective .)
 
 
-state 146
+state 147
 
     (40) instruction -> output . ;
 
-    ;               shift and go to state 180
+    ;               shift and go to state 181
 
 
-state 147
+state 148
 
     (26) func -> DEF returntype ID ( paramsOpt ) . block
     (29) block -> . { instructionsOpt }
 
-    {               shift and go to state 97
+    {               shift and go to state 96
 
-    block                          shift and go to state 181
+    block                          shift and go to state 182
 
-state 148
+state 149
 
     (116) params -> type ID . paramsB
     (117) paramsB -> . , type ID paramsB
     (118) paramsB -> . empty
     (119) empty -> .
 
-    ,               shift and go to state 184
+    ,               shift and go to state 185
     )               reduce using rule 119 (empty -> .)
 
-    paramsB                        shift and go to state 182
-    empty                          shift and go to state 183
+    paramsB                        shift and go to state 183
+    empty                          shift and go to state 184
 
-state 149
+state 150
 
     (23) declarationD -> , declarationB .
 
@@ -2767,63 +2786,89 @@ state 149
     ;               reduce using rule 23 (declarationD -> , declarationB .)
 
 
-state 150
-
-    (108) funccall -> DEF ID ( funccallB .
-
-    /               reduce using rule 108 (funccall -> DEF ID ( funccallB .)
-    *               reduce using rule 108 (funccall -> DEF ID ( funccallB .)
-    -               reduce using rule 108 (funccall -> DEF ID ( funccallB .)
-    +               reduce using rule 108 (funccall -> DEF ID ( funccallB .)
-    <               reduce using rule 108 (funccall -> DEF ID ( funccallB .)
-    >               reduce using rule 108 (funccall -> DEF ID ( funccallB .)
-    =               reduce using rule 108 (funccall -> DEF ID ( funccallB .)
-    &               reduce using rule 108 (funccall -> DEF ID ( funccallB .)
-    |               reduce using rule 108 (funccall -> DEF ID ( funccallB .)
-    )               reduce using rule 108 (funccall -> DEF ID ( funccallB .)
-    ,               reduce using rule 108 (funccall -> DEF ID ( funccallB .)
-    ]               reduce using rule 108 (funccall -> DEF ID ( funccallB .)
-    ;               reduce using rule 108 (funccall -> DEF ID ( funccallB .)
-
-
 state 151
 
-    (110) funccallB -> ) .
+    (114) dimensionsB -> [ superexpression . ]
 
-    ;               reduce using rule 110 (funccallB -> ) .)
-    /               reduce using rule 110 (funccallB -> ) .)
-    *               reduce using rule 110 (funccallB -> ) .)
-    -               reduce using rule 110 (funccallB -> ) .)
-    +               reduce using rule 110 (funccallB -> ) .)
-    <               reduce using rule 110 (funccallB -> ) .)
-    >               reduce using rule 110 (funccallB -> ) .)
-    =               reduce using rule 110 (funccallB -> ) .)
-    &               reduce using rule 110 (funccallB -> ) .)
-    |               reduce using rule 110 (funccallB -> ) .)
-    ]               reduce using rule 110 (funccallB -> ) .)
-    ,               reduce using rule 110 (funccallB -> ) .)
-    )               reduce using rule 110 (funccallB -> ) .)
+    ]               shift and go to state 186
 
 
 state 152
 
-    (109) funccallB -> superexpression . funccallC
-    (111) funccallC -> . , superexpression funccallC
-    (112) funccallC -> . )
+    (109) funccallB -> superexpression funccallC .
 
-    ,               shift and go to state 187
-    )               shift and go to state 186
+    /               reduce using rule 109 (funccallB -> superexpression funccallC .)
+    *               reduce using rule 109 (funccallB -> superexpression funccallC .)
+    -               reduce using rule 109 (funccallB -> superexpression funccallC .)
+    +               reduce using rule 109 (funccallB -> superexpression funccallC .)
+    <               reduce using rule 109 (funccallB -> superexpression funccallC .)
+    >               reduce using rule 109 (funccallB -> superexpression funccallC .)
+    =               reduce using rule 109 (funccallB -> superexpression funccallC .)
+    &               reduce using rule 109 (funccallB -> superexpression funccallC .)
+    |               reduce using rule 109 (funccallB -> superexpression funccallC .)
+    ]               reduce using rule 109 (funccallB -> superexpression funccallC .)
+    ,               reduce using rule 109 (funccallB -> superexpression funccallC .)
+    ;               reduce using rule 109 (funccallB -> superexpression funccallC .)
+    )               reduce using rule 109 (funccallB -> superexpression funccallC .)
 
-    funccallC                      shift and go to state 185
 
 state 153
 
-    (114) dimensionsB -> [ superexpression . ]
+    (112) funccallC -> ) .
 
-    ]               shift and go to state 188
+    /               reduce using rule 112 (funccallC -> ) .)
+    *               reduce using rule 112 (funccallC -> ) .)
+    -               reduce using rule 112 (funccallC -> ) .)
+    +               reduce using rule 112 (funccallC -> ) .)
+    <               reduce using rule 112 (funccallC -> ) .)
+    >               reduce using rule 112 (funccallC -> ) .)
+    =               reduce using rule 112 (funccallC -> ) .)
+    &               reduce using rule 112 (funccallC -> ) .)
+    |               reduce using rule 112 (funccallC -> ) .)
+    ]               reduce using rule 112 (funccallC -> ) .)
+    ,               reduce using rule 112 (funccallC -> ) .)
+    ;               reduce using rule 112 (funccallC -> ) .)
+    )               reduce using rule 112 (funccallC -> ) .)
 
 
 state 154
+
+    (111) funccallC -> , . superexpression funccallC
+    (54) superexpression -> . expression superexpressionB
+    (58) expression -> . exp expressionB
+    (66) exp -> . term expB
+    (70) term -> . factor termB
+    (74) factor -> . signB constant
+    (75) factor -> . ( superexpression )
+    (76) factor -> . funccall
+    (77) factor -> . ID dimensionsOpt
+    (78) signB -> . sign
+    (79) signB -> . empty
+    (108) funccall -> . ID ( funccallB
+    (84) sign -> . +
+    (85) sign -> . -
+    (119) empty -> .
+
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
+    FCONST          reduce using rule 119 (empty -> .)
+    ICONST          reduce using rule 119 (empty -> .)
+    TRUE            reduce using rule 119 (empty -> .)
+    FALSE           reduce using rule 119 (empty -> .)
+
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
+    sign                           shift and go to state 53
+    superexpression                shift and go to state 187
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
+    empty                          shift and go to state 59
+
+state 155
 
     (62) expressionB -> = = exp .
 
@@ -2835,7 +2880,7 @@ state 154
     )               reduce using rule 62 (expressionB -> = = exp .)
 
 
-state 155
+state 156
 
     (63) expressionB -> < = exp .
 
@@ -2847,7 +2892,7 @@ state 155
     )               reduce using rule 63 (expressionB -> < = exp .)
 
 
-state 156
+state 157
 
     (61) expressionB -> < > exp .
 
@@ -2859,7 +2904,7 @@ state 156
     )               reduce using rule 61 (expressionB -> < > exp .)
 
 
-state 157
+state 158
 
     (64) expressionB -> > = exp .
 
@@ -2871,7 +2916,7 @@ state 157
     )               reduce using rule 64 (expressionB -> > = exp .)
 
 
-state 158
+state 159
 
     (55) superexpressionB -> & & superexpression .
 
@@ -2881,7 +2926,7 @@ state 158
     )               reduce using rule 55 (superexpressionB -> & & superexpression .)
 
 
-state 159
+state 160
 
     (56) superexpressionB -> | | superexpression .
 
@@ -2891,14 +2936,14 @@ state 159
     )               reduce using rule 56 (superexpressionB -> | | superexpression .)
 
 
-state 160
+state 161
 
     (115) return -> RETURN superexpression .
 
     ;               reduce using rule 115 (return -> RETURN superexpression .)
 
 
-state 161
+state 162
 
     (39) instruction -> assignfunccall ; .
 
@@ -2918,7 +2963,7 @@ state 161
     }               reduce using rule 39 (instruction -> assignfunccall ; .)
 
 
-state 162
+state 163
 
     (86) whileloop -> WHILE ( . superexpression ) block
     (54) superexpression -> . expression superexpressionB
@@ -2931,32 +2976,31 @@ state 162
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    superexpression                shift and go to state 189
-    empty                          shift and go to state 60
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
+    superexpression                shift and go to state 188
+    empty                          shift and go to state 59
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
 
-state 163
+state 164
 
     (96) output -> PRINT ( . outputB
     (97) outputB -> . STRING outputC
@@ -2971,62 +3015,61 @@ state 163
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    STRING          shift and go to state 190
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    STRING          shift and go to state 189
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    factor                         shift and go to state 59
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    factor                         shift and go to state 58
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    superexpression                shift and go to state 191
-    exp                            shift and go to state 65
-    outputB                        shift and go to state 192
-    expression                     shift and go to state 66
-    empty                          shift and go to state 60
+    superexpression                shift and go to state 190
+    exp                            shift and go to state 64
+    outputB                        shift and go to state 191
+    expression                     shift and go to state 65
+    empty                          shift and go to state 59
 
-state 164
+state 165
 
     (104) localmsgdirective -> # SHOW . STRING
 
-    STRING          shift and go to state 193
+    STRING          shift and go to state 192
 
 
-state 165
+state 166
 
     (102) localvardirectiveB -> TRACK .
 
     ID              reduce using rule 102 (localvardirectiveB -> TRACK .)
 
 
-state 166
+state 167
 
     (101) localvardirective -> # localvardirectiveB . ID
 
-    ID              shift and go to state 194
+    ID              shift and go to state 193
 
 
-state 167
+state 168
 
     (103) localvardirectiveB -> FORGET .
 
     ID              reduce using rule 103 (localvardirectiveB -> FORGET .)
 
 
-state 168
+state 169
 
     (41) instruction -> input ; .
 
@@ -3046,7 +3089,7 @@ state 168
     }               reduce using rule 41 (instruction -> input ; .)
 
 
-state 169
+state 170
 
     (42) instruction -> return ; .
 
@@ -3066,16 +3109,16 @@ state 169
     }               reduce using rule 42 (instruction -> return ; .)
 
 
-state 170
+state 171
 
     (92) forloop -> FOR ( . assign ; superexpression ; superexpression ) block
     (32) assign -> . ID dimensionsOpt = superexpression
 
-    ID              shift and go to state 195
+    ID              shift and go to state 194
 
-    assign                         shift and go to state 196
+    assign                         shift and go to state 195
 
-state 171
+state 172
 
     (29) block -> { instructionsOpt } .
 
@@ -3099,7 +3142,7 @@ state 171
     MAIN            reduce using rule 29 (block -> { instructionsOpt } .)
 
 
-state 172
+state 173
 
     (43) instruction -> declaration ; .
 
@@ -3119,21 +3162,21 @@ state 172
     }               reduce using rule 43 (instruction -> declaration ; .)
 
 
-state 173
+state 174
 
     (93) input -> INPUT ( . ID inputB )
 
-    ID              shift and go to state 197
+    ID              shift and go to state 196
 
 
-state 174
+state 175
 
     (48) assignfunccall -> ID assignfunccallB .
 
     ;               reduce using rule 48 (assignfunccall -> ID assignfunccallB .)
 
 
-state 175
+state 176
 
     (49) assignfunccallB -> ( . funccallB
     (109) funccallB -> . superexpression funccallC
@@ -3148,48 +3191,47 @@ state 175
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    )               shift and go to state 151
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    )               shift and go to state 111
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    funccallB                      shift and go to state 198
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    funccallB                      shift and go to state 197
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    superexpression                shift and go to state 152
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
-    empty                          shift and go to state 60
+    superexpression                shift and go to state 112
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
+    empty                          shift and go to state 59
 
-state 176
+state 177
 
     (50) assignfunccallB -> assignB .
 
     ;               reduce using rule 50 (assignfunccallB -> assignB .)
 
 
-state 177
+state 178
 
     (33) assignB -> dimensionsOpt . = superexpression
 
-    =               shift and go to state 199
+    =               shift and go to state 198
 
 
-state 178
+state 179
 
     (36) condition -> IF ( . superexpression ) block else
     (54) superexpression -> . expression superexpressionB
@@ -3202,39 +3244,38 @@ state 178
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    superexpression                shift and go to state 200
-    empty                          shift and go to state 60
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
+    superexpression                shift and go to state 199
+    empty                          shift and go to state 59
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
 
-state 179
+state 180
 
     (30) instructionsOpt -> instruction instructionsOpt .
 
     }               reduce using rule 30 (instructionsOpt -> instruction instructionsOpt .)
 
 
-state 180
+state 181
 
     (40) instruction -> output ; .
 
@@ -3254,7 +3295,7 @@ state 180
     }               reduce using rule 40 (instruction -> output ; .)
 
 
-state 181
+state 182
 
     (26) func -> DEF returntype ID ( paramsOpt ) block .
 
@@ -3263,21 +3304,21 @@ state 181
     MAIN            reduce using rule 26 (func -> DEF returntype ID ( paramsOpt ) block .)
 
 
-state 182
+state 183
 
     (116) params -> type ID paramsB .
 
     )               reduce using rule 116 (params -> type ID paramsB .)
 
 
-state 183
+state 184
 
     (118) paramsB -> empty .
 
     )               reduce using rule 118 (paramsB -> empty .)
 
 
-state 184
+state 185
 
     (117) paramsB -> , . type ID paramsB
     (87) type -> . INT
@@ -3288,85 +3329,9 @@ state 184
     FLOAT           shift and go to state 17
     STRING          shift and go to state 14
 
-    type                           shift and go to state 201
-
-state 185
-
-    (109) funccallB -> superexpression funccallC .
-
-    ;               reduce using rule 109 (funccallB -> superexpression funccallC .)
-    /               reduce using rule 109 (funccallB -> superexpression funccallC .)
-    *               reduce using rule 109 (funccallB -> superexpression funccallC .)
-    -               reduce using rule 109 (funccallB -> superexpression funccallC .)
-    +               reduce using rule 109 (funccallB -> superexpression funccallC .)
-    <               reduce using rule 109 (funccallB -> superexpression funccallC .)
-    >               reduce using rule 109 (funccallB -> superexpression funccallC .)
-    =               reduce using rule 109 (funccallB -> superexpression funccallC .)
-    &               reduce using rule 109 (funccallB -> superexpression funccallC .)
-    |               reduce using rule 109 (funccallB -> superexpression funccallC .)
-    ]               reduce using rule 109 (funccallB -> superexpression funccallC .)
-    ,               reduce using rule 109 (funccallB -> superexpression funccallC .)
-    )               reduce using rule 109 (funccallB -> superexpression funccallC .)
-
+    type                           shift and go to state 200
 
 state 186
-
-    (112) funccallC -> ) .
-
-    /               reduce using rule 112 (funccallC -> ) .)
-    *               reduce using rule 112 (funccallC -> ) .)
-    -               reduce using rule 112 (funccallC -> ) .)
-    +               reduce using rule 112 (funccallC -> ) .)
-    <               reduce using rule 112 (funccallC -> ) .)
-    >               reduce using rule 112 (funccallC -> ) .)
-    =               reduce using rule 112 (funccallC -> ) .)
-    &               reduce using rule 112 (funccallC -> ) .)
-    |               reduce using rule 112 (funccallC -> ) .)
-    ]               reduce using rule 112 (funccallC -> ) .)
-    ,               reduce using rule 112 (funccallC -> ) .)
-    ;               reduce using rule 112 (funccallC -> ) .)
-    )               reduce using rule 112 (funccallC -> ) .)
-
-
-state 187
-
-    (111) funccallC -> , . superexpression funccallC
-    (54) superexpression -> . expression superexpressionB
-    (58) expression -> . exp expressionB
-    (66) exp -> . term expB
-    (70) term -> . factor termB
-    (74) factor -> . signB constant
-    (75) factor -> . ( superexpression )
-    (76) factor -> . funccall
-    (77) factor -> . ID dimensionsOpt
-    (78) signB -> . sign
-    (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
-    (84) sign -> . +
-    (85) sign -> . -
-    (119) empty -> .
-
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
-    FCONST          reduce using rule 119 (empty -> .)
-    ICONST          reduce using rule 119 (empty -> .)
-    TRUE            reduce using rule 119 (empty -> .)
-    FALSE           reduce using rule 119 (empty -> .)
-
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
-    sign                           shift and go to state 53
-    superexpression                shift and go to state 202
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
-    empty                          shift and go to state 60
-
-state 188
 
     (114) dimensionsB -> [ superexpression ] .
 
@@ -3385,43 +3350,54 @@ state 188
     )               reduce using rule 114 (dimensionsB -> [ superexpression ] .)
 
 
-state 189
+state 187
+
+    (111) funccallC -> , superexpression . funccallC
+    (111) funccallC -> . , superexpression funccallC
+    (112) funccallC -> . )
+
+    ,               shift and go to state 154
+    )               shift and go to state 153
+
+    funccallC                      shift and go to state 201
+
+state 188
 
     (86) whileloop -> WHILE ( superexpression . ) block
 
-    )               shift and go to state 203
+    )               shift and go to state 202
 
 
-state 190
+state 189
 
     (97) outputB -> STRING . outputC
     (99) outputC -> . )
     (100) outputC -> . , outputB
 
-    )               shift and go to state 204
-    ,               shift and go to state 206
+    )               shift and go to state 203
+    ,               shift and go to state 205
 
-    outputC                        shift and go to state 205
+    outputC                        shift and go to state 204
 
-state 191
+state 190
 
     (98) outputB -> superexpression . outputC
     (99) outputC -> . )
     (100) outputC -> . , outputB
 
-    )               shift and go to state 204
-    ,               shift and go to state 206
+    )               shift and go to state 203
+    ,               shift and go to state 205
 
-    outputC                        shift and go to state 207
+    outputC                        shift and go to state 206
 
-state 192
+state 191
 
     (96) output -> PRINT ( outputB .
 
     ;               reduce using rule 96 (output -> PRINT ( outputB .)
 
 
-state 193
+state 192
 
     (104) localmsgdirective -> # SHOW STRING .
 
@@ -3441,7 +3417,7 @@ state 193
     }               reduce using rule 104 (localmsgdirective -> # SHOW STRING .)
 
 
-state 194
+state 193
 
     (101) localvardirective -> # localvardirectiveB ID .
 
@@ -3461,7 +3437,7 @@ state 194
     }               reduce using rule 101 (localvardirective -> # localvardirectiveB ID .)
 
 
-state 195
+state 194
 
     (32) assign -> ID . dimensionsOpt = superexpression
     (34) dimensionsOpt -> . dimensions
@@ -3472,38 +3448,38 @@ state 195
     [               shift and go to state 44
     =               reduce using rule 119 (empty -> .)
 
-    dimensionsOpt                  shift and go to state 208
+    dimensionsOpt                  shift and go to state 207
     dimensions                     shift and go to state 43
     empty                          shift and go to state 45
 
-state 196
+state 195
 
     (92) forloop -> FOR ( assign . ; superexpression ; superexpression ) block
 
-    ;               shift and go to state 209
+    ;               shift and go to state 208
 
 
-state 197
+state 196
 
     (93) input -> INPUT ( ID . inputB )
     (94) inputB -> . , ID inputB
     (95) inputB -> . empty
     (119) empty -> .
 
-    ,               shift and go to state 210
+    ,               shift and go to state 209
     )               reduce using rule 119 (empty -> .)
 
-    inputB                         shift and go to state 211
-    empty                          shift and go to state 212
+    inputB                         shift and go to state 210
+    empty                          shift and go to state 211
 
-state 198
+state 197
 
     (49) assignfunccallB -> ( funccallB .
 
     ;               reduce using rule 49 (assignfunccallB -> ( funccallB .)
 
 
-state 199
+state 198
 
     (33) assignB -> dimensionsOpt = . superexpression
     (54) superexpression -> . expression superexpressionB
@@ -3516,224 +3492,45 @@ state 199
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    superexpression                shift and go to state 213
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
-    empty                          shift and go to state 60
+    superexpression                shift and go to state 212
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
+    empty                          shift and go to state 59
 
-state 200
+state 199
 
     (36) condition -> IF ( superexpression . ) block else
 
-    )               shift and go to state 214
+    )               shift and go to state 213
 
 
-state 201
+state 200
 
     (117) paramsB -> , type . ID paramsB
 
-    ID              shift and go to state 215
+    ID              shift and go to state 214
 
 
-state 202
-
-    (111) funccallC -> , superexpression . funccallC
-    (111) funccallC -> . , superexpression funccallC
-    (112) funccallC -> . )
-
-    ,               shift and go to state 187
-    )               shift and go to state 186
-
-    funccallC                      shift and go to state 216
-
-state 203
-
-    (86) whileloop -> WHILE ( superexpression ) . block
-    (29) block -> . { instructionsOpt }
-
-    {               shift and go to state 97
-
-    block                          shift and go to state 217
-
-state 204
-
-    (99) outputC -> ) .
-
-    ;               reduce using rule 99 (outputC -> ) .)
-
-
-state 205
-
-    (97) outputB -> STRING outputC .
-
-    ;               reduce using rule 97 (outputB -> STRING outputC .)
-
-
-state 206
-
-    (100) outputC -> , . outputB
-    (97) outputB -> . STRING outputC
-    (98) outputB -> . superexpression outputC
-    (54) superexpression -> . expression superexpressionB
-    (58) expression -> . exp expressionB
-    (66) exp -> . term expB
-    (70) term -> . factor termB
-    (74) factor -> . signB constant
-    (75) factor -> . ( superexpression )
-    (76) factor -> . funccall
-    (77) factor -> . ID dimensionsOpt
-    (78) signB -> . sign
-    (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
-    (84) sign -> . +
-    (85) sign -> . -
-    (119) empty -> .
-
-    STRING          shift and go to state 190
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
-    FCONST          reduce using rule 119 (empty -> .)
-    ICONST          reduce using rule 119 (empty -> .)
-    TRUE            reduce using rule 119 (empty -> .)
-    FALSE           reduce using rule 119 (empty -> .)
-
-    term                           shift and go to state 64
-    factor                         shift and go to state 59
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
-    sign                           shift and go to state 53
-    superexpression                shift and go to state 191
-    exp                            shift and go to state 65
-    outputB                        shift and go to state 218
-    expression                     shift and go to state 66
-    empty                          shift and go to state 60
-
-state 207
-
-    (98) outputB -> superexpression outputC .
-
-    ;               reduce using rule 98 (outputB -> superexpression outputC .)
-
-
-state 208
-
-    (32) assign -> ID dimensionsOpt . = superexpression
-
-    =               shift and go to state 219
-
-
-state 209
-
-    (92) forloop -> FOR ( assign ; . superexpression ; superexpression ) block
-    (54) superexpression -> . expression superexpressionB
-    (58) expression -> . exp expressionB
-    (66) exp -> . term expB
-    (70) term -> . factor termB
-    (74) factor -> . signB constant
-    (75) factor -> . ( superexpression )
-    (76) factor -> . funccall
-    (77) factor -> . ID dimensionsOpt
-    (78) signB -> . sign
-    (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
-    (84) sign -> . +
-    (85) sign -> . -
-    (119) empty -> .
-
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
-    FCONST          reduce using rule 119 (empty -> .)
-    ICONST          reduce using rule 119 (empty -> .)
-    TRUE            reduce using rule 119 (empty -> .)
-    FALSE           reduce using rule 119 (empty -> .)
-
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
-    sign                           shift and go to state 53
-    superexpression                shift and go to state 220
-    empty                          shift and go to state 60
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
-
-state 210
-
-    (94) inputB -> , . ID inputB
-
-    ID              shift and go to state 221
-
-
-state 211
-
-    (93) input -> INPUT ( ID inputB . )
-
-    )               shift and go to state 222
-
-
-state 212
-
-    (95) inputB -> empty .
-
-    )               reduce using rule 95 (inputB -> empty .)
-
-
-state 213
-
-    (33) assignB -> dimensionsOpt = superexpression .
-
-    ;               reduce using rule 33 (assignB -> dimensionsOpt = superexpression .)
-
-
-state 214
-
-    (36) condition -> IF ( superexpression ) . block else
-    (29) block -> . { instructionsOpt }
-
-    {               shift and go to state 97
-
-    block                          shift and go to state 223
-
-state 215
-
-    (117) paramsB -> , type ID . paramsB
-    (117) paramsB -> . , type ID paramsB
-    (118) paramsB -> . empty
-    (119) empty -> .
-
-    ,               shift and go to state 184
-    )               reduce using rule 119 (empty -> .)
-
-    paramsB                        shift and go to state 224
-    empty                          shift and go to state 183
-
-state 216
+state 201
 
     (111) funccallC -> , superexpression funccallC .
 
@@ -3752,7 +3549,172 @@ state 216
     )               reduce using rule 111 (funccallC -> , superexpression funccallC .)
 
 
-state 217
+state 202
+
+    (86) whileloop -> WHILE ( superexpression ) . block
+    (29) block -> . { instructionsOpt }
+
+    {               shift and go to state 96
+
+    block                          shift and go to state 215
+
+state 203
+
+    (99) outputC -> ) .
+
+    ;               reduce using rule 99 (outputC -> ) .)
+
+
+state 204
+
+    (97) outputB -> STRING outputC .
+
+    ;               reduce using rule 97 (outputB -> STRING outputC .)
+
+
+state 205
+
+    (100) outputC -> , . outputB
+    (97) outputB -> . STRING outputC
+    (98) outputB -> . superexpression outputC
+    (54) superexpression -> . expression superexpressionB
+    (58) expression -> . exp expressionB
+    (66) exp -> . term expB
+    (70) term -> . factor termB
+    (74) factor -> . signB constant
+    (75) factor -> . ( superexpression )
+    (76) factor -> . funccall
+    (77) factor -> . ID dimensionsOpt
+    (78) signB -> . sign
+    (79) signB -> . empty
+    (108) funccall -> . ID ( funccallB
+    (84) sign -> . +
+    (85) sign -> . -
+    (119) empty -> .
+
+    STRING          shift and go to state 189
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
+    FCONST          reduce using rule 119 (empty -> .)
+    ICONST          reduce using rule 119 (empty -> .)
+    TRUE            reduce using rule 119 (empty -> .)
+    FALSE           reduce using rule 119 (empty -> .)
+
+    term                           shift and go to state 63
+    factor                         shift and go to state 58
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
+    sign                           shift and go to state 53
+    superexpression                shift and go to state 190
+    exp                            shift and go to state 64
+    outputB                        shift and go to state 216
+    expression                     shift and go to state 65
+    empty                          shift and go to state 59
+
+state 206
+
+    (98) outputB -> superexpression outputC .
+
+    ;               reduce using rule 98 (outputB -> superexpression outputC .)
+
+
+state 207
+
+    (32) assign -> ID dimensionsOpt . = superexpression
+
+    =               shift and go to state 217
+
+
+state 208
+
+    (92) forloop -> FOR ( assign ; . superexpression ; superexpression ) block
+    (54) superexpression -> . expression superexpressionB
+    (58) expression -> . exp expressionB
+    (66) exp -> . term expB
+    (70) term -> . factor termB
+    (74) factor -> . signB constant
+    (75) factor -> . ( superexpression )
+    (76) factor -> . funccall
+    (77) factor -> . ID dimensionsOpt
+    (78) signB -> . sign
+    (79) signB -> . empty
+    (108) funccall -> . ID ( funccallB
+    (84) sign -> . +
+    (85) sign -> . -
+    (119) empty -> .
+
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
+    FCONST          reduce using rule 119 (empty -> .)
+    ICONST          reduce using rule 119 (empty -> .)
+    TRUE            reduce using rule 119 (empty -> .)
+    FALSE           reduce using rule 119 (empty -> .)
+
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
+    sign                           shift and go to state 53
+    superexpression                shift and go to state 218
+    empty                          shift and go to state 59
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
+
+state 209
+
+    (94) inputB -> , . ID inputB
+
+    ID              shift and go to state 219
+
+
+state 210
+
+    (93) input -> INPUT ( ID inputB . )
+
+    )               shift and go to state 220
+
+
+state 211
+
+    (95) inputB -> empty .
+
+    )               reduce using rule 95 (inputB -> empty .)
+
+
+state 212
+
+    (33) assignB -> dimensionsOpt = superexpression .
+
+    ;               reduce using rule 33 (assignB -> dimensionsOpt = superexpression .)
+
+
+state 213
+
+    (36) condition -> IF ( superexpression ) . block else
+    (29) block -> . { instructionsOpt }
+
+    {               shift and go to state 96
+
+    block                          shift and go to state 221
+
+state 214
+
+    (117) paramsB -> , type ID . paramsB
+    (117) paramsB -> . , type ID paramsB
+    (118) paramsB -> . empty
+    (119) empty -> .
+
+    ,               shift and go to state 185
+    )               reduce using rule 119 (empty -> .)
+
+    paramsB                        shift and go to state 222
+    empty                          shift and go to state 184
+
+state 215
 
     (86) whileloop -> WHILE ( superexpression ) block .
 
@@ -3772,14 +3734,14 @@ state 217
     }               reduce using rule 86 (whileloop -> WHILE ( superexpression ) block .)
 
 
-state 218
+state 216
 
     (100) outputC -> , outputB .
 
     ;               reduce using rule 100 (outputC -> , outputB .)
 
 
-state 219
+state 217
 
     (32) assign -> ID dimensionsOpt = . superexpression
     (54) superexpression -> . expression superexpressionB
@@ -3792,66 +3754,65 @@ state 219
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    superexpression                shift and go to state 225
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
-    empty                          shift and go to state 60
+    superexpression                shift and go to state 223
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
+    empty                          shift and go to state 59
 
-state 220
+state 218
 
     (92) forloop -> FOR ( assign ; superexpression . ; superexpression ) block
 
-    ;               shift and go to state 226
+    ;               shift and go to state 224
 
 
-state 221
+state 219
 
     (94) inputB -> , ID . inputB
     (94) inputB -> . , ID inputB
     (95) inputB -> . empty
     (119) empty -> .
 
-    ,               shift and go to state 210
+    ,               shift and go to state 209
     )               reduce using rule 119 (empty -> .)
 
-    inputB                         shift and go to state 227
-    empty                          shift and go to state 212
+    inputB                         shift and go to state 225
+    empty                          shift and go to state 211
 
-state 222
+state 220
 
     (93) input -> INPUT ( ID inputB ) .
 
     ;               reduce using rule 93 (input -> INPUT ( ID inputB ) .)
 
 
-state 223
+state 221
 
     (36) condition -> IF ( superexpression ) block . else
     (37) else -> . ELSE block
     (38) else -> . empty
     (119) empty -> .
 
-    ELSE            shift and go to state 230
+    ELSE            shift and go to state 228
     ID              reduce using rule 119 (empty -> .)
     PRINT           reduce using rule 119 (empty -> .)
     INPUT           reduce using rule 119 (empty -> .)
@@ -3867,24 +3828,24 @@ state 223
     FORGETDECISION  reduce using rule 119 (empty -> .)
     }               reduce using rule 119 (empty -> .)
 
-    empty                          shift and go to state 229
-    else                           shift and go to state 228
+    empty                          shift and go to state 227
+    else                           shift and go to state 226
 
-state 224
+state 222
 
     (117) paramsB -> , type ID paramsB .
 
     )               reduce using rule 117 (paramsB -> , type ID paramsB .)
 
 
-state 225
+state 223
 
     (32) assign -> ID dimensionsOpt = superexpression .
 
     ;               reduce using rule 32 (assign -> ID dimensionsOpt = superexpression .)
 
 
-state 226
+state 224
 
     (92) forloop -> FOR ( assign ; superexpression ; . superexpression ) block
     (54) superexpression -> . expression superexpressionB
@@ -3897,39 +3858,38 @@ state 226
     (77) factor -> . ID dimensionsOpt
     (78) signB -> . sign
     (79) signB -> . empty
-    (108) funccall -> . DEF ID ( funccallB
+    (108) funccall -> . ID ( funccallB
     (84) sign -> . +
     (85) sign -> . -
     (119) empty -> .
 
-    (               shift and go to state 56
-    ID              shift and go to state 63
-    DEF             shift and go to state 54
-    +               shift and go to state 57
-    -               shift and go to state 58
+    (               shift and go to state 55
+    ID              shift and go to state 62
+    +               shift and go to state 56
+    -               shift and go to state 57
     FCONST          reduce using rule 119 (empty -> .)
     ICONST          reduce using rule 119 (empty -> .)
     TRUE            reduce using rule 119 (empty -> .)
     FALSE           reduce using rule 119 (empty -> .)
 
-    term                           shift and go to state 64
-    funccall                       shift and go to state 61
-    signB                          shift and go to state 55
+    term                           shift and go to state 63
+    funccall                       shift and go to state 60
+    signB                          shift and go to state 54
     sign                           shift and go to state 53
-    superexpression                shift and go to state 231
-    empty                          shift and go to state 60
-    exp                            shift and go to state 65
-    factor                         shift and go to state 59
-    expression                     shift and go to state 66
+    superexpression                shift and go to state 229
+    empty                          shift and go to state 59
+    exp                            shift and go to state 64
+    factor                         shift and go to state 58
+    expression                     shift and go to state 65
 
-state 227
+state 225
 
     (94) inputB -> , ID inputB .
 
     )               reduce using rule 94 (inputB -> , ID inputB .)
 
 
-state 228
+state 226
 
     (36) condition -> IF ( superexpression ) block else .
 
@@ -3949,7 +3909,7 @@ state 228
     }               reduce using rule 36 (condition -> IF ( superexpression ) block else .)
 
 
-state 229
+state 227
 
     (38) else -> empty .
 
@@ -3969,23 +3929,23 @@ state 229
     }               reduce using rule 38 (else -> empty .)
 
 
-state 230
+state 228
 
     (37) else -> ELSE . block
     (29) block -> . { instructionsOpt }
 
-    {               shift and go to state 97
+    {               shift and go to state 96
 
-    block                          shift and go to state 232
+    block                          shift and go to state 230
 
-state 231
+state 229
 
     (92) forloop -> FOR ( assign ; superexpression ; superexpression . ) block
 
-    )               shift and go to state 233
+    )               shift and go to state 231
 
 
-state 232
+state 230
 
     (37) else -> ELSE block .
 
@@ -4005,16 +3965,16 @@ state 232
     }               reduce using rule 37 (else -> ELSE block .)
 
 
-state 233
+state 231
 
     (92) forloop -> FOR ( assign ; superexpression ; superexpression ) . block
     (29) block -> . { instructionsOpt }
 
-    {               shift and go to state 97
+    {               shift and go to state 96
 
-    block                          shift and go to state 234
+    block                          shift and go to state 232
 
-state 234
+state 232
 
     (92) forloop -> FOR ( assign ; superexpression ; superexpression ) block .
 
@@ -4036,31 +3996,31 @@ state 234
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for ID in state 97 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 97 resolved as shift
-WARNING: shift/reduce conflict for INPUT in state 97 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 97 resolved as shift
-WARNING: shift/reduce conflict for IF in state 97 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 97 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 97 resolved as shift
-WARNING: shift/reduce conflict for INT in state 97 resolved as shift
-WARNING: shift/reduce conflict for FLOAT in state 97 resolved as shift
-WARNING: shift/reduce conflict for STRING in state 97 resolved as shift
-WARNING: shift/reduce conflict for # in state 97 resolved as shift
-WARNING: shift/reduce conflict for TRACKDECISION in state 97 resolved as shift
-WARNING: shift/reduce conflict for FORGETDECISION in state 97 resolved as shift
-WARNING: shift/reduce conflict for ID in state 143 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 143 resolved as shift
-WARNING: shift/reduce conflict for INPUT in state 143 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 143 resolved as shift
-WARNING: shift/reduce conflict for IF in state 143 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 143 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 143 resolved as shift
-WARNING: shift/reduce conflict for INT in state 143 resolved as shift
-WARNING: shift/reduce conflict for FLOAT in state 143 resolved as shift
-WARNING: shift/reduce conflict for STRING in state 143 resolved as shift
-WARNING: shift/reduce conflict for # in state 143 resolved as shift
-WARNING: shift/reduce conflict for TRACKDECISION in state 143 resolved as shift
-WARNING: shift/reduce conflict for FORGETDECISION in state 143 resolved as shift
-WARNING: reduce/reduce conflict in state 131 resolved using rule (instructionsOpt -> empty)
-WARNING: rejected rule (localdecisiondirective -> empty) in state 131
+WARNING: shift/reduce conflict for ID in state 96 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 96 resolved as shift
+WARNING: shift/reduce conflict for INPUT in state 96 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 96 resolved as shift
+WARNING: shift/reduce conflict for IF in state 96 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 96 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 96 resolved as shift
+WARNING: shift/reduce conflict for INT in state 96 resolved as shift
+WARNING: shift/reduce conflict for FLOAT in state 96 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 96 resolved as shift
+WARNING: shift/reduce conflict for # in state 96 resolved as shift
+WARNING: shift/reduce conflict for TRACKDECISION in state 96 resolved as shift
+WARNING: shift/reduce conflict for FORGETDECISION in state 96 resolved as shift
+WARNING: shift/reduce conflict for ID in state 144 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 144 resolved as shift
+WARNING: shift/reduce conflict for INPUT in state 144 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 144 resolved as shift
+WARNING: shift/reduce conflict for IF in state 144 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 144 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 144 resolved as shift
+WARNING: shift/reduce conflict for INT in state 144 resolved as shift
+WARNING: shift/reduce conflict for FLOAT in state 144 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 144 resolved as shift
+WARNING: shift/reduce conflict for # in state 144 resolved as shift
+WARNING: shift/reduce conflict for TRACKDECISION in state 144 resolved as shift
+WARNING: shift/reduce conflict for FORGETDECISION in state 144 resolved as shift
+WARNING: reduce/reduce conflict in state 132 resolved using rule (instructionsOpt -> empty)
+WARNING: rejected rule (localdecisiondirective -> empty) in state 132
