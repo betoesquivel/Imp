@@ -106,7 +106,7 @@ def p_instruction(p):
                    | output ';'
                    | input ';'
                    | return ';'
-                   | declaration ';'
+                   | declaration
                    | condition
                    | whileloop
                    | forloop
