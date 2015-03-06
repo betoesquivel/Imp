@@ -9,7 +9,7 @@ main() {
 }
 
 def int algo2() {
-  float x = b * 2;
+  x = b * 2;
   if ( oneVar < 3 ) {
     x = 2 * 2;
   }
