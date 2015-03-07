@@ -2,24 +2,18 @@
 import ply.lex as lex
 
 # literal characters
-literals = "#(){}<>=+*/,|&:;"
+literals = "#(){}<>=-+*/,|&:;"
 
 # reserved words
 reserved = {
-    'vars'      : 'VARS',
-    'decisions' : 'DECISIONS',
-    'complexity': 'COMPLEXITY',
-    'some'      : 'SOME',
+    #'vars'      : 'VARS',
+    #'decisions' : 'DECISIONS',
+    #'complexity': 'COMPLEXITY',
     'SOME'      : 'SOME',
-    'all'       : 'ALL',
     'ALL'       : 'ALL',
-    'most'      : 'MOST',
     'MOST'      : 'MOST',
-    'none'      : 'NONE',
     'NONE'      : 'NONE',
-    'yes'       : 'YES',
     'YES'       : 'YES',
-    'no'        : 'NO',
     'NO'        : 'NO',
     'main'      : 'MAIN',
     'if'        : 'IF',
@@ -28,7 +22,7 @@ reserved = {
     'track'     : 'TRACK',
     'forget'    : 'FORGET',
     'show'      : 'SHOW',
-    'decision'  : 'DECISION',
+    #'decision'  : 'DECISION',
     'true'      : 'TRUE',
     'false'     : 'FALSE',
     'while'     : 'WHILE',
@@ -38,15 +32,26 @@ reserved = {
     'for'       : 'FOR',
     'input'     : 'INPUT',
     'return'    : 'RETURN',
-    'bool'      : 'BOOL'
+    'bool'      : 'BOOL',
+    'def'      : 'DEF'
 }
 
+
 tokens = [
+          # Config vars
+          'VARSCONFIG', 'DECISIONSCONFIG', 'COMPLEXITYCONFIG',
+          # Decision directives
+          'TRACKDECISION', 'FORGETDECISION',
           # Constantes
           'STRING','ICONST','FCONST','ID'
 ] +  list(reserved.values())
 
 # non-terminals or tokens
+t_VARSCONFIG = r'\#vars'
+t_DECISIONSCONFIG = r'\#decisions'
+t_COMPLEXITYCONFIG = r'\#complexity'
+t_TRACKDECISION = r'\#trackdecision'
+t_FORGETDECISION = r'\#forgetdecision'
 t_STRING = r'".*"'
 t_ICONST = r'\d+'
 t_FCONST = r'\d+\.\d+'

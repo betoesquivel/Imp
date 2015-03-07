@@ -1,7 +1,6 @@
 import ply.yacc as yacc
 import logging
 import lexer
-import logging
 import sys
 
 tokens = lexer.tokens
@@ -35,39 +34,31 @@ def p_optionsyesno(p):
 
 # <body>
 def p_body(p):
-    '''body : declarations func funcB main func funcB'''
+    '''body : declarationsOpt funcsOpt main funcsOpt'''
 
-def p_funcB(p):
-    '''funcB : func
-             | empty'''
+def p_funcsOpt(p):
+    '''funcsOpt : func funcsOpt
+                | empty'''
 
-# <func declarations factorization>
-#def p_funcdec(p):
-    #'''funcdec : type ID funcdecB | VOID ID func'''
-#
-#def p_funcdecB(p):
-    #'''funcdecB : func
-                #| dimensionB constantB ';' '''
+def p_declarationsOpt(p):
+    '''declarationsOpt : declaration declarationsOpt
+                       | empty'''
 
-# <declarations>
-def p_declarations(p):
-    '''declarations : type declarationsB ';' declarations
-                    | empty'''
+# <declaration>
+def p_declaration(p):
+    '''declaration : type declarationB '''
 
-def p_declarationsB(p):
-    '''declarationsB : ID dimensionB constantB declarationsC'''
+def p_declarationB(p):
+    '''declarationB : ID dimensionsOpt declarationC  '''
 
-def p_declarationsC(p):
-    '''declarationsC : ',' declarationsB
-                     | empty'''
+def p_declarationC(p):
+    '''declarationC : '=' superexpression declarationD
+                    | ',' declarationB
+                    | ';' '''
 
-def p_dimensionB(p):
-    '''dimensionB : dimension
-                  | empty'''
-
-def p_constantB(p):
-    '''constantB : '=' constant
-                 | empty'''
+def p_declarationD(p):
+    '''declarationD : ',' declarationB
+                    | ';' '''
 
 # <main>
 def p_main(p):
@@ -75,20 +66,30 @@ def p_main(p):
 
 # <func>
 def p_func(p):
-    '''func : DEF returntype ID '(' optionalparams ')' block
-            | empty'''
+    '''func : DEF returntype ID '(' paramsOpt ')' block'''
 
-def p_optionalparams(p):
-    '''optionalparams : params
-                      | empty'''
+def p_paramsOpt(p):
+    '''paramsOpt : params
+                 | empty'''
 
 # <block>
 def p_block(p):
-    '''block : '{' instruction '}' '''
+    '''block : '{' instructionsOpt '}' '''
 
-# <asign>
-def p_asign(p):
-    '''asign : ID dimensionB '=' superexpression'''
+def p_instructionsOpt(p):
+    '''instructionsOpt : instruction instructionsOpt
+                       | empty'''
+
+# <assign>
+def p_assign(p):
+    '''assign : ID dimensionsOpt '=' superexpression'''
+
+def p_assignB(p):
+    '''assignB : dimensionsOpt '=' superexpression'''
+
+def p_dimensionsOpt(p):
+    '''dimensionsOpt : dimensions
+                    | empty'''
 
 # <condition>
 def p_condition(p):
@@ -99,23 +100,26 @@ def p_else(p):
     '''else : ELSE block
             | empty'''
 
-# question: Does the whileloop and forloops end with a ';'?
 # <instruction>
 def p_instruction(p):
-    '''instruction : asign ';' instructionB
-                   | condition ';' instructionB
-                   | output ';' instructionB
-                   | whileloop instructionB
-                   | forloop instructionB
-                   | input ';' instructionB
-                   | funccall ';' instructionB
-                   | return ';' instructionB
-                   | localdirective instructionB
-                   | declarations instructionB'''
+    '''instruction : assignfunccall ';'
+                   | output ';'
+                   | input ';'
+                   | return ';'
+                   | declaration
+                   | condition
+                   | whileloop
+                   | forloop
+                   | localdirective '''
 
-def p_instructionB(p):
-    '''instructionB : instruction
-                    | empty'''
+# <assignfunccall>
+# left factor the assign and funccall rules
+def p_assignfunccall(p):
+    '''assignfunccall : ID assignfunccallB'''
+
+def p_assignfunccallB(p):
+    '''assignfunccallB : '(' funccallB
+                       | assignB'''
 
 # <localdirective>
 def p_localdirective(p):
@@ -170,7 +174,7 @@ def p_factor(p):
     '''factor : signB constant
               | '(' superexpression ')'
               | funccall
-              | ID dimensionB'''
+              | ID dimensionsOpt'''
 
 def p_signB(p):
     '''signB : sign
@@ -205,7 +209,7 @@ def p_returntype(p):
 
 # <forloop>
 def p_forloop(p):
-    '''forloop : FOR '(' asign ';' superexpression ';' superexpression ')' block'''
+    '''forloop : FOR '(' assign ';' superexpression ';' superexpression ')' block'''
 
 # <input>
 def p_input(p):
@@ -240,28 +244,28 @@ def p_localmsgdirective(p):
 
 # <localdecisiondirective>
 def p_localdecisiondirective(p):
-    '''localdecisiondirective : '#' localdecisiondirectiveB DECISION
+    '''localdecisiondirective : TRACKDECISION
+                              | FORGETDECISION
                               | empty'''
-
-def p_localdecisiondirectiveB(p):
-    '''localdecisiondirectiveB : TRACK
-                               | FORGET'''
 
 # <funccall>
 def p_funccall(p):
-    '''funccall : ID '(' funccallB ')' '''
+    '''funccall : ID '(' funccallB '''
 
 def p_funccallB(p):
     '''funccallB : superexpression funccallC
-                 | empty'''
+                 | ')' '''
 
 def p_funccallC(p):
     '''funccallC : ',' superexpression funccallC
-                 | empty'''
+                 | ')' '''
 
-# <dimension>
-def p_dimension(p):
-    '''dimension : '[' superexpression ']' dimensionB '''
+# <dimensions>
+def p_dimensions(p):
+    '''dimensions : '[' superexpression ']' dimensionsB '''
+
+def p_dimensionsB(p):
+    '''dimensionsB : '[' superexpression ']' '''
 
 # <return>
 def p_return(p):
@@ -279,11 +283,9 @@ def p_empty(p):
     '''empty : '''
 
 def p_error(p):
-    print "Syntax error in input {0} at char {1}, and line {2}".format(p.type,  p.lexpos, p.lineno)
-    print p.value
+    print "Syntax error in input {0} at char {1}".format(p.type, p.lexpos)
 
 parser = yacc.yacc()
-
 
 if(len(sys.argv) > 1):
     if sys.argv[1] == "-f":
@@ -291,11 +293,10 @@ if(len(sys.argv) > 1):
         s = f.readlines()
     string = ""
     for line in s:
-        string += line + '\n'
+        string += line
     print string
-    logging.basicConfig(filename='example.log', filemode='w', level=logging.DEBUG)
+    logging.basicConfig(filename='example.log',level=logging.DEBUG)
     log = logging.getLogger()
     result = parser.parse(string, debug=log)
 else:
     print "Error"
-
