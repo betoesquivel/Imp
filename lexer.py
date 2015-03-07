@@ -1,4 +1,4 @@
-#!/bin/python
+#!env/bin/python
 import ply.lex as lex
 
 # literal characters

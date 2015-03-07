@@ -1,3 +1,4 @@
+#!env/bin/python
 import ply.yacc as yacc
 import logging
 import lexer
