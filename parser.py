@@ -295,7 +295,7 @@ if(len(sys.argv) > 1):
     for line in s:
         string += line
     print string
-    logging.basicConfig(filename='example.log',level=logging.DEBUG)
+    logging.basicConfig(filename='example.log', filemode='w', level=logging.DEBUG)
     log = logging.getLogger()
     result = parser.parse(string, debug=log)
 else:
