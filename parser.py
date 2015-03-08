@@ -105,8 +105,8 @@ def p_else(p):
 def p_instruction(p):
     '''instruction : assignfunccall ';'
                    | output ';'
-                   | input ';'
                    | return ';'
+                   | input ';'
                    | declaration
                    | condition
                    | whileloop
@@ -201,7 +201,8 @@ def p_whileloop(p):
 def p_type(p):
     '''type : INT
             | FLOAT
-            | STRING'''
+            | STRING
+            | BOOL'''
 
 # <returntype>
 def p_returntype(p):
