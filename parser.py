@@ -38,7 +38,7 @@ def p_body(p):
     '''body : declarationsOpt funcsOpt main funcsOpt'''
 
 def p_funcsOpt(p):
-    '''funcsOpt : func funcsOpt
+    '''funcsOpt : suprafunc funcsOpt
                 | empty'''
 
 def p_declarationsOpt(p):
@@ -66,8 +66,11 @@ def p_main(p):
     '''main : MAIN '(' ')' block'''
 
 # <func>
+def p_suprafunc(p):
+    '''suprafunc : func block'''
+
 def p_func(p):
-    '''func : DEF returntype ID '(' paramsOpt ')' block'''
+    '''func : DEF returntype ID '(' paramsOpt ')' '''
 
 def p_paramsOpt(p):
     '''paramsOpt : params
