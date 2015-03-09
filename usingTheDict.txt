@@ -1,0 +1,73 @@
+procedimientos = { }
+
+globalvars = {}
+procedures = {}
+
+tipoActual = p[1]
+scope = "global"
+scope = "algo"
+
+maindictionary = {
+    'global' : {
+        'cont' : { 'type' : 'int' , 'dimensionx': '0',  'dimensiony':'0'},
+        'cont2' : { 'type' : 'int' , 'dimensionx': '0', 'dimensiony':'0'},
+    },
+    'algo' : {
+        'type' : 'int',
+        'params' : [],#list of types
+        'vars' : {
+            'a' : { 'type' : 'int' , 'dimensionx': '0',  'dimensiony':'0'}
+        }
+    },
+    'main' : {
+        'type' : 'void',
+        'params' : [],#list of types
+        'vars' : {
+        }
+    }
+}
+
+
+if ( scope == "global" ):
+    if (globalvars.get(p[1]) is None):
+        globalvars[p[1]] = { 'id':p[1] ,  'tipo':tipoActual }
+    else:
+        pass
+else:
+    procedures[scope][p[1]] = { 'id':p[1] ,  'tipo':tipoActual }
+
+
+*Everytime you are about to use an id, check if the current_id_possible...
+1) Init:
+    1. Create a dictionary with empty 'global' and 'main' vardictionaries.
+    2. We also need some global variables with context information:
+        a) current_scope b) current_id c) current_id_possible d) current_type
+        e) current_param_list = []
+
+2) Everytime you find a declaration:
+    1. If it does not exist in its corresponding scope or in global, add it to the var dictionary of
+    its corresponding scope. If it does exist in its scope, ERROR duplicate declaration on char x
+
+3) Everytime you find a factor that is an id:
+    1. If the id does not exist in its corresponding scope or in global, ERROR undeclared var
+       If it does exist, continue.
+
+4) Everytime you find a factor that is a funccall:
+    1. When the parentheses openscheck that it exists, if not... error
+    2. When the parentheses closes
+        a) compare current_params length with the current_id (which is the id of the function) param length
+        b) check one by one that the parameters match
+
+5) everytime you call assign
+    1. check if id exists, if not error
+    2. check if it is using dimensionx and dimensiony properly
+
+6) in every localvardirective
+    1. check if the id exists
+
+7) in every input
+    1. check if the id exists
+
+8) everytime you find a function declaration
+    1. add it to the main dictionary
+    2. add parameters to its param list and to its vars dict
