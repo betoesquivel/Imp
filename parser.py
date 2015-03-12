@@ -3,6 +3,7 @@ import ply.yacc as yacc
 import logging
 import lexer
 import sys
+from semantics import current, scope_and_vars
 
 tokens = lexer.tokens
 
@@ -48,9 +49,23 @@ def p_declarationsOpt(p):
 # <declaration>
 def p_declaration(p):
     '''declaration : type declarationB '''
+    current['type'] = p[1]
+    if current['scope'] is None:
+        scope_and_vars['global'][current['id']] = {
+                'type' : current['type'],
+                'dimensionsx': current['dimensionsx'],
+                'dimensionsy': current['dimensionsy']
+        }
+    else:
+        scope_and_vars[ current['scope']][current['id']] = {
+                'type' : current['type'],
+                'dimensionsx': current['dimensionsx'],
+                'dimensionsy': current['dimensionsy']
+        }
 
 def p_declarationB(p):
     '''declarationB : ID dimensionsOpt declarationC  '''
+    current['id'] = p[1]
 
 def p_declarationC(p):
     '''declarationC : '=' superexpression declarationD
