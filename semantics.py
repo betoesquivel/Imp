@@ -4,7 +4,8 @@ import pprint
 pp = pprint.PrettyPrinter()
 
 errors = {
-        'REPEATED_DECLARATION': 'Repeated declaration found at: '
+        'REPEATED_DECLARATION': 'Repeated declaration found at: ',
+        'UNDECLARED_VARIABLE': 'Undeclared variable {0} found at line: {1} '
 }
 
 current = {
@@ -16,49 +17,63 @@ current = {
     'params':[]
 }
 
-scopes_and_vars = {
+func_dict = {}
+
+var_dict = {
     'global' : {
-        'vars' : {}
      },
-    'main' : {
-        'vars' : {}
+    'local' : {
     }
 }
+
+example_function = {
+    'type' : 'void',
+    'params' : [] # list of types
+}
+
 
 def print_current():
     print "\nCURRENT"
     pp.pprint(current)
 
 
-def print_full_dict():
-    print "\nSCOPES AND VARS"
-    pp.pprint(scopes_and_vars)
+def print_var_dict():
+    print "\nVAR DICT"
+    pp.pprint(var_dict)
+
+def print_func_dict():
+    print "\nFUNC DICT"
+    pp.pprint(func_dict)
 
 
 def var_exists_in_dict(vscope, vid):
-    if scopes_and_vars[ current['scope'] ]['vars'].get(current['id']) is None:
-        if scopes_and_vars['global']['vars'].get(current['id']) is None:
-            return False
-        else:
-            return True
-    else:
+    if vid in var_dict[vscope]:
         return True
+    else:
+        if vid in var_dict['global']:
+            return True
+        else:
+            return False
+
+def func_exists_in_dict(fid):
+    if fid in func_dict:
+        return True
+    else:
+        return False
 
 
-
-def add_function_to_dict(fid, ftype, fparams):
-    scopes_and_vars[fid] = {
+def add_func_to_dict(fid, ftype, fparams):
+    func_dict[fid] = {
         'type' : ftype,
-        'params' : fparams,
-        'vars' : {}
+        'params' : fparams
     }
 
 
-def add_var_to_scope(vscope, vid, vtype, vdimensionx, vdimensiony):
-    scopes_and_vars[vscope]['vars'][vid] = {
-        'type' : vtype,
-        'dimensionx' : vdimensionx,
-        'dimensiony' : vdimensiony
+def add_var_to_dict(vscope, vid, vtype, vdimensionx, vdimensiony):
+    var_dict[vscope][vid] = {
+            'type' : vtype,
+            'dimensionx' : vdimensionx,
+            'dimensiony' : vdimensiony
     }
 
 
@@ -72,3 +87,5 @@ def clear_current():
         'dimensiony': 0
     }
 
+def clear_local():
+    var_dict['local'].clear()

@@ -17,7 +17,7 @@ main () {
       cont2 = cont2 + 1;
   }
   #forgetdecision
-  for (cont=0; cont<cont2; cont+1) {
+  for (cont3=0; cont<cont2; cont+1) {
     print("contador= ", cont);
   } print(miFunc(), sum(cont,cont2));
 

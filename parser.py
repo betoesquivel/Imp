@@ -3,7 +3,7 @@ import ply.yacc as yacc
 import logging
 import lexer
 import sys
-from semantics import current, scopes_and_vars, add_var_to_scope, add_function_to_dict, var_exists_in_dict, print_current, print_full_dict, errors
+from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local
 
 tokens = lexer.tokens
 
@@ -48,20 +48,17 @@ def p_declarationsOpt(p):
 
 # <declaration>
 def p_declaration(p):
-    '''declaration : type declarationB '''
-    current['type'] = p[1]
+    '''declaration : type declarationB declarationC'''
 
 def p_declarationB(p):
-    '''declarationB : ID dimensionsOpt declarationC  '''
+    '''declarationB : ID dimensionsOpt '''
     current['id'] = p[1]
-    print_current()
-    print_full_dict()
 
     if var_exists_in_dict(current['scope'], current['id']):
         print errors['REPEATED_DECLARATION']
         exit(1)
     else:
-        add_var_to_scope(
+        add_var_to_dict(
                 current['scope'],
                 current['id'],
                 current['type'],
@@ -73,11 +70,16 @@ def p_declarationB(p):
 
 def p_declarationC(p):
     '''declarationC : '=' superexpression declarationD
-                    | ',' declarationB
+                    | ',' declarationB declarationC
                     | ';' '''
+    if p[1] == ';':
+        clear_current()
+    elif p[1] == ',':
+        current['dimensionx'] = 0
+        current['dimensiony'] = 0
 
 def p_declarationD(p):
-    '''declarationD : ',' declarationB
+    '''declarationD : ',' declarationB declarationC
                     | ';' '''
 
 # <main>
@@ -106,6 +108,10 @@ def p_instructionsOpt(p):
 # <assign>
 def p_assign(p):
     '''assign : ID dimensionsOpt '=' superexpression'''
+    current['id'] = p[1]
+    if not var_exists_in_dict(current['scope'], current['id']):
+        print errors['UNDECLARED_VARIABLE'].format(p[1], p.lineno(1))
+        exit(1)
 
 def p_assignB(p):
     '''assignB : dimensionsOpt '=' superexpression'''
@@ -113,6 +119,7 @@ def p_assignB(p):
 def p_dimensionsOpt(p):
     '''dimensionsOpt : dimensions
                      | empty'''
+
 
 # <condition>
 def p_condition(p):
@@ -225,7 +232,7 @@ def p_type(p):
             | FLOAT
             | STRING
             | BOOL'''
-    p[0] = p[1]
+    current['type'] = p[1]
 
 # <returntype>
 def p_returntype(p):
