@@ -3,7 +3,7 @@ import ply.yacc as yacc
 import logging
 import lexer
 import sys
-from semantics import current, scope_and_vars
+from semantics import current, scope_and_vars, add_var_to_scope, add_function_to_dict, var_exists_in_dict
 
 tokens = lexer.tokens
 
@@ -50,18 +50,6 @@ def p_declarationsOpt(p):
 def p_declaration(p):
     '''declaration : type declarationB '''
     current['type'] = p[1]
-    if current['scope'] is None:
-        scope_and_vars['global'][current['id']] = {
-                'type' : current['type'],
-                'dimensionsx': current['dimensionsx'],
-                'dimensionsy': current['dimensionsy']
-        }
-    else:
-        scope_and_vars[ current['scope']][current['id']] = {
-                'type' : current['type'],
-                'dimensionsx': current['dimensionsx'],
-                'dimensionsy': current['dimensionsy']
-        }
 
 def p_declarationB(p):
     '''declarationB : ID dimensionsOpt declarationC  '''
@@ -71,6 +59,19 @@ def p_declarationC(p):
     '''declarationC : '=' superexpression declarationD
                     | ',' declarationB
                     | ';' '''
+    if var_exists_in_dict(current['scope'], current['id']):
+        print errors['REPEATED_DECLARATION']
+        exit(1)
+    else:
+        add_var_to_scope(
+                current['scope'],
+                current['id'],
+                current['type'],
+                current['dimensionx'],
+                current['dimensiony']
+        )
+        current['dimensionx'] = 0
+        current['dimensiony'] = 0
 
 def p_declarationD(p):
     '''declarationD : ',' declarationB
@@ -108,7 +109,7 @@ def p_assignB(p):
 
 def p_dimensionsOpt(p):
     '''dimensionsOpt : dimensions
-                    | empty'''
+                     | empty'''
 
 # <condition>
 def p_condition(p):
@@ -221,6 +222,7 @@ def p_type(p):
             | FLOAT
             | STRING
             | BOOL'''
+    p[0] = p[1]
 
 # <returntype>
 def p_returntype(p):
@@ -283,9 +285,12 @@ def p_funccallC(p):
 # <dimensions>
 def p_dimensions(p):
     '''dimensions : '[' superexpression ']' dimensionsB '''
+    current['dimensionx'] = 1
 
 def p_dimensionsB(p):
-    '''dimensionsB : '[' superexpression ']' '''
+    '''dimensionsB : '[' superexpression ']'
+                   | empty '''
+    current['dimensiony'] = ( 1 if p[1] == '[' else 0 )
 
 # <return>
 def p_return(p):
