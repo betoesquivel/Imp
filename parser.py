@@ -3,7 +3,7 @@ import ply.yacc as yacc
 import logging
 import lexer
 import sys
-from semantics import current, scopes_and_vars, add_var_to_scope, add_function_to_dict, var_exists_in_dict
+from semantics import current, scopes_and_vars, add_var_to_scope, add_function_to_dict, var_exists_in_dict, print_current, print_full_dict, errors
 
 tokens = lexer.tokens
 
@@ -54,11 +54,9 @@ def p_declaration(p):
 def p_declarationB(p):
     '''declarationB : ID dimensionsOpt declarationC  '''
     current['id'] = p[1]
+    print_current()
+    print_full_dict()
 
-def p_declarationC(p):
-    '''declarationC : '=' superexpression declarationD
-                    | ',' declarationB
-                    | ';' '''
     if var_exists_in_dict(current['scope'], current['id']):
         print errors['REPEATED_DECLARATION']
         exit(1)
@@ -72,6 +70,11 @@ def p_declarationC(p):
         )
         current['dimensionx'] = 0
         current['dimensiony'] = 0
+
+def p_declarationC(p):
+    '''declarationC : '=' superexpression declarationD
+                    | ',' declarationB
+                    | ';' '''
 
 def p_declarationD(p):
     '''declarationD : ',' declarationB
@@ -245,7 +248,7 @@ def p_output(p):
     '''output : PRINT '(' outputB '''
 
 def p_outputB(p):
-    '''outputB : STRING outputC
+    '''outputB : SCONST outputC
                | superexpression outputC'''
 
 def p_outputC(p):
@@ -262,7 +265,7 @@ def p_localvardirectiveB(p):
 
 # <localmsgdirective>
 def p_localmsgdirective(p):
-    '''localmsgdirective : '#' SHOW STRING'''
+    '''localmsgdirective : '#' SHOW SCONST'''
 
 # <localdecisiondirective>
 def p_localdecisiondirective(p):

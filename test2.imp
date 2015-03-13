@@ -2,6 +2,7 @@
 
 def void algo() {
   int a = b + a;
+  int a = 23;
 }
 
 main() {

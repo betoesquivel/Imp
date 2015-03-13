@@ -1,4 +1,7 @@
 #!env/bin/python
+import pprint
+
+pp = pprint.PrettyPrinter()
 
 errors = {
         'REPEATED_DECLARATION': 'Repeated declaration found at: '
@@ -22,9 +25,19 @@ scopes_and_vars = {
     }
 }
 
+def print_current():
+    print "\nCURRENT"
+    pp.pprint(current)
+
+
+def print_full_dict():
+    print "\nSCOPES AND VARS"
+    pp.pprint(scopes_and_vars)
+
+
 def var_exists_in_dict(vscope, vid):
-    if scopes_and_vars[current['scope']].get(current['id']) is None:
-        if scopes_and_vars['global'].get(current['id']) is None:
+    if scopes_and_vars[ current['scope'] ]['vars'].get(current['id']) is None:
+        if scopes_and_vars['global']['vars'].get(current['id']) is None:
             return False
         else:
             return True

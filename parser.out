@@ -101,14 +101,14 @@ Rule 95    input -> INPUT ( ID inputB )
 Rule 96    inputB -> , ID inputB
 Rule 97    inputB -> empty
 Rule 98    output -> PRINT ( outputB
-Rule 99    outputB -> STRING outputC
+Rule 99    outputB -> SCONST outputC
 Rule 100   outputB -> superexpression outputC
 Rule 101   outputC -> )
 Rule 102   outputC -> , outputB
 Rule 103   localvardirective -> # localvardirectiveB ID
 Rule 104   localvardirectiveB -> TRACK
 Rule 105   localvardirectiveB -> FORGET
-Rule 106   localmsgdirective -> # SHOW STRING
+Rule 106   localmsgdirective -> # SHOW SCONST
 Rule 107   localdecisiondirective -> TRACKDECISION
 Rule 108   localdecisiondirective -> FORGETDECISION
 Rule 109   localdecisiondirective -> empty
@@ -164,9 +164,10 @@ NO                   : 12
 NONE                 : 10
 PRINT                : 98
 RETURN               : 118
+SCONST               : 99 106
 SHOW                 : 106
 SOME                 : 7
-STRING               : 90 99 106
+STRING               : 90
 TRACK                : 104
 TRACKDECISION        : 107
 TRUE                 : 83
@@ -820,7 +821,7 @@ state 41
     (107) localdecisiondirective -> . TRACKDECISION
     (108) localdecisiondirective -> . FORGETDECISION
     (109) localdecisiondirective -> . empty
-    (106) localmsgdirective -> . # SHOW STRING
+    (106) localmsgdirective -> . # SHOW SCONST
 
   ! shift/reduce conflict for ID resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
@@ -1098,15 +1099,15 @@ state 56
 state 57
 
     (103) localvardirective -> # . localvardirectiveB ID
-    (106) localmsgdirective -> # . SHOW STRING
+    (106) localmsgdirective -> # . SHOW SCONST
     (104) localvardirectiveB -> . TRACK
     (105) localvardirectiveB -> . FORGET
 
-    SHOW            shift and go to state 100
-    TRACK           shift and go to state 101
-    FORGET          shift and go to state 103
+    SHOW            shift and go to state 101
+    TRACK           shift and go to state 102
+    FORGET          shift and go to state 100
 
-    localvardirectiveB             shift and go to state 102
+    localvardirectiveB             shift and go to state 103
 
 state 58
 
@@ -1377,7 +1378,7 @@ state 73
     (107) localdecisiondirective -> . TRACKDECISION
     (108) localdecisiondirective -> . FORGETDECISION
     (109) localdecisiondirective -> . empty
-    (106) localmsgdirective -> . # SHOW STRING
+    (106) localmsgdirective -> . # SHOW SCONST
 
   ! shift/reduce conflict for ID resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
@@ -1904,7 +1905,7 @@ state 98
 state 99
 
     (98) output -> PRINT ( . outputB
-    (99) outputB -> . STRING outputC
+    (99) outputB -> . SCONST outputC
     (100) outputB -> . superexpression outputC
     (55) superexpression -> . expression superexpressionB
     (59) expression -> . exp expressionB
@@ -1921,7 +1922,7 @@ state 99
     (86) sign -> . -
     (122) empty -> .
 
-    STRING          shift and go to state 147
+    SCONST          shift and go to state 147
     (               shift and go to state 84
     ID              shift and go to state 91
     +               shift and go to state 85
@@ -1944,30 +1945,30 @@ state 99
 
 state 100
 
-    (106) localmsgdirective -> # SHOW . STRING
+    (105) localvardirectiveB -> FORGET .
 
-    STRING          shift and go to state 150
+    ID              reduce using rule 105 (localvardirectiveB -> FORGET .)
 
 
 state 101
+
+    (106) localmsgdirective -> # SHOW . SCONST
+
+    SCONST          shift and go to state 150
+
+
+state 102
 
     (104) localvardirectiveB -> TRACK .
 
     ID              reduce using rule 104 (localvardirectiveB -> TRACK .)
 
 
-state 102
+state 103
 
     (103) localvardirective -> # localvardirectiveB . ID
 
     ID              shift and go to state 151
-
-
-state 103
-
-    (105) localvardirectiveB -> FORGET .
-
-    ID              reduce using rule 105 (localvardirectiveB -> FORGET .)
 
 
 state 104
@@ -2770,7 +2771,7 @@ state 146
 
 state 147
 
-    (99) outputB -> STRING . outputC
+    (99) outputB -> SCONST . outputC
     (101) outputC -> . )
     (102) outputC -> . , outputB
 
@@ -2799,23 +2800,23 @@ state 149
 
 state 150
 
-    (106) localmsgdirective -> # SHOW STRING .
+    (106) localmsgdirective -> # SHOW SCONST .
 
-    ID              reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
-    PRINT           reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
-    RETURN          reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
-    INPUT           reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
-    IF              reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
-    WHILE           reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
-    FOR             reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
-    INT             reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
-    FLOAT           reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
-    STRING          reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
-    BOOL            reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
-    #               reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
-    TRACKDECISION   reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
-    FORGETDECISION  reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
-    }               reduce using rule 106 (localmsgdirective -> # SHOW STRING .)
+    ID              reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
+    PRINT           reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
+    RETURN          reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
+    INPUT           reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
+    IF              reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
+    WHILE           reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
+    FOR             reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
+    INT             reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
+    FLOAT           reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
+    STRING          reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
+    BOOL            reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
+    #               reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
+    TRACKDECISION   reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
+    FORGETDECISION  reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
+    }               reduce using rule 106 (localmsgdirective -> # SHOW SCONST .)
 
 
 state 151
@@ -3463,15 +3464,15 @@ state 185
 
 state 186
 
-    (99) outputB -> STRING outputC .
+    (99) outputB -> SCONST outputC .
 
-    ;               reduce using rule 99 (outputB -> STRING outputC .)
+    ;               reduce using rule 99 (outputB -> SCONST outputC .)
 
 
 state 187
 
     (102) outputC -> , . outputB
-    (99) outputB -> . STRING outputC
+    (99) outputB -> . SCONST outputC
     (100) outputB -> . superexpression outputC
     (55) superexpression -> . expression superexpressionB
     (59) expression -> . exp expressionB
@@ -3488,7 +3489,7 @@ state 187
     (86) sign -> . -
     (122) empty -> .
 
-    STRING          shift and go to state 147
+    SCONST          shift and go to state 147
     (               shift and go to state 84
     ID              shift and go to state 91
     +               shift and go to state 85

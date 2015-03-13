@@ -44,7 +44,7 @@ tokens = [
           # Decision directives
           'TRACKDECISION', 'FORGETDECISION',
           # Constantes
-          'STRING','ICONST','FCONST','ID'
+          'SCONST','ICONST','FCONST','ID'
 ] +  list(reserved.values())
 
 # non-terminals or tokens
@@ -53,7 +53,7 @@ t_DECISIONSCONFIG = r'\#decisions'
 t_COMPLEXITYCONFIG = r'\#complexity'
 t_TRACKDECISION = r'\#trackdecision'
 t_FORGETDECISION = r'\#forgetdecision'
-t_STRING = r'".*"'
+t_SCONST = r'".*"'
 t_ICONST = r'\d+'
 t_FCONST = r'\d+\.\d+'
 t_ignore = ' \t'
