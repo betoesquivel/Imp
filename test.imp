@@ -21,7 +21,6 @@ main () {
     print("contador= ", cont);
   } print(miFunc(), sum(cont,cont2));
 
-
 }
 
 def void miFunc() {

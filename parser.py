@@ -3,7 +3,7 @@ import ply.yacc as yacc
 import logging
 import lexer
 import sys
-from semantics import current, scope_and_vars, add_var_to_scope, add_function_to_dict, var_exists_in_dict
+from semantics import current, scopes_and_vars, add_var_to_scope, add_function_to_dict, var_exists_in_dict
 
 tokens = lexer.tokens
 

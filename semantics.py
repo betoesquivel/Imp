@@ -8,7 +8,7 @@ current = {
     'scope': 'global',
     'id': None,
     'dimensionx': 0,
-    'dimensinoy': 0,
+    'dimensiony': 0,
     'type': None,
     'params':[]
 }
