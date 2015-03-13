@@ -12,7 +12,8 @@ def void algo3() {
 }
 
 main() {
-  algo();
+  algo(8);
+  z = 3;
 }
 
 def int algo2() {

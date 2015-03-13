@@ -167,6 +167,9 @@ def p_assignfunccall(p):
         else:
             print errors['UNDECLARED_FUNCTION'].format(current['id'], p.lineno(1))
             exit(1)
+    else:
+        if not var_exists_in_dict(current['id']):
+            print errors['UNDECLARED_VARIABLE'].format(current['id'], p.lineno(1))
 
 
 
@@ -314,7 +317,7 @@ def p_funccall(p):
 def p_funccallB(p):
     '''funccallB : superexpression
                  | empty '''
-    if p[1] != ')' and p[1] is not None:
+    if  p[1] is not ')':
         current['params'].append(1)
 
 def p_funccallC(p):
