@@ -3,12 +3,12 @@
 int x = 8;
 int r = 1;
 
-def void algo(int r) {
+def void algo(int i, int e) {
   int a = b + a;
 }
 
-def void algo() {
-   return "YO MAMA"
+def void algo3() {
+   return "YO MAMA";
 }
 
 main() {

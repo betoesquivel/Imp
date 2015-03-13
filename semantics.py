@@ -4,9 +4,11 @@ import pprint
 pp = pprint.PrettyPrinter()
 
 errors = {
+        'PARAMETER_LENGTH_MISMATCH': 'Function {0} expects {1} parameters and received {2} parameters at line: {3} ',
         'REPEATED_DECLARATION': 'Repeated declaration of variable {0} found at line: {1} ',
         'REPEATED_FUNC_DECLARATION': 'Repeated declaration of function {0} found at line: {1} ',
-        'UNDECLARED_VARIABLE': 'Undeclared variable {0} found at line: {1} '
+        'UNDECLARED_VARIABLE': 'Undeclared variable {0} found at line: {1} ',
+        'UNDECLARED_FUNCTION': 'Undeclared function {0} found at line: {1} '
 }
 
 current = {
@@ -15,7 +17,8 @@ current = {
     'dimensionx': 0,
     'dimensiony': 0,
     'type': None,
-    'params':[]
+    'params':[],
+    'isfunc':False
 }
 
 func_dict = {}
@@ -79,14 +82,13 @@ def add_var_to_dict(vscope, vid, vtype, vdimensionx, vdimensiony):
 
 
 def clear_current():
-    current = {
-        'scope': 'global',
-        'id': None,
-        'type': None,
-        'params': [],
-        'dimensionx': 0,
-        'dimensiony': 0
-    }
+    current['id'] = None
+    current['scope'] = 'global'
+    current['type'] = None
+    current['params'] = []
+    current['dimensionx'] = 0
+    current['dimensiony'] = 0
+    current['isfunc'] = False
 
 def clear_local():
     var_dict['local'].clear()

@@ -3,7 +3,9 @@ import ply.yacc as yacc
 import logging
 import lexer
 import sys
-from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local
+from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local, var_dict, func_dict
+from copy import deepcopy
+
 
 tokens = lexer.tokens
 
@@ -101,7 +103,7 @@ def p_func(p):
         print errors['REPEATED_FUNC_DECLARATION'].format(current['id'], p.lineno(1))
         exit(1)
     else:
-        add_func_to_dict(current['id'], current['type'], current['params'])
+        add_func_to_dict(current['id'], current['type'], deepcopy(current['params']))
 
 def p_paramsOpt(p):
     '''paramsOpt : params paramsB
@@ -156,10 +158,23 @@ def p_instruction(p):
 # left factor the assign and funccall rules
 def p_assignfunccall(p):
     '''assignfunccall : ID assignfunccallB'''
+    current['id'] = p[1]
+    if current['isfunc']:
+        if func_exists_in_dict(current['id']):
+            if len(current['params']) != len(func_dict[ current['id'] ]['params']):
+                print errors['PARAMETER_LENGTH_MISMATCH'].format(current['id'], len(func_dict[ current['id'] ]['params']),len(current['params']), p.lineno(1))
+                exit(1)
+        else:
+            print errors['UNDECLARED_FUNCTION'].format(current['id'], p.lineno(1))
+            exit(1)
+
+
+
 
 def p_assignfunccallB(p):
-    '''assignfunccallB : '(' funccallB
+    '''assignfunccallB : '(' funccallB funccallC
                        | assignB'''
+    current['isfunc'] = True if p[1] == '(' else False
 
 # <localdirective>
 def p_localdirective(p):
@@ -224,6 +239,7 @@ def p_signB(p):
 def p_constant(p):
     '''constant : FCONST
                 | ICONST
+                | SCONST
                 | TRUE
                 | FALSE'''
 
@@ -293,14 +309,16 @@ def p_localdecisiondirective(p):
 
 # <funccall>
 def p_funccall(p):
-    '''funccall : ID '(' funccallB '''
+    '''funccall : ID '(' funccallB funccallC  '''
 
 def p_funccallB(p):
-    '''funccallB : superexpression funccallC
-                 | ')' '''
+    '''funccallB : superexpression
+                 | empty '''
+    if p[1] != ')' and p[1] is not None:
+        current['params'].append(1)
 
 def p_funccallC(p):
-    '''funccallC : ',' superexpression funccallC
+    '''funccallC : ',' funccallB funccallC
                  | ')' '''
 
 # <dimensions>
@@ -320,7 +338,7 @@ def p_return(p):
 # <params>
 def p_params(p):
     '''params : type ID '''
-    current['params'].append(p[1])
+    current['params'].append(current['type'])
     if var_exists_in_dict(current['scope'], p[2]):
         print errors['REPEATED_DECLARATION'].format(p[2], p.lineno(2))
         exit(1)
@@ -335,7 +353,7 @@ def p_empty(p):
     '''empty : '''
 
 def p_error(p):
-    print "Syntax error in input token {0} with value {1}, in line {2}".format(p.type, p.value, p.lineno(1))
+    print "Syntax error in input token {0} with value {1}, in line {2}".format(p.type, p.value, p.lineno)
     exit(1)
 
 parser = yacc.yacc()
