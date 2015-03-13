@@ -1,10 +1,10 @@
 #vars=SOME
 
 int x = 8;
+int r = 1;
 
-def void algo(int x) {
+def void algo(int r) {
   int a = b + a;
-  int a = 23;
 }
 
 def void algo() {

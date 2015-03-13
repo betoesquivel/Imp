@@ -55,7 +55,7 @@ def p_declarationB(p):
     current['id'] = p[1]
 
     if var_exists_in_dict(current['scope'], current['id']):
-        print errors['REPEATED_DECLARATION']
+        print errors['REPEATED_DECLARATION'].format(current['id'], p.lineno(1))
         exit(1)
     else:
         add_var_to_dict(
