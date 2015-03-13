@@ -308,7 +308,8 @@ def p_empty(p):
     '''empty : '''
 
 def p_error(p):
-    print "Syntax error in input {0} at char {1}".format(p.type, p.lexpos)
+    print "Syntax error in input token {0} with value {1}, in line {2}".format(p.type, p.value, p.lineno)
+    exit(1)
 
 parser = yacc.yacc()
 

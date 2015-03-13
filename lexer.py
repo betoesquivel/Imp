@@ -33,7 +33,8 @@ reserved = {
     'input'     : 'INPUT',
     'return'    : 'RETURN',
     'bool'      : 'BOOL',
-    'def'      : 'DEF'
+    'def'       : 'DEF',
+    'string'    : 'STRING'
 }
 
 
@@ -55,7 +56,7 @@ t_FORGETDECISION = r'\#forgetdecision'
 t_STRING = r'".*"'
 t_ICONST = r'\d+'
 t_FCONST = r'\d+\.\d+'
-t_ignore = ' \t\n\r'
+t_ignore = ' \t'
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
@@ -65,12 +66,12 @@ def t_ID(t):
 # gather line info
 def t_newline(t):
     r'\n+'
-    t.lineno += len(t.value)
+    t.lexer.lineno += len(t.value)
 
 # get error
 def t_error(t):
     if(t.value[0] != None):
-        print "Illegal character {0} in {1}. Line number: {2}".format( t.value[0] , t.value, t.lineno ),
+        print "Illegal character {0} in {1}. Line number: {2}".format( t.value[0] , t.value, t.lexer.lineno ),
         t.lexer.skip(1)
 
 
