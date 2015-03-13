@@ -30,7 +30,7 @@ Rule 24    declarationD -> ;
 Rule 25    main -> MAIN ( ) block
 Rule 26    suprafunc -> func block
 Rule 27    func -> DEF returntype ID ( paramsOpt )
-Rule 28    paramsOpt -> params
+Rule 28    paramsOpt -> params paramsB
 Rule 29    paramsOpt -> empty
 Rule 30    block -> { instructionsOpt }
 Rule 31    instructionsOpt -> instruction instructionsOpt
@@ -121,8 +121,8 @@ Rule 115   dimensions -> [ superexpression ] dimensionsB
 Rule 116   dimensionsB -> [ superexpression ]
 Rule 117   dimensionsB -> empty
 Rule 118   return -> RETURN superexpression
-Rule 119   params -> type ID paramsB
-Rule 120   paramsB -> , type ID paramsB
+Rule 119   params -> type ID
+Rule 120   paramsB -> , params paramsB
 Rule 121   paramsB -> empty
 Rule 122   empty -> <empty>
 
@@ -154,7 +154,7 @@ FOR                  : 94
 FORGET               : 105
 FORGETDECISION       : 108
 ICONST               : 82
-ID                   : 19 27 33 49 78 95 96 103 110 119 120
+ID                   : 19 27 33 49 78 95 96 103 110 119
 IF                   : 37
 INPUT                : 95
 INT                  : 88
@@ -230,8 +230,8 @@ optionsyesno         : 6
 output               : 41
 outputB              : 98 102
 outputC              : 99 100
-params               : 28
-paramsB              : 119 120
+params               : 28 120
+paramsB              : 28 120
 paramsOpt            : 27
 program              : 0
 return               : 42
@@ -243,7 +243,7 @@ superexpressionB     : 55
 suprafunc            : 14
 term                 : 67 72 73
 termB                : 71
-type                 : 18 93 119 120
+type                 : 18 93 119
 whileloop            : 46
 
 Parsing method: LALR
@@ -2194,9 +2194,9 @@ state 117
 state 118
 
     (27) func -> DEF returntype ID ( . paramsOpt )
-    (28) paramsOpt -> . params
+    (28) paramsOpt -> . params paramsB
     (29) paramsOpt -> . empty
-    (119) params -> . type ID paramsB
+    (119) params -> . type ID
     (122) empty -> .
     (88) type -> . INT
     (89) type -> . FLOAT
@@ -3019,10 +3019,16 @@ state 164
 
 state 165
 
-    (28) paramsOpt -> params .
+    (28) paramsOpt -> params . paramsB
+    (120) paramsB -> . , params paramsB
+    (121) paramsB -> . empty
+    (122) empty -> .
 
-    )               reduce using rule 28 (paramsOpt -> params .)
+    ,               shift and go to state 203
+    )               reduce using rule 122 (empty -> .)
 
+    paramsB                        shift and go to state 202
+    empty                          shift and go to state 204
 
 state 166
 
@@ -3033,9 +3039,9 @@ state 166
 
 state 167
 
-    (119) params -> type . ID paramsB
+    (119) params -> type . ID
 
-    ID              shift and go to state 202
+    ID              shift and go to state 205
 
 
 state 168
@@ -3102,7 +3108,7 @@ state 171
     ,               shift and go to state 46
     ;               shift and go to state 49
 
-    declarationC                   shift and go to state 203
+    declarationC                   shift and go to state 206
 
 state 172
 
@@ -3182,7 +3188,7 @@ state 175
     funccall                       shift and go to state 90
     signB                          shift and go to state 84
     sign                           shift and go to state 83
-    exp                            shift and go to state 204
+    exp                            shift and go to state 207
     factor                         shift and go to state 88
     empty                          shift and go to state 89
 
@@ -3227,7 +3233,7 @@ state 177
     funccall                       shift and go to state 90
     signB                          shift and go to state 84
     sign                           shift and go to state 83
-    exp                            shift and go to state 205
+    exp                            shift and go to state 208
     factor                         shift and go to state 88
     empty                          shift and go to state 89
 
@@ -3260,7 +3266,7 @@ state 178
     funccall                       shift and go to state 90
     signB                          shift and go to state 84
     sign                           shift and go to state 83
-    exp                            shift and go to state 206
+    exp                            shift and go to state 209
     factor                         shift and go to state 88
     empty                          shift and go to state 89
 
@@ -3305,7 +3311,7 @@ state 180
     funccall                       shift and go to state 90
     signB                          shift and go to state 84
     sign                           shift and go to state 83
-    exp                            shift and go to state 207
+    exp                            shift and go to state 210
     factor                         shift and go to state 88
     empty                          shift and go to state 89
 
@@ -3340,7 +3346,7 @@ state 181
     funccall                       shift and go to state 90
     signB                          shift and go to state 84
     sign                           shift and go to state 83
-    superexpression                shift and go to state 208
+    superexpression                shift and go to state 211
     exp                            shift and go to state 94
     factor                         shift and go to state 88
     expression                     shift and go to state 95
@@ -3377,7 +3383,7 @@ state 182
     funccall                       shift and go to state 90
     signB                          shift and go to state 84
     sign                           shift and go to state 83
-    superexpression                shift and go to state 209
+    superexpression                shift and go to state 212
     exp                            shift and go to state 94
     factor                         shift and go to state 88
     expression                     shift and go to state 95
@@ -3433,7 +3439,7 @@ state 184
     funccall                       shift and go to state 90
     signB                          shift and go to state 84
     sign                           shift and go to state 83
-    superexpression                shift and go to state 210
+    superexpression                shift and go to state 213
     exp                            shift and go to state 94
     factor                         shift and go to state 88
     expression                     shift and go to state 95
@@ -3465,7 +3471,7 @@ state 186
 
     {               shift and go to state 41
 
-    block                          shift and go to state 211
+    block                          shift and go to state 214
 
 state 187
 
@@ -3518,7 +3524,7 @@ state 189
     sign                           shift and go to state 83
     superexpression                shift and go to state 152
     exp                            shift and go to state 94
-    outputB                        shift and go to state 212
+    outputB                        shift and go to state 215
     expression                     shift and go to state 95
     empty                          shift and go to state 89
 
@@ -3533,7 +3539,7 @@ state 191
 
     (33) assign -> ID dimensionsOpt . = superexpression
 
-    =               shift and go to state 213
+    =               shift and go to state 216
 
 
 state 192
@@ -3567,7 +3573,7 @@ state 192
     funccall                       shift and go to state 90
     signB                          shift and go to state 84
     sign                           shift and go to state 83
-    superexpression                shift and go to state 214
+    superexpression                shift and go to state 217
     empty                          shift and go to state 89
     exp                            shift and go to state 94
     factor                         shift and go to state 88
@@ -3577,14 +3583,14 @@ state 193
 
     (96) inputB -> , . ID inputB
 
-    ID              shift and go to state 215
+    ID              shift and go to state 218
 
 
 state 194
 
     (95) input -> INPUT ( ID inputB . )
 
-    )               shift and go to state 216
+    )               shift and go to state 219
 
 
 state 195
@@ -3663,7 +3669,7 @@ state 198
     funccall                       shift and go to state 90
     signB                          shift and go to state 84
     sign                           shift and go to state 83
-    superexpression                shift and go to state 217
+    superexpression                shift and go to state 220
     exp                            shift and go to state 94
     factor                         shift and go to state 88
     expression                     shift and go to state 95
@@ -3683,7 +3689,7 @@ state 200
 
     {               shift and go to state 41
 
-    block                          shift and go to state 218
+    block                          shift and go to state 221
 
 state 201
 
@@ -3694,18 +3700,44 @@ state 201
 
 state 202
 
-    (119) params -> type ID . paramsB
-    (120) paramsB -> . , type ID paramsB
-    (121) paramsB -> . empty
-    (122) empty -> .
+    (28) paramsOpt -> params paramsB .
 
-    ,               shift and go to state 221
-    )               reduce using rule 122 (empty -> .)
+    )               reduce using rule 28 (paramsOpt -> params paramsB .)
 
-    paramsB                        shift and go to state 219
-    empty                          shift and go to state 220
 
 state 203
+
+    (120) paramsB -> , . params paramsB
+    (119) params -> . type ID
+    (88) type -> . INT
+    (89) type -> . FLOAT
+    (90) type -> . STRING
+    (91) type -> . BOOL
+
+    INT             shift and go to state 15
+    FLOAT           shift and go to state 17
+    STRING          shift and go to state 14
+    BOOL            shift and go to state 18
+
+    type                           shift and go to state 167
+    params                         shift and go to state 222
+
+state 204
+
+    (121) paramsB -> empty .
+
+    )               reduce using rule 121 (paramsB -> empty .)
+
+
+state 205
+
+    (119) params -> type ID .
+
+    ,               reduce using rule 119 (params -> type ID .)
+    )               reduce using rule 119 (params -> type ID .)
+
+
+state 206
 
     (23) declarationD -> , declarationB declarationC .
 
@@ -3728,7 +3760,7 @@ state 203
     }               reduce using rule 23 (declarationD -> , declarationB declarationC .)
 
 
-state 204
+state 207
 
     (63) expressionB -> = = exp .
 
@@ -3740,7 +3772,7 @@ state 204
     )               reduce using rule 63 (expressionB -> = = exp .)
 
 
-state 205
+state 208
 
     (64) expressionB -> < = exp .
 
@@ -3752,7 +3784,7 @@ state 205
     )               reduce using rule 64 (expressionB -> < = exp .)
 
 
-state 206
+state 209
 
     (62) expressionB -> < > exp .
 
@@ -3764,7 +3796,7 @@ state 206
     )               reduce using rule 62 (expressionB -> < > exp .)
 
 
-state 207
+state 210
 
     (65) expressionB -> > = exp .
 
@@ -3776,7 +3808,7 @@ state 207
     )               reduce using rule 65 (expressionB -> > = exp .)
 
 
-state 208
+state 211
 
     (56) superexpressionB -> & & superexpression .
 
@@ -3786,7 +3818,7 @@ state 208
     )               reduce using rule 56 (superexpressionB -> & & superexpression .)
 
 
-state 209
+state 212
 
     (57) superexpressionB -> | | superexpression .
 
@@ -3796,14 +3828,14 @@ state 209
     )               reduce using rule 57 (superexpressionB -> | | superexpression .)
 
 
-state 210
+state 213
 
     (116) dimensionsB -> [ superexpression . ]
 
-    ]               shift and go to state 222
+    ]               shift and go to state 223
 
 
-state 211
+state 214
 
     (87) whileloop -> WHILE ( superexpression ) block .
 
@@ -3824,14 +3856,14 @@ state 211
     }               reduce using rule 87 (whileloop -> WHILE ( superexpression ) block .)
 
 
-state 212
+state 215
 
     (102) outputC -> , outputB .
 
     ;               reduce using rule 102 (outputC -> , outputB .)
 
 
-state 213
+state 216
 
     (33) assign -> ID dimensionsOpt = . superexpression
     (55) superexpression -> . expression superexpressionB
@@ -3862,20 +3894,20 @@ state 213
     funccall                       shift and go to state 90
     signB                          shift and go to state 84
     sign                           shift and go to state 83
-    superexpression                shift and go to state 223
+    superexpression                shift and go to state 224
     exp                            shift and go to state 94
     factor                         shift and go to state 88
     expression                     shift and go to state 95
     empty                          shift and go to state 89
 
-state 214
+state 217
 
     (94) forloop -> FOR ( assign ; superexpression . ; superexpression ) block
 
-    ;               shift and go to state 224
+    ;               shift and go to state 225
 
 
-state 215
+state 218
 
     (96) inputB -> , ID . inputB
     (96) inputB -> . , ID inputB
@@ -3885,17 +3917,17 @@ state 215
     ,               shift and go to state 193
     )               reduce using rule 122 (empty -> .)
 
-    inputB                         shift and go to state 225
+    inputB                         shift and go to state 226
     empty                          shift and go to state 195
 
-state 216
+state 219
 
     (95) input -> INPUT ( ID inputB ) .
 
     ;               reduce using rule 95 (input -> INPUT ( ID inputB ) .)
 
 
-state 217
+state 220
 
     (113) funccallC -> , superexpression . funccallC
     (113) funccallC -> . , superexpression funccallC
@@ -3904,16 +3936,16 @@ state 217
     ,               shift and go to state 198
     )               shift and go to state 197
 
-    funccallC                      shift and go to state 226
+    funccallC                      shift and go to state 227
 
-state 218
+state 221
 
     (37) condition -> IF ( superexpression ) block . else
     (38) else -> . ELSE block
     (39) else -> . empty
     (122) empty -> .
 
-    ELSE            shift and go to state 229
+    ELSE            shift and go to state 230
     ID              reduce using rule 122 (empty -> .)
     PRINT           reduce using rule 122 (empty -> .)
     RETURN          reduce using rule 122 (empty -> .)
@@ -3930,39 +3962,23 @@ state 218
     FORGETDECISION  reduce using rule 122 (empty -> .)
     }               reduce using rule 122 (empty -> .)
 
-    empty                          shift and go to state 228
-    else                           shift and go to state 227
-
-state 219
-
-    (119) params -> type ID paramsB .
-
-    )               reduce using rule 119 (params -> type ID paramsB .)
-
-
-state 220
-
-    (121) paramsB -> empty .
-
-    )               reduce using rule 121 (paramsB -> empty .)
-
-
-state 221
-
-    (120) paramsB -> , . type ID paramsB
-    (88) type -> . INT
-    (89) type -> . FLOAT
-    (90) type -> . STRING
-    (91) type -> . BOOL
-
-    INT             shift and go to state 15
-    FLOAT           shift and go to state 17
-    STRING          shift and go to state 14
-    BOOL            shift and go to state 18
-
-    type                           shift and go to state 230
+    empty                          shift and go to state 229
+    else                           shift and go to state 228
 
 state 222
+
+    (120) paramsB -> , params . paramsB
+    (120) paramsB -> . , params paramsB
+    (121) paramsB -> . empty
+    (122) empty -> .
+
+    ,               shift and go to state 203
+    )               reduce using rule 122 (empty -> .)
+
+    paramsB                        shift and go to state 231
+    empty                          shift and go to state 204
+
+state 223
 
     (116) dimensionsB -> [ superexpression ] .
 
@@ -3981,14 +3997,14 @@ state 222
     )               reduce using rule 116 (dimensionsB -> [ superexpression ] .)
 
 
-state 223
+state 224
 
     (33) assign -> ID dimensionsOpt = superexpression .
 
     ;               reduce using rule 33 (assign -> ID dimensionsOpt = superexpression .)
 
 
-state 224
+state 225
 
     (94) forloop -> FOR ( assign ; superexpression ; . superexpression ) block
     (55) superexpression -> . expression superexpressionB
@@ -4019,20 +4035,20 @@ state 224
     funccall                       shift and go to state 90
     signB                          shift and go to state 84
     sign                           shift and go to state 83
-    superexpression                shift and go to state 231
+    superexpression                shift and go to state 232
     empty                          shift and go to state 89
     exp                            shift and go to state 94
     factor                         shift and go to state 88
     expression                     shift and go to state 95
 
-state 225
+state 226
 
     (96) inputB -> , ID inputB .
 
     )               reduce using rule 96 (inputB -> , ID inputB .)
 
 
-state 226
+state 227
 
     (113) funccallC -> , superexpression funccallC .
 
@@ -4051,7 +4067,7 @@ state 226
     )               reduce using rule 113 (funccallC -> , superexpression funccallC .)
 
 
-state 227
+state 228
 
     (37) condition -> IF ( superexpression ) block else .
 
@@ -4072,7 +4088,7 @@ state 227
     }               reduce using rule 37 (condition -> IF ( superexpression ) block else .)
 
 
-state 228
+state 229
 
     (39) else -> empty .
 
@@ -4093,30 +4109,30 @@ state 228
     }               reduce using rule 39 (else -> empty .)
 
 
-state 229
+state 230
 
     (38) else -> ELSE . block
     (30) block -> . { instructionsOpt }
 
     {               shift and go to state 41
 
-    block                          shift and go to state 232
-
-state 230
-
-    (120) paramsB -> , type . ID paramsB
-
-    ID              shift and go to state 233
-
+    block                          shift and go to state 233
 
 state 231
+
+    (120) paramsB -> , params paramsB .
+
+    )               reduce using rule 120 (paramsB -> , params paramsB .)
+
+
+state 232
 
     (94) forloop -> FOR ( assign ; superexpression ; superexpression . ) block
 
     )               shift and go to state 234
 
 
-state 232
+state 233
 
     (38) else -> ELSE block .
 
@@ -4137,19 +4153,6 @@ state 232
     }               reduce using rule 38 (else -> ELSE block .)
 
 
-state 233
-
-    (120) paramsB -> , type ID . paramsB
-    (120) paramsB -> . , type ID paramsB
-    (121) paramsB -> . empty
-    (122) empty -> .
-
-    ,               shift and go to state 221
-    )               reduce using rule 122 (empty -> .)
-
-    paramsB                        shift and go to state 235
-    empty                          shift and go to state 220
-
 state 234
 
     (94) forloop -> FOR ( assign ; superexpression ; superexpression ) . block
@@ -4157,16 +4160,9 @@ state 234
 
     {               shift and go to state 41
 
-    block                          shift and go to state 236
+    block                          shift and go to state 235
 
 state 235
-
-    (120) paramsB -> , type ID paramsB .
-
-    )               reduce using rule 120 (paramsB -> , type ID paramsB .)
-
-
-state 236
 
     (94) forloop -> FOR ( assign ; superexpression ; superexpression ) block .
 

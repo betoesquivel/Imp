@@ -89,12 +89,22 @@ def p_main(p):
 # <func>
 def p_suprafunc(p):
     '''suprafunc : func block'''
+    clear_current()
+    clear_local()
 
 def p_func(p):
     '''func : DEF returntype ID '(' paramsOpt ')' '''
+    current['id'] = p[3]
+    current['scope'] = 'local'
+    current['type'] = p[2]
+    if func_exists_in_dict(current['id']):
+        print errors['REPEATED_FUNC_DECLARATION'].format(current['id'], p.lineno(1))
+        exit(1)
+    else:
+        add_func_to_dict(current['id'], current['type'], current['params'])
 
 def p_paramsOpt(p):
-    '''paramsOpt : params
+    '''paramsOpt : params paramsB
                  | empty'''
 
 # <block>
@@ -238,6 +248,7 @@ def p_type(p):
 def p_returntype(p):
     '''returntype : VOID
                   | type'''
+    current['type'] = p[1]
 
 # <forloop>
 def p_forloop(p):
@@ -308,17 +319,23 @@ def p_return(p):
 
 # <params>
 def p_params(p):
-    '''params : type ID paramsB'''
+    '''params : type ID '''
+    current['params'].append(p[1])
+    if var_exists_in_dict(current['scope'], p[2]):
+        print errors['REPEATED_DECLARATION'].format(p[2], p.lineno(2))
+        exit(1)
+    else:
+        add_var_to_dict(current['scope'], p[2], p[1], 0, 0)
 
 def p_paramsB(p):
-    '''paramsB : ',' type ID paramsB
+    '''paramsB : ',' params paramsB
                | empty'''
 
 def p_empty(p):
     '''empty : '''
 
 def p_error(p):
-    print "Syntax error in input token {0} with value {1}, in line {2}".format(p.type, p.value, p.lineno)
+    print "Syntax error in input token {0} with value {1}, in line {2}".format(p.type, p.value, p.lineno(1))
     exit(1)
 
 parser = yacc.yacc()

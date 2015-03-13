@@ -3,7 +3,7 @@
 
 int cont = 0, cont2 = 1;
 
-def int sum(float a, float b) {
+def int sum(float a, float b ) {
 
   return a+b;
 
@@ -17,13 +17,13 @@ main () {
       cont2 = cont2 + 1;
   }
   #forgetdecision
-  for (cont3=0; cont<cont2; cont+1) {
+  for (cont2=0; cont<cont2; cont+1) {
     print("contador= ", cont);
   } print(miFunc(), sum(cont,cont2));
 
 }
 
-def void miFunc() {
+def void miFunc(int cont2) {
 
   sum(1, 2);
   sum(3, -3);

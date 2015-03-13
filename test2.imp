@@ -1,8 +1,14 @@
 #vars=SOME
 
-def void algo() {
+int x = 8;
+
+def void algo(int x) {
   int a = b + a;
   int a = 23;
+}
+
+def void algo() {
+   return "YO MAMA"
 }
 
 main() {
