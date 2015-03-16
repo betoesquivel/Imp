@@ -284,17 +284,6 @@ def p_seen_ID(p):
         p[0] = ""
 
 
-    switch = {
-				'-': 4,
-                '+': 5,
-                '(': 6,
-                '': 7,
-                '>=': 8,
-                '<>': 9 }
-                                    
-buscar en diccionario (switch[p[1]])
-
-
 def p_signB(p):
     '''signB : sign
              | empty'''
