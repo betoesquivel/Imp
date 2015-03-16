@@ -35,6 +35,158 @@ example_function = {
     'params' : [] # list of types
 }
 
+semantics_cube = {
+    # logical operators
+    ('int', 'log', 'int') : 'bool',
+    ('int', 'log', 'bool') : 'bool',
+    ('int', 'log', 'float') : 'bool',
+    ('int', 'log', 'string') : 'bool',
+    ('int', 'log', 'char') : 'bool',
+    ('bool', 'log', 'float') : 'bool',
+    ('bool', 'log', 'char') : 'bool',
+    ('bool', 'log', 'string') : 'bool',
+    ('bool', 'log', 'bool') : 'bool',
+    ('char', 'log', 'float') : 'bool',
+    ('char', 'log', 'string') : 'bool',
+    ('char', 'log', 'char') : 'bool',
+    ('string', 'log', 'float') : 'bool',
+    ('string', 'log', 'string') : 'bool',
+    ('float', 'log', 'float') : 'bool',
+
+    # comparators
+    ('int', 'comp', 'int') : 'bool',
+   #('int', 'comp', 'string') : 'bool',
+    ('int', 'comp', 'char') : 'bool',
+    ('int', 'comp', 'bool') : 'bool',
+    ('int', 'comp', 'float') : 'bool',
+
+    ('float', 'comp', 'float') : 'bool',
+
+    ('bool', 'comp', 'bool') : 'bool',
+
+    ('char', 'comp', 'char') : 'bool',
+    ('char', 'comp', 'bool') : 'bool',
+    ('char', 'comp', 'float') : 'bool',
+   #('string', 'comp', 'string') : 'bool',
+
+    # int with ___
+    ('int', '+', 'int') : 'int',
+    ('int', '+', 'string') : 'string',
+    ('int', '+', 'char') : 'int',
+    ('int', '+', 'bool') : 'int',
+    ('int', '+', 'float') : 'float',
+
+    ('int', '-', 'int') : 'int',
+   #('int', '-', 'string') : 'string',
+    ('int', '-', 'char') : 'int',
+    ('int', '-', 'bool') : 'int',
+    ('int', '-', 'float') : 'float',
+
+    ('int', '*', 'int') : 'int',
+   #('int', '*', 'string') : 'string',
+    ('int', '*', 'char') : 'int',
+   #('int', '*', 'bool') : 'int',
+    ('int', '*', 'float') : 'float',
+
+    ('int', '/', 'int') : 'int',
+   #('int', '/', 'string') : 'string',
+    ('int', '/', 'char') : 'int',
+   #('int', '/', 'bool') : 'int',
+    ('int', '/', 'float') : 'float',
+
+   #('int', '=', 'string') : 'string',
+    ('int', '=', 'int') : 'int',
+    ('int', '=', 'char') : 'int',
+   #('int', '=', 'bool') : 'int',
+    ('int', '=', 'float') : 'int',
+
+    # string with ___
+    ('string', '+', 'string') : 'string',
+    ('string', '+', 'char') : 'string',
+    ('string', '+', 'bool') : 'string',
+    ('string', '+', 'float') : 'string',
+
+   #('string', '-', 'string') : 'string',
+   #('string', '-', 'string') : 'string',
+   #('string', '-', 'bool') : 'string',
+   #('string', '-', 'char') : 'string',
+   #('string', '-', 'float') : 'float',
+
+   #('string', '*', 'string') : 'string',
+   #('string', '*', 'string') : 'string',
+   #('string', '*', 'char') : 'string',
+   #('string', '*', 'bool') : 'string',
+   #('string', '*', 'float') : 'float',
+
+   #('string', '/', 'string') : 'string',
+   #('string', '/', 'string') : 'string',
+   #('string', '/', 'char') : 'string',
+   #('string', '/', 'bool') : 'string',
+   #('string', '/', 'float') : 'float',
+
+    ('string', '=', 'string') : 'string',
+    ('string', '=', 'char') : 'string',
+    ('string', '=', 'bool') : 'string',
+    ('string', '=', 'float') : 'string',
+
+    # char with __
+    ('char', '+', 'char') : 'int',
+    ('char', '+', 'string') : 'string',
+   #('char', '+', 'bool') : 'char',
+    ('char', '+', 'float') : 'float',
+
+    ('char', '-', 'char') : 'int',
+   #('char', '-', 'string') : 'string',
+   #('char', '-', 'bool') : 'char',
+    ('char', '-', 'float') : 'float',
+
+    ('char', '*', 'char') : 'int',
+   #('char', '*', 'string') : 'string',
+   #('char', '*', 'char') : 'char',
+   #('char', '*', 'bool') : 'char',
+    ('char', '*', 'float') : 'float',
+
+    ('char', '/', 'char') : 'char',
+   #('char', '/', 'string') : 'string',
+   #('char', '/', 'char') : 'char',
+   #('char', '/', 'bool') : 'char',
+    ('char', '/', 'float') : 'float',
+
+   #('char', '=', 'string') : 'string',
+    ('char', '=', 'char') : 'char',
+    ('char', '=', 'int') : 'char',
+   #('char', '=', 'bool') : 'char',
+   #('char', '=', 'float') : 'char',
+
+    # bool with ___
+    ('bool', '+', 'bool') : 'int',
+    ('bool', '+', 'char') : 'int',
+    ('bool', '+', 'float') : 'float',
+
+    ('bool', '-', 'bool') : 'int',
+   #('bool', '-', 'string') : 'string',
+    ('bool', '-', 'char') : 'int',
+    ('bool', '-', 'float') : 'float',
+
+    ('bool', '*', 'bool') : 'int',
+   #('bool', '*', 'string') : 'string',
+    ('bool', '*', 'char') : 'int',
+   #('bool', '*', 'bool') : 'bool',
+    ('bool', '*', 'float') : 'float',
+
+    ('bool', '/', 'bool') : 'int',
+   #('bool', '/', 'string') : 'string',
+    ('bool', '/', 'char') : 'int',
+   #('bool', '/', 'bool') : 'bool',
+    ('bool', '/', 'float') : 'float',
+
+    ('bool', '=', 'string') : 'bool',
+    ('bool', '=', 'bool') : 'bool',
+    ('bool', '=', 'char') : 'bool',
+    ('bool', '=', 'float') : 'bool'
+
+}
+
 
 def print_current():
     print "\nCURRENT"
