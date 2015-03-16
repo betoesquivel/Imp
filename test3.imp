@@ -1,0 +1,12 @@
+#vars=SOME
+
+int a; int b;
+
+def void algo(int x) {
+   x = 2 + 4 > 8;
+}
+
+main() {
+  a = a * 3;
+  algo();
+}
