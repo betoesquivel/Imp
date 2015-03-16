@@ -131,6 +131,7 @@ def p_assignB(p):
 def p_dimensionsOpt(p):
     '''dimensionsOpt : dimensions
                      | empty'''
+    p[0] = p[1]
 
 
 # <condition>
@@ -168,7 +169,7 @@ def p_assignfunccall(p):
             print errors['UNDECLARED_FUNCTION'].format(current['id'], p.lineno(1))
             exit(1)
     else:
-        if not var_exists_in_dict(current['id']):
+        if not var_exists_in_dict(current['scope'], current['id']):
             print errors['UNDECLARED_VARIABLE'].format(current['id'], p.lineno(1))
 
 
@@ -188,15 +189,22 @@ def p_localdirective(p):
 # <superexpression>
 def p_superexpression(p):
     '''superexpression : expression superexpressionB'''
+    p[0] = p[1] + p[2]
 
 def p_superexpressionB(p):
     '''superexpressionB : '&' '&' superexpression
                         | '|' '|' superexpression
                         | empty'''
+    if p[1] is '&' or p[1] is '|':
+        p[0] = p[1] + p[2] + p[3]
+    else:
+        p[0] = p[1]
 
 # <expression>
 def p_expression(p):
     '''expression : exp expressionB'''
+    p[0] = p[1] + p[2]
+
 
 def p_expressionB(p):
     '''expressionB : '<' exp
@@ -206,24 +214,44 @@ def p_expressionB(p):
                    | '<' '=' exp
                    | '>' '=' exp
                    | empty'''
+    args = list(p)[1:]
+    if len( args ) == 3:
+        p[0] = p[1] + p[2] + p[3]
+    elif len ( args ) == 2:
+        p[0] = p[1] + p[2]
+    else:
+        p[0] = p[1]
+
 
 # <exp>
 def p_exp(p):
     '''exp : term expB'''
+    p[0] = p[1] + p[2]
 
 def p_expB(p):
     '''expB : '-' exp
             | '+' exp
             | empty'''
+    args = list(p)[1:]
+    if len( args ) == 2:
+        p[0] = p[1] + p[2]
+    else:
+        p[0] = p[1]
 
 # <term>
 def p_term(p):
     '''term : factor termB'''
+    p[0] = p[1] + p[2]
 
 def p_termB(p):
     '''termB : '/' term
              | '*' term
              | empty'''
+    args = list(p)[1:]
+    if len( args ) == 2:
+        p[0] = p[1] + p[2]
+    else:
+        p[0] = p[1]
 
 # our lexer gets the sign with the int in case it has one.
 # And I just found out this is wrong. Removed the sign from the lexer and added it here.
@@ -232,11 +260,34 @@ def p_factor(p):
     '''factor : signB constant
               | '(' superexpression ')'
               | funccall
-              | ID dimensionsOpt'''
+              | ID seen_ID dimensionsOpt'''
+    args = list(p)[1:]
+    if ( p[2] is 'UNDECLARED_VARIABLE' ):
+        print errors['UNDECLARED_VARIABLE'].format(p[1], p.lineno(1))
+        exit(1)
+    else:
+        if len( args ) == 3:
+            p[0] = p[1] + p[2] + p[3]
+        elif len ( args ) == 2:
+            p[0] = p[1] + p[2]
+        else:
+            p[0] = p[1]
+
+
+
+
+def p_seen_ID(p):
+    '''seen_ID :'''
+    if not var_exists_in_dict(current['scope'], p[-1]):
+        p[0] = 'UNDECLARED_VARIABLE'
+    else:
+        p[0] = ""
+
 
 def p_signB(p):
     '''signB : sign
              | empty'''
+    p[0] = p[1]
 
 # <constant>
 def p_constant(p):
@@ -245,11 +296,13 @@ def p_constant(p):
                 | SCONST
                 | TRUE
                 | FALSE'''
+    p[0] = p[1]
 
 # <sign>
 def p_sign(p):
     """sign : '+'
             | '-' """
+    p[0] = p[1]
 
 # <whileloop>
 def p_whileloop(p):
@@ -262,12 +315,13 @@ def p_type(p):
             | STRING
             | BOOL'''
     current['type'] = p[1]
+    p[0] = p[1]
 
 # <returntype>
 def p_returntype(p):
     '''returntype : VOID
                   | type'''
-    current['type'] = p[1]
+    p[0] = p[1]
 
 # <forloop>
 def p_forloop(p):
@@ -313,11 +367,19 @@ def p_localdecisiondirective(p):
 # <funccall>
 def p_funccall(p):
     '''funccall : ID '(' funccallB funccallC  '''
+    current['id'] = p[1]
+    if func_exists_in_dict(current['id']):
+        if len(current['params']) != len(func_dict[ current['id'] ]['params']):
+            print errors['PARAMETER_LENGTH_MISMATCH'].format(current['id'], len(func_dict[ current['id'] ]['params']),len(current['params']), p.lineno(1))
+            exit(1)
+    else:
+        print errors['UNDECLARED_FUNCTION'].format(current['id'], p.lineno(1))
+        exit(1)
 
 def p_funccallB(p):
     '''funccallB : superexpression
                  | empty '''
-    if  p[1] is not ')':
+    if  p[1] is not '':
         current['params'].append(1)
 
 def p_funccallC(p):
@@ -328,11 +390,16 @@ def p_funccallC(p):
 def p_dimensions(p):
     '''dimensions : '[' superexpression ']' dimensionsB '''
     current['dimensionx'] = 1
+    p[0] = p[1] + p[2] + p[3] + p[4]
 
 def p_dimensionsB(p):
     '''dimensionsB : '[' superexpression ']'
                    | empty '''
     current['dimensiony'] = ( 1 if p[1] == '[' else 0 )
+    if p[1] is not '':
+        p[0] = p[1] + p[2] + p[3]
+    else:
+        p[0] = p[1]
 
 # <return>
 def p_return(p):
@@ -342,11 +409,11 @@ def p_return(p):
 def p_params(p):
     '''params : type ID '''
     current['params'].append(current['type'])
-    if var_exists_in_dict(current['scope'], p[2]):
+    if var_exists_in_dict('local', p[2]):
         print errors['REPEATED_DECLARATION'].format(p[2], p.lineno(2))
         exit(1)
     else:
-        add_var_to_dict(current['scope'], p[2], p[1], 0, 0)
+        add_var_to_dict('local', p[2], p[1], 0, 0)
 
 def p_paramsB(p):
     '''paramsB : ',' params paramsB
@@ -354,6 +421,7 @@ def p_paramsB(p):
 
 def p_empty(p):
     '''empty : '''
+    p[0] = ""
 
 def p_error(p):
     print "Syntax error in input token {0} with value {1}, in line {2}".format(p.type, p.value, p.lineno)
