@@ -8,5 +8,6 @@ def void algo(int x) {
 
 main() {
   a = a * 3;
-  algo();
+  print (algo(8));
+  algo(8, 823);
 }

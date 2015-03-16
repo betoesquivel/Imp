@@ -168,6 +168,7 @@ def p_assignfunccall(p):
         else:
             print errors['UNDECLARED_FUNCTION'].format(current['id'], p.lineno(1))
             exit(1)
+        clear_current()
     else:
         if not var_exists_in_dict(current['scope'], current['id']):
             print errors['UNDECLARED_VARIABLE'].format(current['id'], p.lineno(1))
@@ -262,16 +263,17 @@ def p_factor(p):
               | funccall
               | ID seen_ID dimensionsOpt'''
     args = list(p)[1:]
-    if ( p[2] is 'UNDECLARED_VARIABLE' ):
-        print errors['UNDECLARED_VARIABLE'].format(p[1], p.lineno(1))
-        exit(1)
+    if len( args ) == 3:
+        p[0] = p[1] + p[2] + p[3]
+        if ( p[2] is 'UNDECLARED_VARIABLE' ):
+            print errors['UNDECLARED_VARIABLE'].format(p[1], p.lineno(1))
+            exit(1)
+    elif len ( args ) == 2:
+        p[0] = p[1] + p[2]
     else:
-        if len( args ) == 3:
-            p[0] = p[1] + p[2] + p[3]
-        elif len ( args ) == 2:
-            p[0] = p[1] + p[2]
-        else:
-            p[0] = p[1]
+        p[0] = p[1]
+
+
 
 
 
@@ -375,16 +377,23 @@ def p_funccall(p):
     else:
         print errors['UNDECLARED_FUNCTION'].format(current['id'], p.lineno(1))
         exit(1)
+    p[0] = p[1] + p[2] + p[3] + p[4]
+    clear_current()
 
 def p_funccallB(p):
     '''funccallB : superexpression
                  | empty '''
     if  p[1] is not '':
         current['params'].append(1)
+    p[0] = p[1]
 
 def p_funccallC(p):
     '''funccallC : ',' funccallB funccallC
                  | ')' '''
+    if p[1] is not ')':
+        p[0] = p[1] + p[2] + p[3]
+    else:
+        p[0] = p[1]
 
 # <dimensions>
 def p_dimensions(p):
