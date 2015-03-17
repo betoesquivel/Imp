@@ -4,6 +4,7 @@ import logging
 import lexer
 import sys
 from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local, var_dict, func_dict, semantics_cube
+from quadruples import operators, operands, jumps, quadruples, types
 from copy import deepcopy
 
 
@@ -50,10 +51,10 @@ def p_declarationsOpt(p):
 
 # <declaration>
 def p_declaration(p):
-    '''declaration : type declarationB declarationC'''
+    '''declaration : type push_type declarationB declarationC'''
 
 def p_declarationB(p):
-    '''declarationB : ID dimensionsOpt '''
+    '''declarationB : ID push_operand dimensionsOpt '''
     current['id'] = p[1]
 
     if var_exists_in_dict(current['scope'], current['id']):
@@ -70,8 +71,33 @@ def p_declarationB(p):
         current['dimensionx'] = 0
         current['dimensiony'] = 0
 
+def p_push_operand(p):
+    '''push_operand :'''
+    operands.append(p[-1])
+
+def p_push_type(p):
+    '''push_type :'''
+    types.append(p[-1])
+
+def p_push_operator(p):
+    '''push_opearator :'''
+    operators.append(p[-1])
+
+def p_quadruple_assign(p):
+    '''quadruple_assign :'''
+    op2 = operands.pop()
+    type2 = types.pop()
+    op1 = operands.pop()
+    type1 = types.pop()
+
+    op = operators.pop()
+
+    result_type = semantics_cube.get( (type1, op, type2) , 'error')
+    if (result_type is not 'error'):
+        quadruples.append( [op, op2, -1, op1] )
+
 def p_declarationC(p):
-    '''declarationC : '=' superexpression declarationD
+    '''declarationC : '=' push_operator superexpression quadruple_assign declarationD
                     | ',' declarationB declarationC
                     | ';' '''
     if p[1] == ';':
