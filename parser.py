@@ -4,7 +4,7 @@ import logging
 import lexer
 import sys
 from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local, var_dict, func_dict, semantics_cube
-from quadruples import operators, operands, jumps, quadruples, types
+from quadruples import operators, operands, jumps, quadruples, types, add_quadruple
 from copy import deepcopy
 
 
@@ -91,10 +91,8 @@ def p_quadruple_assign(p):
     type1 = types.pop()
 
     op = operators.pop()
+    add_quadruple(op, op1, type1, op2, type2)
 
-    result_type = semantics_cube.get( (type1, op, type2) , 'error')
-    if (result_type is not 'error'):
-        quadruples.append( [op, op2, -1, op1] )
 
 def p_declarationC(p):
     '''declarationC : '=' push_operator superexpression quadruple_assign declarationD
@@ -213,13 +211,20 @@ def p_localdirective(p):
                       | localdecisiondirective
                       | localmsgdirective'''
 
+# <hyperexpression>
+def p_hyperexpression(p):
+    '''hyperexpression : superexpression hyperexpressionB'''
+
+def p_hyperexpressionB(p):
+    '''hyperexpressionB : '|' '|' hyperexpression
+                        | empty'''
+
 # <superexpression>
 def p_superexpression(p):
     '''superexpression : expression superexpressionB'''
 
 def p_superexpressionB(p):
     '''superexpressionB : '&' '&' superexpression
-                        | '|' '|' superexpression
                         | empty'''
 
 # <expression>
@@ -262,7 +267,7 @@ def p_factor(p):
               | '(' superexpression ')'
               | funccall
               | ID seen_ID dimensionsOpt'''
-    if ( len(p) == 3 ):
+    if ( len(p) >= 3 ):
         if ( p[2] is 'UNDECLARED_VARIABLE' ):
             print errors['UNDECLARED_VARIABLE'].format(p[1], p.lineno(1))
             exit(1)
@@ -273,6 +278,9 @@ def p_seen_ID(p):
         p[0] = 'UNDECLARED_VARIABLE'
     else:
         p[0] = ""
+        type_to_push = var_dict[ current['scope'] ] [ p[-1] ] [ 'type' ]
+        types.append(type_to_push)
+        operands.append( p[-1] )
 
 
 def p_signB(p):
@@ -288,6 +296,17 @@ def p_constant(p):
                 | TRUE
                 | FALSE'''
     p[0] = p[1]
+    constant_type = {
+        'FCONST' : 'float',
+        'ICONST' : 'int',
+        'SCONST' : 'string',
+        'TRUE'   : 'bool',
+        'FALSE'   : 'bool'
+    }
+
+    if p[-1] is '-':
+        add_quadruple('*', '-1', 'int', p[1], constant_type[p[2]])
+
 
 # <sign>
 def p_sign(p):
