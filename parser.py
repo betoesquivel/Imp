@@ -80,7 +80,7 @@ def p_push_type(p):
     types.append(p[-1])
 
 def p_push_operator(p):
-    '''push_opearator :'''
+    '''push_operator :'''
     operators.append(p[-1])
 
 def p_quadruple_assign(p):
@@ -216,21 +216,15 @@ def p_localdirective(p):
 # <superexpression>
 def p_superexpression(p):
     '''superexpression : expression superexpressionB'''
-    p[0] = p[1] + p[2]
 
 def p_superexpressionB(p):
     '''superexpressionB : '&' '&' superexpression
                         | '|' '|' superexpression
                         | empty'''
-    if p[1] is '&' or p[1] is '|':
-        p[0] = p[1] + p[2] + p[3]
-    else:
-        p[0] = p[1]
 
 # <expression>
 def p_expression(p):
     '''expression : exp expressionB'''
-    p[0] = p[1] + p[2]
 
 
 def p_expressionB(p):
@@ -241,44 +235,24 @@ def p_expressionB(p):
                    | '<' '=' exp
                    | '>' '=' exp
                    | empty'''
-    args = list(p)[1:]
-    if len( args ) == 3:
-        p[0] = p[1] + p[2] + p[3]
-    elif len ( args ) == 2:
-        p[0] = p[1] + p[2]
-    else:
-        p[0] = p[1]
-
 
 # <exp>
 def p_exp(p):
     '''exp : term expB'''
-    p[0] = p[1] + p[2]
 
 def p_expB(p):
     '''expB : '-' exp
             | '+' exp
             | empty'''
-    args = list(p)[1:]
-    if len( args ) == 2:
-        p[0] = p[1] + p[2]
-    else:
-        p[0] = p[1]
 
 # <term>
 def p_term(p):
     '''term : factor termB'''
-    p[0] = p[1] + p[2]
 
 def p_termB(p):
     '''termB : '/' term
              | '*' term
              | empty'''
-    args = list(p)[1:]
-    if len( args ) == 2:
-        p[0] = p[1] + p[2]
-    else:
-        p[0] = p[1]
 
 # our lexer gets the sign with the int in case it has one.
 # And I just found out this is wrong. Removed the sign from the lexer and added it here.
@@ -288,21 +262,10 @@ def p_factor(p):
               | '(' superexpression ')'
               | funccall
               | ID seen_ID dimensionsOpt'''
-    args = list(p)[1:]
-    if len( args ) == 3:
-        p[0] = p[1] + p[2] + p[3]
+    if ( len(p) == 3 ):
         if ( p[2] is 'UNDECLARED_VARIABLE' ):
             print errors['UNDECLARED_VARIABLE'].format(p[1], p.lineno(1))
             exit(1)
-    elif len ( args ) == 2:
-        p[0] = p[1] + p[2]
-    else:
-        p[0] = p[1]
-
-
-
-
-
 
 def p_seen_ID(p):
     '''seen_ID :'''
@@ -403,7 +366,6 @@ def p_funccall(p):
     else:
         print errors['UNDECLARED_FUNCTION'].format(current['id'], p.lineno(1))
         exit(1)
-    p[0] = p[1] + p[2] + p[3] + p[4]
     clear_current()
 
 def p_funccallB(p):
@@ -411,30 +373,20 @@ def p_funccallB(p):
                  | empty '''
     if  p[1] is not '':
         current['params'].append(1)
-    p[0] = p[1]
 
 def p_funccallC(p):
     '''funccallC : ',' funccallB funccallC
                  | ')' '''
-    if p[1] is not ')':
-        p[0] = p[1] + p[2] + p[3]
-    else:
-        p[0] = p[1]
 
 # <dimensions>
 def p_dimensions(p):
     '''dimensions : '[' superexpression ']' dimensionsB '''
     current['dimensionx'] = 1
-    p[0] = p[1] + p[2] + p[3] + p[4]
 
 def p_dimensionsB(p):
     '''dimensionsB : '[' superexpression ']'
                    | empty '''
     current['dimensiony'] = ( 1 if p[1] == '[' else 0 )
-    if p[1] is not '':
-        p[0] = p[1] + p[2] + p[3]
-    else:
-        p[0] = p[1]
 
 # <return>
 def p_return(p):
