@@ -158,7 +158,7 @@ def p_assign(p):
         exit(1)
 
 def p_assignB(p):
-    '''assignB : dimensionsOpt '=' hyperexpression'''
+    '''assignB : dimensionsOpt '=' push_operator hyperexpression quadruple_assign'''
 
 def p_dimensionsOpt(p):
     '''dimensionsOpt : dimensions
