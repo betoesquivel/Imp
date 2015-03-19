@@ -113,5 +113,7 @@ def return_pending_quadruple(operator_list):
             type2 = types.pop()
             op1 = operands.pop()
             type1 = types.pop()
+        else:
+             operators.append (top_op)
 
     return op, op1, type1, op2, type2
