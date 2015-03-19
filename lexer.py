@@ -65,7 +65,7 @@ t_EQ = r'=='
 t_GTEQ = r'>='
 t_LTEQ = r'<='
 t_AND = r'&&'
-t_OR = r'||'
+t_OR = r'\|\|'
 t_ignore = ' \t'
 
 def t_ID(t):
