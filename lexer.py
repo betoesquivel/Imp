@@ -43,6 +43,10 @@ tokens = [
           'VARSCONFIG', 'DECISIONSCONFIG', 'COMPLEXITYCONFIG',
           # Decision directives
           'TRACKDECISION', 'FORGETDECISION',
+          # Logical operators
+          'AND', 'OR',
+          # Relational operators
+          'DIFF','EQ','GTEQ','LTEQ',
           # Constantes
           'SCONST','ICONST','FCONST','ID'
 ] +  list(reserved.values())
@@ -56,6 +60,12 @@ t_FORGETDECISION = r'\#forgetdecision'
 t_SCONST = r'".*"'
 t_ICONST = r'\d+'
 t_FCONST = r'\d+\.\d+'
+t_DIFF = r'<>'
+t_EQ = r'=='
+t_GTEQ = r'>='
+t_LTEQ = r'<='
+t_AND = r'&&'
+t_OR = r'||'
 t_ignore = ' \t'
 
 def t_ID(t):

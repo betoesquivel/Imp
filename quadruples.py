@@ -25,14 +25,70 @@ def get_temp():
         used_temps.add(temp)
     return temp
 
+relational_operators = Set(['<', '>', 'DIFF', 'EQ', 'LTEQ', 'GTEQ'])
+logical_operators = Set(['AND', 'OR'])
+
 def add_quadruple(operator, op1, type1,  op2, type2):
-    result_type = semantics_cube.get( (type1, operator, type2) , 'error')
-    if (result_type is not 'error'):
-        if operator is '=':
-            quadruples.append( [operator, op2, -1, op1] )
-        else:
-            quadruples.append( [operator, op1, op2, get_temp()] )
-        if op1 in used_temps:
-            used_temps.remove(op1)
-        if op2 in used_temps:
-            used_temps.remove(op2)
+
+    result_type = check_operation(type1, operator, type2)
+
+    if result_type is 'error':
+        print 'Error, tonto!'
+        exit(1)
+
+    if operator is '=':
+        quadruples.append( [operator, op2, -1, op1] )
+    else:
+        temp = get_temp()
+        quadruples.append( [operator, op1, op2, temp] )
+        operands.append(temp)
+        types.append(result_type)
+
+    return_temp_operands(op1, op2)
+
+
+def check_operation(type1, operator,  type2):
+    if operator is '=':
+        return semantics_cube.get( (type1, operator, type2) , 'error')
+    elif operator in relational_operators:
+        result_type = semantics_cube.get( (type1, 'comp', type2) , 'error')
+        if result_type is 'error':
+            result_type = semantics_cube.get( (type2, 'comp', type1) , 'error')
+        return result_type
+    elif operator in logical_operators:
+        result_type = semantics_cube.get( (type1, 'log', type2) , 'error')
+        if result_type is 'error':
+            result_type = semantics_cube.get( (type2, 'log', type1) , 'error')
+        return result_type
+    else:
+        result_type = semantics_cube.get( (type1, operator, type2) , 'error')
+        if result_type is 'error':
+            result_type = semantics_cube.get( (type2, operator, type1) , 'error')
+        return result_type
+
+def return_temp_operands(op1, op2):
+    ''' Note: We are asuming IDs that are introduced by the user cant be t[0-9] '''
+    if op1 in used_temps:
+        used_temps.remove(op1)
+    if op2 in used_temps:
+        used_temps.remove(op2)
+
+def return_pending_quadruple(operator_list):
+    operator_set = Set(operator_list)
+
+    op = 'none_pending'
+    op2 = 'none_pending'
+    type2 = 'none_pending'
+    op1 = 'none_pending'
+    type1 = 'none_pending'
+
+    if operators:
+        top_op = operators.pop()
+        if top_op in operator_set:
+            op = top_op
+            op2 = operands.pop()
+            type2 = types.pop()
+            op1 = operands.pop()
+            type1 = types.pop()
+
+    return op, op1, type1, op2, type2

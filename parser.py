@@ -4,7 +4,7 @@ import logging
 import lexer
 import sys
 from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local, var_dict, func_dict, semantics_cube
-from quadruples import operators, operands, jumps, quadruples, types, add_quadruple
+from quadruples import operators, operands, jumps, quadruples, types, add_quadruple, return_pending_quadruple
 from copy import deepcopy
 
 
@@ -216,16 +216,24 @@ def p_hyperexpression(p):
     '''hyperexpression : superexpression hyperexpressionB'''
 
 def p_hyperexpressionB(p):
-    '''hyperexpressionB : '|' '|' hyperexpression
+    '''hyperexpressionB : OR push_operator hyperexpression
                         | empty'''
+    if p[1] is not '':
+        op, op1, type1, op2, type2 = return_pending_quadruple(['OR'])
+        if op is not 'none_pending':
+            add_quadruple(op, op1, type1, op2, type2)
 
 # <superexpression>
 def p_superexpression(p):
     '''superexpression : expression superexpressionB'''
 
 def p_superexpressionB(p):
-    '''superexpressionB : '&' '&' superexpression
+    '''superexpressionB : AND push_operator superexpression
                         | empty'''
+    if p[1] is not '':
+        op, op1, type1, op2, type2 = return_pending_quadruple(['AND'])
+        if op is not 'none_pending':
+            add_quadruple(op, op1, type1, op2, type2)
 
 # <expression>
 def p_expression(p):
@@ -233,30 +241,48 @@ def p_expression(p):
 
 
 def p_expressionB(p):
-    '''expressionB : '<' exp
-                   | '>' exp
-                   | '<' '>' exp
-                   | '=' '=' exp
-                   | '<' '=' exp
-                   | '>' '=' exp
+    '''expressionB : '<' push_operator exp
+                   | '>' push_operator exp
+                   | DIFF push_operator exp
+                   | EQ push_operator exp
+                   | LTEQ push_operator exp
+                   | GTEQ push_operator exp
                    | empty'''
+    if p[1] is not '':
+        op, op1, type1, op2, type2 = return_pending_quadruple(['<', '>', 'DIFF', 'EQ', 'LTEQ', 'GTEQ'])
+        if op is not 'none_pending':
+            add_quadruple(op, op1, type1, op2, type2)
+
 
 # <exp>
 def p_exp(p):
-    '''exp : term expB'''
+    '''exp : term seen_term expB'''
+
+def p_seen_term(p):
+    '''seen_term :'''
+
+    op, op1, type1, op2, type2 = return_pending_quadruple(['+', '-'])
+    if op is not 'none_pending':
+        add_quadruple(op, op1, type1, op2, type2)
 
 def p_expB(p):
-    '''expB : '-' exp
-            | '+' exp
+    '''expB : '-' push_operator exp
+            | '+' push_operator exp
             | empty'''
 
 # <term>
 def p_term(p):
-    '''term : factor termB'''
+    '''term : factor seen_factor termB'''
+
+def p_seen_factor(p):
+    '''seen_factor :'''
+    op, op1, type1, op2, type2 = return_pending_quadruple(['*', '/'])
+    if op is not 'none_pending':
+        add_quadruple(op, op1, type1, op2, type2)
 
 def p_termB(p):
-    '''termB : '/' term
-             | '*' term
+    '''termB : '/' push_operator term
+             | '*' push_operator term
              | empty'''
 
 # our lexer gets the sign with the int in case it has one.
@@ -264,13 +290,20 @@ def p_termB(p):
 # <factor>
 def p_factor(p):
     '''factor : signB constant
-              | '(' superexpression ')'
+              | '(' seen_parentheses superexpression ')'
               | funccall
               | ID seen_ID dimensionsOpt'''
     if ( len(p) >= 3 ):
         if ( p[2] is 'UNDECLARED_VARIABLE' ):
             print errors['UNDECLARED_VARIABLE'].format(p[1], p.lineno(1))
             exit(1)
+    if ( len(p) is 5 ):
+        if ( p[4] is ')' ):
+            operators.pop()
+
+def p_seen_parentheses(p):
+    '''seen_parentheses :'''
+    operators.append(p[-1])
 
 def p_seen_ID(p):
     '''seen_ID :'''
@@ -288,24 +321,44 @@ def p_signB(p):
              | empty'''
     p[0] = p[1]
 
+# <seen_fconst>
+def p_seen_fconst(p):
+    '''seen_fconst :'''
+    p[0] = 'float'
+
+# <seen_iconst>
+def p_seen_iconst(p):
+    '''seen_iconst :'''
+    p[0] = 'int'
+
+# <seen_sconst>
+def p_seen_sconst(p):
+    '''seen_sconst :'''
+    p[0] = 'string'
+
+# <seen_true>
+def p_seen_true(p):
+    '''seen_true :'''
+    p[0] = 'bool'
+
+# <seen_false>
+def p_seen_false(p):
+    '''seen_false :'''
+    p[0] = 'bool'
+
 # <constant>
 def p_constant(p):
-    '''constant : FCONST
-                | ICONST
-                | SCONST
-                | TRUE
-                | FALSE'''
+    '''constant : FCONST seen_fconst
+                | ICONST seen_iconst
+                | SCONST seen_sconst
+                | TRUE   seen_true
+                | FALSE  seen_false'''
     p[0] = p[1]
-    constant_type = {
-        'FCONST' : 'float',
-        'ICONST' : 'int',
-        'SCONST' : 'string',
-        'TRUE'   : 'bool',
-        'FALSE'   : 'bool'
-    }
 
     if p[-1] is '-':
-        add_quadruple('*', '-1', 'int', p[1], constant_type[p[2]])
+        add_quadruple('*', '-1', 'int', p[1], p[2])
+    else:
+        operands.append(p[1])
 
 
 # <sign>
