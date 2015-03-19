@@ -85,10 +85,13 @@ def p_push_type(p):
 def p_push_operator(p):
     '''push_operator :'''
     operators.append(p[-1])
-    print "pushing: ", p[-1]
 
 def p_quadruple_assign(p):
     '''quadruple_assign :'''
+    print "assigning a quadruple... "
+    print_operators()
+    print_operands()
+    print_types()
     if operands and types and operators:
         op2 = operands.pop()
         type2 = types.pop()

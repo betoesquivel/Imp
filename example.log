@@ -3,32 +3,32 @@ DEBUG:root:
 DEBUG:root:State  : 0
 DEBUG:root:Stack  : . LexToken(MAIN,'main',1,0)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 7
 DEBUG:root:Stack  : empty . LexToken(MAIN,'main',1,0)
 INFO:root:Action : Reduce rule [config -> empty] with [''] and goto state 3
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 6
 DEBUG:root:Stack  : config . LexToken(MAIN,'main',1,0)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 20
 DEBUG:root:Stack  : config empty . LexToken(MAIN,'main',1,0)
 INFO:root:Action : Reduce rule [declarationsOpt -> empty] with [''] and goto state 17
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 13
 DEBUG:root:Stack  : config declarationsOpt . LexToken(MAIN,'main',1,0)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 34
 DEBUG:root:Stack  : config declarationsOpt empty . LexToken(MAIN,'main',1,0)
 INFO:root:Action : Reduce rule [funcsOpt -> empty] with [''] and goto state 15
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 31
 DEBUG:root:Stack  : config declarationsOpt funcsOpt . LexToken(MAIN,'main',1,0)
@@ -53,12 +53,12 @@ DEBUG:root:
 DEBUG:root:State  : 15
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { INT . LexToken(ID,'b',2,15)
 INFO:root:Action : Reduce rule [type -> INT] with ['int'] and goto state 104
-INFO:root:Result : <str @ 0x10126d490> ('int')
+INFO:root:Result : <str @ 0x10c95a4b8> ('int')
 DEBUG:root:
 DEBUG:root:State  : 16
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type . LexToken(ID,'b',2,15)
 INFO:root:Action : Reduce rule [push_type -> <empty>] with [] and goto state 21
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 35
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type . LexToken(ID,'b',2,15)
@@ -67,22 +67,22 @@ DEBUG:root:
 DEBUG:root:State  : 45
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type ID . LexToken(=,'=',2,17)
 INFO:root:Action : Reduce rule [push_operand -> <empty>] with [] and goto state 20
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 75
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type ID push_operand . LexToken(=,'=',2,17)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 113
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type ID push_operand empty . LexToken(=,'=',2,17)
 INFO:root:Action : Reduce rule [dimensionsOpt -> empty] with [''] and goto state 40
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 118
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type ID push_operand dimensionsOpt . LexToken(=,'=',2,17)
 INFO:root:Action : Reduce rule [declarationB -> ID push_operand dimensionsOpt] with ['b',None,''] and goto state 19
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 46
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB . LexToken(=,'=',2,17)
@@ -91,17 +91,17 @@ DEBUG:root:
 DEBUG:root:State  : 79
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = . LexToken(ICONST,'8',2,19)
 INFO:root:Action : Reduce rule [push_operator -> <empty>] with [] and goto state 22
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 120
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator . LexToken(ICONST,'8',2,19)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 87
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator empty . LexToken(ICONST,'8',2,19)
 INFO:root:Action : Reduce rule [signB -> empty] with [''] and goto state 90
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 81
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator signB . LexToken(ICONST,'8',2,19)
@@ -110,107 +110,107 @@ DEBUG:root:
 DEBUG:root:State  : 125
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator signB ICONST . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [seen_iconst -> <empty>] with [] and goto state 92
-INFO:root:Result : <str @ 0x100fec3c8> ('int')
+INFO:root:Result : <str @ 0x10c6d83c8> ('int')
 DEBUG:root:
 DEBUG:root:State  : 170
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator signB ICONST seen_iconst . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [constant -> ICONST seen_iconst] with ['8','int'] and goto state 97
-INFO:root:Result : <str @ 0x101111058> ('8')
+INFO:root:Result : <str @ 0x10c7fe058> ('8')
 DEBUG:root:
 DEBUG:root:State  : 122
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator signB constant . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [factor -> signB constant] with ['','8'] and goto state 83
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 86
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator factor . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [seen_factor -> <empty>] with [] and goto state 79
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 129
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator factor seen_factor . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 176
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator factor seen_factor empty . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [termB -> empty] with [''] and goto state 82
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 175
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator factor seen_factor termB . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [term -> factor seen_factor termB] with [None,None,None] and goto state 78
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 92
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator term . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [seen_term -> <empty>] with [] and goto state 74
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 135
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator term seen_term . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 184
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator term seen_term empty . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [expB -> empty] with [''] and goto state 77
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 183
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator term seen_term expB . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [exp -> term seen_term expB] with [None,None,None] and goto state 73
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 93
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator exp . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 142
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator exp empty . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [expressionB -> empty] with [''] and goto state 72
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 138
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator exp expressionB . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [expression -> exp expressionB] with [None,None] and goto state 65
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 94
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator expression . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 146
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator expression empty . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [superexpressionB -> empty] with [''] and goto state 64
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 145
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator expression superexpressionB . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [superexpression -> expression superexpressionB] with [None,None] and goto state 62
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 89
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator superexpression . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 132
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator superexpression empty . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [hyperexpressionB -> empty] with [''] and goto state 61
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 130
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator superexpression hyperexpressionB . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [hyperexpression -> superexpression hyperexpressionB] with [None,None] and goto state 59
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 167
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator hyperexpression . LexToken(;,';',2,20)
 INFO:root:Action : Reduce rule [quadruple_assign -> <empty>] with [] and goto state 23
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 213
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator hyperexpression quadruple_assign . LexToken(;,';',2,20)
@@ -219,22 +219,22 @@ DEBUG:root:
 DEBUG:root:State  : 241
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator hyperexpression quadruple_assign ; . LexToken(INT,'int',3,23)
 INFO:root:Action : Reduce rule [declarationD -> ;] with [';'] and goto state 28
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 242
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB = push_operator hyperexpression quadruple_assign declarationD . LexToken(INT,'int',3,23)
 INFO:root:Action : Reduce rule [declarationC -> = push_operator hyperexpression quadruple_assign declarationD] with ['=',None,None,None,None] and goto state 24
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 78
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { type push_type declarationB declarationC . LexToken(INT,'int',3,23)
 INFO:root:Action : Reduce rule [declaration -> type push_type declarationB declarationC] with ['int',None,None,None] and goto state 18
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 65
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { declaration . LexToken(INT,'int',3,23)
 INFO:root:Action : Reduce rule [instruction -> declaration] with [None] and goto state 48
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 70
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction . LexToken(INT,'int',3,23)
@@ -243,12 +243,12 @@ DEBUG:root:
 DEBUG:root:State  : 15
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction INT . LexToken(ID,'x',3,27)
 INFO:root:Action : Reduce rule [type -> INT] with ['int'] and goto state 104
-INFO:root:Result : <str @ 0x10126d4e0> ('int')
+INFO:root:Result : <str @ 0x10c95a508> ('int')
 DEBUG:root:
 DEBUG:root:State  : 16
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction type . LexToken(ID,'x',3,27)
 INFO:root:Action : Reduce rule [push_type -> <empty>] with [] and goto state 21
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 35
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction type push_type . LexToken(ID,'x',3,27)
@@ -257,22 +257,22 @@ DEBUG:root:
 DEBUG:root:State  : 45
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction type push_type ID . LexToken(;,';',3,28)
 INFO:root:Action : Reduce rule [push_operand -> <empty>] with [] and goto state 20
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 75
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction type push_type ID push_operand . LexToken(;,';',3,28)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 113
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction type push_type ID push_operand empty . LexToken(;,';',3,28)
 INFO:root:Action : Reduce rule [dimensionsOpt -> empty] with [''] and goto state 40
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 118
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction type push_type ID push_operand dimensionsOpt . LexToken(;,';',3,28)
 INFO:root:Action : Reduce rule [declarationB -> ID push_operand dimensionsOpt] with ['x',None,''] and goto state 19
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 46
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction type push_type declarationB . LexToken(;,';',3,28)
@@ -281,17 +281,17 @@ DEBUG:root:
 DEBUG:root:State  : 77
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction type push_type declarationB ; . LexToken(ID,'x',5,33)
 INFO:root:Action : Reduce rule [declarationC -> ;] with [';'] and goto state 26
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 78
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction type push_type declarationB declarationC . LexToken(ID,'x',5,33)
 INFO:root:Action : Reduce rule [declaration -> type push_type declarationB declarationC] with ['int',None,None,None] and goto state 18
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 65
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction declaration . LexToken(ID,'x',5,33)
 INFO:root:Action : Reduce rule [instruction -> declaration] with [None] and goto state 48
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 70
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction . LexToken(ID,'x',5,33)
@@ -300,12 +300,12 @@ DEBUG:root:
 DEBUG:root:State  : 67
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID . LexToken(=,'=',5,35)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 113
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID empty . LexToken(=,'=',5,35)
 INFO:root:Action : Reduce rule [dimensionsOpt -> empty] with [''] and goto state 40
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 112
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt . LexToken(=,'=',5,35)
@@ -318,27 +318,27 @@ DEBUG:root:
 DEBUG:root:State  : 91
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = ID . LexToken(*,'*',5,39)
 INFO:root:Action : Reduce rule [seen_ID -> <empty>] with [] and goto state 88
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 134
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = ID seen_ID . LexToken(*,'*',5,39)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 113
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = ID seen_ID empty . LexToken(*,'*',5,39)
 INFO:root:Action : Reduce rule [dimensionsOpt -> empty] with [''] and goto state 40
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 180
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = ID seen_ID dimensionsOpt . LexToken(*,'*',5,39)
 INFO:root:Action : Reduce rule [factor -> ID seen_ID dimensionsOpt] with ['b','',''] and goto state 86
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 86
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor . LexToken(*,'*',5,39)
 INFO:root:Action : Reduce rule [seen_factor -> <empty>] with [] and goto state 79
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 129
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor . LexToken(*,'*',5,39)
@@ -347,17 +347,17 @@ DEBUG:root:
 DEBUG:root:State  : 174
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * . LexToken(ICONST,'3',5,41)
 INFO:root:Action : Reduce rule [push_operator -> <empty>] with [] and goto state 22
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 215
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator . LexToken(ICONST,'3',5,41)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 87
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator empty . LexToken(ICONST,'3',5,41)
 INFO:root:Action : Reduce rule [signB -> empty] with [''] and goto state 90
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 81
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator signB . LexToken(ICONST,'3',5,41)
@@ -366,22 +366,22 @@ DEBUG:root:
 DEBUG:root:State  : 125
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator signB ICONST . LexToken(*,'*',5,43)
 INFO:root:Action : Reduce rule [seen_iconst -> <empty>] with [] and goto state 92
-INFO:root:Result : <str @ 0x100fec3c8> ('int')
+INFO:root:Result : <str @ 0x10c6d83c8> ('int')
 DEBUG:root:
 DEBUG:root:State  : 170
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator signB ICONST seen_iconst . LexToken(*,'*',5,43)
 INFO:root:Action : Reduce rule [constant -> ICONST seen_iconst] with ['3','int'] and goto state 97
-INFO:root:Result : <str @ 0x1010fdf58> ('3')
+INFO:root:Result : <str @ 0x10c7eaf58> ('3')
 DEBUG:root:
 DEBUG:root:State  : 122
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator signB constant . LexToken(*,'*',5,43)
 INFO:root:Action : Reduce rule [factor -> signB constant] with ['','3'] and goto state 83
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 86
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor . LexToken(*,'*',5,43)
 INFO:root:Action : Reduce rule [seen_factor -> <empty>] with [] and goto state 79
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 129
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor . LexToken(*,'*',5,43)
@@ -390,17 +390,17 @@ DEBUG:root:
 DEBUG:root:State  : 174
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * . LexToken(ICONST,'4',5,45)
 INFO:root:Action : Reduce rule [push_operator -> <empty>] with [] and goto state 22
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 215
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator . LexToken(ICONST,'4',5,45)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 87
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator empty . LexToken(ICONST,'4',5,45)
 INFO:root:Action : Reduce rule [signB -> empty] with [''] and goto state 90
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 81
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator signB . LexToken(ICONST,'4',5,45)
@@ -409,22 +409,22 @@ DEBUG:root:
 DEBUG:root:State  : 125
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator signB ICONST . LexToken(/,'/',5,47)
 INFO:root:Action : Reduce rule [seen_iconst -> <empty>] with [] and goto state 92
-INFO:root:Result : <str @ 0x100fec3c8> ('int')
+INFO:root:Result : <str @ 0x10c6d83c8> ('int')
 DEBUG:root:
 DEBUG:root:State  : 170
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator signB ICONST seen_iconst . LexToken(/,'/',5,47)
 INFO:root:Action : Reduce rule [constant -> ICONST seen_iconst] with ['4','int'] and goto state 97
-INFO:root:Result : <str @ 0x1010fdfd0> ('4')
+INFO:root:Result : <str @ 0x10c7eafd0> ('4')
 DEBUG:root:
 DEBUG:root:State  : 122
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator signB constant . LexToken(/,'/',5,47)
 INFO:root:Action : Reduce rule [factor -> signB constant] with ['','4'] and goto state 83
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 86
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor . LexToken(/,'/',5,47)
 INFO:root:Action : Reduce rule [seen_factor -> <empty>] with [] and goto state 79
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 129
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor seen_factor . LexToken(/,'/',5,47)
@@ -433,17 +433,17 @@ DEBUG:root:
 DEBUG:root:State  : 177
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor seen_factor / . LexToken(ICONST,'4',5,49)
 INFO:root:Action : Reduce rule [push_operator -> <empty>] with [] and goto state 22
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 216
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor seen_factor / push_operator . LexToken(ICONST,'4',5,49)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 87
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor seen_factor / push_operator empty . LexToken(ICONST,'4',5,49)
 INFO:root:Action : Reduce rule [signB -> empty] with [''] and goto state 90
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 81
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor seen_factor / push_operator signB . LexToken(ICONST,'4',5,49)
@@ -452,147 +452,147 @@ DEBUG:root:
 DEBUG:root:State  : 125
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor seen_factor / push_operator signB ICONST . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [seen_iconst -> <empty>] with [] and goto state 92
-INFO:root:Result : <str @ 0x100fec3c8> ('int')
+INFO:root:Result : <str @ 0x10c6d83c8> ('int')
 DEBUG:root:
 DEBUG:root:State  : 170
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor seen_factor / push_operator signB ICONST seen_iconst . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [constant -> ICONST seen_iconst] with ['4','int'] and goto state 97
-INFO:root:Result : <str @ 0x1010fdfd0> ('4')
+INFO:root:Result : <str @ 0x10c7eafd0> ('4')
 DEBUG:root:
 DEBUG:root:State  : 122
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor seen_factor / push_operator signB constant . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [factor -> signB constant] with ['','4'] and goto state 83
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 86
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor seen_factor / push_operator factor . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [seen_factor -> <empty>] with [] and goto state 79
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 129
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor seen_factor / push_operator factor seen_factor . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 176
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor seen_factor / push_operator factor seen_factor empty . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [termB -> empty] with [''] and goto state 82
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 175
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor seen_factor / push_operator factor seen_factor termB . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [term -> factor seen_factor termB] with [None,None,None] and goto state 78
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 244
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor seen_factor / push_operator term . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [termB -> / push_operator term] with ['/',None,None] and goto state 80
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 175
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator factor seen_factor termB . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [term -> factor seen_factor termB] with [None,None,None] and goto state 78
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 243
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor * push_operator term . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [termB -> * push_operator term] with ['*',None,None] and goto state 81
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 175
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator factor seen_factor termB . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [term -> factor seen_factor termB] with [None,None,None] and goto state 78
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 243
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor * push_operator term . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [termB -> * push_operator term] with ['*',None,None] and goto state 81
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 175
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = factor seen_factor termB . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [term -> factor seen_factor termB] with [None,None,None] and goto state 78
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 92
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = term . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [seen_term -> <empty>] with [] and goto state 74
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 135
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = term seen_term . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 184
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = term seen_term empty . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [expB -> empty] with [''] and goto state 77
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 183
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = term seen_term expB . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [exp -> term seen_term expB] with [None,None,None] and goto state 73
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 93
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = exp . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 142
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = exp empty . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [expressionB -> empty] with [''] and goto state 72
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 138
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = exp expressionB . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [expression -> exp expressionB] with [None,None] and goto state 65
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 94
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = expression . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 146
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = expression empty . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [superexpressionB -> empty] with [''] and goto state 64
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 145
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = expression superexpressionB . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [superexpression -> expression superexpressionB] with [None,None] and goto state 62
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 89
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = superexpression . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 132
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = superexpression empty . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [hyperexpressionB -> empty] with [''] and goto state 61
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 130
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = superexpression hyperexpressionB . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [hyperexpression -> superexpression hyperexpressionB] with [None,None] and goto state 59
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 206
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID dimensionsOpt = hyperexpression . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [assignB -> dimensionsOpt = hyperexpression] with ['','=',None] and goto state 38
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 110
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID assignB . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [assignfunccallB -> assignB] with [None] and goto state 55
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 108
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction ID assignfunccallB . LexToken(;,';',5,50)
 INFO:root:Action : Reduce rule [assignfunccall -> ID assignfunccallB] with ['x',None] and goto state 53
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 50
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction assignfunccall . LexToken(;,';',5,50)
@@ -601,7 +601,7 @@ DEBUG:root:
 DEBUG:root:State  : 95
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction assignfunccall ; . LexToken(INT,'int',6,54)
 INFO:root:Action : Reduce rule [instruction -> assignfunccall ;] with [None,';'] and goto state 44
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 70
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction . LexToken(INT,'int',6,54)
@@ -610,12 +610,12 @@ DEBUG:root:
 DEBUG:root:State  : 15
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction INT . LexToken(ID,'a',6,58)
 INFO:root:Action : Reduce rule [type -> INT] with ['int'] and goto state 104
-INFO:root:Result : <str @ 0x10126d580> ('int')
+INFO:root:Result : <str @ 0x10c95a5a8> ('int')
 DEBUG:root:
 DEBUG:root:State  : 16
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type . LexToken(ID,'a',6,58)
 INFO:root:Action : Reduce rule [push_type -> <empty>] with [] and goto state 21
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 35
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type . LexToken(ID,'a',6,58)
@@ -624,22 +624,22 @@ DEBUG:root:
 DEBUG:root:State  : 45
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type ID . LexToken(=,'=',6,60)
 INFO:root:Action : Reduce rule [push_operand -> <empty>] with [] and goto state 20
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 75
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type ID push_operand . LexToken(=,'=',6,60)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 113
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type ID push_operand empty . LexToken(=,'=',6,60)
 INFO:root:Action : Reduce rule [dimensionsOpt -> empty] with [''] and goto state 40
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 118
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type ID push_operand dimensionsOpt . LexToken(=,'=',6,60)
 INFO:root:Action : Reduce rule [declarationB -> ID push_operand dimensionsOpt] with ['a',None,''] and goto state 19
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 46
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB . LexToken(=,'=',6,60)
@@ -648,17 +648,17 @@ DEBUG:root:
 DEBUG:root:State  : 79
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = . LexToken(ICONST,'2',6,62)
 INFO:root:Action : Reduce rule [push_operator -> <empty>] with [] and goto state 22
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 120
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator . LexToken(ICONST,'2',6,62)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 87
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator empty . LexToken(ICONST,'2',6,62)
 INFO:root:Action : Reduce rule [signB -> empty] with [''] and goto state 90
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 81
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator signB . LexToken(ICONST,'2',6,62)
@@ -667,22 +667,22 @@ DEBUG:root:
 DEBUG:root:State  : 125
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator signB ICONST . LexToken(/,'/',6,64)
 INFO:root:Action : Reduce rule [seen_iconst -> <empty>] with [] and goto state 92
-INFO:root:Result : <str @ 0x100fec3c8> ('int')
+INFO:root:Result : <str @ 0x10c6d83c8> ('int')
 DEBUG:root:
 DEBUG:root:State  : 170
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator signB ICONST seen_iconst . LexToken(/,'/',6,64)
 INFO:root:Action : Reduce rule [constant -> ICONST seen_iconst] with ['2','int'] and goto state 97
-INFO:root:Result : <str @ 0x101081f58> ('2')
+INFO:root:Result : <str @ 0x10c76ef58> ('2')
 DEBUG:root:
 DEBUG:root:State  : 122
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator signB constant . LexToken(/,'/',6,64)
 INFO:root:Action : Reduce rule [factor -> signB constant] with ['','2'] and goto state 83
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 86
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor . LexToken(/,'/',6,64)
 INFO:root:Action : Reduce rule [seen_factor -> <empty>] with [] and goto state 79
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 129
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor . LexToken(/,'/',6,64)
@@ -691,17 +691,17 @@ DEBUG:root:
 DEBUG:root:State  : 177
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / . LexToken(ICONST,'3',6,66)
 INFO:root:Action : Reduce rule [push_operator -> <empty>] with [] and goto state 22
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 216
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator . LexToken(ICONST,'3',6,66)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 87
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator empty . LexToken(ICONST,'3',6,66)
 INFO:root:Action : Reduce rule [signB -> empty] with [''] and goto state 90
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 81
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator signB . LexToken(ICONST,'3',6,66)
@@ -710,22 +710,22 @@ DEBUG:root:
 DEBUG:root:State  : 125
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator signB ICONST . LexToken(*,'*',6,68)
 INFO:root:Action : Reduce rule [seen_iconst -> <empty>] with [] and goto state 92
-INFO:root:Result : <str @ 0x100fec3c8> ('int')
+INFO:root:Result : <str @ 0x10c6d83c8> ('int')
 DEBUG:root:
 DEBUG:root:State  : 170
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator signB ICONST seen_iconst . LexToken(*,'*',6,68)
 INFO:root:Action : Reduce rule [constant -> ICONST seen_iconst] with ['3','int'] and goto state 97
-INFO:root:Result : <str @ 0x1010fdf58> ('3')
+INFO:root:Result : <str @ 0x10c7eaf58> ('3')
 DEBUG:root:
 DEBUG:root:State  : 122
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator signB constant . LexToken(*,'*',6,68)
 INFO:root:Action : Reduce rule [factor -> signB constant] with ['','3'] and goto state 83
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 86
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator factor . LexToken(*,'*',6,68)
 INFO:root:Action : Reduce rule [seen_factor -> <empty>] with [] and goto state 79
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 129
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator factor seen_factor . LexToken(*,'*',6,68)
@@ -734,7 +734,7 @@ DEBUG:root:
 DEBUG:root:State  : 174
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator factor seen_factor * . LexToken(ID,'x',6,70)
 INFO:root:Action : Reduce rule [push_operator -> <empty>] with [] and goto state 22
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 215
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator factor seen_factor * push_operator . LexToken(ID,'x',6,70)
@@ -743,132 +743,132 @@ DEBUG:root:
 DEBUG:root:State  : 91
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator factor seen_factor * push_operator ID . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [seen_ID -> <empty>] with [] and goto state 88
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 134
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator factor seen_factor * push_operator ID seen_ID . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 113
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator factor seen_factor * push_operator ID seen_ID empty . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [dimensionsOpt -> empty] with [''] and goto state 40
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 180
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator factor seen_factor * push_operator ID seen_ID dimensionsOpt . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [factor -> ID seen_ID dimensionsOpt] with ['x','',''] and goto state 86
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 86
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator factor seen_factor * push_operator factor . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [seen_factor -> <empty>] with [] and goto state 79
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 129
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator factor seen_factor * push_operator factor seen_factor . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 176
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator factor seen_factor * push_operator factor seen_factor empty . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [termB -> empty] with [''] and goto state 82
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 175
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator factor seen_factor * push_operator factor seen_factor termB . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [term -> factor seen_factor termB] with [None,None,None] and goto state 78
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 243
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator factor seen_factor * push_operator term . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [termB -> * push_operator term] with ['*',None,None] and goto state 81
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 175
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator factor seen_factor termB . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [term -> factor seen_factor termB] with [None,None,None] and goto state 78
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 244
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor / push_operator term . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [termB -> / push_operator term] with ['/',None,None] and goto state 80
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 175
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator factor seen_factor termB . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [term -> factor seen_factor termB] with [None,None,None] and goto state 78
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 92
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator term . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [seen_term -> <empty>] with [] and goto state 74
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 135
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator term seen_term . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 184
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator term seen_term empty . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [expB -> empty] with [''] and goto state 77
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 183
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator term seen_term expB . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [exp -> term seen_term expB] with [None,None,None] and goto state 73
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 93
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator exp . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 142
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator exp empty . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [expressionB -> empty] with [''] and goto state 72
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 138
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator exp expressionB . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [expression -> exp expressionB] with [None,None] and goto state 65
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 94
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator expression . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 146
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator expression empty . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [superexpressionB -> empty] with [''] and goto state 64
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 145
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator expression superexpressionB . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [superexpression -> expression superexpressionB] with [None,None] and goto state 62
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 89
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator superexpression . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 132
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator superexpression empty . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [hyperexpressionB -> empty] with [''] and goto state 61
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 130
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator superexpression hyperexpressionB . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [hyperexpression -> superexpression hyperexpressionB] with [None,None] and goto state 59
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 167
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator hyperexpression . LexToken(;,';',6,71)
 INFO:root:Action : Reduce rule [quadruple_assign -> <empty>] with [] and goto state 23
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 213
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator hyperexpression quadruple_assign . LexToken(;,';',6,71)
@@ -877,52 +877,52 @@ DEBUG:root:
 DEBUG:root:State  : 241
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator hyperexpression quadruple_assign ; . LexToken(},'}',8,74)
 INFO:root:Action : Reduce rule [declarationD -> ;] with [';'] and goto state 28
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 242
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB = push_operator hyperexpression quadruple_assign declarationD . LexToken(},'}',8,74)
 INFO:root:Action : Reduce rule [declarationC -> = push_operator hyperexpression quadruple_assign declarationD] with ['=',None,None,None,None] and goto state 24
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 78
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction type push_type declarationB declarationC . LexToken(},'}',8,74)
 INFO:root:Action : Reduce rule [declaration -> type push_type declarationB declarationC] with ['int',None,None,None] and goto state 18
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 65
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction declaration . LexToken(},'}',8,74)
 INFO:root:Action : Reduce rule [instruction -> declaration] with [None] and goto state 48
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 70
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction instruction . LexToken(},'}',8,74)
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 58
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction instruction empty . LexToken(},'}',8,74)
 INFO:root:Action : Reduce rule [instructionsOpt -> empty] with [''] and goto state 36
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 115
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction instruction instructionsOpt . LexToken(},'}',8,74)
 INFO:root:Action : Reduce rule [instructionsOpt -> instruction instructionsOpt] with [None,None] and goto state 35
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 115
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instruction instructionsOpt . LexToken(},'}',8,74)
 INFO:root:Action : Reduce rule [instructionsOpt -> instruction instructionsOpt] with [None,None] and goto state 35
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 115
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instruction instructionsOpt . LexToken(},'}',8,74)
 INFO:root:Action : Reduce rule [instructionsOpt -> instruction instructionsOpt] with [None,None] and goto state 35
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 115
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instruction instructionsOpt . LexToken(},'}',8,74)
 INFO:root:Action : Reduce rule [instructionsOpt -> instruction instructionsOpt] with [None,None] and goto state 35
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 62
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instructionsOpt . LexToken(},'}',8,74)
@@ -931,34 +931,34 @@ DEBUG:root:
 DEBUG:root:State  : 105
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) { instructionsOpt } . $end
 INFO:root:Action : Reduce rule [block -> { instructionsOpt }] with ['{',None,'}'] and goto state 34
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 121
 DEBUG:root:Stack  : config declarationsOpt funcsOpt MAIN ( ) block . $end
 INFO:root:Action : Reduce rule [main -> MAIN ( ) block] with ['main','(',')',None] and goto state 29
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 39
 DEBUG:root:Stack  : config declarationsOpt funcsOpt main . $end
 INFO:root:Action : Reduce rule [empty -> <empty>] with [] and goto state 138
-INFO:root:Result : <str @ 0x100fec508> ('')
+INFO:root:Result : <str @ 0x10c6d8508> ('')
 DEBUG:root:
 DEBUG:root:State  : 34
 DEBUG:root:Stack  : config declarationsOpt funcsOpt main empty . $end
 INFO:root:Action : Reduce rule [funcsOpt -> empty] with [''] and goto state 15
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 48
 DEBUG:root:Stack  : config declarationsOpt funcsOpt main funcsOpt . $end
 INFO:root:Action : Reduce rule [body -> declarationsOpt funcsOpt main funcsOpt] with [None,None,None,None] and goto state 13
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 12
 DEBUG:root:Stack  : config body . $end
 INFO:root:Action : Reduce rule [program -> config body] with [None,None] and goto state 1
-INFO:root:Result : <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Result : <NoneType @ 0x10c63a7f8> (None)
 DEBUG:root:
 DEBUG:root:State  : 5
 DEBUG:root:Stack  : program . $end
-INFO:root:Done   : Returning <NoneType @ 0x100f4e7f8> (None)
+INFO:root:Done   : Returning <NoneType @ 0x10c63a7f8> (None)
 INFO:root:PLY: PARSE DEBUG END
