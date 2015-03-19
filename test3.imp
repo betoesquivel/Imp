@@ -3,10 +3,11 @@
 int a; int b;
 
 def void algo(int x) {
-   x = 2 + 4 > 8;
+   x = 2 + 4;
 }
 
 main() {
   a = a * 3;
-  print (algo(8));
+  b = 2 + 1 - 4 * 2;
+  algo(8);
 }

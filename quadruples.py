@@ -1,5 +1,6 @@
 #!env/bin/python
 from sets import Set
+from semantics import semantics_cube
 
 id_dict = {
     'id': 'X',
@@ -12,12 +13,31 @@ jumps = [] # Pila de saltos
 
 quadruples = [] # Lista de cuadruplos
 
+def print_operators():
+    print 'OPERATORS'
+    print operators
+
+def print_operands():
+    print 'OPERANDS'
+    print operands
+
+def print_types():
+    print 'TYPES'
+    print types
+
+
+def print_quadruples():
+    print 'QUADRUPLES'
+    for q in quadruples:
+        print q
+
 unused_temps = Set([])
 used_temps = Set([])
 next_temp = 1
 def get_temp():
+    global next_temp, unused_temps, used_temps
     if len( unused_temps ) == 0:
-        temp = 't' + next_temp
+        temp = 't{0}'.format( next_temp )
         used_temps.add( temp )
         next_temp += 1
     else:
@@ -44,6 +64,7 @@ def add_quadruple(operator, op1, type1,  op2, type2):
         operands.append(temp)
         types.append(result_type)
 
+    print_quadruples()
     return_temp_operands(op1, op2)
 
 

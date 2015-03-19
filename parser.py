@@ -4,7 +4,7 @@ import logging
 import lexer
 import sys
 from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local, var_dict, func_dict, semantics_cube
-from quadruples import operators, operands, jumps, quadruples, types, add_quadruple, return_pending_quadruple
+from quadruples import operators, operands, jumps, quadruples, types, add_quadruple, return_pending_quadruple, print_quadruples, print_operators, print_operands, print_types
 from copy import deepcopy
 
 
@@ -52,6 +52,7 @@ def p_declarationsOpt(p):
 # <declaration>
 def p_declaration(p):
     '''declaration : type push_type declarationB declarationC'''
+    print_quadruples()
 
 def p_declarationB(p):
     '''declarationB : ID push_operand dimensionsOpt '''
@@ -95,7 +96,7 @@ def p_quadruple_assign(p):
 
 
 def p_declarationC(p):
-    '''declarationC : '=' push_operator superexpression quadruple_assign declarationD
+    '''declarationC : '=' push_operator hyperexpression quadruple_assign declarationD
                     | ',' declarationB declarationC
                     | ';' '''
     if p[1] == ';':
@@ -143,14 +144,14 @@ def p_instructionsOpt(p):
 
 # <assign>
 def p_assign(p):
-    '''assign : ID dimensionsOpt '=' superexpression'''
+    '''assign : ID dimensionsOpt '=' hyperexpression'''
     current['id'] = p[1]
     if not var_exists_in_dict(current['scope'], current['id']):
         print errors['UNDECLARED_VARIABLE'].format(p[1], p.lineno(1))
         exit(1)
 
 def p_assignB(p):
-    '''assignB : dimensionsOpt '=' superexpression'''
+    '''assignB : dimensionsOpt '=' hyperexpression'''
 
 def p_dimensionsOpt(p):
     '''dimensionsOpt : dimensions
@@ -160,7 +161,7 @@ def p_dimensionsOpt(p):
 
 # <condition>
 def p_condition(p):
-    '''condition : IF '(' superexpression ')' block else'''
+    '''condition : IF '(' hyperexpression ')' block else'''
 
 # <else>
 def p_else(p):
@@ -256,7 +257,7 @@ def p_expressionB(p):
 
 # <exp>
 def p_exp(p):
-    '''exp : term seen_term expB'''
+    '''exp : term seen_term  expB'''
 
 def p_seen_term(p):
     '''seen_term :'''
@@ -290,7 +291,7 @@ def p_termB(p):
 # <factor>
 def p_factor(p):
     '''factor : signB constant
-              | '(' seen_parentheses superexpression ')'
+              | '(' seen_parentheses hyperexpression ')'
               | funccall
               | ID seen_ID dimensionsOpt'''
     if ( len(p) >= 3 ):
@@ -369,7 +370,7 @@ def p_sign(p):
 
 # <whileloop>
 def p_whileloop(p):
-    '''whileloop : WHILE '(' superexpression ')' block'''
+    '''whileloop : WHILE '(' hyperexpression ')' block'''
 
 # <type>
 def p_type(p):
@@ -388,7 +389,7 @@ def p_returntype(p):
 
 # <forloop>
 def p_forloop(p):
-    '''forloop : FOR '(' assign ';' superexpression ';' superexpression ')' block'''
+    '''forloop : FOR '(' assign ';' hyperexpression ';' hyperexpression ')' block'''
 
 # <input>
 def p_input(p):
@@ -403,7 +404,7 @@ def p_output(p):
 
 def p_outputB(p):
     '''outputB : SCONST outputC
-               | superexpression outputC'''
+               | hyperexpression outputC'''
 
 def p_outputC(p):
     '''outputC : ')'
@@ -441,7 +442,7 @@ def p_funccall(p):
     clear_current()
 
 def p_funccallB(p):
-    '''funccallB : superexpression
+    '''funccallB : hyperexpression
                  | empty '''
     if  p[1] is not '':
         current['params'].append(1)
@@ -452,17 +453,17 @@ def p_funccallC(p):
 
 # <dimensions>
 def p_dimensions(p):
-    '''dimensions : '[' superexpression ']' dimensionsB '''
+    '''dimensions : '[' hyperexpression ']' dimensionsB '''
     current['dimensionx'] = 1
 
 def p_dimensionsB(p):
-    '''dimensionsB : '[' superexpression ']'
+    '''dimensionsB : '[' hyperexpression ']'
                    | empty '''
     current['dimensiony'] = ( 1 if p[1] == '[' else 0 )
 
 # <return>
 def p_return(p):
-    '''return : RETURN superexpression'''
+    '''return : RETURN hyperexpression'''
 
 # <params>
 def p_params(p):
