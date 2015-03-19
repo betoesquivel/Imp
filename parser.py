@@ -85,6 +85,7 @@ def p_push_type(p):
 def p_push_operator(p):
     '''push_operator :'''
     operators.append(p[-1])
+    print "pushing: ", p[-1]
 
 def p_quadruple_assign(p):
     '''quadruple_assign :'''
