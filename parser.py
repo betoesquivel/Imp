@@ -52,7 +52,7 @@ def p_declarationsOpt(p):
 # <declaration>
 def p_declaration(p):
     '''declaration : type push_type declarationB declarationC'''
-    print_quadruples()
+    print "Una declaration"
 
 def p_declarationB(p):
     '''declarationB : ID push_operand dimensionsOpt '''
@@ -74,6 +74,8 @@ def p_declarationB(p):
 
 def p_push_operand(p):
     '''push_operand :'''
+    if var_exists_in_dict(current['scope'], p[-1]):
+        types.append(vars_dict[ current['scope'] ] [ p[-1] ] [ 'type' ] )
     operands.append(p[-1])
 
 def p_push_type(p):
@@ -86,13 +88,18 @@ def p_push_operator(p):
 
 def p_quadruple_assign(p):
     '''quadruple_assign :'''
-    op2 = operands.pop()
-    type2 = types.pop()
-    op1 = operands.pop()
-    type1 = types.pop()
+    print "assigning a quadruple... "
+    print_operators()
+    print_operands()
+    print_types()
+    if operands and types and operators:
+        op2 = operands.pop()
+        type2 = types.pop()
+        op1 = operands.pop()
+        type1 = types.pop()
 
-    op = operators.pop()
-    add_quadruple(op, op1, type1, op2, type2)
+        op = operators.pop()
+        add_quadruple(op, op1, type1, op2, type2)
 
 
 def p_declarationC(p):
@@ -144,7 +151,7 @@ def p_instructionsOpt(p):
 
 # <assign>
 def p_assign(p):
-    '''assign : ID dimensionsOpt '=' hyperexpression'''
+    '''assign : ID push_operand dimensionsOpt '=' push_operator hyperexpression quadruple_assign'''
     current['id'] = p[1]
     if not var_exists_in_dict(current['scope'], current['id']):
         print errors['UNDECLARED_VARIABLE'].format(p[1], p.lineno(1))
@@ -360,6 +367,7 @@ def p_constant(p):
         add_quadruple('*', '-1', 'int', p[1], p[2])
     else:
         operands.append(p[1])
+        types.append(p[2])
 
 
 # <sign>

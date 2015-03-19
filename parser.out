@@ -39,7 +39,7 @@ Rule 33    paramsOpt -> empty
 Rule 34    block -> { instructionsOpt }
 Rule 35    instructionsOpt -> instruction instructionsOpt
 Rule 36    instructionsOpt -> empty
-Rule 37    assign -> ID dimensionsOpt = hyperexpression
+Rule 37    assign -> ID push_operand dimensionsOpt = push_operator hyperexpression quadruple_assign
 Rule 38    assignB -> dimensionsOpt = hyperexpression
 Rule 39    dimensionsOpt -> dimensions
 Rule 40    dimensionsOpt -> empty
@@ -256,10 +256,10 @@ params               : 32 136
 paramsB              : 32 136
 paramsOpt            : 31
 program              : 0
-push_operand         : 19
-push_operator        : 24 60 63 66 67 68 69 70 71 75 76 80 81
+push_operand         : 19 37
+push_operator        : 24 37 60 63 66 67 68 69 70 71 75 76 80 81
 push_type            : 18
-quadruple_assign     : 24
+quadruple_assign     : 24 37
 return               : 46
 returntype           : 31
 seen_ID              : 86
@@ -1961,7 +1961,7 @@ state 103
 state 104
 
     (110) forloop -> FOR ( . assign ; hyperexpression ; hyperexpression ) block
-    (37) assign -> . ID dimensionsOpt = hyperexpression
+    (37) assign -> . ID push_operand dimensionsOpt = push_operator hyperexpression quadruple_assign
 
     ID              shift and go to state 153
 
@@ -2905,18 +2905,13 @@ state 152
 
 state 153
 
-    (37) assign -> ID . dimensionsOpt = hyperexpression
-    (39) dimensionsOpt -> . dimensions
-    (40) dimensionsOpt -> . empty
-    (131) dimensions -> . [ hyperexpression ] dimensionsB
-    (138) empty -> .
+    (37) assign -> ID . push_operand dimensionsOpt = push_operator hyperexpression quadruple_assign
+    (20) push_operand -> .
 
-    [               shift and go to state 111
-    =               reduce using rule 138 (empty -> .)
+    [               reduce using rule 20 (push_operand -> .)
+    =               reduce using rule 20 (push_operand -> .)
 
-    dimensionsOpt                  shift and go to state 197
-    dimensions                     shift and go to state 107
-    empty                          shift and go to state 113
+    push_operand                   shift and go to state 197
 
 state 154
 
@@ -3240,9 +3235,9 @@ state 175
     GTEQ            reduce using rule 78 (term -> factor seen_factor termB .)
     AND             reduce using rule 78 (term -> factor seen_factor termB .)
     OR              reduce using rule 78 (term -> factor seen_factor termB .)
+    ;               reduce using rule 78 (term -> factor seen_factor termB .)
     )               reduce using rule 78 (term -> factor seen_factor termB .)
     ,               reduce using rule 78 (term -> factor seen_factor termB .)
-    ;               reduce using rule 78 (term -> factor seen_factor termB .)
     ]               reduce using rule 78 (term -> factor seen_factor termB .)
 
 
@@ -3746,10 +3741,18 @@ state 196
 
 state 197
 
-    (37) assign -> ID dimensionsOpt . = hyperexpression
+    (37) assign -> ID push_operand . dimensionsOpt = push_operator hyperexpression quadruple_assign
+    (39) dimensionsOpt -> . dimensions
+    (40) dimensionsOpt -> . empty
+    (131) dimensions -> . [ hyperexpression ] dimensionsB
+    (138) empty -> .
 
-    =               shift and go to state 230
+    [               shift and go to state 111
+    =               reduce using rule 138 (empty -> .)
 
+    dimensions                     shift and go to state 107
+    dimensionsOpt                  shift and go to state 230
+    empty                          shift and go to state 113
 
 state 198
 
@@ -4287,43 +4290,10 @@ state 229
 
 state 230
 
-    (37) assign -> ID dimensionsOpt = . hyperexpression
-    (59) hyperexpression -> . superexpression hyperexpressionB
-    (62) superexpression -> . expression superexpressionB
-    (65) expression -> . exp expressionB
-    (73) exp -> . term seen_term expB
-    (78) term -> . factor seen_factor termB
-    (83) factor -> . signB constant
-    (84) factor -> . ( seen_parentheses hyperexpression )
-    (85) factor -> . funccall
-    (86) factor -> . ID seen_ID dimensionsOpt
-    (89) signB -> . sign
-    (90) signB -> . empty
-    (126) funccall -> . ID ( funccallB funccallC
-    (101) sign -> . +
-    (102) sign -> . -
-    (138) empty -> .
+    (37) assign -> ID push_operand dimensionsOpt . = push_operator hyperexpression quadruple_assign
 
-    (               shift and go to state 82
-    ID              shift and go to state 91
-    +               shift and go to state 83
-    -               shift and go to state 84
-    FCONST          reduce using rule 138 (empty -> .)
-    ICONST          reduce using rule 138 (empty -> .)
-    SCONST          reduce using rule 138 (empty -> .)
-    TRUE            reduce using rule 138 (empty -> .)
-    FALSE           reduce using rule 138 (empty -> .)
+    =               shift and go to state 247
 
-    sign                           shift and go to state 90
-    signB                          shift and go to state 81
-    hyperexpression                shift and go to state 247
-    factor                         shift and go to state 86
-    empty                          shift and go to state 87
-    funccall                       shift and go to state 88
-    superexpression                shift and go to state 89
-    term                           shift and go to state 92
-    exp                            shift and go to state 93
-    expression                     shift and go to state 94
 
 state 231
 
@@ -4622,10 +4592,20 @@ state 246
 
 state 247
 
-    (37) assign -> ID dimensionsOpt = hyperexpression .
+    (37) assign -> ID push_operand dimensionsOpt = . push_operator hyperexpression quadruple_assign
+    (22) push_operator -> .
 
-    ;               reduce using rule 37 (assign -> ID dimensionsOpt = hyperexpression .)
+    (               reduce using rule 22 (push_operator -> .)
+    ID              reduce using rule 22 (push_operator -> .)
+    +               reduce using rule 22 (push_operator -> .)
+    -               reduce using rule 22 (push_operator -> .)
+    FCONST          reduce using rule 22 (push_operator -> .)
+    ICONST          reduce using rule 22 (push_operator -> .)
+    SCONST          reduce using rule 22 (push_operator -> .)
+    TRUE            reduce using rule 22 (push_operator -> .)
+    FALSE           reduce using rule 22 (push_operator -> .)
 
+    push_operator                  shift and go to state 257
 
 state 248
 
@@ -4658,7 +4638,7 @@ state 248
 
     sign                           shift and go to state 90
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 257
+    hyperexpression                shift and go to state 258
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
@@ -4700,7 +4680,7 @@ state 251
 
     (132) dimensionsB -> [ hyperexpression . ]
 
-    ]               shift and go to state 258
+    ]               shift and go to state 259
 
 
 state 252
@@ -4710,7 +4690,7 @@ state 252
 
     {               shift and go to state 40
 
-    block                          shift and go to state 259
+    block                          shift and go to state 260
 
 state 253
 
@@ -4772,16 +4752,56 @@ state 256
     ,               shift and go to state 76
     ;               shift and go to state 77
 
-    declarationC                   shift and go to state 260
+    declarationC                   shift and go to state 261
 
 state 257
 
-    (110) forloop -> FOR ( assign ; hyperexpression ; hyperexpression . ) block
+    (37) assign -> ID push_operand dimensionsOpt = push_operator . hyperexpression quadruple_assign
+    (59) hyperexpression -> . superexpression hyperexpressionB
+    (62) superexpression -> . expression superexpressionB
+    (65) expression -> . exp expressionB
+    (73) exp -> . term seen_term expB
+    (78) term -> . factor seen_factor termB
+    (83) factor -> . signB constant
+    (84) factor -> . ( seen_parentheses hyperexpression )
+    (85) factor -> . funccall
+    (86) factor -> . ID seen_ID dimensionsOpt
+    (89) signB -> . sign
+    (90) signB -> . empty
+    (126) funccall -> . ID ( funccallB funccallC
+    (101) sign -> . +
+    (102) sign -> . -
+    (138) empty -> .
 
-    )               shift and go to state 261
+    (               shift and go to state 82
+    ID              shift and go to state 91
+    +               shift and go to state 83
+    -               shift and go to state 84
+    FCONST          reduce using rule 138 (empty -> .)
+    ICONST          reduce using rule 138 (empty -> .)
+    SCONST          reduce using rule 138 (empty -> .)
+    TRUE            reduce using rule 138 (empty -> .)
+    FALSE           reduce using rule 138 (empty -> .)
 
+    signB                          shift and go to state 81
+    hyperexpression                shift and go to state 262
+    factor                         shift and go to state 86
+    empty                          shift and go to state 87
+    funccall                       shift and go to state 88
+    superexpression                shift and go to state 89
+    sign                           shift and go to state 90
+    term                           shift and go to state 92
+    exp                            shift and go to state 93
+    expression                     shift and go to state 94
 
 state 258
+
+    (110) forloop -> FOR ( assign ; hyperexpression ; hyperexpression . ) block
+
+    )               shift and go to state 263
+
+
+state 259
 
     (132) dimensionsB -> [ hyperexpression ] .
 
@@ -4804,7 +4824,7 @@ state 258
     ]               reduce using rule 132 (dimensionsB -> [ hyperexpression ] .)
 
 
-state 259
+state 260
 
     (42) else -> ELSE block .
 
@@ -4825,7 +4845,7 @@ state 259
     }               reduce using rule 42 (else -> ELSE block .)
 
 
-state 260
+state 261
 
     (27) declarationD -> , declarationB declarationC .
 
@@ -4848,16 +4868,32 @@ state 260
     }               reduce using rule 27 (declarationD -> , declarationB declarationC .)
 
 
-state 261
+state 262
+
+    (37) assign -> ID push_operand dimensionsOpt = push_operator hyperexpression . quadruple_assign
+    (23) quadruple_assign -> .
+
+    ;               reduce using rule 23 (quadruple_assign -> .)
+
+    quadruple_assign               shift and go to state 264
+
+state 263
 
     (110) forloop -> FOR ( assign ; hyperexpression ; hyperexpression ) . block
     (34) block -> . { instructionsOpt }
 
     {               shift and go to state 40
 
-    block                          shift and go to state 262
+    block                          shift and go to state 265
 
-state 262
+state 264
+
+    (37) assign -> ID push_operand dimensionsOpt = push_operator hyperexpression quadruple_assign .
+
+    ;               reduce using rule 37 (assign -> ID push_operand dimensionsOpt = push_operator hyperexpression quadruple_assign .)
+
+
+state 265
 
     (110) forloop -> FOR ( assign ; hyperexpression ; hyperexpression ) block .
 

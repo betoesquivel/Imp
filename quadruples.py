@@ -65,6 +65,8 @@ def add_quadruple(operator, op1, type1,  op2, type2):
         types.append(result_type)
 
     print_quadruples()
+    print_operators()
+    print_operands()
     return_temp_operands(op1, op2)
 
 

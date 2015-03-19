@@ -1,0 +1,8 @@
+main() {
+  int b = 8;
+ int x;
+
+  x = b * 3 * 4 / 4;
+  int a = 2 / 3 * x;
+
+}
