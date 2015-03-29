@@ -47,6 +47,7 @@ def get_temp():
 
 relational_operators = Set(['<', '>', 'DIFF', 'EQ', 'LTEQ', 'GTEQ'])
 logical_operators = Set(['AND', 'OR'])
+ignored_checks = Set(['PRINT', 'INPUT'])
 
 def add_quadruple(operator, op1, type1,  op2, type2):
 
@@ -58,6 +59,8 @@ def add_quadruple(operator, op1, type1,  op2, type2):
 
     if operator is '=':
         quadruples.append( [operator, op2, -1, op1] )
+    elif operator is 'PRINT':
+        quadruples.append( [operator, -1, -1, op1] )
     else:
         temp = get_temp()
         quadruples.append( [operator, op1, op2, temp] )
@@ -73,6 +76,8 @@ def add_quadruple(operator, op1, type1,  op2, type2):
 def check_operation(type1, operator,  type2):
     if operator is '=':
         return semantics_cube.get( (type1, operator, type2) , 'error')
+    elif operator in ignored_checks:
+        return 'continue'
     elif operator in relational_operators:
         result_type = semantics_cube.get( (type1, 'comp', type2) , 'error')
         if result_type is 'error':
@@ -93,8 +98,10 @@ def return_temp_operands(op1, op2):
     ''' Note: We are asuming IDs that are introduced by the user cant be t[0-9] '''
     if op1 in used_temps:
         used_temps.remove(op1)
+        unused_temps.add(op1)
     if op2 in used_temps:
         used_temps.remove(op2)
+        unused_temps.add(op2)
 
 def return_pending_quadruple(operator_list):
     operator_set = Set(operator_list)

@@ -72,15 +72,22 @@ def p_declarationB(p):
         current['dimensionx'] = 0
         current['dimensiony'] = 0
 
+
 def p_push_operand(p):
     '''push_operand :'''
     if var_exists_in_dict(current['scope'], p[-1]):
-        types.append(vars_dict[ current['scope'] ] [ p[-1] ] [ 'type' ] )
+        types.append(var_dict[ current['scope'] ] [ p[-1] ] [ 'type' ] )
+
     operands.append(p[-1])
 
 def p_push_type(p):
     '''push_type :'''
     types.append(p[-1])
+
+def p_repush_type(p):
+    '''repush_type :'''
+    print_current()
+    types.append(current['type'])
 
 def p_push_operator(p):
     '''push_operator :'''
@@ -92,11 +99,13 @@ def p_quadruple_assign(p):
     print_operators()
     print_operands()
     print_types()
+
     if operands and types and operators:
-        op2 = operands.pop()
-        type2 = types.pop()
-        op1 = operands.pop()
-        type1 = types.pop()
+
+        op2 = operands.pop() if operands else -1
+        type2 = types.pop() if types else -1
+        op1 = operands.pop() if operands else -1
+        type1 = types.pop() if types else -1
 
         op = operators.pop()
         add_quadruple(op, op1, type1, op2, type2)
@@ -104,7 +113,7 @@ def p_quadruple_assign(p):
 
 def p_declarationC(p):
     '''declarationC : '=' push_operator hyperexpression quadruple_assign declarationD
-                    | ',' declarationB declarationC
+                    | ',' repush_type declarationB declarationC
                     | ';' '''
     if p[1] == ';':
         clear_current()
@@ -113,7 +122,7 @@ def p_declarationC(p):
         current['dimensiony'] = 0
 
 def p_declarationD(p):
-    '''declarationD : ',' declarationB declarationC
+    '''declarationD : ',' repush_type declarationB declarationC
                     | ';' '''
 
 # <main>
@@ -190,7 +199,7 @@ def p_instruction(p):
 # <assignfunccall>
 # left factor the assign and funccall rules
 def p_assignfunccall(p):
-    '''assignfunccall : ID assignfunccallB'''
+    '''assignfunccall : ID push_operand assignfunccallB'''
     current['id'] = p[1]
     if current['isfunc']:
         if func_exists_in_dict(current['id']):
@@ -205,11 +214,14 @@ def p_assignfunccall(p):
         if not var_exists_in_dict(current['scope'], current['id']):
             print errors['UNDECLARED_VARIABLE'].format(current['id'], p.lineno(1))
 
-
+def p_pop_operand(p):
+    '''pop_operand :'''
+    if operands:
+        operands.pop()
 
 
 def p_assignfunccallB(p):
-    '''assignfunccallB : '(' funccallB funccallC
+    '''assignfunccallB : '(' pop_operand funccallB funccallC
                        | assignB'''
     current['isfunc'] = True if p[1] == '(' else False
 
@@ -411,8 +423,15 @@ def p_output(p):
     '''output : PRINT '(' outputB '''
 
 def p_outputB(p):
-    '''outputB : SCONST outputC
-               | hyperexpression outputC'''
+    '''outputB : SCONST push_operand print_quadruple outputC
+               | hyperexpression print_quadruple outputC'''
+
+def p_print_quadruple(p):
+    '''print_quadruple :'''
+    if operands:
+        op1 = operands.pop()
+        types.pop()
+        add_quadruple('PRINT', op1, -1, -1, -1)
 
 def p_outputC(p):
     '''outputC : ')'
