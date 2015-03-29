@@ -11,9 +11,6 @@ def int sum(float a, float b ) {
 
 def void miFunc(int cont3) {
 
-  sum(1, 2);
-  sum(3, -3);
-  print( sum(4,4));
 
 }
 
@@ -26,7 +23,7 @@ main () {
   #forgetdecision
   for (cont2=0; cont<cont2; cont+1) {
     print("contador= ", cont);
-  } print(miFunc(), sum(cont,cont2));
+  } print(miFunc("hola"));
 
 }
 
