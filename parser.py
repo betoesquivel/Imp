@@ -204,6 +204,7 @@ def p_assignfunccall(p):
     if current['isfunc']:
         if func_exists_in_dict(current['id']):
             if len(current['params']) != len(func_dict[ current['id'] ]['params']):
+                print_current()
                 print errors['PARAMETER_LENGTH_MISMATCH'].format(current['id'], len(func_dict[ current['id'] ]['params']),len(current['params']), p.lineno(1))
                 exit(1)
         else:
@@ -469,10 +470,12 @@ def p_funccall(p):
     clear_current()
 
 def p_funccallB(p):
-    '''funccallB : hyperexpression
+    '''funccallB : hyperexpression seen_param
                  | empty '''
-    if  p[1] is not '':
-        current['params'].append(1)
+
+def p_seen_param(p):
+    '''seen_param :'''
+    current['params'].append(1)
 
 def p_funccallC(p):
     '''funccallC : ',' funccallB funccallC
