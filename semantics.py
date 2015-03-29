@@ -183,7 +183,15 @@ semantics_cube = {
     ('bool', '=', 'string') : 'bool',
     ('bool', '=', 'bool') : 'bool',
     ('bool', '=', 'char') : 'bool',
-    ('bool', '=', 'float') : 'bool'
+    ('bool', '=', 'float') : 'bool',
+
+    # float with float
+    ('float', '=', 'float') : 'float',
+    ('float', '+', 'float') : 'float',
+    ('float', '-', 'float') : 'float',
+    ('float', '*', 'float') : 'float',
+    ('float', '/', 'float') : 'float'
+
 
 }
 
