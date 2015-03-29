@@ -145,6 +145,7 @@ def p_func(p):
         exit(1)
     else:
         add_func_to_dict(current['id'], current['type'], deepcopy(current['params']))
+        current['params'] = []
 
 def p_paramsOpt(p):
     '''paramsOpt : params paramsB
