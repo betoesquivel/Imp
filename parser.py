@@ -421,7 +421,32 @@ def p_sign(p):
 
 # <whileloop>
 def p_whileloop(p):
-    '''whileloop : WHILE '(' hyperexpression ')' block'''
+    '''whileloop : WHILE init_while '(' hyperexpression ')' while_quadruple block endwhile_quadruple'''
+
+def p_init_while(p):
+    '''init_while :'''
+    jumps.append(len(quadruples))
+
+def p_while_quadruple(p):
+    '''while_quadruple :'''
+    if types:
+        type1 = types.pop() if types else -1
+        if type1 == 'bool':
+            op1 = operands.pop()
+            add_quadruple('GOTOF', op1, -1, -1, -1)
+            jumps.append(len(quadruples)-1)
+        else:
+            print 'se esperaba valor booleano!'
+
+def p_endwhile_quadruple(p):
+    '''endwhile_quadruple :'''
+    if jumps:
+        false = jumps.pop()
+        init = jumps.pop()
+        add_quadruple('GOTO', init, -1, -1, -1)
+        quadruples[false][3] = len(quadruples)
+        print_quadruples()
+
 
 # <type>
 def p_type(p):

@@ -64,7 +64,7 @@ def add_quadruple(operator, op1, type1,  op2, type2):
     elif operator is 'GOTOF':
         quadruples.append( [operator, op1, -1, -1] )
     elif operator is 'GOTO':
-        quadruples.append( [operator, -1, -1, -1] )
+        quadruples.append( [operator, -1, -1, op1] )
     else:
         temp = get_temp()
         quadruples.append( [operator, op1, op2, temp] )
