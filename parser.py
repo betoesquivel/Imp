@@ -178,12 +178,41 @@ def p_dimensionsOpt(p):
 
 # <condition>
 def p_condition(p):
-    '''condition : IF '(' hyperexpression ')' block else'''
+    '''condition : IF '(' hyperexpression condition_quadruple ')' block else endcondition_quadruple'''
 
 # <else>
 def p_else(p):
-    '''else : ELSE block
+    '''else : ELSE elsecondition_quadruple block
             | empty'''
+
+def p_condition_quadruple(p):
+    '''condition_quadruple :'''
+    if types:
+        type1 = types.pop() if types else -1
+        if type1 == 'bool':
+            op1 = operands.pop()
+            add_quadruple('GOTOF', op1, -1, -1, -1)
+            jumps.append(len(quadruples)-1)
+        else:
+            print 'se esperaba valor booleano!'
+
+def p_elsecondition_quadruple(p):
+    '''elsecondition_quadruple :'''
+    add_quadruple('GOTO', -1, -1, -1, -1)
+    if jumps:
+        false = jumps.pop()
+        quadruples[false][3] = len(quadruples)
+        jumps.append(len(quadruples)-1)
+
+
+def p_endcondition_quadruple(p):
+    '''endcondition_quadruple :'''
+    if jumps:
+        end = jumps.pop()
+        quadruples[end][3] = len(quadruples)
+        print_quadruples()
+
+
 
 # <instruction>
 def p_instruction(p):

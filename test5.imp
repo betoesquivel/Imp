@@ -1,0 +1,20 @@
+main() {
+  int b = 8;
+ int x;
+
+  x = b * 3 * 4 / 4;
+  int a = 2 / 3 * x;
+	if (a > b+a/2*5/8) {
+	x=a;
+	  if (b<a){
+	  x=2;
+	  }
+	  else {
+	  x=3;
+          }		
+	}
+	else {
+	x=b;
+	}
+  b = a+2*4/2;		
+}

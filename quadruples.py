@@ -47,7 +47,7 @@ def get_temp():
 
 relational_operators = Set(['<', '>', 'DIFF', 'EQ', 'LTEQ', 'GTEQ'])
 logical_operators = Set(['AND', 'OR'])
-ignored_checks = Set(['PRINT', 'INPUT'])
+ignored_checks = Set(['PRINT', 'INPUT', 'GOTOF', 'GOTO'])
 
 def add_quadruple(operator, op1, type1,  op2, type2):
 
@@ -61,6 +61,10 @@ def add_quadruple(operator, op1, type1,  op2, type2):
         quadruples.append( [operator, op2, -1, op1] )
     elif operator is 'PRINT':
         quadruples.append( [operator, -1, -1, op1] )
+    elif operator is 'GOTOF':
+        quadruples.append( [operator, op1, -1, -1] )
+    elif operator is 'GOTO':
+        quadruples.append( [operator, -1, -1, -1] )
     else:
         temp = get_temp()
         quadruples.append( [operator, op1, op2, temp] )
