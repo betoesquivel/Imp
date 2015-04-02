@@ -465,7 +465,43 @@ def p_returntype(p):
 
 # <forloop>
 def p_forloop(p):
-    '''forloop : FOR '(' assign ';' hyperexpression ';' hyperexpression ')' block'''
+    '''forloop : FOR '(' assign ';' init_while hyperexpression for_quadruple ';' hyperexpression for_expression ')' block endfor_quadruple '''
+
+# <for_quadruple>
+def p_for_quadruple(p):
+    '''for_quadruple :'''
+    if types:
+        type1 = types.pop() if types else -1
+        if type1 == 'bool':
+            op1 = operands.pop()
+            add_quadruple('GOTOF', op1, -1, -1, -1)
+            jumps.append(len(quadruples)-1)
+            add_quadruple('GOTO', -1, -1, -1, -1)
+            jumps.append(len(quadruples)-1)
+        else:
+            print 'se esperaba valor booleano!'
+
+# <for_expression>
+def p_for_expression(p):
+    '''for_expression :'''
+    if jumps:
+        skip_forexpression = jumps.pop()
+        false = jumps.pop()
+        init = jumps.pop()
+        jumps.append(len(quadruples)-1)
+        add_quadruple('GOTO', init, -1, -1, -1)
+        quadruples[skip_forexpression][3] = len(quadruples)
+        jumps.append(false)
+        print_quadruples()
+
+def p_endfor_quadruple(p):
+    '''endfor_quadruple :'''
+    if jumps:
+        false = jumps.pop()
+        expression = jumps.pop()
+        add_quadruple('GOTO', expression, -1, -1, -1)
+        quadruples[false][3] = len(quadruples)
+        print_quadruples()
 
 # <input>
 def p_input(p):

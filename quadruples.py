@@ -28,8 +28,10 @@ def print_types():
 
 def print_quadruples():
     print 'QUADRUPLES'
+    i = 0
     for q in quadruples:
-        print q
+        print i, q
+        i += 1
 
 unused_temps = Set([])
 used_temps = Set([])
