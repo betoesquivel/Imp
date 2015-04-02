@@ -195,6 +195,7 @@ def p_condition_quadruple(p):
             jumps.append(len(quadruples)-1)
         else:
             print 'se esperaba valor booleano!'
+            exit(1)
 
 def p_elsecondition_quadruple(p):
     '''elsecondition_quadruple :'''
@@ -437,6 +438,7 @@ def p_while_quadruple(p):
             jumps.append(len(quadruples)-1)
         else:
             print 'se esperaba valor booleano!'
+            exit(1)
 
 def p_endwhile_quadruple(p):
     '''endwhile_quadruple :'''
@@ -480,6 +482,7 @@ def p_for_quadruple(p):
             jumps.append(len(quadruples)-1)
         else:
             print 'se esperaba valor booleano!'
+            exit(1)
 
 # <for_expression>
 def p_for_expression(p):
@@ -584,7 +587,26 @@ def p_dimensionsB(p):
 
 # <return>
 def p_return(p):
-    '''return : RETURN hyperexpression'''
+    '''return : RETURN hyperexpression return_quadruple'''
+
+# <return_quadruple>
+def p_return_quadruple(p):
+    '''return_quadruple :'''
+    if operands and types:
+
+        print_operands()
+        print_types()
+
+        op1 = operands.pop()
+        type1 = types.pop()
+
+        print_current()
+
+        if (type1 == func_dict[ current['id'] ]['type']):
+            add_quadruple('RETURN', op1, type1, -1, -1)
+        else:
+            print 'Error en return type'
+            exit(1)
 
 # <params>
 def p_params(p):

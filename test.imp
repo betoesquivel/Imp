@@ -3,9 +3,9 @@
 
 int cont = 0, cont2 = 1;
 
-def int sum(float a, float b ) {
+def int sum(float a, int b ) {
 
-  return a+b;
+  return "hola";
 
 }
 
