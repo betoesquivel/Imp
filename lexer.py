@@ -30,7 +30,7 @@ reserved = {
     'float'     : 'FLOAT',
     'void'      : 'VOID',
     'for'       : 'FOR',
-    'input'     : 'INPUT',
+    'read'     : 'READ',
     'return'    : 'RETURN',
     'bool'      : 'BOOL',
     'def'       : 'DEF',

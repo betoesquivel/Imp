@@ -220,7 +220,7 @@ def p_instruction(p):
     '''instruction : assignfunccall ';'
                    | output ';'
                    | return ';'
-                   | input ';'
+                   | read ';'
                    | declaration
                    | condition
                    | whileloop
@@ -506,12 +506,27 @@ def p_endfor_quadruple(p):
         quadruples[false][3] = len(quadruples)
         print_quadruples()
 
-# <input>
-def p_input(p):
-    """input : INPUT '(' ID inputB ')' """
+# <read>
+def p_read(p):
+    """read : READ '(' validate_id push_operand read_quadruple readB ')' """
 
-def p_inputB(p):
-    '''inputB : ',' ID inputB
+def p_validate_id(p):
+    '''validate_id : ID'''
+    if ( var_exists_in_dict(current['scope'], p[1]) ):
+        p[0] = p[1]
+    else:
+        print errors['UNDECLARED_VARIABLE'].format(p[1], p.lineno(1))
+        exit(1)
+
+def p_read_quadruple(p):
+    '''read_quadruple :'''
+    if operands:
+        op1 = operands.pop()
+        types.pop()
+        add_quadruple('READ', op1, -1, -1, -1)
+
+def p_readB(p):
+    '''readB : ',' validate_id push_operand read_quadruple readB
               | empty'''
 # <output>
 def p_output(p):
