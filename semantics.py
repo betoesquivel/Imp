@@ -8,7 +8,8 @@ errors = {
         'REPEATED_DECLARATION': 'Repeated declaration of variable {0} found at line: {1} ',
         'REPEATED_FUNC_DECLARATION': 'Repeated declaration of function {0} found at line: {1} ',
         'UNDECLARED_VARIABLE': 'Undeclared variable {0} found at line: {1} ',
-        'UNDECLARED_FUNCTION': 'Undeclared function {0} found at line: {1} '
+        'UNDECLARED_FUNCTION': 'Undeclared function {0} found at line: {1} ',
+        'STACKOVERFLOW': 'Stackoverflow, the program is too big.'
 }
 
 current = {
