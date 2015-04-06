@@ -5,7 +5,7 @@ int cont = 0, cont2 = 1;
 
 def int sum(float a, int b ) {
 
-  return "hola";
+  return 0;
 
 }
 
