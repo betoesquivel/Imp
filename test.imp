@@ -1,7 +1,7 @@
 #vars=SOME
 #decisions=ALL
 
-int cont = 0, cont2 = 1;
+int cont = 1+3, cont2 = 1;
 
 def int sum(float a, int b ) {
 
@@ -10,8 +10,8 @@ def int sum(float a, int b ) {
 }
 
 def void miFunc(int cont3) {
-   sum(8, 3);
    sum(8 + 1, 3/2 * 54);
+   sum(8, 3);
   sum ( 234, 234 );
 }
 

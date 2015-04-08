@@ -17,6 +17,7 @@ mem_local = MemoryBlock(0, 1000, 2000, 3000, 4000, 5000)
 mem_global = MemoryBlock(5000, 6000, 7000, 8000, 9000, 10000)
 mem_constants = MemoryBlock(10000, 11000, 12000, 13000, 14000, 15000)
 mem_temps = MemoryBlock(15000, 16000, 17000, 18000, 19000, 20000)
+mem_global_temps = MemoryBlock(20000, 21000, 22000, 23000, 24000, 25000)
 
 # sintaxis rules
 
@@ -61,6 +62,10 @@ def p_declarationsOpt(p):
 def p_declaration(p):
     '''declaration : type push_type declarationB declarationC'''
     print "Una declaration"
+    if operands:
+        operands.pop()
+    if types:
+        types.pop()
 
 def p_declarationB(p):
     '''declarationB : ID push_operand dimensionsOpt '''
@@ -87,8 +92,9 @@ def p_declarationB(p):
 def p_push_operand(p):
     '''push_operand :'''
     if var_exists_in_dict(current['scope'], p[-1]):
-        types.append(var_dict[ current['scope'] ] [ p[-1] ] [ 'type' ] )
-        operands.append(var_dict[ current['scope'] ] [ p[-1] ] ['address'])
+        scope = current['scope'] if var_dict[current['scope']].get(p[-1], 'error') != 'error' else 'global'
+        types.append(var_dict[ scope ] [ p[-1] ] [ 'type' ] )
+        operands.append(var_dict[ scope ] [ p[-1] ] ['address'])
     else:
         operands.append(p[-1])
 
@@ -120,7 +126,7 @@ def p_quadruple_assign(p):
         type1 = types.pop() if types else -1
 
         op = operators.pop()
-        add_quadruple(op, op1, type1, op2, type2)
+        add_quadruple(op, op1, type1, op2, type2, mem_temps, mem_global_temps)
 
 
 def p_declarationC(p):
@@ -139,11 +145,17 @@ def p_declarationD(p):
 
 # <main>
 def p_main(p):
-    '''main : MAIN '(' ')' block'''
+    '''main : MAIN '(' ')' seen_main block'''
+
+def p_seen_main(p):
+    '''seen_main :'''
+    print 'ENTRANDO A MAIN'
+    current['scope'] = 'local'
 
 # <func>
 def p_suprafunc(p):
     '''suprafunc : func block'''
+    print 'TERMINANDO EL SCOPE DE UNA FUNCION', current['scope']
     clear_current()
     clear_local()
 
@@ -152,6 +164,7 @@ def p_func(p):
     current['id'] = p[3]
     current['scope'] = 'local'
     current['type'] = p[2]
+    print 'EMPEZANDO EL SCOPE DE UNA FUNCION', current['scope']
     if func_exists_in_dict(current['id']):
         print errors['REPEATED_FUNC_DECLARATION'].format(current['id'], p.lineno(1))
         exit(1)
@@ -203,7 +216,7 @@ def p_condition_quadruple(p):
         type1 = types.pop() if types else -1
         if type1 == 'bool':
             op1 = operands.pop()
-            add_quadruple('GOTOF', op1, -1, -1, -1)
+            add_quadruple('GOTOF', op1, -1, -1, -1, mem_temps, mem_global_temps)
             jumps.append(len(quadruples)-1)
         else:
             print 'se esperaba valor booleano!'
@@ -211,7 +224,7 @@ def p_condition_quadruple(p):
 
 def p_elsecondition_quadruple(p):
     '''elsecondition_quadruple :'''
-    add_quadruple('GOTO', -1, -1, -1, -1)
+    add_quadruple('GOTO', -1, -1, -1, -1, mem_temps, mem_global_temps)
     if jumps:
         false = jumps.pop()
         quadruples[false][3] = len(quadruples)
@@ -286,7 +299,7 @@ def p_hyperexpressionB(p):
     if p[1] is not '':
         op, op1, type1, op2, type2 = return_pending_quadruple(['OR'])
         if op is not 'none_pending':
-            add_quadruple(op, op1, type1, op2, type2)
+            add_quadruple(op, op1, type1, op2, type2, mem_temps, mem_global_temps)
 
 # <superexpression>
 def p_superexpression(p):
@@ -298,7 +311,7 @@ def p_superexpressionB(p):
     if p[1] is not '':
         op, op1, type1, op2, type2 = return_pending_quadruple(['AND'])
         if op is not 'none_pending':
-            add_quadruple(op, op1, type1, op2, type2)
+            add_quadruple(op, op1, type1, op2, type2, mem_temps, mem_global_temps)
 
 # <expression>
 def p_expression(p):
@@ -316,7 +329,7 @@ def p_expressionB(p):
     if p[1] is not '':
         op, op1, type1, op2, type2 = return_pending_quadruple(['<', '>', 'DIFF', 'EQ', 'LTEQ', 'GTEQ'])
         if op is not 'none_pending':
-            add_quadruple(op, op1, type1, op2, type2)
+            add_quadruple(op, op1, type1, op2, type2, mem_temps, mem_global_temps)
 
 
 # <exp>
@@ -328,7 +341,7 @@ def p_seen_term(p):
 
     op, op1, type1, op2, type2 = return_pending_quadruple(['+', '-'])
     if op is not 'none_pending':
-        add_quadruple(op, op1, type1, op2, type2)
+        add_quadruple(op, op1, type1, op2, type2, mem_temps, mem_global_temps)
 
 def p_expB(p):
     '''expB : '-' push_operator exp
@@ -343,7 +356,7 @@ def p_seen_factor(p):
     '''seen_factor :'''
     op, op1, type1, op2, type2 = return_pending_quadruple(['*', '/'])
     if op is not 'none_pending':
-        add_quadruple(op, op1, type1, op2, type2)
+        add_quadruple(op, op1, type1, op2, type2, mem_temps, mem_global_temps)
 
 def p_termB(p):
     '''termB : '/' push_operator term
@@ -376,9 +389,11 @@ def p_seen_ID(p):
         p[0] = 'UNDECLARED_VARIABLE'
     else:
         p[0] = ""
-        type_to_push = var_dict[ current['scope'] ] [ p[-1] ] [ 'type' ]
+        print current['scope']
+        scope = current['scope'] if var_dict[current['scope']].get(p[-1], 'error') != 'error' else 'global'
+        type_to_push = var_dict [scope] [ p[-1] ] [ 'type' ]
         types.append(type_to_push)
-        operands.append( var_dict[ current['scope'] ] [ p[-1] ] [ 'address' ])
+        operands.append( var_dict [scope] [ p[-1] ] [ 'address' ])
 
 
 def p_signB(p):
@@ -421,7 +436,7 @@ def p_constant(p):
     p[0] = p[1]
 
     if p[-1] is '-':
-        add_quadruple('*', '-1', 'int', get_constant_memory_address(p[1], p[2], mem_constants), p[2])
+        add_quadruple('*', '-1', 'int', get_constant_memory_address(p[1], p[2], mem_constants), p[2], mem_temps, mem_global_temps)
     else:
         operands.append( get_constant_memory_address(p[1], p[2], mem_constants) )
         types.append(p[2])
@@ -447,7 +462,7 @@ def p_while_quadruple(p):
         type1 = types.pop() if types else -1
         if type1 == 'bool':
             op1 = operands.pop()
-            add_quadruple('GOTOF', op1, -1, -1, -1)
+            add_quadruple('GOTOF', op1, -1, -1, -1, mem_temps, mem_global_temps)
             jumps.append(len(quadruples)-1)
         else:
             print 'se esperaba valor booleano!'
@@ -458,7 +473,7 @@ def p_endwhile_quadruple(p):
     if jumps:
         false = jumps.pop()
         init = jumps.pop()
-        add_quadruple('GOTO', init, -1, -1, -1)
+        add_quadruple('GOTO', init, -1, -1, -1, mem_temps, mem_global_temps)
         quadruples[false][3] = len(quadruples)
         print_quadruples()
 
@@ -489,9 +504,9 @@ def p_for_quadruple(p):
         type1 = types.pop() if types else -1
         if type1 == 'bool':
             op1 = operands.pop()
-            add_quadruple('GOTOF', op1, -1, -1, -1)
+            add_quadruple('GOTOF', op1, -1, -1, -1, mem_temps, mem_global_temps)
             jumps.append(len(quadruples)-1)
-            add_quadruple('GOTO', -1, -1, -1, -1)
+            add_quadruple('GOTO', -1, -1, -1, -1, mem_temps, mem_global_temps)
             jumps.append(len(quadruples)-1)
         else:
             print 'se esperaba valor booleano!'
@@ -505,7 +520,7 @@ def p_for_expression(p):
         false = jumps.pop()
         init = jumps.pop()
         jumps.append(len(quadruples)-1)
-        add_quadruple('GOTO', init, -1, -1, -1)
+        add_quadruple('GOTO', init, -1, -1, -1, mem_temps, mem_global_temps)
         quadruples[skip_forexpression][3] = len(quadruples)
         jumps.append(false)
         print_quadruples()
@@ -515,7 +530,7 @@ def p_endfor_quadruple(p):
     if jumps:
         false = jumps.pop()
         expression = jumps.pop()
-        add_quadruple('GOTO', expression, -1, -1, -1)
+        add_quadruple('GOTO', expression, -1, -1, -1, mem_temps, mem_global_temps)
         quadruples[false][3] = len(quadruples)
         print_quadruples()
 
@@ -536,7 +551,7 @@ def p_read_quadruple(p):
     if operands:
         op1 = operands.pop()
         types.pop()
-        add_quadruple('READ', op1, -1, -1, -1)
+        add_quadruple('READ', op1, -1, -1, -1, mem_temps, mem_global_temps)
 
 def p_readB(p):
     '''readB : ',' validate_id push_operand read_quadruple readB
@@ -554,7 +569,7 @@ def p_print_quadruple(p):
     if operands:
         op1 = operands.pop()
         types.pop()
-        add_quadruple('PRINT', op1, -1, -1, -1)
+        add_quadruple('PRINT', op1, -1, -1, -1, mem_temps, mem_global_temps)
 
 def p_outputC(p):
     '''outputC : ')'
@@ -589,7 +604,8 @@ def p_funccall(p):
     else:
         print errors['UNDECLARED_FUNCTION'].format(current['id'], p.lineno(1))
         exit(1)
-    clear_current()
+    #clear_current()
+    current['params'] = []
 
 def p_funccallB(p):
     '''funccallB : hyperexpression seen_param
@@ -631,7 +647,7 @@ def p_return_quadruple(p):
         print_current()
 
         if (type1 == func_dict[ current['id'] ]['type']):
-            add_quadruple('RETURN', op1, type1, -1, -1)
+            add_quadruple('RETURN', op1, type1, -1, -1, mem_temps, mem_global_temps)
         else:
             print 'Error en return type'
             exit(1)

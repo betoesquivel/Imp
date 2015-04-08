@@ -37,6 +37,9 @@ var_dict = {
 constant_dict = {
 }
 
+temp_dict = {
+}
+
 def get_constant_memory_address (constant, constant_type, memory):
     '''Gets memory for the constant if it doesn't yet exist in memory.'''
     if constant not in constant_dict:

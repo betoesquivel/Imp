@@ -1,6 +1,6 @@
 #!env/bin/python
 from sets import Set
-from semantics import semantics_cube, debug_var_const_dict, debug
+from semantics import semantics_cube, debug_var_const_dict, debug, temp_dict, add_to_memory, current
 import pprint
 pp = pprint.PrettyPrinter()
 
@@ -52,25 +52,56 @@ def debug_quadruple(q):
             debugged.append(elem)
     return debugged
 
-unused_temps = Set([])
-used_temps = Set([])
+temps = {
+    'bool': { 'unused': Set([]), 'used': Set([])},
+    'int': {'unused': Set([]), 'used': Set([])},
+    'float': {'unused': Set([]), 'used': Set([])},
+    'char': {'unused': Set([]), 'used': Set([])},
+    'string': {'unused': Set([]), 'used': Set([])}
+}
 next_temp = 1
-def get_temp():
-    global next_temp, unused_temps, used_temps
-    if len( unused_temps ) == 0:
+def get_temp(temp_type, mem_temps):
+    global next_temp, temps
+    if len( temps[temp_type]['unused'] ) == 0:
         temp = 't{0}'.format( next_temp )
-        used_temps.add( temp )
         next_temp += 1
+        address = add_to_memory(mem_temps, temp_type)
+        temp_dict[temp] = address
+        debug_var_const_dict[temp_dict[temp]] = temp
     else:
-        temp = unused_temps.pop()
-        used_temps.add(temp)
-    return temp
+        address = temps[temp_type]['unused'].pop()
+
+    temps[temp_type]['used'].add( address )
+    return address
+
+global_temps = {
+    'bool': { 'unused': Set([]), 'used': Set([])},
+    'int': {'unused': Set([]), 'used': Set([])},
+    'float': {'unused': Set([]), 'used': Set([])},
+    'char': {'unused': Set([]), 'used': Set([])},
+    'string': {'unused': Set([]), 'used': Set([])}
+}
+next_global_temp = 1
+def get_global_temp(temp_type, mem_global_temps):
+    global next_global_temp, global_temps
+    if len( global_temps[temp_type]['unused'] ) == 0:
+        temp = 'gt{0}'.format( next_global_temp )
+        next_global_temp += 1
+        address = add_to_memory(mem_global_temps, temp_type)
+        temp_dict[temp] = address
+        debug_var_const_dict[temp_dict[temp]] = temp
+    else:
+        address = global_temps[temp_type]['unused'].pop()
+
+    global_temps[temp_type]['used'].add( address )
+    return address
 
 relational_operators = Set(['<', '>', 'DIFF', 'EQ', 'LTEQ', 'GTEQ'])
 logical_operators = Set(['AND', 'OR'])
 ignored_checks = Set(['PRINT', 'READ', 'INPUT', 'GOTOF', 'GOTO', 'RETURN'])
 
-def add_quadruple(operator, op1, type1,  op2, type2):
+def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps):
+    print current['scope'], operator, op1, type1, op2 ,type2
 
     result_type = check_operation(type1, operator, type2)
 
@@ -91,7 +122,11 @@ def add_quadruple(operator, op1, type1,  op2, type2):
     elif operator is 'RETURN':
         quadruples.append( [operator, -1, -1, op1] )
     else:
-        temp = get_temp()
+        if current['scope'] == 'global':
+            temp = get_global_temp(result_type, mem_global_temps)
+        else:
+            temp = get_temp(result_type, mem_temps)
+
         quadruples.append( [operator, op1, op2, temp] )
         operands.append(temp)
         types.append(result_type)
@@ -99,7 +134,10 @@ def add_quadruple(operator, op1, type1,  op2, type2):
     print_quadruples()
     print_operators()
     print_operands()
-    return_temp_operands(op1, op2)
+    if current['scope'] == 'global':
+        return_global_temp_operands(op1, type1,  op2, type2)
+    else:
+        return_temp_operands(op1, type1,  op2, type2)
 
 
 def check_operation(type1, operator,  type2):
@@ -123,14 +161,23 @@ def check_operation(type1, operator,  type2):
             result_type = semantics_cube.get( (type2, operator, type1) , 'error')
         return result_type
 
-def return_temp_operands(op1, op2):
+def return_temp_operands(op1, type1,  op2, type2):
     ''' Note: We are asuming IDs that are introduced by the user cant be t[0-9] '''
-    if op1 in used_temps:
-        used_temps.remove(op1)
-        unused_temps.add(op1)
-    if op2 in used_temps:
-        used_temps.remove(op2)
-        unused_temps.add(op2)
+    if type1 != -1 and op1 in temps[type1]['used']:
+        temps[type1]['used'].remove( op1 )
+        temps[type1]['unused'].add( op1 )
+    if type2 != -1 and op2 in temps[type2]['used']:
+        temps[type2]['used'].remove( op2)
+        temps[type2]['unused'].add( op2)
+
+def return_global_temp_operands(op1, type1,  op2, type2):
+    ''' Note: We are asuming IDs that are introduced by the user cant be t[0-9] '''
+    if type1 != -1 and op1 in global_temps[type1]['used']:
+        global_temps[type1]['used'].remove( op1 )
+        global_temps[type1]['unused'].add( op1 )
+    if type2 != -1 and op2 in global_temps[type2]['used']:
+        global_temps[type2]['used'].remove( op2 )
+        global_temps[type2]['unused'].add( op2 )
 
 def return_pending_quadruple(operator_list):
     operator_set = Set(operator_list)
