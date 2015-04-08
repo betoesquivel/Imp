@@ -1,6 +1,8 @@
 #!env/bin/python
 from sets import Set
-from semantics import semantics_cube
+from semantics import semantics_cube, debug_var_const_dict, debug
+import pprint
+pp = pprint.PrettyPrinter()
 
 id_dict = {
     'id': 'X',
@@ -27,11 +29,28 @@ def print_types():
 
 
 def print_quadruples():
+    print 'QUADRUPLES KEY'
+    pp.pprint( debug_var_const_dict )
     print 'QUADRUPLES'
     i = 0
     for q in quadruples:
-        print i, q
+        print i, debug_quadruple(q) if debug else q
         i += 1
+def is_number(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
+
+def debug_quadruple(q):
+    debugged = []
+    for elem in q:
+        if is_number(elem) and elem > 0:
+            debugged.append( debug_var_const_dict.get(elem, elem) )
+        else:
+            debugged.append(elem)
+    return debugged
 
 unused_temps = Set([])
 used_temps = Set([])

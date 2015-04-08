@@ -24,6 +24,9 @@ current = {
 
 func_dict = {}
 
+debug = True
+debug_var_const_dict = {}
+
 var_dict = {
     'global' : {
      },
@@ -38,6 +41,7 @@ def get_constant_memory_address (constant, constant_type, memory):
     '''Gets memory for the constant if it doesn't yet exist in memory.'''
     if constant not in constant_dict:
         constant_dict[constant] = add_to_memory(memory, constant_type)
+        debug_var_const_dict[constant_dict[constant]] = str(constant)
 
     return constant_dict[constant]
 
@@ -108,6 +112,7 @@ def add_var_to_dict(vscope, vid, vtype, vdimensionx, vdimensiony, memory):
             'dimensiony' : vdimensiony,
             'address' : add_to_memory(memory, vtype)
     }
+    debug_var_const_dict[ var_dict[vscope][vid]['address'] ] = vid
 
 
 def clear_current():
