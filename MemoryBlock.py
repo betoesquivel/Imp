@@ -2,15 +2,15 @@ from semantics import errors
 class MemoryBlock:
     def __init__(self, start_dir, ints_start_dir, floats_start_dir, chars_start_dir, strings_start_dir, limit):
        '''All blocks have to be in ascending order and non overlapping on init. We leave that to the developer that uses this class'''
-       self.bools = (start_dir, 0)
-       self.ints = (ints_start_dir, 0)
-       self.floats = (floats_start_dir, 0)
-       self.chars = (chars_start_dir, 0)
-       self.strings = (strings_start_dir, 0)
+       self.bools = [ start_dir, 0 ]
+       self.ints = [ ints_start_dir, 0 ]
+       self.floats = [ floats_start_dir, 0 ]
+       self.chars = [ chars_start_dir, 0 ]
+       self.strings = [ strings_start_dir, 0 ]
        self.limit = limit
 
     def __str__(self):
-        print "MemoryBlock ({start}-{end}): {boolno} bools, {intno} ints, {floatno} floats, {charno} chars, {stringno} strings".format( start=self.bools[0], end=self.strings[0] + self.strings[1], boolno=self.bools[1], intno=self.ints[1], floatno=self.floats[1], charno=self.chars[1], stringno=self.strings[1])
+        return "MemoryBlock ({start}-{end}): {boolno} bools, {intno} ints, {floatno} floats, {charno} chars, {stringno} strings".format( start=self.bools[0], end=self.limit, boolno=self.bools[1], intno=self.ints[1], floatno=self.floats[1], charno=self.chars[1], stringno=self.strings[1])
 
     def add_bool(self, num=1):
         '''Adds a var to the memory block'''

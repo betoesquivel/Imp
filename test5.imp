@@ -1,6 +1,8 @@
 main() {
   int b = 8;
- int x;
+ int x, y, z;
+
+ z = b * 1;
 
   x = b * 3 * 4 / 4;
   int a = 2 / 3 * x;

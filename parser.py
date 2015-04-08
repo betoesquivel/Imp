@@ -3,12 +3,20 @@ import ply.yacc as yacc
 import logging
 import lexer
 import sys
-from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local, var_dict, func_dict, semantics_cube
+from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local, var_dict, func_dict, semantics_cube, constant_dict, get_constant_memory_address
 from quadruples import operators, operands, jumps, quadruples, types, add_quadruple, return_pending_quadruple, print_quadruples, print_operators, print_operands, print_types
+from MemoryBlock import MemoryBlock
 from copy import deepcopy
 
 
+
 tokens = lexer.tokens
+
+# memory allocation (just variable counters representing: constants and local/global vars)
+mem_local = MemoryBlock(0, 1000, 2000, 3000, 4000, 5000)
+mem_global = MemoryBlock(5000, 6000, 7000, 8000, 9000, 10000)
+mem_constants = MemoryBlock(10000, 11000, 12000, 13000, 14000, 15000)
+mem_temps = MemoryBlock(15000, 16000, 17000, 18000, 19000, 20000)
 
 # sintaxis rules
 
@@ -67,18 +75,22 @@ def p_declarationB(p):
                 current['id'],
                 current['type'],
                 current['dimensionx'],
-                current['dimensiony']
+                current['dimensiony'],
+                mem_local if current['scope'] == 'local' else mem_global
         )
         current['dimensionx'] = 0
         current['dimensiony'] = 0
+        operands.pop()
+        operands.append(var_dict[ current['scope'] ] [ p[1] ] ['address'])
 
 
 def p_push_operand(p):
     '''push_operand :'''
     if var_exists_in_dict(current['scope'], p[-1]):
         types.append(var_dict[ current['scope'] ] [ p[-1] ] [ 'type' ] )
-
-    operands.append(p[-1])
+        operands.append(var_dict[ current['scope'] ] [ p[-1] ] ['address'])
+    else:
+        operands.append(p[-1])
 
 def p_push_type(p):
     '''push_type :'''
@@ -235,6 +247,7 @@ def p_assignfunccall(p):
     if current['isfunc']:
         if func_exists_in_dict(current['id']):
             if len(current['params']) != len(func_dict[ current['id'] ]['params']):
+                # validate that parameter types in funccall match parameter types in the func_dict
                 print_current()
                 print errors['PARAMETER_LENGTH_MISMATCH'].format(current['id'], len(func_dict[ current['id'] ]['params']),len(current['params']), p.lineno(1))
                 exit(1)
@@ -365,7 +378,7 @@ def p_seen_ID(p):
         p[0] = ""
         type_to_push = var_dict[ current['scope'] ] [ p[-1] ] [ 'type' ]
         types.append(type_to_push)
-        operands.append( p[-1] )
+        operands.append( var_dict[ current['scope'] ] [ p[-1] ] [ 'address' ])
 
 
 def p_signB(p):
@@ -408,9 +421,9 @@ def p_constant(p):
     p[0] = p[1]
 
     if p[-1] is '-':
-        add_quadruple('*', '-1', 'int', p[1], p[2])
+        add_quadruple('*', '-1', 'int', get_constant_memory_address(p[1], p[2], mem_constants), p[2])
     else:
-        operands.append(p[1])
+        operands.append( get_constant_memory_address(p[1], p[2], mem_constants) )
         types.append(p[2])
 
 
@@ -626,12 +639,12 @@ def p_return_quadruple(p):
 # <params>
 def p_params(p):
     '''params : type ID '''
-    current['params'].append(current['type'])
+    current['params'].append({ 'type': current['type'], 'id': p[2]})
     if var_exists_in_dict('local', p[2]):
         print errors['REPEATED_DECLARATION'].format(p[2], p.lineno(2))
         exit(1)
     else:
-        add_var_to_dict('local', p[2], p[1], 0, 0)
+        add_var_to_dict('local', p[2], p[1], 0, 0, mem_local)
 
 def p_paramsB(p):
     '''paramsB : ',' params paramsB

@@ -31,10 +31,96 @@ var_dict = {
     }
 }
 
+constant_dict = {
+}
+
+def get_constant_memory_address (constant, constant_type, memory):
+    '''Gets memory for the constant if it doesn't yet exist in memory.'''
+    if constant not in constant_dict:
+        constant_dict[constant] = add_to_memory(memory, constant_type)
+
+    return constant_dict[constant]
+
 example_function = {
     'type' : 'void',
     'params' : [] # list of types
 }
+
+
+
+def print_current():
+    print "\nCURRENT"
+    pp.pprint(current)
+
+
+def print_var_dict():
+    print "\nVAR DICT"
+    pp.pprint(var_dict)
+
+def print_func_dict():
+    print "\nFUNC DICT"
+    pp.pprint(func_dict)
+
+
+def var_exists_in_dict(vscope, vid):
+    if vid in var_dict[vscope]:
+        return True
+    else:
+        if vid in var_dict['global']:
+            return True
+        else:
+            return False
+
+def func_exists_in_dict(fid):
+    if fid in func_dict:
+        return True
+    else:
+        return False
+
+
+def add_func_to_dict(fid, ftype, fparams):
+    func_dict[fid] = {
+        'type' : ftype,
+        'params' : fparams
+    }
+
+
+def add_to_memory(memory, mtype):
+    if mtype == 'bool':
+        return memory.add_bool()
+    elif mtype == 'int':
+        return memory.add_int()
+    elif mtype == 'float':
+        return memory.add_float()
+    elif mtype == 'char':
+        return memory.add_char()
+    elif mtype == 'string':
+        return memory.add_string()
+    else:
+        print 'Invalid constant type. No memory for it.'
+        exit(1)
+
+
+def add_var_to_dict(vscope, vid, vtype, vdimensionx, vdimensiony, memory):
+    var_dict[vscope][vid] = {
+            'type' : vtype,
+            'dimensionx' : vdimensionx,
+            'dimensiony' : vdimensiony,
+            'address' : add_to_memory(memory, vtype)
+    }
+
+
+def clear_current():
+    current['id'] = None
+    current['scope'] = 'global'
+    current['type'] = None
+    current['params'] = []
+    current['dimensionx'] = 0
+    current['dimensiony'] = 0
+    current['isfunc'] = False
+
+def clear_local():
+    var_dict['local'].clear()
 
 semantics_cube = {
     # logical operators
@@ -195,61 +281,3 @@ semantics_cube = {
 
 
 }
-
-
-def print_current():
-    print "\nCURRENT"
-    pp.pprint(current)
-
-
-def print_var_dict():
-    print "\nVAR DICT"
-    pp.pprint(var_dict)
-
-def print_func_dict():
-    print "\nFUNC DICT"
-    pp.pprint(func_dict)
-
-
-def var_exists_in_dict(vscope, vid):
-    if vid in var_dict[vscope]:
-        return True
-    else:
-        if vid in var_dict['global']:
-            return True
-        else:
-            return False
-
-def func_exists_in_dict(fid):
-    if fid in func_dict:
-        return True
-    else:
-        return False
-
-
-def add_func_to_dict(fid, ftype, fparams):
-    func_dict[fid] = {
-        'type' : ftype,
-        'params' : fparams
-    }
-
-
-def add_var_to_dict(vscope, vid, vtype, vdimensionx, vdimensiony):
-    var_dict[vscope][vid] = {
-            'type' : vtype,
-            'dimensionx' : vdimensionx,
-            'dimensiony' : vdimensiony
-    }
-
-
-def clear_current():
-    current['id'] = None
-    current['scope'] = 'global'
-    current['type'] = None
-    current['params'] = []
-    current['dimensionx'] = 0
-    current['dimensiony'] = 0
-    current['isfunc'] = False
-
-def clear_local():
-    var_dict['local'].clear()
