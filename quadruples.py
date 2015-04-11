@@ -37,6 +37,7 @@ def print_quadruples():
         print i, debug_quadruple(q) if debug else q
         i += 1
 def is_number(s):
+    if s is None: return False
     try:
         int(s)
         return True
@@ -107,6 +108,7 @@ def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps
 
     if result_type is 'error':
         print 'Error, tonto!'
+        print 'No se puede hacer la operacion con los tipos: {0}, {1}, {2}'.format(type1, operator, type2)
         exit(1)
 
     if operator is '=':

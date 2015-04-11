@@ -255,15 +255,27 @@ def p_instruction(p):
 # <assignfunccall>
 # left factor the assign and funccall rules
 def p_assignfunccall(p):
-    '''assignfunccall : ID push_operand assignfunccallB'''
+    '''assignfunccall : ID seen_funccall push_operand assignfunccallB'''
     current['id'] = p[1]
     if current['isfunc']:
         if func_exists_in_dict(current['id']):
             if len(current['params']) != len(func_dict[ current['id'] ]['params']):
                 # validate that parameter types in funccall match parameter types in the func_dict
-                print_current()
                 print errors['PARAMETER_LENGTH_MISMATCH'].format(current['id'], len(func_dict[ current['id'] ]['params']),len(current['params']), p.lineno(1))
                 exit(1)
+            else:
+                param_count = 0
+                correct_call = True
+                called_function = func_dict[ current['id'] ]
+                while param_count < len(current['params']):
+                    expected_param = called_function['params'][param_count]
+                    if expected_param['type'] != current['params'][param_count]['type']:
+                        print errors['PARAMETER_TYPE_MISMATCH'].format(current['id'], expected_param['type'], current['params'][param_count]['type'], param_count)
+                        correct_call = False
+                    param_count += 1
+                if (not correct_call): exit(1)
+
+
         else:
             print errors['UNDECLARED_FUNCTION'].format(current['id'], p.lineno(1))
             exit(1)
@@ -271,6 +283,12 @@ def p_assignfunccall(p):
     else:
         if not var_exists_in_dict(current['scope'], current['id']):
             print errors['UNDECLARED_VARIABLE'].format(current['id'], p.lineno(1))
+            exit(1)
+
+def p_seen_funccall(p):
+    '''seen_funccall :'''
+    current['id'] = p[-1]
+    p[0] = p[-1]
 
 def p_pop_operand(p):
     '''pop_operand :'''
@@ -386,6 +404,11 @@ def p_seen_parentheses(p):
 def p_seen_ID(p):
     '''seen_ID :'''
     if not var_exists_in_dict(current['scope'], p[-1]):
+        # there is a clear current
+        print "var {0} doesn't exist in dict".format(p[-1])
+        print_var_dict()
+        print_current()
+
         p[0] = 'UNDECLARED_VARIABLE'
     else:
         p[0] = ""
@@ -613,7 +636,19 @@ def p_funccallB(p):
 
 def p_seen_param(p):
     '''seen_param :'''
-    current['params'].append(1)
+    if types and operands:
+        type1 = types.pop()
+        op1 = operands.pop()
+
+    current['params'].append({'id': op1, 'type': type1})
+    ## here I should be assigning the operand address to the corresponding parameter, and checking if there is a type match
+    #called_function = func_dict[ current['id'] ]
+    #if ( len(current['params']) <= len(called_function['params']) ):
+        #expected_type = called_function['params'][ len(current['params']) - 1 ]['type']
+        #if ( not ( expected_type == type1 ) ):
+            #print errors['PARAMETER_TYPE_MISMATCH'].format(current['id'], expected_type, type1, len(current['params']) - 1)
+
+
 
 def p_funccallC(p):
     '''funccallC : ',' funccallB funccallC

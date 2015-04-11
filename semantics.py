@@ -9,7 +9,9 @@ errors = {
         'REPEATED_FUNC_DECLARATION': 'Repeated declaration of function {0} found at line: {1} ',
         'UNDECLARED_VARIABLE': 'Undeclared variable {0} found at line: {1} ',
         'UNDECLARED_FUNCTION': 'Undeclared function {0} found at line: {1} ',
-        'STACKOVERFLOW': 'Stackoverflow, the program is too big.'
+        'STACKOVERFLOW': 'Stackoverflow, the program is too big.',
+        'PARAMETER_TYPE_MISMATCH': 'Function {0}, expected type {1} and received type {2} in position {3}',
+        'PARAMETER_LENGTH_MISMATCH': 'Function {0}, expected {1} parameters'
 }
 
 current = {
@@ -120,7 +122,7 @@ def add_var_to_dict(vscope, vid, vtype, vdimensionx, vdimensiony, memory):
 
 def clear_current():
     current['id'] = None
-    current['scope'] = 'global'
+    #current['scope'] = 'global'
     current['type'] = None
     current['params'] = []
     current['dimensionx'] = 0
