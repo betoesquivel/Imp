@@ -132,42 +132,41 @@ Rule 126   read_quadruple -> <empty>
 Rule 127   readB -> , validate_id push_operand read_quadruple readB
 Rule 128   readB -> empty
 Rule 129   output -> PRINT ( outputB
-Rule 130   outputB -> SCONST push_operand print_quadruple outputC
-Rule 131   outputB -> hyperexpression print_quadruple outputC
-Rule 132   print_quadruple -> <empty>
-Rule 133   outputC -> )
-Rule 134   outputC -> , outputB
-Rule 135   localvardirective -> # localvardirectiveB ID
-Rule 136   localvardirectiveB -> TRACK
-Rule 137   localvardirectiveB -> FORGET
-Rule 138   localmsgdirective -> # SHOW SCONST
-Rule 139   localdecisiondirective -> TRACKDECISION
-Rule 140   localdecisiondirective -> FORGETDECISION
-Rule 141   localdecisiondirective -> empty
-Rule 142   funccall -> ID ( funccallB funccallC
-Rule 143   funccallB -> hyperexpression seen_param
-Rule 144   funccallB -> empty
-Rule 145   seen_param -> <empty>
-Rule 146   funccallC -> , funccallB funccallC
-Rule 147   funccallC -> )
-Rule 148   dimensions -> [ hyperexpression ] dimensionsB
-Rule 149   dimensionsB -> [ hyperexpression ]
-Rule 150   dimensionsB -> empty
-Rule 151   return -> RETURN hyperexpression return_quadruple
-Rule 152   return_quadruple -> <empty>
-Rule 153   params -> type ID
-Rule 154   paramsB -> , params paramsB
-Rule 155   paramsB -> empty
-Rule 156   empty -> <empty>
+Rule 130   outputB -> hyperexpression print_quadruple outputC
+Rule 131   print_quadruple -> <empty>
+Rule 132   outputC -> )
+Rule 133   outputC -> , outputB
+Rule 134   localvardirective -> # localvardirectiveB ID
+Rule 135   localvardirectiveB -> TRACK
+Rule 136   localvardirectiveB -> FORGET
+Rule 137   localmsgdirective -> # SHOW SCONST
+Rule 138   localdecisiondirective -> TRACKDECISION
+Rule 139   localdecisiondirective -> FORGETDECISION
+Rule 140   localdecisiondirective -> empty
+Rule 141   funccall -> ID ( funccallB funccallC
+Rule 142   funccallB -> hyperexpression seen_param
+Rule 143   funccallB -> empty
+Rule 144   seen_param -> <empty>
+Rule 145   funccallC -> , funccallB funccallC
+Rule 146   funccallC -> )
+Rule 147   dimensions -> [ hyperexpression ] dimensionsB
+Rule 148   dimensionsB -> [ hyperexpression ]
+Rule 149   dimensionsB -> empty
+Rule 150   return -> RETURN hyperexpression return_quadruple
+Rule 151   return_quadruple -> <empty>
+Rule 152   params -> type ID
+Rule 153   paramsB -> , params paramsB
+Rule 154   paramsB -> empty
+Rule 155   empty -> <empty>
 
 Terminals, with rules where they appear
 
-#                    : 135 138
-(                    : 30 33 43 61 91 110 120 124 129 142
-)                    : 30 33 43 91 110 120 124 133 147
+#                    : 134 137
+(                    : 30 33 43 61 91 110 120 124 129 141
+)                    : 30 33 43 91 110 120 124 132 146
 *                    : 88
 +                    : 83 108
-,                    : 26 28 127 134 146 154
+,                    : 26 28 127 133 145 153
 -                    : 82 109
 /                    : 87
 ;                    : 27 29 49 50 51 52 120 120
@@ -187,11 +186,11 @@ FALSE                : 107
 FCONST               : 103
 FLOAT                : 115
 FOR                  : 120
-FORGET               : 137
-FORGETDECISION       : 140
+FORGET               : 136
+FORGETDECISION       : 139
 GTEQ                 : 78
 ICONST               : 104
-ID                   : 19 33 39 58 93 125 135 142 153
+ID                   : 19 33 39 58 93 125 134 141 152
 IF                   : 43
 INT                  : 114
 LTEQ                 : 77
@@ -202,20 +201,20 @@ NONE                 : 10
 OR                   : 67
 PRINT                : 129
 READ                 : 124
-RETURN               : 151
-SCONST               : 105 130 138
-SHOW                 : 138
+RETURN               : 150
+SCONST               : 105 137
+SHOW                 : 137
 SOME                 : 7
 STRING               : 116
-TRACK                : 136
-TRACKDECISION        : 139
+TRACK                : 135
+TRACKDECISION        : 138
 TRUE                 : 106
 VARSCONFIG           : 4
 VOID                 : 118
 WHILE                : 110
 YES                  : 11
-[                    : 148 149
-]                    : 148 149
+[                    : 147 148
+]                    : 147 148
 error                : 
 {                    : 36
 }                    : 36
@@ -239,11 +238,11 @@ declarationC         : 18 26 28
 declarationD         : 25
 declarationsOpt      : 13 16
 dimensions           : 41
-dimensionsB          : 148
+dimensionsB          : 147
 dimensionsOpt        : 19 39 40 93
 else                 : 43
 elsecondition_quadruple : 44
-empty                : 3 15 17 35 38 42 45 68 71 79 84 89 97 128 141 144 150 155
+empty                : 3 15 17 35 38 42 45 68 71 79 84 89 97 128 140 143 149 154
 endcondition_quadruple : 43
 endfor_quadruple     : 120
 endwhile_quadruple   : 110
@@ -257,10 +256,10 @@ for_quadruple        : 120
 forloop              : 56
 func                 : 32
 funccall             : 92
-funccallB            : 61 142 146
-funccallC            : 61 142 146
+funccallB            : 61 141 145
+funccallC            : 61 141 145
 funcsOpt             : 13 13 14
-hyperexpression      : 25 39 40 43 67 91 110 120 120 131 143 148 149 151
+hyperexpression      : 25 39 40 43 67 91 110 120 120 130 142 147 148 150
 hyperexpressionB     : 66
 init_while           : 110 120
 instruction          : 37
@@ -269,20 +268,20 @@ localdecisiondirective : 64
 localdirective       : 57
 localmsgdirective    : 65
 localvardirective    : 63
-localvardirectiveB   : 135
+localvardirectiveB   : 134
 main                 : 13
 options              : 4 5
 optionsyesno         : 6
 output               : 50
-outputB              : 129 134
-outputC              : 130 131
-params               : 34 154
-paramsB              : 34 154
+outputB              : 129 133
+outputC              : 130
+params               : 34 153
+paramsB              : 34 153
 paramsOpt            : 33
 pop_operand          : 61
-print_quadruple      : 130 131
+print_quadruple      : 130
 program              : 0
-push_operand         : 19 39 58 124 127 130
+push_operand         : 19 39 58 124 127
 push_operator        : 25 39 40 67 70 73 74 75 76 77 78 82 83 87 88
 push_type            : 18
 quadruple_assign     : 25 39 40
@@ -291,7 +290,7 @@ readB                : 124 127
 read_quadruple       : 124 127
 repush_type          : 26 28
 return               : 51
-return_quadruple     : 151
+return_quadruple     : 150
 returntype           : 33
 seen_ID              : 93
 seen_factor          : 85
@@ -300,7 +299,7 @@ seen_fconst          : 103
 seen_funccall        : 58
 seen_iconst          : 104
 seen_main            : 30
-seen_param           : 143
+seen_param           : 142
 seen_parentheses     : 91
 seen_sconst          : 105
 seen_term            : 80
@@ -312,7 +311,7 @@ superexpressionB     : 69
 suprafunc            : 14
 term                 : 80 87 88
 termB                : 85
-type                 : 18 119 153
+type                 : 18 119 152
 validate_id          : 124 127
 while_quadruple      : 110
 whileloop            : 55
@@ -328,17 +327,17 @@ state 0
     (4) configdirective -> . VARSCONFIG = options
     (5) configdirective -> . DECISIONSCONFIG = options
     (6) configdirective -> . COMPLEXITYCONFIG = optionsyesno
-    (156) empty -> .
+    (155) empty -> .
 
     VARSCONFIG      shift and go to state 2
     DECISIONSCONFIG shift and go to state 1
     COMPLEXITYCONFIG shift and go to state 4
-    INT             reduce using rule 156 (empty -> .)
-    FLOAT           reduce using rule 156 (empty -> .)
-    STRING          reduce using rule 156 (empty -> .)
-    BOOL            reduce using rule 156 (empty -> .)
-    DEF             reduce using rule 156 (empty -> .)
-    MAIN            reduce using rule 156 (empty -> .)
+    INT             reduce using rule 155 (empty -> .)
+    FLOAT           reduce using rule 155 (empty -> .)
+    STRING          reduce using rule 155 (empty -> .)
+    BOOL            reduce using rule 155 (empty -> .)
+    DEF             reduce using rule 155 (empty -> .)
+    MAIN            reduce using rule 155 (empty -> .)
 
     configdirective                shift and go to state 3
     program                        shift and go to state 5
@@ -367,17 +366,17 @@ state 3
     (4) configdirective -> . VARSCONFIG = options
     (5) configdirective -> . DECISIONSCONFIG = options
     (6) configdirective -> . COMPLEXITYCONFIG = optionsyesno
-    (156) empty -> .
+    (155) empty -> .
 
     VARSCONFIG      shift and go to state 2
     DECISIONSCONFIG shift and go to state 1
     COMPLEXITYCONFIG shift and go to state 4
-    INT             reduce using rule 156 (empty -> .)
-    FLOAT           reduce using rule 156 (empty -> .)
-    STRING          reduce using rule 156 (empty -> .)
-    BOOL            reduce using rule 156 (empty -> .)
-    DEF             reduce using rule 156 (empty -> .)
-    MAIN            reduce using rule 156 (empty -> .)
+    INT             reduce using rule 155 (empty -> .)
+    FLOAT           reduce using rule 155 (empty -> .)
+    STRING          reduce using rule 155 (empty -> .)
+    BOOL            reduce using rule 155 (empty -> .)
+    DEF             reduce using rule 155 (empty -> .)
+    MAIN            reduce using rule 155 (empty -> .)
 
     config                         shift and go to state 10
     empty                          shift and go to state 7
@@ -403,14 +402,14 @@ state 6
     (16) declarationsOpt -> . declaration declarationsOpt
     (17) declarationsOpt -> . empty
     (18) declaration -> . type push_type declarationB declarationC
-    (156) empty -> .
+    (155) empty -> .
     (114) type -> . INT
     (115) type -> . FLOAT
     (116) type -> . STRING
     (117) type -> . BOOL
 
-    DEF             reduce using rule 156 (empty -> .)
-    MAIN            reduce using rule 156 (empty -> .)
+    DEF             reduce using rule 155 (empty -> .)
+    MAIN            reduce using rule 155 (empty -> .)
     INT             shift and go to state 15
     FLOAT           shift and go to state 17
     STRING          shift and go to state 14
@@ -500,10 +499,10 @@ state 13
     (14) funcsOpt -> . suprafunc funcsOpt
     (15) funcsOpt -> . empty
     (32) suprafunc -> . func block
-    (156) empty -> .
+    (155) empty -> .
     (33) func -> . DEF returntype ID ( paramsOpt )
 
-    MAIN            reduce using rule 156 (empty -> .)
+    MAIN            reduce using rule 155 (empty -> .)
     DEF             shift and go to state 33
 
     suprafunc                      shift and go to state 30
@@ -554,14 +553,14 @@ state 19
     (16) declarationsOpt -> . declaration declarationsOpt
     (17) declarationsOpt -> . empty
     (18) declaration -> . type push_type declarationB declarationC
-    (156) empty -> .
+    (155) empty -> .
     (114) type -> . INT
     (115) type -> . FLOAT
     (116) type -> . STRING
     (117) type -> . BOOL
 
-    DEF             reduce using rule 156 (empty -> .)
-    MAIN            reduce using rule 156 (empty -> .)
+    DEF             reduce using rule 155 (empty -> .)
+    MAIN            reduce using rule 155 (empty -> .)
     INT             shift and go to state 15
     FLOAT           shift and go to state 17
     STRING          shift and go to state 14
@@ -721,11 +720,11 @@ state 30
     (14) funcsOpt -> . suprafunc funcsOpt
     (15) funcsOpt -> . empty
     (32) suprafunc -> . func block
-    (156) empty -> .
+    (155) empty -> .
     (33) func -> . DEF returntype ID ( paramsOpt )
 
-    MAIN            reduce using rule 156 (empty -> .)
-    $end            reduce using rule 156 (empty -> .)
+    MAIN            reduce using rule 155 (empty -> .)
+    $end            reduce using rule 155 (empty -> .)
     DEF             shift and go to state 33
 
     suprafunc                      shift and go to state 30
@@ -816,10 +815,10 @@ state 39
     (14) funcsOpt -> . suprafunc funcsOpt
     (15) funcsOpt -> . empty
     (32) suprafunc -> . func block
-    (156) empty -> .
+    (155) empty -> .
     (33) func -> . DEF returntype ID ( paramsOpt )
 
-    $end            reduce using rule 156 (empty -> .)
+    $end            reduce using rule 155 (empty -> .)
     DEF             shift and go to state 33
 
     suprafunc                      shift and go to state 30
@@ -841,10 +840,10 @@ state 40
     (55) instruction -> . whileloop
     (56) instruction -> . forloop
     (57) instruction -> . localdirective
-    (156) empty -> .
+    (155) empty -> .
     (58) assignfunccall -> . ID seen_funccall push_operand assignfunccallB
     (129) output -> . PRINT ( outputB
-    (151) return -> . RETURN hyperexpression return_quadruple
+    (150) return -> . RETURN hyperexpression return_quadruple
     (124) read -> . READ ( validate_id push_operand read_quadruple readB )
     (18) declaration -> . type push_type declarationB declarationC
     (43) condition -> . IF ( hyperexpression condition_quadruple ) block else endcondition_quadruple
@@ -857,11 +856,11 @@ state 40
     (115) type -> . FLOAT
     (116) type -> . STRING
     (117) type -> . BOOL
-    (135) localvardirective -> . # localvardirectiveB ID
-    (139) localdecisiondirective -> . TRACKDECISION
-    (140) localdecisiondirective -> . FORGETDECISION
-    (141) localdecisiondirective -> . empty
-    (138) localmsgdirective -> . # SHOW SCONST
+    (134) localvardirective -> . # localvardirectiveB ID
+    (138) localdecisiondirective -> . TRACKDECISION
+    (139) localdecisiondirective -> . FORGETDECISION
+    (140) localdecisiondirective -> . empty
+    (137) localmsgdirective -> . # SHOW SCONST
 
   ! shift/reduce conflict for ID resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
@@ -877,7 +876,7 @@ state 40
   ! shift/reduce conflict for # resolved as shift
   ! shift/reduce conflict for TRACKDECISION resolved as shift
   ! shift/reduce conflict for FORGETDECISION resolved as shift
-    }               reduce using rule 156 (empty -> .)
+    }               reduce using rule 155 (empty -> .)
     ID              shift and go to state 68
     PRINT           shift and go to state 52
     RETURN          shift and go to state 49
@@ -893,20 +892,20 @@ state 40
     TRACKDECISION   shift and go to state 56
     FORGETDECISION  shift and go to state 65
 
-  ! ID              [ reduce using rule 156 (empty -> .) ]
-  ! PRINT           [ reduce using rule 156 (empty -> .) ]
-  ! RETURN          [ reduce using rule 156 (empty -> .) ]
-  ! READ            [ reduce using rule 156 (empty -> .) ]
-  ! IF              [ reduce using rule 156 (empty -> .) ]
-  ! WHILE           [ reduce using rule 156 (empty -> .) ]
-  ! FOR             [ reduce using rule 156 (empty -> .) ]
-  ! INT             [ reduce using rule 156 (empty -> .) ]
-  ! FLOAT           [ reduce using rule 156 (empty -> .) ]
-  ! STRING          [ reduce using rule 156 (empty -> .) ]
-  ! BOOL            [ reduce using rule 156 (empty -> .) ]
-  ! #               [ reduce using rule 156 (empty -> .) ]
-  ! TRACKDECISION   [ reduce using rule 156 (empty -> .) ]
-  ! FORGETDECISION  [ reduce using rule 156 (empty -> .) ]
+  ! ID              [ reduce using rule 155 (empty -> .) ]
+  ! PRINT           [ reduce using rule 155 (empty -> .) ]
+  ! RETURN          [ reduce using rule 155 (empty -> .) ]
+  ! READ            [ reduce using rule 155 (empty -> .) ]
+  ! IF              [ reduce using rule 155 (empty -> .) ]
+  ! WHILE           [ reduce using rule 155 (empty -> .) ]
+  ! FOR             [ reduce using rule 155 (empty -> .) ]
+  ! INT             [ reduce using rule 155 (empty -> .) ]
+  ! FLOAT           [ reduce using rule 155 (empty -> .) ]
+  ! STRING          [ reduce using rule 155 (empty -> .) ]
+  ! BOOL            [ reduce using rule 155 (empty -> .) ]
+  ! #               [ reduce using rule 155 (empty -> .) ]
+  ! TRACKDECISION   [ reduce using rule 155 (empty -> .) ]
+  ! FORGETDECISION  [ reduce using rule 155 (empty -> .) ]
 
     whileloop                      shift and go to state 53
     localvardirective              shift and go to state 55
@@ -996,7 +995,7 @@ state 48
 
 state 49
 
-    (151) return -> RETURN . hyperexpression return_quadruple
+    (150) return -> RETURN . hyperexpression return_quadruple
     (66) hyperexpression -> . superexpression hyperexpressionB
     (69) superexpression -> . expression superexpressionB
     (72) expression -> . exp expressionB
@@ -1008,20 +1007,20 @@ state 49
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     sign                           shift and go to state 90
     signB                          shift and go to state 81
@@ -1080,10 +1079,10 @@ state 53
 
 state 54
 
-    (135) localvardirective -> # . localvardirectiveB ID
-    (138) localmsgdirective -> # . SHOW SCONST
-    (136) localvardirectiveB -> . TRACK
-    (137) localvardirectiveB -> . FORGET
+    (134) localvardirective -> # . localvardirectiveB ID
+    (137) localmsgdirective -> # . SHOW SCONST
+    (135) localvardirectiveB -> . TRACK
+    (136) localvardirectiveB -> . FORGET
 
     SHOW            shift and go to state 99
     TRACK           shift and go to state 100
@@ -1114,23 +1113,23 @@ state 55
 
 state 56
 
-    (139) localdecisiondirective -> TRACKDECISION .
+    (138) localdecisiondirective -> TRACKDECISION .
 
-    ID              reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
-    PRINT           reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
-    RETURN          reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
-    READ            reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
-    IF              reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
-    WHILE           reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
-    FOR             reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
-    INT             reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
-    FLOAT           reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
-    STRING          reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
-    BOOL            reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
-    #               reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
-    TRACKDECISION   reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
-    FORGETDECISION  reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
-    }               reduce using rule 139 (localdecisiondirective -> TRACKDECISION .)
+    ID              reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
+    PRINT           reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
+    RETURN          reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
+    READ            reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
+    IF              reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
+    WHILE           reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
+    FOR             reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
+    INT             reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
+    FLOAT           reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
+    STRING          reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
+    BOOL            reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
+    #               reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
+    TRACKDECISION   reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
+    FORGETDECISION  reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
+    }               reduce using rule 138 (localdecisiondirective -> TRACKDECISION .)
 
 
 state 57
@@ -1157,26 +1156,26 @@ state 57
 state 58
 
     (38) instructionsOpt -> empty .
-    (141) localdecisiondirective -> empty .
+    (140) localdecisiondirective -> empty .
 
   ! reduce/reduce conflict for } resolved using rule 38 (instructionsOpt -> empty .)
     }               reduce using rule 38 (instructionsOpt -> empty .)
-    ID              reduce using rule 141 (localdecisiondirective -> empty .)
-    PRINT           reduce using rule 141 (localdecisiondirective -> empty .)
-    RETURN          reduce using rule 141 (localdecisiondirective -> empty .)
-    READ            reduce using rule 141 (localdecisiondirective -> empty .)
-    IF              reduce using rule 141 (localdecisiondirective -> empty .)
-    WHILE           reduce using rule 141 (localdecisiondirective -> empty .)
-    FOR             reduce using rule 141 (localdecisiondirective -> empty .)
-    INT             reduce using rule 141 (localdecisiondirective -> empty .)
-    FLOAT           reduce using rule 141 (localdecisiondirective -> empty .)
-    STRING          reduce using rule 141 (localdecisiondirective -> empty .)
-    BOOL            reduce using rule 141 (localdecisiondirective -> empty .)
-    #               reduce using rule 141 (localdecisiondirective -> empty .)
-    TRACKDECISION   reduce using rule 141 (localdecisiondirective -> empty .)
-    FORGETDECISION  reduce using rule 141 (localdecisiondirective -> empty .)
+    ID              reduce using rule 140 (localdecisiondirective -> empty .)
+    PRINT           reduce using rule 140 (localdecisiondirective -> empty .)
+    RETURN          reduce using rule 140 (localdecisiondirective -> empty .)
+    READ            reduce using rule 140 (localdecisiondirective -> empty .)
+    IF              reduce using rule 140 (localdecisiondirective -> empty .)
+    WHILE           reduce using rule 140 (localdecisiondirective -> empty .)
+    FOR             reduce using rule 140 (localdecisiondirective -> empty .)
+    INT             reduce using rule 140 (localdecisiondirective -> empty .)
+    FLOAT           reduce using rule 140 (localdecisiondirective -> empty .)
+    STRING          reduce using rule 140 (localdecisiondirective -> empty .)
+    BOOL            reduce using rule 140 (localdecisiondirective -> empty .)
+    #               reduce using rule 140 (localdecisiondirective -> empty .)
+    TRACKDECISION   reduce using rule 140 (localdecisiondirective -> empty .)
+    FORGETDECISION  reduce using rule 140 (localdecisiondirective -> empty .)
 
-  ! }               [ reduce using rule 141 (localdecisiondirective -> empty .) ]
+  ! }               [ reduce using rule 140 (localdecisiondirective -> empty .) ]
 
 
 state 59
@@ -1237,23 +1236,23 @@ state 64
 
 state 65
 
-    (140) localdecisiondirective -> FORGETDECISION .
+    (139) localdecisiondirective -> FORGETDECISION .
 
-    ID              reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
-    PRINT           reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
-    RETURN          reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
-    READ            reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
-    IF              reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
-    WHILE           reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
-    FOR             reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
-    INT             reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
-    FLOAT           reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
-    STRING          reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
-    BOOL            reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
-    #               reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
-    TRACKDECISION   reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
-    FORGETDECISION  reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
-    }               reduce using rule 140 (localdecisiondirective -> FORGETDECISION .)
+    ID              reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
+    PRINT           reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
+    RETURN          reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
+    READ            reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
+    IF              reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
+    WHILE           reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
+    FOR             reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
+    INT             reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
+    FLOAT           reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
+    STRING          reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
+    BOOL            reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
+    #               reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
+    TRACKDECISION   reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
+    FORGETDECISION  reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
+    }               reduce using rule 139 (localdecisiondirective -> FORGETDECISION .)
 
 
 state 66
@@ -1351,10 +1350,10 @@ state 71
     (55) instruction -> . whileloop
     (56) instruction -> . forloop
     (57) instruction -> . localdirective
-    (156) empty -> .
+    (155) empty -> .
     (58) assignfunccall -> . ID seen_funccall push_operand assignfunccallB
     (129) output -> . PRINT ( outputB
-    (151) return -> . RETURN hyperexpression return_quadruple
+    (150) return -> . RETURN hyperexpression return_quadruple
     (124) read -> . READ ( validate_id push_operand read_quadruple readB )
     (18) declaration -> . type push_type declarationB declarationC
     (43) condition -> . IF ( hyperexpression condition_quadruple ) block else endcondition_quadruple
@@ -1367,11 +1366,11 @@ state 71
     (115) type -> . FLOAT
     (116) type -> . STRING
     (117) type -> . BOOL
-    (135) localvardirective -> . # localvardirectiveB ID
-    (139) localdecisiondirective -> . TRACKDECISION
-    (140) localdecisiondirective -> . FORGETDECISION
-    (141) localdecisiondirective -> . empty
-    (138) localmsgdirective -> . # SHOW SCONST
+    (134) localvardirective -> . # localvardirectiveB ID
+    (138) localdecisiondirective -> . TRACKDECISION
+    (139) localdecisiondirective -> . FORGETDECISION
+    (140) localdecisiondirective -> . empty
+    (137) localmsgdirective -> . # SHOW SCONST
 
   ! shift/reduce conflict for ID resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
@@ -1387,7 +1386,7 @@ state 71
   ! shift/reduce conflict for # resolved as shift
   ! shift/reduce conflict for TRACKDECISION resolved as shift
   ! shift/reduce conflict for FORGETDECISION resolved as shift
-    }               reduce using rule 156 (empty -> .)
+    }               reduce using rule 155 (empty -> .)
     ID              shift and go to state 68
     PRINT           shift and go to state 52
     RETURN          shift and go to state 49
@@ -1403,20 +1402,20 @@ state 71
     TRACKDECISION   shift and go to state 56
     FORGETDECISION  shift and go to state 65
 
-  ! ID              [ reduce using rule 156 (empty -> .) ]
-  ! PRINT           [ reduce using rule 156 (empty -> .) ]
-  ! RETURN          [ reduce using rule 156 (empty -> .) ]
-  ! READ            [ reduce using rule 156 (empty -> .) ]
-  ! IF              [ reduce using rule 156 (empty -> .) ]
-  ! WHILE           [ reduce using rule 156 (empty -> .) ]
-  ! FOR             [ reduce using rule 156 (empty -> .) ]
-  ! INT             [ reduce using rule 156 (empty -> .) ]
-  ! FLOAT           [ reduce using rule 156 (empty -> .) ]
-  ! STRING          [ reduce using rule 156 (empty -> .) ]
-  ! BOOL            [ reduce using rule 156 (empty -> .) ]
-  ! #               [ reduce using rule 156 (empty -> .) ]
-  ! TRACKDECISION   [ reduce using rule 156 (empty -> .) ]
-  ! FORGETDECISION  [ reduce using rule 156 (empty -> .) ]
+  ! ID              [ reduce using rule 155 (empty -> .) ]
+  ! PRINT           [ reduce using rule 155 (empty -> .) ]
+  ! RETURN          [ reduce using rule 155 (empty -> .) ]
+  ! READ            [ reduce using rule 155 (empty -> .) ]
+  ! IF              [ reduce using rule 155 (empty -> .) ]
+  ! WHILE           [ reduce using rule 155 (empty -> .) ]
+  ! FOR             [ reduce using rule 155 (empty -> .) ]
+  ! INT             [ reduce using rule 155 (empty -> .) ]
+  ! FLOAT           [ reduce using rule 155 (empty -> .) ]
+  ! STRING          [ reduce using rule 155 (empty -> .) ]
+  ! BOOL            [ reduce using rule 155 (empty -> .) ]
+  ! #               [ reduce using rule 155 (empty -> .) ]
+  ! TRACKDECISION   [ reduce using rule 155 (empty -> .) ]
+  ! FORGETDECISION  [ reduce using rule 155 (empty -> .) ]
 
     whileloop                      shift and go to state 53
     localvardirective              shift and go to state 55
@@ -1475,13 +1474,13 @@ state 75
     (19) declarationB -> ID push_operand . dimensionsOpt
     (41) dimensionsOpt -> . dimensions
     (42) dimensionsOpt -> . empty
-    (148) dimensions -> . [ hyperexpression ] dimensionsB
-    (156) empty -> .
+    (147) dimensions -> . [ hyperexpression ] dimensionsB
+    (155) empty -> .
 
     [               shift and go to state 113
-    =               reduce using rule 156 (empty -> .)
-    ,               reduce using rule 156 (empty -> .)
-    ;               reduce using rule 156 (empty -> .)
+    =               reduce using rule 155 (empty -> .)
+    ,               reduce using rule 155 (empty -> .)
+    ;               reduce using rule 155 (empty -> .)
 
     dimensions                     shift and go to state 112
     dimensionsOpt                  shift and go to state 114
@@ -1626,10 +1625,10 @@ state 84
 
 state 85
 
-    (151) return -> RETURN hyperexpression . return_quadruple
-    (152) return_quadruple -> .
+    (150) return -> RETURN hyperexpression . return_quadruple
+    (151) return_quadruple -> .
 
-    ;               reduce using rule 152 (return_quadruple -> .)
+    ;               reduce using rule 151 (return_quadruple -> .)
 
     return_quadruple               shift and go to state 126
 
@@ -1695,13 +1694,13 @@ state 89
     (66) hyperexpression -> superexpression . hyperexpressionB
     (67) hyperexpressionB -> . OR push_operator hyperexpression
     (68) hyperexpressionB -> . empty
-    (156) empty -> .
+    (155) empty -> .
 
     OR              shift and go to state 129
-    ;               reduce using rule 156 (empty -> .)
-    )               reduce using rule 156 (empty -> .)
-    ,               reduce using rule 156 (empty -> .)
-    ]               reduce using rule 156 (empty -> .)
+    ;               reduce using rule 155 (empty -> .)
+    )               reduce using rule 155 (empty -> .)
+    ,               reduce using rule 155 (empty -> .)
+    ]               reduce using rule 155 (empty -> .)
 
     hyperexpressionB               shift and go to state 128
     empty                          shift and go to state 130
@@ -1720,7 +1719,7 @@ state 90
 state 91
 
     (93) factor -> ID . seen_ID dimensionsOpt
-    (142) funccall -> ID . ( funccallB funccallC
+    (141) funccall -> ID . ( funccallB funccallC
     (95) seen_ID -> .
 
     (               shift and go to state 131
@@ -1776,7 +1775,7 @@ state 93
     (77) expressionB -> . LTEQ push_operator exp
     (78) expressionB -> . GTEQ push_operator exp
     (79) expressionB -> . empty
-    (156) empty -> .
+    (155) empty -> .
 
     <               shift and go to state 139
     >               shift and go to state 141
@@ -1784,12 +1783,12 @@ state 93
     EQ              shift and go to state 138
     LTEQ            shift and go to state 135
     GTEQ            shift and go to state 134
-    AND             reduce using rule 156 (empty -> .)
-    OR              reduce using rule 156 (empty -> .)
-    ;               reduce using rule 156 (empty -> .)
-    )               reduce using rule 156 (empty -> .)
-    ,               reduce using rule 156 (empty -> .)
-    ]               reduce using rule 156 (empty -> .)
+    AND             reduce using rule 155 (empty -> .)
+    OR              reduce using rule 155 (empty -> .)
+    ;               reduce using rule 155 (empty -> .)
+    )               reduce using rule 155 (empty -> .)
+    ,               reduce using rule 155 (empty -> .)
+    ]               reduce using rule 155 (empty -> .)
 
     empty                          shift and go to state 140
     expressionB                    shift and go to state 136
@@ -1799,14 +1798,14 @@ state 94
     (69) superexpression -> expression . superexpressionB
     (70) superexpressionB -> . AND push_operator superexpression
     (71) superexpressionB -> . empty
-    (156) empty -> .
+    (155) empty -> .
 
     AND             shift and go to state 142
-    OR              reduce using rule 156 (empty -> .)
-    ;               reduce using rule 156 (empty -> .)
-    )               reduce using rule 156 (empty -> .)
-    ,               reduce using rule 156 (empty -> .)
-    ]               reduce using rule 156 (empty -> .)
+    OR              reduce using rule 155 (empty -> .)
+    ;               reduce using rule 155 (empty -> .)
+    )               reduce using rule 155 (empty -> .)
+    ,               reduce using rule 155 (empty -> .)
+    ]               reduce using rule 155 (empty -> .)
 
     empty                          shift and go to state 144
     superexpressionB               shift and go to state 143
@@ -1830,8 +1829,7 @@ state 96
 state 97
 
     (129) output -> PRINT ( . outputB
-    (130) outputB -> . SCONST push_operand print_quadruple outputC
-    (131) outputB -> . hyperexpression print_quadruple outputC
+    (130) outputB -> . hyperexpression print_quadruple outputC
     (66) hyperexpression -> . superexpression hyperexpressionB
     (69) superexpression -> . expression superexpressionB
     (72) expression -> . exp expressionB
@@ -1843,26 +1841,23 @@ state 97
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
-  ! shift/reduce conflict for SCONST resolved as shift
-    SCONST          shift and go to state 148
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
-
-  ! SCONST          [ reduce using rule 156 (empty -> .) ]
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 149
+    hyperexpression                shift and go to state 148
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
@@ -1870,35 +1865,35 @@ state 97
     sign                           shift and go to state 90
     term                           shift and go to state 92
     exp                            shift and go to state 93
-    outputB                        shift and go to state 150
+    outputB                        shift and go to state 149
     expression                     shift and go to state 94
 
 state 98
 
-    (137) localvardirectiveB -> FORGET .
+    (136) localvardirectiveB -> FORGET .
 
-    ID              reduce using rule 137 (localvardirectiveB -> FORGET .)
+    ID              reduce using rule 136 (localvardirectiveB -> FORGET .)
 
 
 state 99
 
-    (138) localmsgdirective -> # SHOW . SCONST
+    (137) localmsgdirective -> # SHOW . SCONST
 
-    SCONST          shift and go to state 151
+    SCONST          shift and go to state 150
 
 
 state 100
 
-    (136) localvardirectiveB -> TRACK .
+    (135) localvardirectiveB -> TRACK .
 
-    ID              reduce using rule 136 (localvardirectiveB -> TRACK .)
+    ID              reduce using rule 135 (localvardirectiveB -> TRACK .)
 
 
 state 101
 
-    (135) localvardirective -> # localvardirectiveB . ID
+    (134) localvardirective -> # localvardirectiveB . ID
 
-    ID              shift and go to state 152
+    ID              shift and go to state 151
 
 
 state 102
@@ -1927,9 +1922,9 @@ state 103
     (120) forloop -> FOR ( . assign ; init_while hyperexpression for_quadruple ; hyperexpression for_expression ) block endfor_quadruple
     (39) assign -> . ID push_operand dimensionsOpt = push_operator hyperexpression quadruple_assign
 
-    ID              shift and go to state 153
+    ID              shift and go to state 152
 
-    assign                         shift and go to state 154
+    assign                         shift and go to state 153
 
 state 104
 
@@ -1971,9 +1966,9 @@ state 105
     TRACKDECISION   reduce using rule 36 (block -> { instructionsOpt } .)
     FORGETDECISION  reduce using rule 36 (block -> { instructionsOpt } .)
     }               reduce using rule 36 (block -> { instructionsOpt } .)
+    ELSE            reduce using rule 36 (block -> { instructionsOpt } .)
     DEF             reduce using rule 36 (block -> { instructionsOpt } .)
     $end            reduce using rule 36 (block -> { instructionsOpt } .)
-    ELSE            reduce using rule 36 (block -> { instructionsOpt } .)
     MAIN            reduce using rule 36 (block -> { instructionsOpt } .)
 
 
@@ -2007,7 +2002,7 @@ state 107
     [               reduce using rule 20 (push_operand -> .)
     =               reduce using rule 20 (push_operand -> .)
 
-    push_operand                   shift and go to state 155
+    push_operand                   shift and go to state 154
 
 state 108
 
@@ -2023,23 +2018,23 @@ state 108
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 156
+    hyperexpression                shift and go to state 155
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
@@ -2082,23 +2077,23 @@ state 111
     (33) func -> DEF returntype ID ( . paramsOpt )
     (34) paramsOpt -> . params paramsB
     (35) paramsOpt -> . empty
-    (153) params -> . type ID
-    (156) empty -> .
+    (152) params -> . type ID
+    (155) empty -> .
     (114) type -> . INT
     (115) type -> . FLOAT
     (116) type -> . STRING
     (117) type -> . BOOL
 
-    )               reduce using rule 156 (empty -> .)
+    )               reduce using rule 155 (empty -> .)
     INT             shift and go to state 15
     FLOAT           shift and go to state 17
     STRING          shift and go to state 14
     BOOL            shift and go to state 18
 
-    paramsOpt                      shift and go to state 157
-    params                         shift and go to state 158
-    type                           shift and go to state 160
-    empty                          shift and go to state 159
+    paramsOpt                      shift and go to state 156
+    params                         shift and go to state 157
+    type                           shift and go to state 159
+    empty                          shift and go to state 158
 
 state 112
 
@@ -2125,7 +2120,7 @@ state 112
 
 state 113
 
-    (148) dimensions -> [ . hyperexpression ] dimensionsB
+    (147) dimensions -> [ . hyperexpression ] dimensionsB
     (66) hyperexpression -> . superexpression hyperexpressionB
     (69) superexpression -> . expression superexpressionB
     (72) expression -> . exp expressionB
@@ -2137,24 +2132,24 @@ state 113
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     sign                           shift and go to state 90
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 161
+    hyperexpression                shift and go to state 160
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
@@ -2202,7 +2197,7 @@ state 116
 
     ID              shift and go to state 45
 
-    declarationB                   shift and go to state 162
+    declarationB                   shift and go to state 161
 
 state 117
 
@@ -2218,23 +2213,23 @@ state 117
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 163
+    hyperexpression                shift and go to state 162
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
@@ -2251,7 +2246,7 @@ state 118
 
     {               shift and go to state 40
 
-    block                          shift and go to state 164
+    block                          shift and go to state 163
 
 state 119
 
@@ -2297,7 +2292,7 @@ state 120
     ,               reduce using rule 98 (seen_fconst -> .)
     ]               reduce using rule 98 (seen_fconst -> .)
 
-    seen_fconst                    shift and go to state 165
+    seen_fconst                    shift and go to state 164
 
 state 121
 
@@ -2321,7 +2316,7 @@ state 121
     ,               reduce using rule 100 (seen_sconst -> .)
     ]               reduce using rule 100 (seen_sconst -> .)
 
-    seen_sconst                    shift and go to state 166
+    seen_sconst                    shift and go to state 165
 
 state 122
 
@@ -2345,7 +2340,7 @@ state 122
     ,               reduce using rule 99 (seen_iconst -> .)
     ]               reduce using rule 99 (seen_iconst -> .)
 
-    seen_iconst                    shift and go to state 167
+    seen_iconst                    shift and go to state 166
 
 state 123
 
@@ -2369,7 +2364,7 @@ state 123
     ,               reduce using rule 102 (seen_false -> .)
     ]               reduce using rule 102 (seen_false -> .)
 
-    seen_false                     shift and go to state 168
+    seen_false                     shift and go to state 167
 
 state 124
 
@@ -2393,7 +2388,7 @@ state 124
     ,               reduce using rule 101 (seen_true -> .)
     ]               reduce using rule 101 (seen_true -> .)
 
-    seen_true                      shift and go to state 169
+    seen_true                      shift and go to state 168
 
 state 125
 
@@ -2409,24 +2404,24 @@ state 125
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     sign                           shift and go to state 90
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 170
+    hyperexpression                shift and go to state 169
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
@@ -2437,9 +2432,9 @@ state 125
 
 state 126
 
-    (151) return -> RETURN hyperexpression return_quadruple .
+    (150) return -> RETURN hyperexpression return_quadruple .
 
-    ;               reduce using rule 151 (return -> RETURN hyperexpression return_quadruple .)
+    ;               reduce using rule 150 (return -> RETURN hyperexpression return_quadruple .)
 
 
 state 127
@@ -2448,35 +2443,35 @@ state 127
     (87) termB -> . / push_operator term
     (88) termB -> . * push_operator term
     (89) termB -> . empty
-    (156) empty -> .
+    (155) empty -> .
 
-    /               shift and go to state 174
-    *               shift and go to state 171
-    -               reduce using rule 156 (empty -> .)
-    +               reduce using rule 156 (empty -> .)
-    <               reduce using rule 156 (empty -> .)
-    >               reduce using rule 156 (empty -> .)
-    DIFF            reduce using rule 156 (empty -> .)
-    EQ              reduce using rule 156 (empty -> .)
-    LTEQ            reduce using rule 156 (empty -> .)
-    GTEQ            reduce using rule 156 (empty -> .)
-    AND             reduce using rule 156 (empty -> .)
-    OR              reduce using rule 156 (empty -> .)
-    ;               reduce using rule 156 (empty -> .)
-    )               reduce using rule 156 (empty -> .)
-    ,               reduce using rule 156 (empty -> .)
-    ]               reduce using rule 156 (empty -> .)
+    /               shift and go to state 173
+    *               shift and go to state 170
+    -               reduce using rule 155 (empty -> .)
+    +               reduce using rule 155 (empty -> .)
+    <               reduce using rule 155 (empty -> .)
+    >               reduce using rule 155 (empty -> .)
+    DIFF            reduce using rule 155 (empty -> .)
+    EQ              reduce using rule 155 (empty -> .)
+    LTEQ            reduce using rule 155 (empty -> .)
+    GTEQ            reduce using rule 155 (empty -> .)
+    AND             reduce using rule 155 (empty -> .)
+    OR              reduce using rule 155 (empty -> .)
+    ;               reduce using rule 155 (empty -> .)
+    )               reduce using rule 155 (empty -> .)
+    ,               reduce using rule 155 (empty -> .)
+    ]               reduce using rule 155 (empty -> .)
 
-    termB                          shift and go to state 172
-    empty                          shift and go to state 173
+    termB                          shift and go to state 171
+    empty                          shift and go to state 172
 
 state 128
 
     (66) hyperexpression -> superexpression hyperexpressionB .
 
     )               reduce using rule 66 (hyperexpression -> superexpression hyperexpressionB .)
-    ,               reduce using rule 66 (hyperexpression -> superexpression hyperexpressionB .)
     ;               reduce using rule 66 (hyperexpression -> superexpression hyperexpressionB .)
+    ,               reduce using rule 66 (hyperexpression -> superexpression hyperexpressionB .)
     ]               reduce using rule 66 (hyperexpression -> superexpression hyperexpressionB .)
 
 
@@ -2495,7 +2490,7 @@ state 129
     TRUE            reduce using rule 23 (push_operator -> .)
     FALSE           reduce using rule 23 (push_operator -> .)
 
-    push_operator                  shift and go to state 175
+    push_operator                  shift and go to state 174
 
 state 130
 
@@ -2509,11 +2504,11 @@ state 130
 
 state 131
 
-    (142) funccall -> ID ( . funccallB funccallC
-    (143) funccallB -> . hyperexpression seen_param
-    (144) funccallB -> . empty
+    (141) funccall -> ID ( . funccallB funccallC
+    (142) funccallB -> . hyperexpression seen_param
+    (143) funccallB -> . empty
     (66) hyperexpression -> . superexpression hyperexpressionB
-    (156) empty -> .
+    (155) empty -> .
     (69) superexpression -> . expression superexpressionB
     (72) expression -> . exp expressionB
     (80) exp -> . term seen_term expB
@@ -2524,27 +2519,27 @@ state 131
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
 
-    ,               reduce using rule 156 (empty -> .)
-    )               reduce using rule 156 (empty -> .)
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    ,               reduce using rule 155 (empty -> .)
+    )               reduce using rule 155 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
 
-    funccallB                      shift and go to state 176
+    funccallB                      shift and go to state 175
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 177
+    hyperexpression                shift and go to state 176
     factor                         shift and go to state 86
-    empty                          shift and go to state 178
+    empty                          shift and go to state 177
     funccall                       shift and go to state 88
     superexpression                shift and go to state 89
     sign                           shift and go to state 90
@@ -2557,29 +2552,29 @@ state 132
     (93) factor -> ID seen_ID . dimensionsOpt
     (41) dimensionsOpt -> . dimensions
     (42) dimensionsOpt -> . empty
-    (148) dimensions -> . [ hyperexpression ] dimensionsB
-    (156) empty -> .
+    (147) dimensions -> . [ hyperexpression ] dimensionsB
+    (155) empty -> .
 
     [               shift and go to state 113
-    /               reduce using rule 156 (empty -> .)
-    *               reduce using rule 156 (empty -> .)
-    -               reduce using rule 156 (empty -> .)
-    +               reduce using rule 156 (empty -> .)
-    <               reduce using rule 156 (empty -> .)
-    >               reduce using rule 156 (empty -> .)
-    DIFF            reduce using rule 156 (empty -> .)
-    EQ              reduce using rule 156 (empty -> .)
-    LTEQ            reduce using rule 156 (empty -> .)
-    GTEQ            reduce using rule 156 (empty -> .)
-    AND             reduce using rule 156 (empty -> .)
-    OR              reduce using rule 156 (empty -> .)
-    ;               reduce using rule 156 (empty -> .)
-    )               reduce using rule 156 (empty -> .)
-    ,               reduce using rule 156 (empty -> .)
-    ]               reduce using rule 156 (empty -> .)
+    /               reduce using rule 155 (empty -> .)
+    *               reduce using rule 155 (empty -> .)
+    -               reduce using rule 155 (empty -> .)
+    +               reduce using rule 155 (empty -> .)
+    <               reduce using rule 155 (empty -> .)
+    >               reduce using rule 155 (empty -> .)
+    DIFF            reduce using rule 155 (empty -> .)
+    EQ              reduce using rule 155 (empty -> .)
+    LTEQ            reduce using rule 155 (empty -> .)
+    GTEQ            reduce using rule 155 (empty -> .)
+    AND             reduce using rule 155 (empty -> .)
+    OR              reduce using rule 155 (empty -> .)
+    ;               reduce using rule 155 (empty -> .)
+    )               reduce using rule 155 (empty -> .)
+    ,               reduce using rule 155 (empty -> .)
+    ]               reduce using rule 155 (empty -> .)
 
     dimensions                     shift and go to state 112
-    dimensionsOpt                  shift and go to state 179
+    dimensionsOpt                  shift and go to state 178
     empty                          shift and go to state 115
 
 state 133
@@ -2588,25 +2583,25 @@ state 133
     (82) expB -> . - push_operator exp
     (83) expB -> . + push_operator exp
     (84) expB -> . empty
-    (156) empty -> .
+    (155) empty -> .
 
-    -               shift and go to state 181
-    +               shift and go to state 180
-    <               reduce using rule 156 (empty -> .)
-    >               reduce using rule 156 (empty -> .)
-    DIFF            reduce using rule 156 (empty -> .)
-    EQ              reduce using rule 156 (empty -> .)
-    LTEQ            reduce using rule 156 (empty -> .)
-    GTEQ            reduce using rule 156 (empty -> .)
-    AND             reduce using rule 156 (empty -> .)
-    OR              reduce using rule 156 (empty -> .)
-    ;               reduce using rule 156 (empty -> .)
-    )               reduce using rule 156 (empty -> .)
-    ,               reduce using rule 156 (empty -> .)
-    ]               reduce using rule 156 (empty -> .)
+    -               shift and go to state 180
+    +               shift and go to state 179
+    <               reduce using rule 155 (empty -> .)
+    >               reduce using rule 155 (empty -> .)
+    DIFF            reduce using rule 155 (empty -> .)
+    EQ              reduce using rule 155 (empty -> .)
+    LTEQ            reduce using rule 155 (empty -> .)
+    GTEQ            reduce using rule 155 (empty -> .)
+    AND             reduce using rule 155 (empty -> .)
+    OR              reduce using rule 155 (empty -> .)
+    ;               reduce using rule 155 (empty -> .)
+    )               reduce using rule 155 (empty -> .)
+    ,               reduce using rule 155 (empty -> .)
+    ]               reduce using rule 155 (empty -> .)
 
-    expB                           shift and go to state 182
-    empty                          shift and go to state 183
+    expB                           shift and go to state 181
+    empty                          shift and go to state 182
 
 state 134
 
@@ -2623,7 +2618,7 @@ state 134
     TRUE            reduce using rule 23 (push_operator -> .)
     FALSE           reduce using rule 23 (push_operator -> .)
 
-    push_operator                  shift and go to state 184
+    push_operator                  shift and go to state 183
 
 state 135
 
@@ -2640,7 +2635,7 @@ state 135
     TRUE            reduce using rule 23 (push_operator -> .)
     FALSE           reduce using rule 23 (push_operator -> .)
 
-    push_operator                  shift and go to state 185
+    push_operator                  shift and go to state 184
 
 state 136
 
@@ -2669,7 +2664,7 @@ state 137
     TRUE            reduce using rule 23 (push_operator -> .)
     FALSE           reduce using rule 23 (push_operator -> .)
 
-    push_operator                  shift and go to state 186
+    push_operator                  shift and go to state 185
 
 state 138
 
@@ -2686,7 +2681,7 @@ state 138
     TRUE            reduce using rule 23 (push_operator -> .)
     FALSE           reduce using rule 23 (push_operator -> .)
 
-    push_operator                  shift and go to state 187
+    push_operator                  shift and go to state 186
 
 state 139
 
@@ -2703,7 +2698,7 @@ state 139
     TRUE            reduce using rule 23 (push_operator -> .)
     FALSE           reduce using rule 23 (push_operator -> .)
 
-    push_operator                  shift and go to state 188
+    push_operator                  shift and go to state 187
 
 state 140
 
@@ -2732,7 +2727,7 @@ state 141
     TRUE            reduce using rule 23 (push_operator -> .)
     FALSE           reduce using rule 23 (push_operator -> .)
 
-    push_operator                  shift and go to state 189
+    push_operator                  shift and go to state 188
 
 state 142
 
@@ -2749,15 +2744,15 @@ state 142
     TRUE            reduce using rule 23 (push_operator -> .)
     FALSE           reduce using rule 23 (push_operator -> .)
 
-    push_operator                  shift and go to state 190
+    push_operator                  shift and go to state 189
 
 state 143
 
     (69) superexpression -> expression superexpressionB .
 
     OR              reduce using rule 69 (superexpression -> expression superexpressionB .)
-    )               reduce using rule 69 (superexpression -> expression superexpressionB .)
     ;               reduce using rule 69 (superexpression -> expression superexpressionB .)
+    )               reduce using rule 69 (superexpression -> expression superexpressionB .)
     ,               reduce using rule 69 (superexpression -> expression superexpressionB .)
     ]               reduce using rule 69 (superexpression -> expression superexpressionB .)
 
@@ -2781,7 +2776,7 @@ state 145
     ,               reduce using rule 20 (push_operand -> .)
     )               reduce using rule 20 (push_operand -> .)
 
-    push_operand                   shift and go to state 191
+    push_operand                   shift and go to state 190
 
 state 146
 
@@ -2805,23 +2800,23 @@ state 147
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 192
+    hyperexpression                shift and go to state 191
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
@@ -2833,74 +2828,64 @@ state 147
 
 state 148
 
-    (130) outputB -> SCONST . push_operand print_quadruple outputC
-    (20) push_operand -> .
+    (130) outputB -> hyperexpression . print_quadruple outputC
+    (131) print_quadruple -> .
 
-    )               reduce using rule 20 (push_operand -> .)
-    ,               reduce using rule 20 (push_operand -> .)
+    )               reduce using rule 131 (print_quadruple -> .)
+    ,               reduce using rule 131 (print_quadruple -> .)
 
-    push_operand                   shift and go to state 193
+    print_quadruple                shift and go to state 192
 
 state 149
-
-    (131) outputB -> hyperexpression . print_quadruple outputC
-    (132) print_quadruple -> .
-
-    )               reduce using rule 132 (print_quadruple -> .)
-    ,               reduce using rule 132 (print_quadruple -> .)
-
-    print_quadruple                shift and go to state 194
-
-state 150
 
     (129) output -> PRINT ( outputB .
 
     ;               reduce using rule 129 (output -> PRINT ( outputB .)
 
 
+state 150
+
+    (137) localmsgdirective -> # SHOW SCONST .
+
+    ID              reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+    PRINT           reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+    RETURN          reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+    READ            reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+    IF              reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+    WHILE           reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+    FOR             reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+    INT             reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+    FLOAT           reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+    STRING          reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+    BOOL            reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+    #               reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+    TRACKDECISION   reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+    FORGETDECISION  reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+    }               reduce using rule 137 (localmsgdirective -> # SHOW SCONST .)
+
+
 state 151
 
-    (138) localmsgdirective -> # SHOW SCONST .
+    (134) localvardirective -> # localvardirectiveB ID .
 
-    ID              reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
-    PRINT           reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
-    RETURN          reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
-    READ            reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
-    IF              reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
-    WHILE           reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
-    FOR             reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
-    INT             reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
-    FLOAT           reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
-    STRING          reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
-    BOOL            reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
-    #               reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
-    TRACKDECISION   reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
-    FORGETDECISION  reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
-    }               reduce using rule 138 (localmsgdirective -> # SHOW SCONST .)
+    ID              reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
+    PRINT           reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
+    RETURN          reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
+    READ            reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
+    IF              reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
+    WHILE           reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
+    FOR             reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
+    INT             reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
+    FLOAT           reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
+    STRING          reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
+    BOOL            reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
+    #               reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
+    TRACKDECISION   reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
+    FORGETDECISION  reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
+    }               reduce using rule 134 (localvardirective -> # localvardirectiveB ID .)
 
 
 state 152
-
-    (135) localvardirective -> # localvardirectiveB ID .
-
-    ID              reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-    PRINT           reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-    RETURN          reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-    READ            reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-    IF              reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-    WHILE           reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-    FOR             reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-    INT             reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-    FLOAT           reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-    STRING          reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-    BOOL            reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-    #               reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-    TRACKDECISION   reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-    FORGETDECISION  reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-    }               reduce using rule 135 (localvardirective -> # localvardirectiveB ID .)
-
-
-state 153
 
     (39) assign -> ID . push_operand dimensionsOpt = push_operator hyperexpression quadruple_assign
     (20) push_operand -> .
@@ -2908,16 +2893,16 @@ state 153
     [               reduce using rule 20 (push_operand -> .)
     =               reduce using rule 20 (push_operand -> .)
 
-    push_operand                   shift and go to state 195
+    push_operand                   shift and go to state 193
 
-state 154
+state 153
 
     (120) forloop -> FOR ( assign . ; init_while hyperexpression for_quadruple ; hyperexpression for_expression ) block endfor_quadruple
 
-    ;               shift and go to state 196
+    ;               shift and go to state 194
 
 
-state 155
+state 154
 
     (58) assignfunccall -> ID seen_funccall push_operand . assignfunccallB
     (61) assignfunccallB -> . ( pop_operand funccallB funccallC
@@ -2925,70 +2910,70 @@ state 155
     (40) assignB -> . dimensionsOpt = push_operator hyperexpression quadruple_assign
     (41) dimensionsOpt -> . dimensions
     (42) dimensionsOpt -> . empty
-    (148) dimensions -> . [ hyperexpression ] dimensionsB
-    (156) empty -> .
+    (147) dimensions -> . [ hyperexpression ] dimensionsB
+    (155) empty -> .
 
-    (               shift and go to state 198
+    (               shift and go to state 196
     [               shift and go to state 113
-    =               reduce using rule 156 (empty -> .)
+    =               reduce using rule 155 (empty -> .)
 
     dimensions                     shift and go to state 112
-    assignfunccallB                shift and go to state 197
-    assignB                        shift and go to state 199
-    dimensionsOpt                  shift and go to state 200
+    assignfunccallB                shift and go to state 195
+    assignB                        shift and go to state 197
+    dimensionsOpt                  shift and go to state 198
     empty                          shift and go to state 115
 
-state 156
+state 155
 
     (43) condition -> IF ( hyperexpression . condition_quadruple ) block else endcondition_quadruple
     (46) condition_quadruple -> .
 
     )               reduce using rule 46 (condition_quadruple -> .)
 
-    condition_quadruple            shift and go to state 201
+    condition_quadruple            shift and go to state 199
 
-state 157
+state 156
 
     (33) func -> DEF returntype ID ( paramsOpt . )
 
-    )               shift and go to state 202
+    )               shift and go to state 200
 
 
-state 158
+state 157
 
     (34) paramsOpt -> params . paramsB
-    (154) paramsB -> . , params paramsB
-    (155) paramsB -> . empty
-    (156) empty -> .
+    (153) paramsB -> . , params paramsB
+    (154) paramsB -> . empty
+    (155) empty -> .
 
-    ,               shift and go to state 204
-    )               reduce using rule 156 (empty -> .)
+    ,               shift and go to state 202
+    )               reduce using rule 155 (empty -> .)
 
-    paramsB                        shift and go to state 203
-    empty                          shift and go to state 205
+    paramsB                        shift and go to state 201
+    empty                          shift and go to state 203
 
-state 159
+state 158
 
     (35) paramsOpt -> empty .
 
     )               reduce using rule 35 (paramsOpt -> empty .)
 
 
+state 159
+
+    (152) params -> type . ID
+
+    ID              shift and go to state 204
+
+
 state 160
 
-    (153) params -> type . ID
+    (147) dimensions -> [ hyperexpression . ] dimensionsB
 
-    ID              shift and go to state 206
+    ]               shift and go to state 205
 
 
 state 161
-
-    (148) dimensions -> [ hyperexpression . ] dimensionsB
-
-    ]               shift and go to state 207
-
-
-state 162
 
     (26) declarationC -> , repush_type declarationB . declarationC
     (25) declarationC -> . = push_operator hyperexpression quadruple_assign declarationD
@@ -2999,9 +2984,9 @@ state 162
     ,               shift and go to state 76
     ;               shift and go to state 77
 
-    declarationC                   shift and go to state 208
+    declarationC                   shift and go to state 206
 
-state 163
+state 162
 
     (25) declarationC -> = push_operator hyperexpression . quadruple_assign declarationD
     (24) quadruple_assign -> .
@@ -3009,9 +2994,9 @@ state 163
     ,               reduce using rule 24 (quadruple_assign -> .)
     ;               reduce using rule 24 (quadruple_assign -> .)
 
-    quadruple_assign               shift and go to state 209
+    quadruple_assign               shift and go to state 207
 
-state 164
+state 163
 
     (30) main -> MAIN ( ) seen_main block .
 
@@ -3019,7 +3004,7 @@ state 164
     $end            reduce using rule 30 (main -> MAIN ( ) seen_main block .)
 
 
-state 165
+state 164
 
     (103) constant -> FCONST seen_fconst .
 
@@ -3041,7 +3026,7 @@ state 165
     ]               reduce using rule 103 (constant -> FCONST seen_fconst .)
 
 
-state 166
+state 165
 
     (105) constant -> SCONST seen_sconst .
 
@@ -3063,7 +3048,7 @@ state 166
     ]               reduce using rule 105 (constant -> SCONST seen_sconst .)
 
 
-state 167
+state 166
 
     (104) constant -> ICONST seen_iconst .
 
@@ -3085,7 +3070,7 @@ state 167
     ]               reduce using rule 104 (constant -> ICONST seen_iconst .)
 
 
-state 168
+state 167
 
     (107) constant -> FALSE seen_false .
 
@@ -3107,7 +3092,7 @@ state 168
     ]               reduce using rule 107 (constant -> FALSE seen_false .)
 
 
-state 169
+state 168
 
     (106) constant -> TRUE seen_true .
 
@@ -3129,14 +3114,14 @@ state 169
     ]               reduce using rule 106 (constant -> TRUE seen_true .)
 
 
-state 170
+state 169
 
     (91) factor -> ( seen_parentheses hyperexpression . )
 
-    )               shift and go to state 210
+    )               shift and go to state 208
 
 
-state 171
+state 170
 
     (88) termB -> * . push_operator term
     (23) push_operator -> .
@@ -3151,9 +3136,9 @@ state 171
     TRUE            reduce using rule 23 (push_operator -> .)
     FALSE           reduce using rule 23 (push_operator -> .)
 
-    push_operator                  shift and go to state 211
+    push_operator                  shift and go to state 209
 
-state 172
+state 171
 
     (85) term -> factor seen_factor termB .
 
@@ -3167,13 +3152,13 @@ state 172
     GTEQ            reduce using rule 85 (term -> factor seen_factor termB .)
     AND             reduce using rule 85 (term -> factor seen_factor termB .)
     OR              reduce using rule 85 (term -> factor seen_factor termB .)
-    ;               reduce using rule 85 (term -> factor seen_factor termB .)
-    )               reduce using rule 85 (term -> factor seen_factor termB .)
     ,               reduce using rule 85 (term -> factor seen_factor termB .)
+    )               reduce using rule 85 (term -> factor seen_factor termB .)
     ]               reduce using rule 85 (term -> factor seen_factor termB .)
+    ;               reduce using rule 85 (term -> factor seen_factor termB .)
 
 
-state 173
+state 172
 
     (89) termB -> empty .
 
@@ -3193,7 +3178,7 @@ state 173
     ]               reduce using rule 89 (termB -> empty .)
 
 
-state 174
+state 173
 
     (87) termB -> / . push_operator term
     (23) push_operator -> .
@@ -3208,9 +3193,9 @@ state 174
     TRUE            reduce using rule 23 (push_operator -> .)
     FALSE           reduce using rule 23 (push_operator -> .)
 
-    push_operator                  shift and go to state 212
+    push_operator                  shift and go to state 210
 
-state 175
+state 174
 
     (67) hyperexpressionB -> OR push_operator . hyperexpression
     (66) hyperexpression -> . superexpression hyperexpressionB
@@ -3224,24 +3209,24 @@ state 175
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     sign                           shift and go to state 90
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 213
+    hyperexpression                shift and go to state 211
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
@@ -3250,34 +3235,34 @@ state 175
     exp                            shift and go to state 93
     expression                     shift and go to state 94
 
+state 175
+
+    (141) funccall -> ID ( funccallB . funccallC
+    (145) funccallC -> . , funccallB funccallC
+    (146) funccallC -> . )
+
+    ,               shift and go to state 214
+    )               shift and go to state 213
+
+    funccallC                      shift and go to state 212
+
 state 176
 
-    (142) funccall -> ID ( funccallB . funccallC
-    (146) funccallC -> . , funccallB funccallC
-    (147) funccallC -> . )
+    (142) funccallB -> hyperexpression . seen_param
+    (144) seen_param -> .
 
-    ,               shift and go to state 216
-    )               shift and go to state 215
+    ,               reduce using rule 144 (seen_param -> .)
+    )               reduce using rule 144 (seen_param -> .)
 
-    funccallC                      shift and go to state 214
+    seen_param                     shift and go to state 215
 
 state 177
 
-    (143) funccallB -> hyperexpression . seen_param
-    (145) seen_param -> .
-
-    ,               reduce using rule 145 (seen_param -> .)
-    )               reduce using rule 145 (seen_param -> .)
-
-    seen_param                     shift and go to state 217
-
-state 178
-
-    (144) funccallB -> empty .
+    (143) funccallB -> empty .
     (97) signB -> empty .
 
-    ,               reduce using rule 144 (funccallB -> empty .)
-    )               reduce using rule 144 (funccallB -> empty .)
+    ,               reduce using rule 143 (funccallB -> empty .)
+    )               reduce using rule 143 (funccallB -> empty .)
     FCONST          reduce using rule 97 (signB -> empty .)
     ICONST          reduce using rule 97 (signB -> empty .)
     SCONST          reduce using rule 97 (signB -> empty .)
@@ -3285,7 +3270,7 @@ state 178
     FALSE           reduce using rule 97 (signB -> empty .)
 
 
-state 179
+state 178
 
     (93) factor -> ID seen_ID dimensionsOpt .
 
@@ -3307,7 +3292,7 @@ state 179
     ]               reduce using rule 93 (factor -> ID seen_ID dimensionsOpt .)
 
 
-state 180
+state 179
 
     (83) expB -> + . push_operator exp
     (23) push_operator -> .
@@ -3322,9 +3307,9 @@ state 180
     TRUE            reduce using rule 23 (push_operator -> .)
     FALSE           reduce using rule 23 (push_operator -> .)
 
-    push_operator                  shift and go to state 218
+    push_operator                  shift and go to state 216
 
-state 181
+state 180
 
     (82) expB -> - . push_operator exp
     (23) push_operator -> .
@@ -3339,27 +3324,27 @@ state 181
     TRUE            reduce using rule 23 (push_operator -> .)
     FALSE           reduce using rule 23 (push_operator -> .)
 
-    push_operator                  shift and go to state 219
+    push_operator                  shift and go to state 217
 
-state 182
+state 181
 
     (80) exp -> term seen_term expB .
 
-    <               reduce using rule 80 (exp -> term seen_term expB .)
-    >               reduce using rule 80 (exp -> term seen_term expB .)
-    DIFF            reduce using rule 80 (exp -> term seen_term expB .)
-    EQ              reduce using rule 80 (exp -> term seen_term expB .)
-    LTEQ            reduce using rule 80 (exp -> term seen_term expB .)
-    GTEQ            reduce using rule 80 (exp -> term seen_term expB .)
     AND             reduce using rule 80 (exp -> term seen_term expB .)
     OR              reduce using rule 80 (exp -> term seen_term expB .)
     ;               reduce using rule 80 (exp -> term seen_term expB .)
     )               reduce using rule 80 (exp -> term seen_term expB .)
     ,               reduce using rule 80 (exp -> term seen_term expB .)
     ]               reduce using rule 80 (exp -> term seen_term expB .)
+    <               reduce using rule 80 (exp -> term seen_term expB .)
+    >               reduce using rule 80 (exp -> term seen_term expB .)
+    DIFF            reduce using rule 80 (exp -> term seen_term expB .)
+    EQ              reduce using rule 80 (exp -> term seen_term expB .)
+    LTEQ            reduce using rule 80 (exp -> term seen_term expB .)
+    GTEQ            reduce using rule 80 (exp -> term seen_term expB .)
 
 
-state 183
+state 182
 
     (84) expB -> empty .
 
@@ -3377,7 +3362,7 @@ state 183
     ]               reduce using rule 84 (expB -> empty .)
 
 
-state 184
+state 183
 
     (78) expressionB -> GTEQ push_operator . exp
     (80) exp -> . term seen_term expB
@@ -3388,30 +3373,30 @@ state 184
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     term                           shift and go to state 92
     funccall                       shift and go to state 88
     signB                          shift and go to state 81
     sign                           shift and go to state 90
-    exp                            shift and go to state 220
+    exp                            shift and go to state 218
     factor                         shift and go to state 86
     empty                          shift and go to state 87
 
-state 185
+state 184
 
     (77) expressionB -> LTEQ push_operator . exp
     (80) exp -> . term seen_term expB
@@ -3422,30 +3407,30 @@ state 185
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     term                           shift and go to state 92
     funccall                       shift and go to state 88
     signB                          shift and go to state 81
     sign                           shift and go to state 90
-    exp                            shift and go to state 221
+    exp                            shift and go to state 219
     factor                         shift and go to state 86
     empty                          shift and go to state 87
 
-state 186
+state 185
 
     (75) expressionB -> DIFF push_operator . exp
     (80) exp -> . term seen_term expB
@@ -3456,30 +3441,30 @@ state 186
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     term                           shift and go to state 92
     funccall                       shift and go to state 88
     signB                          shift and go to state 81
     sign                           shift and go to state 90
-    exp                            shift and go to state 222
+    exp                            shift and go to state 220
     factor                         shift and go to state 86
     empty                          shift and go to state 87
 
-state 187
+state 186
 
     (76) expressionB -> EQ push_operator . exp
     (80) exp -> . term seen_term expB
@@ -3490,30 +3475,30 @@ state 187
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     term                           shift and go to state 92
     funccall                       shift and go to state 88
     signB                          shift and go to state 81
     sign                           shift and go to state 90
-    exp                            shift and go to state 223
+    exp                            shift and go to state 221
     factor                         shift and go to state 86
     empty                          shift and go to state 87
 
-state 188
+state 187
 
     (73) expressionB -> < push_operator . exp
     (80) exp -> . term seen_term expB
@@ -3524,30 +3509,30 @@ state 188
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     term                           shift and go to state 92
     funccall                       shift and go to state 88
     signB                          shift and go to state 81
     sign                           shift and go to state 90
-    exp                            shift and go to state 224
+    exp                            shift and go to state 222
     factor                         shift and go to state 86
     empty                          shift and go to state 87
 
-state 189
+state 188
 
     (74) expressionB -> > push_operator . exp
     (80) exp -> . term seen_term expB
@@ -3558,30 +3543,30 @@ state 189
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     term                           shift and go to state 92
     funccall                       shift and go to state 88
     signB                          shift and go to state 81
     sign                           shift and go to state 90
-    exp                            shift and go to state 225
+    exp                            shift and go to state 223
     factor                         shift and go to state 86
     empty                          shift and go to state 87
 
-state 190
+state 189
 
     (70) superexpressionB -> AND push_operator . superexpression
     (69) superexpression -> . expression superexpressionB
@@ -3594,32 +3579,32 @@ state 190
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     sign                           shift and go to state 90
     signB                          shift and go to state 81
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
-    superexpression                shift and go to state 226
+    superexpression                shift and go to state 224
     term                           shift and go to state 92
     exp                            shift and go to state 93
     expression                     shift and go to state 94
 
-state 191
+state 190
 
     (124) read -> READ ( validate_id push_operand . read_quadruple readB )
     (126) read_quadruple -> .
@@ -3627,52 +3612,42 @@ state 191
     ,               reduce using rule 126 (read_quadruple -> .)
     )               reduce using rule 126 (read_quadruple -> .)
 
-    read_quadruple                 shift and go to state 227
+    read_quadruple                 shift and go to state 225
 
-state 192
+state 191
 
     (110) whileloop -> WHILE init_while ( hyperexpression . ) while_quadruple block endwhile_quadruple
 
-    )               shift and go to state 228
+    )               shift and go to state 226
 
+
+state 192
+
+    (130) outputB -> hyperexpression print_quadruple . outputC
+    (132) outputC -> . )
+    (133) outputC -> . , outputB
+
+    )               shift and go to state 227
+    ,               shift and go to state 228
+
+    outputC                        shift and go to state 229
 
 state 193
-
-    (130) outputB -> SCONST push_operand . print_quadruple outputC
-    (132) print_quadruple -> .
-
-    )               reduce using rule 132 (print_quadruple -> .)
-    ,               reduce using rule 132 (print_quadruple -> .)
-
-    print_quadruple                shift and go to state 229
-
-state 194
-
-    (131) outputB -> hyperexpression print_quadruple . outputC
-    (133) outputC -> . )
-    (134) outputC -> . , outputB
-
-    )               shift and go to state 230
-    ,               shift and go to state 231
-
-    outputC                        shift and go to state 232
-
-state 195
 
     (39) assign -> ID push_operand . dimensionsOpt = push_operator hyperexpression quadruple_assign
     (41) dimensionsOpt -> . dimensions
     (42) dimensionsOpt -> . empty
-    (148) dimensions -> . [ hyperexpression ] dimensionsB
-    (156) empty -> .
+    (147) dimensions -> . [ hyperexpression ] dimensionsB
+    (155) empty -> .
 
     [               shift and go to state 113
-    =               reduce using rule 156 (empty -> .)
+    =               reduce using rule 155 (empty -> .)
 
     dimensions                     shift and go to state 112
-    dimensionsOpt                  shift and go to state 233
+    dimensionsOpt                  shift and go to state 230
     empty                          shift and go to state 115
 
-state 196
+state 194
 
     (120) forloop -> FOR ( assign ; . init_while hyperexpression for_quadruple ; hyperexpression for_expression ) block endfor_quadruple
     (111) init_while -> .
@@ -3687,16 +3662,16 @@ state 196
     TRUE            reduce using rule 111 (init_while -> .)
     FALSE           reduce using rule 111 (init_while -> .)
 
-    init_while                     shift and go to state 234
+    init_while                     shift and go to state 231
 
-state 197
+state 195
 
     (58) assignfunccall -> ID seen_funccall push_operand assignfunccallB .
 
     ;               reduce using rule 58 (assignfunccall -> ID seen_funccall push_operand assignfunccallB .)
 
 
-state 198
+state 196
 
     (61) assignfunccallB -> ( . pop_operand funccallB funccallC
     (60) pop_operand -> .
@@ -3713,47 +3688,47 @@ state 198
     TRUE            reduce using rule 60 (pop_operand -> .)
     FALSE           reduce using rule 60 (pop_operand -> .)
 
-    pop_operand                    shift and go to state 235
+    pop_operand                    shift and go to state 232
 
-state 199
+state 197
 
     (62) assignfunccallB -> assignB .
 
     ;               reduce using rule 62 (assignfunccallB -> assignB .)
 
 
-state 200
+state 198
 
     (40) assignB -> dimensionsOpt . = push_operator hyperexpression quadruple_assign
 
-    =               shift and go to state 236
+    =               shift and go to state 233
 
 
-state 201
+state 199
 
     (43) condition -> IF ( hyperexpression condition_quadruple . ) block else endcondition_quadruple
 
-    )               shift and go to state 237
+    )               shift and go to state 234
 
 
-state 202
+state 200
 
     (33) func -> DEF returntype ID ( paramsOpt ) .
 
     {               reduce using rule 33 (func -> DEF returntype ID ( paramsOpt ) .)
 
 
-state 203
+state 201
 
     (34) paramsOpt -> params paramsB .
 
     )               reduce using rule 34 (paramsOpt -> params paramsB .)
 
 
-state 204
+state 202
 
-    (154) paramsB -> , . params paramsB
-    (153) params -> . type ID
+    (153) paramsB -> , . params paramsB
+    (152) params -> . type ID
     (114) type -> . INT
     (115) type -> . FLOAT
     (116) type -> . STRING
@@ -3764,54 +3739,54 @@ state 204
     STRING          shift and go to state 14
     BOOL            shift and go to state 18
 
-    type                           shift and go to state 160
-    params                         shift and go to state 238
+    type                           shift and go to state 159
+    params                         shift and go to state 235
+
+state 203
+
+    (154) paramsB -> empty .
+
+    )               reduce using rule 154 (paramsB -> empty .)
+
+
+state 204
+
+    (152) params -> type ID .
+
+    ,               reduce using rule 152 (params -> type ID .)
+    )               reduce using rule 152 (params -> type ID .)
+
 
 state 205
 
-    (155) paramsB -> empty .
+    (147) dimensions -> [ hyperexpression ] . dimensionsB
+    (148) dimensionsB -> . [ hyperexpression ]
+    (149) dimensionsB -> . empty
+    (155) empty -> .
 
-    )               reduce using rule 155 (paramsB -> empty .)
+    [               shift and go to state 237
+    =               reduce using rule 155 (empty -> .)
+    ,               reduce using rule 155 (empty -> .)
+    ;               reduce using rule 155 (empty -> .)
+    /               reduce using rule 155 (empty -> .)
+    *               reduce using rule 155 (empty -> .)
+    -               reduce using rule 155 (empty -> .)
+    +               reduce using rule 155 (empty -> .)
+    <               reduce using rule 155 (empty -> .)
+    >               reduce using rule 155 (empty -> .)
+    DIFF            reduce using rule 155 (empty -> .)
+    EQ              reduce using rule 155 (empty -> .)
+    LTEQ            reduce using rule 155 (empty -> .)
+    GTEQ            reduce using rule 155 (empty -> .)
+    AND             reduce using rule 155 (empty -> .)
+    OR              reduce using rule 155 (empty -> .)
+    )               reduce using rule 155 (empty -> .)
+    ]               reduce using rule 155 (empty -> .)
 
+    dimensionsB                    shift and go to state 236
+    empty                          shift and go to state 238
 
 state 206
-
-    (153) params -> type ID .
-
-    ,               reduce using rule 153 (params -> type ID .)
-    )               reduce using rule 153 (params -> type ID .)
-
-
-state 207
-
-    (148) dimensions -> [ hyperexpression ] . dimensionsB
-    (149) dimensionsB -> . [ hyperexpression ]
-    (150) dimensionsB -> . empty
-    (156) empty -> .
-
-    [               shift and go to state 240
-    =               reduce using rule 156 (empty -> .)
-    ,               reduce using rule 156 (empty -> .)
-    ;               reduce using rule 156 (empty -> .)
-    /               reduce using rule 156 (empty -> .)
-    *               reduce using rule 156 (empty -> .)
-    -               reduce using rule 156 (empty -> .)
-    +               reduce using rule 156 (empty -> .)
-    <               reduce using rule 156 (empty -> .)
-    >               reduce using rule 156 (empty -> .)
-    DIFF            reduce using rule 156 (empty -> .)
-    EQ              reduce using rule 156 (empty -> .)
-    LTEQ            reduce using rule 156 (empty -> .)
-    GTEQ            reduce using rule 156 (empty -> .)
-    AND             reduce using rule 156 (empty -> .)
-    OR              reduce using rule 156 (empty -> .)
-    )               reduce using rule 156 (empty -> .)
-    ]               reduce using rule 156 (empty -> .)
-
-    dimensionsB                    shift and go to state 239
-    empty                          shift and go to state 241
-
-state 208
 
     (26) declarationC -> , repush_type declarationB declarationC .
 
@@ -3834,18 +3809,18 @@ state 208
     }               reduce using rule 26 (declarationC -> , repush_type declarationB declarationC .)
 
 
-state 209
+state 207
 
     (25) declarationC -> = push_operator hyperexpression quadruple_assign . declarationD
     (28) declarationD -> . , repush_type declarationB declarationC
     (29) declarationD -> . ;
 
-    ,               shift and go to state 242
-    ;               shift and go to state 243
+    ,               shift and go to state 239
+    ;               shift and go to state 240
 
-    declarationD                   shift and go to state 244
+    declarationD                   shift and go to state 241
 
-state 210
+state 208
 
     (91) factor -> ( seen_parentheses hyperexpression ) .
 
@@ -3867,7 +3842,7 @@ state 210
     ]               reduce using rule 91 (factor -> ( seen_parentheses hyperexpression ) .)
 
 
-state 211
+state 209
 
     (88) termB -> * push_operator . term
     (85) term -> . factor seen_factor termB
@@ -3877,29 +3852,29 @@ state 211
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
-    term                           shift and go to state 245
+    term                           shift and go to state 242
     funccall                       shift and go to state 88
     signB                          shift and go to state 81
     sign                           shift and go to state 90
     factor                         shift and go to state 86
     empty                          shift and go to state 87
 
-state 212
+state 210
 
     (87) termB -> / push_operator . term
     (85) term -> . factor seen_factor termB
@@ -3909,29 +3884,29 @@ state 212
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
-    term                           shift and go to state 246
+    term                           shift and go to state 243
     funccall                       shift and go to state 88
     signB                          shift and go to state 81
     sign                           shift and go to state 90
     factor                         shift and go to state 86
     empty                          shift and go to state 87
 
-state 213
+state 211
 
     (67) hyperexpressionB -> OR push_operator hyperexpression .
 
@@ -3941,57 +3916,57 @@ state 213
     ]               reduce using rule 67 (hyperexpressionB -> OR push_operator hyperexpression .)
 
 
+state 212
+
+    (141) funccall -> ID ( funccallB funccallC .
+
+    /               reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    *               reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    -               reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    +               reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    <               reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    >               reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    DIFF            reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    EQ              reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    LTEQ            reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    GTEQ            reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    AND             reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    OR              reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    ;               reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    ]               reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    ,               reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+    )               reduce using rule 141 (funccall -> ID ( funccallB funccallC .)
+
+
+state 213
+
+    (146) funccallC -> ) .
+
+    ;               reduce using rule 146 (funccallC -> ) .)
+    /               reduce using rule 146 (funccallC -> ) .)
+    *               reduce using rule 146 (funccallC -> ) .)
+    -               reduce using rule 146 (funccallC -> ) .)
+    +               reduce using rule 146 (funccallC -> ) .)
+    <               reduce using rule 146 (funccallC -> ) .)
+    >               reduce using rule 146 (funccallC -> ) .)
+    DIFF            reduce using rule 146 (funccallC -> ) .)
+    EQ              reduce using rule 146 (funccallC -> ) .)
+    LTEQ            reduce using rule 146 (funccallC -> ) .)
+    GTEQ            reduce using rule 146 (funccallC -> ) .)
+    AND             reduce using rule 146 (funccallC -> ) .)
+    OR              reduce using rule 146 (funccallC -> ) .)
+    )               reduce using rule 146 (funccallC -> ) .)
+    ,               reduce using rule 146 (funccallC -> ) .)
+    ]               reduce using rule 146 (funccallC -> ) .)
+
+
 state 214
 
-    (142) funccall -> ID ( funccallB funccallC .
-
-    /               reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    *               reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    -               reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    +               reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    <               reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    >               reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    DIFF            reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    EQ              reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    LTEQ            reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    GTEQ            reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    AND             reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    OR              reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    ;               reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    )               reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    ,               reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-    ]               reduce using rule 142 (funccall -> ID ( funccallB funccallC .)
-
-
-state 215
-
-    (147) funccallC -> ) .
-
-    ;               reduce using rule 147 (funccallC -> ) .)
-    /               reduce using rule 147 (funccallC -> ) .)
-    *               reduce using rule 147 (funccallC -> ) .)
-    -               reduce using rule 147 (funccallC -> ) .)
-    +               reduce using rule 147 (funccallC -> ) .)
-    <               reduce using rule 147 (funccallC -> ) .)
-    >               reduce using rule 147 (funccallC -> ) .)
-    DIFF            reduce using rule 147 (funccallC -> ) .)
-    EQ              reduce using rule 147 (funccallC -> ) .)
-    LTEQ            reduce using rule 147 (funccallC -> ) .)
-    GTEQ            reduce using rule 147 (funccallC -> ) .)
-    AND             reduce using rule 147 (funccallC -> ) .)
-    OR              reduce using rule 147 (funccallC -> ) .)
-    )               reduce using rule 147 (funccallC -> ) .)
-    ,               reduce using rule 147 (funccallC -> ) .)
-    ]               reduce using rule 147 (funccallC -> ) .)
-
-
-state 216
-
-    (146) funccallC -> , . funccallB funccallC
-    (143) funccallB -> . hyperexpression seen_param
-    (144) funccallB -> . empty
+    (145) funccallC -> , . funccallB funccallC
+    (142) funccallB -> . hyperexpression seen_param
+    (143) funccallB -> . empty
     (66) hyperexpression -> . superexpression hyperexpressionB
-    (156) empty -> .
+    (155) empty -> .
     (69) superexpression -> . expression superexpressionB
     (72) expression -> . exp expressionB
     (80) exp -> . term seen_term expB
@@ -4002,27 +3977,27 @@ state 216
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
 
-    ,               reduce using rule 156 (empty -> .)
-    )               reduce using rule 156 (empty -> .)
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    ,               reduce using rule 155 (empty -> .)
+    )               reduce using rule 155 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
 
-    funccallB                      shift and go to state 247
+    funccallB                      shift and go to state 244
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 177
+    hyperexpression                shift and go to state 176
     factor                         shift and go to state 86
-    empty                          shift and go to state 178
+    empty                          shift and go to state 177
     funccall                       shift and go to state 88
     superexpression                shift and go to state 89
     sign                           shift and go to state 90
@@ -4030,15 +4005,15 @@ state 216
     exp                            shift and go to state 93
     expression                     shift and go to state 94
 
-state 217
+state 215
 
-    (143) funccallB -> hyperexpression seen_param .
+    (142) funccallB -> hyperexpression seen_param .
 
-    ,               reduce using rule 143 (funccallB -> hyperexpression seen_param .)
-    )               reduce using rule 143 (funccallB -> hyperexpression seen_param .)
+    ,               reduce using rule 142 (funccallB -> hyperexpression seen_param .)
+    )               reduce using rule 142 (funccallB -> hyperexpression seen_param .)
 
 
-state 218
+state 216
 
     (83) expB -> + push_operator . exp
     (80) exp -> . term seen_term expB
@@ -4049,30 +4024,30 @@ state 218
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     term                           shift and go to state 92
     funccall                       shift and go to state 88
     signB                          shift and go to state 81
     sign                           shift and go to state 90
-    exp                            shift and go to state 248
+    exp                            shift and go to state 245
     factor                         shift and go to state 86
     empty                          shift and go to state 87
 
-state 219
+state 217
 
     (82) expB -> - push_operator . exp
     (80) exp -> . term seen_term expB
@@ -4083,30 +4058,30 @@ state 219
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     term                           shift and go to state 92
     funccall                       shift and go to state 88
     signB                          shift and go to state 81
     sign                           shift and go to state 90
-    exp                            shift and go to state 249
+    exp                            shift and go to state 246
     factor                         shift and go to state 86
     empty                          shift and go to state 87
 
-state 220
+state 218
 
     (78) expressionB -> GTEQ push_operator exp .
 
@@ -4118,7 +4093,7 @@ state 220
     ]               reduce using rule 78 (expressionB -> GTEQ push_operator exp .)
 
 
-state 221
+state 219
 
     (77) expressionB -> LTEQ push_operator exp .
 
@@ -4130,7 +4105,7 @@ state 221
     ]               reduce using rule 77 (expressionB -> LTEQ push_operator exp .)
 
 
-state 222
+state 220
 
     (75) expressionB -> DIFF push_operator exp .
 
@@ -4142,7 +4117,7 @@ state 222
     ]               reduce using rule 75 (expressionB -> DIFF push_operator exp .)
 
 
-state 223
+state 221
 
     (76) expressionB -> EQ push_operator exp .
 
@@ -4154,7 +4129,7 @@ state 223
     ]               reduce using rule 76 (expressionB -> EQ push_operator exp .)
 
 
-state 224
+state 222
 
     (73) expressionB -> < push_operator exp .
 
@@ -4166,7 +4141,7 @@ state 224
     ]               reduce using rule 73 (expressionB -> < push_operator exp .)
 
 
-state 225
+state 223
 
     (74) expressionB -> > push_operator exp .
 
@@ -4178,7 +4153,7 @@ state 225
     ]               reduce using rule 74 (expressionB -> > push_operator exp .)
 
 
-state 226
+state 224
 
     (70) superexpressionB -> AND push_operator superexpression .
 
@@ -4189,51 +4164,39 @@ state 226
     ]               reduce using rule 70 (superexpressionB -> AND push_operator superexpression .)
 
 
-state 227
+state 225
 
     (124) read -> READ ( validate_id push_operand read_quadruple . readB )
     (127) readB -> . , validate_id push_operand read_quadruple readB
     (128) readB -> . empty
-    (156) empty -> .
+    (155) empty -> .
 
-    ,               shift and go to state 251
-    )               reduce using rule 156 (empty -> .)
+    ,               shift and go to state 248
+    )               reduce using rule 155 (empty -> .)
 
-    readB                          shift and go to state 250
-    empty                          shift and go to state 252
+    readB                          shift and go to state 247
+    empty                          shift and go to state 249
 
-state 228
+state 226
 
     (110) whileloop -> WHILE init_while ( hyperexpression ) . while_quadruple block endwhile_quadruple
     (112) while_quadruple -> .
 
     {               reduce using rule 112 (while_quadruple -> .)
 
-    while_quadruple                shift and go to state 253
+    while_quadruple                shift and go to state 250
 
-state 229
+state 227
 
-    (130) outputB -> SCONST push_operand print_quadruple . outputC
-    (133) outputC -> . )
-    (134) outputC -> . , outputB
+    (132) outputC -> ) .
 
-    )               shift and go to state 230
-    ,               shift and go to state 231
-
-    outputC                        shift and go to state 254
-
-state 230
-
-    (133) outputC -> ) .
-
-    ;               reduce using rule 133 (outputC -> ) .)
+    ;               reduce using rule 132 (outputC -> ) .)
 
 
-state 231
+state 228
 
-    (134) outputC -> , . outputB
-    (130) outputB -> . SCONST push_operand print_quadruple outputC
-    (131) outputB -> . hyperexpression print_quadruple outputC
+    (133) outputC -> , . outputB
+    (130) outputB -> . hyperexpression print_quadruple outputC
     (66) hyperexpression -> . superexpression hyperexpressionB
     (69) superexpression -> . expression superexpressionB
     (72) expression -> . exp expressionB
@@ -4245,26 +4208,23 @@ state 231
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
-  ! shift/reduce conflict for SCONST resolved as shift
-    SCONST          shift and go to state 148
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
-
-  ! SCONST          [ reduce using rule 156 (empty -> .) ]
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 149
+    hyperexpression                shift and go to state 148
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
@@ -4272,24 +4232,24 @@ state 231
     sign                           shift and go to state 90
     term                           shift and go to state 92
     exp                            shift and go to state 93
-    outputB                        shift and go to state 255
+    outputB                        shift and go to state 251
     expression                     shift and go to state 94
 
-state 232
+state 229
 
-    (131) outputB -> hyperexpression print_quadruple outputC .
+    (130) outputB -> hyperexpression print_quadruple outputC .
 
-    ;               reduce using rule 131 (outputB -> hyperexpression print_quadruple outputC .)
+    ;               reduce using rule 130 (outputB -> hyperexpression print_quadruple outputC .)
 
 
-state 233
+state 230
 
     (39) assign -> ID push_operand dimensionsOpt . = push_operator hyperexpression quadruple_assign
 
-    =               shift and go to state 256
+    =               shift and go to state 252
 
 
-state 234
+state 231
 
     (120) forloop -> FOR ( assign ; init_while . hyperexpression for_quadruple ; hyperexpression for_expression ) block endfor_quadruple
     (66) hyperexpression -> . superexpression hyperexpressionB
@@ -4303,23 +4263,23 @@ state 234
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 257
+    hyperexpression                shift and go to state 253
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
@@ -4329,13 +4289,13 @@ state 234
     exp                            shift and go to state 93
     expression                     shift and go to state 94
 
-state 235
+state 232
 
     (61) assignfunccallB -> ( pop_operand . funccallB funccallC
-    (143) funccallB -> . hyperexpression seen_param
-    (144) funccallB -> . empty
+    (142) funccallB -> . hyperexpression seen_param
+    (143) funccallB -> . empty
     (66) hyperexpression -> . superexpression hyperexpressionB
-    (156) empty -> .
+    (155) empty -> .
     (69) superexpression -> . expression superexpressionB
     (72) expression -> . exp expressionB
     (80) exp -> . term seen_term expB
@@ -4346,27 +4306,27 @@ state 235
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
 
-    ,               reduce using rule 156 (empty -> .)
-    )               reduce using rule 156 (empty -> .)
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    ,               reduce using rule 155 (empty -> .)
+    )               reduce using rule 155 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
 
-    funccallB                      shift and go to state 258
+    funccallB                      shift and go to state 254
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 177
+    hyperexpression                shift and go to state 176
     factor                         shift and go to state 86
-    empty                          shift and go to state 178
+    empty                          shift and go to state 177
     funccall                       shift and go to state 88
     superexpression                shift and go to state 89
     sign                           shift and go to state 90
@@ -4374,7 +4334,7 @@ state 235
     exp                            shift and go to state 93
     expression                     shift and go to state 94
 
-state 236
+state 233
 
     (40) assignB -> dimensionsOpt = . push_operator hyperexpression quadruple_assign
     (23) push_operator -> .
@@ -4389,56 +4349,56 @@ state 236
     TRUE            reduce using rule 23 (push_operator -> .)
     FALSE           reduce using rule 23 (push_operator -> .)
 
-    push_operator                  shift and go to state 259
+    push_operator                  shift and go to state 255
 
-state 237
+state 234
 
     (43) condition -> IF ( hyperexpression condition_quadruple ) . block else endcondition_quadruple
     (36) block -> . { instructionsOpt }
 
     {               shift and go to state 40
 
-    block                          shift and go to state 260
+    block                          shift and go to state 256
 
-state 238
+state 235
 
-    (154) paramsB -> , params . paramsB
-    (154) paramsB -> . , params paramsB
-    (155) paramsB -> . empty
-    (156) empty -> .
+    (153) paramsB -> , params . paramsB
+    (153) paramsB -> . , params paramsB
+    (154) paramsB -> . empty
+    (155) empty -> .
 
-    ,               shift and go to state 204
-    )               reduce using rule 156 (empty -> .)
+    ,               shift and go to state 202
+    )               reduce using rule 155 (empty -> .)
 
-    paramsB                        shift and go to state 261
-    empty                          shift and go to state 205
+    paramsB                        shift and go to state 257
+    empty                          shift and go to state 203
 
-state 239
+state 236
 
-    (148) dimensions -> [ hyperexpression ] dimensionsB .
+    (147) dimensions -> [ hyperexpression ] dimensionsB .
 
-    =               reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    /               reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    *               reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    -               reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    +               reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    <               reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    >               reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    DIFF            reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    EQ              reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    LTEQ            reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    GTEQ            reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    AND             reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    OR              reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    ;               reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    )               reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    ,               reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
-    ]               reduce using rule 148 (dimensions -> [ hyperexpression ] dimensionsB .)
+    /               reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    *               reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    -               reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    +               reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    <               reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    >               reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    DIFF            reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    EQ              reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    LTEQ            reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    GTEQ            reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    AND             reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    OR              reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    ;               reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    )               reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    ,               reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    ]               reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
+    =               reduce using rule 147 (dimensions -> [ hyperexpression ] dimensionsB .)
 
 
-state 240
+state 237
 
-    (149) dimensionsB -> [ . hyperexpression ]
+    (148) dimensionsB -> [ . hyperexpression ]
     (66) hyperexpression -> . superexpression hyperexpressionB
     (69) superexpression -> . expression superexpressionB
     (72) expression -> . exp expressionB
@@ -4450,24 +4410,24 @@ state 240
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     sign                           shift and go to state 90
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 262
+    hyperexpression                shift and go to state 258
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
@@ -4476,39 +4436,39 @@ state 240
     exp                            shift and go to state 93
     expression                     shift and go to state 94
 
-state 241
+state 238
 
-    (150) dimensionsB -> empty .
+    (149) dimensionsB -> empty .
 
-    =               reduce using rule 150 (dimensionsB -> empty .)
-    ,               reduce using rule 150 (dimensionsB -> empty .)
-    ;               reduce using rule 150 (dimensionsB -> empty .)
-    /               reduce using rule 150 (dimensionsB -> empty .)
-    *               reduce using rule 150 (dimensionsB -> empty .)
-    -               reduce using rule 150 (dimensionsB -> empty .)
-    +               reduce using rule 150 (dimensionsB -> empty .)
-    <               reduce using rule 150 (dimensionsB -> empty .)
-    >               reduce using rule 150 (dimensionsB -> empty .)
-    DIFF            reduce using rule 150 (dimensionsB -> empty .)
-    EQ              reduce using rule 150 (dimensionsB -> empty .)
-    LTEQ            reduce using rule 150 (dimensionsB -> empty .)
-    GTEQ            reduce using rule 150 (dimensionsB -> empty .)
-    AND             reduce using rule 150 (dimensionsB -> empty .)
-    OR              reduce using rule 150 (dimensionsB -> empty .)
-    )               reduce using rule 150 (dimensionsB -> empty .)
-    ]               reduce using rule 150 (dimensionsB -> empty .)
+    =               reduce using rule 149 (dimensionsB -> empty .)
+    ,               reduce using rule 149 (dimensionsB -> empty .)
+    ;               reduce using rule 149 (dimensionsB -> empty .)
+    /               reduce using rule 149 (dimensionsB -> empty .)
+    *               reduce using rule 149 (dimensionsB -> empty .)
+    -               reduce using rule 149 (dimensionsB -> empty .)
+    +               reduce using rule 149 (dimensionsB -> empty .)
+    <               reduce using rule 149 (dimensionsB -> empty .)
+    >               reduce using rule 149 (dimensionsB -> empty .)
+    DIFF            reduce using rule 149 (dimensionsB -> empty .)
+    EQ              reduce using rule 149 (dimensionsB -> empty .)
+    LTEQ            reduce using rule 149 (dimensionsB -> empty .)
+    GTEQ            reduce using rule 149 (dimensionsB -> empty .)
+    AND             reduce using rule 149 (dimensionsB -> empty .)
+    OR              reduce using rule 149 (dimensionsB -> empty .)
+    )               reduce using rule 149 (dimensionsB -> empty .)
+    ]               reduce using rule 149 (dimensionsB -> empty .)
 
 
-state 242
+state 239
 
     (28) declarationD -> , . repush_type declarationB declarationC
     (22) repush_type -> .
 
     ID              reduce using rule 22 (repush_type -> .)
 
-    repush_type                    shift and go to state 263
+    repush_type                    shift and go to state 259
 
-state 243
+state 240
 
     (29) declarationD -> ; .
 
@@ -4531,7 +4491,7 @@ state 243
     }               reduce using rule 29 (declarationD -> ; .)
 
 
-state 244
+state 241
 
     (25) declarationC -> = push_operator hyperexpression quadruple_assign declarationD .
 
@@ -4554,7 +4514,7 @@ state 244
     }               reduce using rule 25 (declarationC -> = push_operator hyperexpression quadruple_assign declarationD .)
 
 
-state 245
+state 242
 
     (88) termB -> * push_operator term .
 
@@ -4574,7 +4534,7 @@ state 245
     ]               reduce using rule 88 (termB -> * push_operator term .)
 
 
-state 246
+state 243
 
     (87) termB -> / push_operator term .
 
@@ -4594,18 +4554,18 @@ state 246
     ]               reduce using rule 87 (termB -> / push_operator term .)
 
 
-state 247
+state 244
 
-    (146) funccallC -> , funccallB . funccallC
-    (146) funccallC -> . , funccallB funccallC
-    (147) funccallC -> . )
+    (145) funccallC -> , funccallB . funccallC
+    (145) funccallC -> . , funccallB funccallC
+    (146) funccallC -> . )
 
-    ,               shift and go to state 216
-    )               shift and go to state 215
+    ,               shift and go to state 214
+    )               shift and go to state 213
 
-    funccallC                      shift and go to state 264
+    funccallC                      shift and go to state 260
 
-state 248
+state 245
 
     (83) expB -> + push_operator exp .
 
@@ -4623,7 +4583,7 @@ state 248
     ]               reduce using rule 83 (expB -> + push_operator exp .)
 
 
-state 249
+state 246
 
     (82) expB -> - push_operator exp .
 
@@ -4641,53 +4601,46 @@ state 249
     ]               reduce using rule 82 (expB -> - push_operator exp .)
 
 
-state 250
+state 247
 
     (124) read -> READ ( validate_id push_operand read_quadruple readB . )
 
-    )               shift and go to state 265
+    )               shift and go to state 261
 
 
-state 251
+state 248
 
     (127) readB -> , . validate_id push_operand read_quadruple readB
     (125) validate_id -> . ID
 
     ID              shift and go to state 146
 
-    validate_id                    shift and go to state 266
+    validate_id                    shift and go to state 262
 
-state 252
+state 249
 
     (128) readB -> empty .
 
     )               reduce using rule 128 (readB -> empty .)
 
 
-state 253
+state 250
 
     (110) whileloop -> WHILE init_while ( hyperexpression ) while_quadruple . block endwhile_quadruple
     (36) block -> . { instructionsOpt }
 
     {               shift and go to state 40
 
-    block                          shift and go to state 267
+    block                          shift and go to state 263
 
-state 254
+state 251
 
-    (130) outputB -> SCONST push_operand print_quadruple outputC .
+    (133) outputC -> , outputB .
 
-    ;               reduce using rule 130 (outputB -> SCONST push_operand print_quadruple outputC .)
-
-
-state 255
-
-    (134) outputC -> , outputB .
-
-    ;               reduce using rule 134 (outputC -> , outputB .)
+    ;               reduce using rule 133 (outputC -> , outputB .)
 
 
-state 256
+state 252
 
     (39) assign -> ID push_operand dimensionsOpt = . push_operator hyperexpression quadruple_assign
     (23) push_operator -> .
@@ -4702,29 +4655,29 @@ state 256
     TRUE            reduce using rule 23 (push_operator -> .)
     FALSE           reduce using rule 23 (push_operator -> .)
 
-    push_operator                  shift and go to state 268
+    push_operator                  shift and go to state 264
 
-state 257
+state 253
 
     (120) forloop -> FOR ( assign ; init_while hyperexpression . for_quadruple ; hyperexpression for_expression ) block endfor_quadruple
     (121) for_quadruple -> .
 
     ;               reduce using rule 121 (for_quadruple -> .)
 
-    for_quadruple                  shift and go to state 269
+    for_quadruple                  shift and go to state 265
 
-state 258
+state 254
 
     (61) assignfunccallB -> ( pop_operand funccallB . funccallC
-    (146) funccallC -> . , funccallB funccallC
-    (147) funccallC -> . )
+    (145) funccallC -> . , funccallB funccallC
+    (146) funccallC -> . )
 
-    ,               shift and go to state 216
-    )               shift and go to state 215
+    ,               shift and go to state 214
+    )               shift and go to state 213
 
-    funccallC                      shift and go to state 270
+    funccallC                      shift and go to state 266
 
-state 259
+state 255
 
     (40) assignB -> dimensionsOpt = push_operator . hyperexpression quadruple_assign
     (66) hyperexpression -> . superexpression hyperexpressionB
@@ -4738,24 +4691,24 @@ state 259
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     sign                           shift and go to state 90
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 271
+    hyperexpression                shift and go to state 267
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
@@ -4764,86 +4717,86 @@ state 259
     exp                            shift and go to state 93
     expression                     shift and go to state 94
 
-state 260
+state 256
 
     (43) condition -> IF ( hyperexpression condition_quadruple ) block . else endcondition_quadruple
     (44) else -> . ELSE elsecondition_quadruple block
     (45) else -> . empty
-    (156) empty -> .
+    (155) empty -> .
 
-    ELSE            shift and go to state 272
-    ID              reduce using rule 156 (empty -> .)
-    PRINT           reduce using rule 156 (empty -> .)
-    RETURN          reduce using rule 156 (empty -> .)
-    READ            reduce using rule 156 (empty -> .)
-    IF              reduce using rule 156 (empty -> .)
-    WHILE           reduce using rule 156 (empty -> .)
-    FOR             reduce using rule 156 (empty -> .)
-    INT             reduce using rule 156 (empty -> .)
-    FLOAT           reduce using rule 156 (empty -> .)
-    STRING          reduce using rule 156 (empty -> .)
-    BOOL            reduce using rule 156 (empty -> .)
-    #               reduce using rule 156 (empty -> .)
-    TRACKDECISION   reduce using rule 156 (empty -> .)
-    FORGETDECISION  reduce using rule 156 (empty -> .)
-    }               reduce using rule 156 (empty -> .)
+    ELSE            shift and go to state 268
+    ID              reduce using rule 155 (empty -> .)
+    PRINT           reduce using rule 155 (empty -> .)
+    RETURN          reduce using rule 155 (empty -> .)
+    READ            reduce using rule 155 (empty -> .)
+    IF              reduce using rule 155 (empty -> .)
+    WHILE           reduce using rule 155 (empty -> .)
+    FOR             reduce using rule 155 (empty -> .)
+    INT             reduce using rule 155 (empty -> .)
+    FLOAT           reduce using rule 155 (empty -> .)
+    STRING          reduce using rule 155 (empty -> .)
+    BOOL            reduce using rule 155 (empty -> .)
+    #               reduce using rule 155 (empty -> .)
+    TRACKDECISION   reduce using rule 155 (empty -> .)
+    FORGETDECISION  reduce using rule 155 (empty -> .)
+    }               reduce using rule 155 (empty -> .)
 
-    else                           shift and go to state 274
-    empty                          shift and go to state 273
+    else                           shift and go to state 270
+    empty                          shift and go to state 269
 
-state 261
+state 257
 
-    (154) paramsB -> , params paramsB .
+    (153) paramsB -> , params paramsB .
 
-    )               reduce using rule 154 (paramsB -> , params paramsB .)
-
-
-state 262
-
-    (149) dimensionsB -> [ hyperexpression . ]
-
-    ]               shift and go to state 275
+    )               reduce using rule 153 (paramsB -> , params paramsB .)
 
 
-state 263
+state 258
+
+    (148) dimensionsB -> [ hyperexpression . ]
+
+    ]               shift and go to state 271
+
+
+state 259
 
     (28) declarationD -> , repush_type . declarationB declarationC
     (19) declarationB -> . ID push_operand dimensionsOpt
 
     ID              shift and go to state 45
 
-    declarationB                   shift and go to state 276
+    declarationB                   shift and go to state 272
 
-state 264
+state 260
 
-    (146) funccallC -> , funccallB funccallC .
+    (145) funccallC -> , funccallB funccallC .
 
-    ;               reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    /               reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    *               reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    -               reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    +               reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    <               reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    >               reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    DIFF            reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    EQ              reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    LTEQ            reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    GTEQ            reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    AND             reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    OR              reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    )               reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    ,               reduce using rule 146 (funccallC -> , funccallB funccallC .)
-    ]               reduce using rule 146 (funccallC -> , funccallB funccallC .)
+    ;               reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    /               reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    *               reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    -               reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    +               reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    <               reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    >               reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    DIFF            reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    EQ              reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    LTEQ            reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    GTEQ            reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    AND             reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    OR              reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    )               reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    ,               reduce using rule 145 (funccallC -> , funccallB funccallC .)
+    ]               reduce using rule 145 (funccallC -> , funccallB funccallC .)
 
 
-state 265
+state 261
 
     (124) read -> READ ( validate_id push_operand read_quadruple readB ) .
 
     ;               reduce using rule 124 (read -> READ ( validate_id push_operand read_quadruple readB ) .)
 
 
-state 266
+state 262
 
     (127) readB -> , validate_id . push_operand read_quadruple readB
     (20) push_operand -> .
@@ -4851,9 +4804,9 @@ state 266
     ,               reduce using rule 20 (push_operand -> .)
     )               reduce using rule 20 (push_operand -> .)
 
-    push_operand                   shift and go to state 277
+    push_operand                   shift and go to state 273
 
-state 267
+state 263
 
     (110) whileloop -> WHILE init_while ( hyperexpression ) while_quadruple block . endwhile_quadruple
     (113) endwhile_quadruple -> .
@@ -4874,9 +4827,9 @@ state 267
     FORGETDECISION  reduce using rule 113 (endwhile_quadruple -> .)
     }               reduce using rule 113 (endwhile_quadruple -> .)
 
-    endwhile_quadruple             shift and go to state 278
+    endwhile_quadruple             shift and go to state 274
 
-state 268
+state 264
 
     (39) assign -> ID push_operand dimensionsOpt = push_operator . hyperexpression quadruple_assign
     (66) hyperexpression -> . superexpression hyperexpressionB
@@ -4890,23 +4843,23 @@ state 268
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 279
+    hyperexpression                shift and go to state 275
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
@@ -4916,39 +4869,39 @@ state 268
     exp                            shift and go to state 93
     expression                     shift and go to state 94
 
-state 269
+state 265
 
     (120) forloop -> FOR ( assign ; init_while hyperexpression for_quadruple . ; hyperexpression for_expression ) block endfor_quadruple
 
-    ;               shift and go to state 280
+    ;               shift and go to state 276
 
 
-state 270
+state 266
 
     (61) assignfunccallB -> ( pop_operand funccallB funccallC .
 
     ;               reduce using rule 61 (assignfunccallB -> ( pop_operand funccallB funccallC .)
 
 
-state 271
+state 267
 
     (40) assignB -> dimensionsOpt = push_operator hyperexpression . quadruple_assign
     (24) quadruple_assign -> .
 
     ;               reduce using rule 24 (quadruple_assign -> .)
 
-    quadruple_assign               shift and go to state 281
+    quadruple_assign               shift and go to state 277
 
-state 272
+state 268
 
     (44) else -> ELSE . elsecondition_quadruple block
     (47) elsecondition_quadruple -> .
 
     {               reduce using rule 47 (elsecondition_quadruple -> .)
 
-    elsecondition_quadruple        shift and go to state 282
+    elsecondition_quadruple        shift and go to state 278
 
-state 273
+state 269
 
     (45) else -> empty .
 
@@ -4969,7 +4922,7 @@ state 273
     }               reduce using rule 45 (else -> empty .)
 
 
-state 274
+state 270
 
     (43) condition -> IF ( hyperexpression condition_quadruple ) block else . endcondition_quadruple
     (48) endcondition_quadruple -> .
@@ -4990,32 +4943,32 @@ state 274
     FORGETDECISION  reduce using rule 48 (endcondition_quadruple -> .)
     }               reduce using rule 48 (endcondition_quadruple -> .)
 
-    endcondition_quadruple         shift and go to state 283
+    endcondition_quadruple         shift and go to state 279
 
-state 275
+state 271
 
-    (149) dimensionsB -> [ hyperexpression ] .
+    (148) dimensionsB -> [ hyperexpression ] .
 
-    =               reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    ,               reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    ;               reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    /               reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    *               reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    -               reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    +               reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    <               reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    >               reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    DIFF            reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    EQ              reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    LTEQ            reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    GTEQ            reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    AND             reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    OR              reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    )               reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
-    ]               reduce using rule 149 (dimensionsB -> [ hyperexpression ] .)
+    =               reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    ,               reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    ;               reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    /               reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    *               reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    -               reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    +               reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    <               reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    >               reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    DIFF            reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    EQ              reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    LTEQ            reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    GTEQ            reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    AND             reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    OR              reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    )               reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
+    ]               reduce using rule 148 (dimensionsB -> [ hyperexpression ] .)
 
 
-state 276
+state 272
 
     (28) declarationD -> , repush_type declarationB . declarationC
     (25) declarationC -> . = push_operator hyperexpression quadruple_assign declarationD
@@ -5026,9 +4979,9 @@ state 276
     ,               shift and go to state 76
     ;               shift and go to state 77
 
-    declarationC                   shift and go to state 284
+    declarationC                   shift and go to state 280
 
-state 277
+state 273
 
     (127) readB -> , validate_id push_operand . read_quadruple readB
     (126) read_quadruple -> .
@@ -5036,9 +4989,9 @@ state 277
     ,               reduce using rule 126 (read_quadruple -> .)
     )               reduce using rule 126 (read_quadruple -> .)
 
-    read_quadruple                 shift and go to state 285
+    read_quadruple                 shift and go to state 281
 
-state 278
+state 274
 
     (110) whileloop -> WHILE init_while ( hyperexpression ) while_quadruple block endwhile_quadruple .
 
@@ -5059,16 +5012,16 @@ state 278
     }               reduce using rule 110 (whileloop -> WHILE init_while ( hyperexpression ) while_quadruple block endwhile_quadruple .)
 
 
-state 279
+state 275
 
     (39) assign -> ID push_operand dimensionsOpt = push_operator hyperexpression . quadruple_assign
     (24) quadruple_assign -> .
 
     ;               reduce using rule 24 (quadruple_assign -> .)
 
-    quadruple_assign               shift and go to state 286
+    quadruple_assign               shift and go to state 282
 
-state 280
+state 276
 
     (120) forloop -> FOR ( assign ; init_while hyperexpression for_quadruple ; . hyperexpression for_expression ) block endfor_quadruple
     (66) hyperexpression -> . superexpression hyperexpressionB
@@ -5082,23 +5035,23 @@ state 280
     (93) factor -> . ID seen_ID dimensionsOpt
     (96) signB -> . sign
     (97) signB -> . empty
-    (142) funccall -> . ID ( funccallB funccallC
+    (141) funccall -> . ID ( funccallB funccallC
     (108) sign -> . +
     (109) sign -> . -
-    (156) empty -> .
+    (155) empty -> .
 
     (               shift and go to state 82
     ID              shift and go to state 91
     +               shift and go to state 83
     -               shift and go to state 84
-    FCONST          reduce using rule 156 (empty -> .)
-    ICONST          reduce using rule 156 (empty -> .)
-    SCONST          reduce using rule 156 (empty -> .)
-    TRUE            reduce using rule 156 (empty -> .)
-    FALSE           reduce using rule 156 (empty -> .)
+    FCONST          reduce using rule 155 (empty -> .)
+    ICONST          reduce using rule 155 (empty -> .)
+    SCONST          reduce using rule 155 (empty -> .)
+    TRUE            reduce using rule 155 (empty -> .)
+    FALSE           reduce using rule 155 (empty -> .)
 
     signB                          shift and go to state 81
-    hyperexpression                shift and go to state 287
+    hyperexpression                shift and go to state 283
     factor                         shift and go to state 86
     empty                          shift and go to state 87
     funccall                       shift and go to state 88
@@ -5108,23 +5061,23 @@ state 280
     exp                            shift and go to state 93
     expression                     shift and go to state 94
 
-state 281
+state 277
 
     (40) assignB -> dimensionsOpt = push_operator hyperexpression quadruple_assign .
 
     ;               reduce using rule 40 (assignB -> dimensionsOpt = push_operator hyperexpression quadruple_assign .)
 
 
-state 282
+state 278
 
     (44) else -> ELSE elsecondition_quadruple . block
     (36) block -> . { instructionsOpt }
 
     {               shift and go to state 40
 
-    block                          shift and go to state 288
+    block                          shift and go to state 284
 
-state 283
+state 279
 
     (43) condition -> IF ( hyperexpression condition_quadruple ) block else endcondition_quadruple .
 
@@ -5145,7 +5098,7 @@ state 283
     }               reduce using rule 43 (condition -> IF ( hyperexpression condition_quadruple ) block else endcondition_quadruple .)
 
 
-state 284
+state 280
 
     (28) declarationD -> , repush_type declarationB declarationC .
 
@@ -5168,36 +5121,36 @@ state 284
     }               reduce using rule 28 (declarationD -> , repush_type declarationB declarationC .)
 
 
-state 285
+state 281
 
     (127) readB -> , validate_id push_operand read_quadruple . readB
     (127) readB -> . , validate_id push_operand read_quadruple readB
     (128) readB -> . empty
-    (156) empty -> .
+    (155) empty -> .
 
-    ,               shift and go to state 251
-    )               reduce using rule 156 (empty -> .)
+    ,               shift and go to state 248
+    )               reduce using rule 155 (empty -> .)
 
-    readB                          shift and go to state 289
-    empty                          shift and go to state 252
+    readB                          shift and go to state 285
+    empty                          shift and go to state 249
 
-state 286
+state 282
 
     (39) assign -> ID push_operand dimensionsOpt = push_operator hyperexpression quadruple_assign .
 
     ;               reduce using rule 39 (assign -> ID push_operand dimensionsOpt = push_operator hyperexpression quadruple_assign .)
 
 
-state 287
+state 283
 
     (120) forloop -> FOR ( assign ; init_while hyperexpression for_quadruple ; hyperexpression . for_expression ) block endfor_quadruple
     (122) for_expression -> .
 
     )               reduce using rule 122 (for_expression -> .)
 
-    for_expression                 shift and go to state 290
+    for_expression                 shift and go to state 286
 
-state 288
+state 284
 
     (44) else -> ELSE elsecondition_quadruple block .
 
@@ -5218,30 +5171,30 @@ state 288
     }               reduce using rule 44 (else -> ELSE elsecondition_quadruple block .)
 
 
-state 289
+state 285
 
     (127) readB -> , validate_id push_operand read_quadruple readB .
 
     )               reduce using rule 127 (readB -> , validate_id push_operand read_quadruple readB .)
 
 
-state 290
+state 286
 
     (120) forloop -> FOR ( assign ; init_while hyperexpression for_quadruple ; hyperexpression for_expression . ) block endfor_quadruple
 
-    )               shift and go to state 291
+    )               shift and go to state 287
 
 
-state 291
+state 287
 
     (120) forloop -> FOR ( assign ; init_while hyperexpression for_quadruple ; hyperexpression for_expression ) . block endfor_quadruple
     (36) block -> . { instructionsOpt }
 
     {               shift and go to state 40
 
-    block                          shift and go to state 292
+    block                          shift and go to state 288
 
-state 292
+state 288
 
     (120) forloop -> FOR ( assign ; init_while hyperexpression for_quadruple ; hyperexpression for_expression ) block . endfor_quadruple
     (123) endfor_quadruple -> .
@@ -5262,9 +5215,9 @@ state 292
     FORGETDECISION  reduce using rule 123 (endfor_quadruple -> .)
     }               reduce using rule 123 (endfor_quadruple -> .)
 
-    endfor_quadruple               shift and go to state 293
+    endfor_quadruple               shift and go to state 289
 
-state 293
+state 289
 
     (120) forloop -> FOR ( assign ; init_while hyperexpression for_quadruple ; hyperexpression for_expression ) block endfor_quadruple .
 
@@ -5315,7 +5268,5 @@ WARNING: shift/reduce conflict for BOOL in state 71 resolved as shift
 WARNING: shift/reduce conflict for # in state 71 resolved as shift
 WARNING: shift/reduce conflict for TRACKDECISION in state 71 resolved as shift
 WARNING: shift/reduce conflict for FORGETDECISION in state 71 resolved as shift
-WARNING: shift/reduce conflict for SCONST in state 97 resolved as shift
-WARNING: shift/reduce conflict for SCONST in state 231 resolved as shift
 WARNING: reduce/reduce conflict in state 58 resolved using rule (instructionsOpt -> empty)
 WARNING: rejected rule (localdecisiondirective -> empty) in state 58

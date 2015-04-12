@@ -156,11 +156,25 @@ def p_seen_main(p):
 def p_suprafunc(p):
     '''suprafunc : func block'''
     print 'TERMINANDO EL SCOPE DE UNA FUNCION', current['scope']
+    print mem_local
+    print_current()
+    print_func_dict()
+    print_var_dict()
+    func_dict[ p[1] ][ 'size_info' ] = {
+            'bools': mem_local.bools[1],
+            'ints': mem_local.ints[1],
+            'floats': mem_local.floats[1],
+            'chars': mem_local.chars[1],
+            'strings': mem_local.strings[1]
+    }
+
+
     clear_current()
     clear_local()
 
 def p_func(p):
     '''func : DEF returntype ID '(' paramsOpt ')' '''
+    p[0] = p[3]
     current['id'] = p[3]
     current['scope'] = 'local'
     current['type'] = p[2]
@@ -169,7 +183,7 @@ def p_func(p):
         print errors['REPEATED_FUNC_DECLARATION'].format(current['id'], p.lineno(1))
         exit(1)
     else:
-        add_func_to_dict(current['id'], current['type'], deepcopy(current['params']))
+        add_func_to_dict(current['id'], current['type'], deepcopy(current['params']), len(quadruples))
         current['params'] = []
 
 def p_paramsOpt(p):
@@ -584,12 +598,13 @@ def p_output(p):
     '''output : PRINT '(' outputB '''
 
 def p_outputB(p):
-    '''outputB : SCONST push_operand print_quadruple outputC
-               | hyperexpression print_quadruple outputC'''
+    '''outputB : hyperexpression print_quadruple outputC'''
 
 def p_print_quadruple(p):
     '''print_quadruple :'''
     if operands:
+        print_operands()
+        print_types()
         op1 = operands.pop()
         types.pop()
         add_quadruple('PRINT', op1, -1, -1, -1, mem_temps, mem_global_temps)
@@ -641,6 +656,8 @@ def p_seen_param(p):
         op1 = operands.pop()
 
     current['params'].append({'id': op1, 'type': type1})
+
+    add_quadruple('PARAMETER', op1, type1, len(current['params']) - 1, -1, mem_temps, mem_global_temps)
     ## here I should be assigning the operand address to the corresponding parameter, and checking if there is a type match
     #called_function = func_dict[ current['id'] ]
     #if ( len(current['params']) <= len(called_function['params']) ):

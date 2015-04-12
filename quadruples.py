@@ -99,7 +99,7 @@ def get_global_temp(temp_type, mem_global_temps):
 
 relational_operators = Set(['<', '>', 'DIFF', 'EQ', 'LTEQ', 'GTEQ'])
 logical_operators = Set(['AND', 'OR'])
-ignored_checks = Set(['PRINT', 'READ', 'INPUT', 'GOTOF', 'GOTO', 'RETURN'])
+ignored_checks = Set(['PRINT', 'READ', 'INPUT', 'GOTOF', 'GOTO', 'RETURN', 'PARAMETER'])
 
 def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps):
     print current['scope'], operator, op1, type1, op2 ,type2
@@ -123,6 +123,8 @@ def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps
         quadruples.append( [operator, -1, -1, op1] )
     elif operator is 'RETURN':
         quadruples.append( [operator, -1, -1, op1] )
+    elif operator is 'PARAMETER':
+        quadruples.append( [operator, op1, -1, op2] )
     else:
         if current['scope'] == 'global':
             temp = get_global_temp(result_type, mem_global_temps)
