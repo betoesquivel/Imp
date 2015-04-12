@@ -168,6 +168,7 @@ def p_suprafunc(p):
             'strings': mem_local.strings[1]
     }
 
+    add_quadruple('ENDPROC', -1, -1, -1, -1, mem_temps, mem_global_temps)
 
     clear_current()
     clear_local()
@@ -183,7 +184,8 @@ def p_func(p):
         print errors['REPEATED_FUNC_DECLARATION'].format(current['id'], p.lineno(1))
         exit(1)
     else:
-        add_func_to_dict(current['id'], current['type'], deepcopy(current['params']), len(quadruples))
+        # note, there might be an error in this line :P
+        add_func_to_dict(current['id'], current['type'], deepcopy(current['params']), len(quadruples)-1)
         current['params'] = []
 
 def p_paramsOpt(p):
@@ -289,8 +291,6 @@ def p_assignfunccall(p):
                     param_count += 1
                 if (not correct_call): exit(1)
                 add_quadruple("GOSUB", called_function['start_dir'], -1, -1, -1, mem_temps, mem_global_temps)
-
-
         else:
             print errors['UNDECLARED_FUNCTION'].format(current['id'], p.lineno(1))
             exit(1)
