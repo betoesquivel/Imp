@@ -288,6 +288,7 @@ def p_assignfunccall(p):
                         correct_call = False
                     param_count += 1
                 if (not correct_call): exit(1)
+                add_quadruple("GOSUB", called_function['start_dir'], -1, -1, -1, mem_temps, mem_global_temps)
 
 
         else:
@@ -311,9 +312,13 @@ def p_pop_operand(p):
 
 
 def p_assignfunccallB(p):
-    '''assignfunccallB : '(' pop_operand funccallB funccallC
+    '''assignfunccallB : '(' pop_operand seen_a_funccall funccallB funccallC
                        | assignB'''
     current['isfunc'] = True if p[1] == '(' else False
+
+def p_seen_a_funccall(p):
+    '''seen_a_funccall :'''
+    add_quadruple("ERA", current['id'], -1, -1, -1, mem_temps, mem_global_temps)
 
 # <localdirective>
 def p_localdirective(p):
@@ -633,17 +638,37 @@ def p_localdecisiondirective(p):
 
 # <funccall>
 def p_funccall(p):
-    '''funccall : ID '(' funccallB funccallC  '''
-    current['id'] = p[1]
-    if func_exists_in_dict(current['id']):
-        if len(current['params']) != len(func_dict[ current['id'] ]['params']):
-            print errors['PARAMETER_LENGTH_MISMATCH'].format(current['id'], len(func_dict[ current['id'] ]['params']),len(current['params']), p.lineno(1))
-            exit(1)
-    else:
+    '''funccall : ID seen_a_factor_funccall  '(' funccallB funccallC  '''
+
+    if not func_exists_in_dict(current['id']):
         print errors['UNDECLARED_FUNCTION'].format(current['id'], p.lineno(1))
         exit(1)
+
+    if len(current['params']) != len(func_dict[ current['id'] ]['params']):
+        print errors['PARAMETER_LENGTH_MISMATCH'].format(current['id'], len(func_dict[ current['id'] ]['params']),len(current['params']), p.lineno(1))
+        exit(1)
+    else:
+        param_count = 0
+        correct_call = True
+        called_function = func_dict[ current['id'] ]
+        while param_count < len(current['params']):
+            expected_param = called_function['params'][param_count]
+            if expected_param['type'] != current['params'][param_count]['type']:
+                print errors['PARAMETER_TYPE_MISMATCH'].format(current['id'], expected_param['type'], current['params'][param_count]['type'], param_count)
+                correct_call = False
+            param_count += 1
+
+        if (not correct_call): exit(1)
+
+        add_quadruple("GOSUB", called_function['start_dir'], -1, -1, -1, mem_temps, mem_global_temps)
+
     #clear_current()
     current['params'] = []
+
+def p_seen_a_factor_funccall(p):
+    '''seen_a_factor_funccall :'''
+    current['id'] = p[-1]
+    add_quadruple("ERA", current['id'], -1, -1, -1, mem_temps, mem_global_temps)
 
 def p_funccallB(p):
     '''funccallB : hyperexpression seen_param
