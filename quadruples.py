@@ -1,6 +1,7 @@
 #!env/bin/python
 from sets import Set
 from semantics import semantics_cube, debug_var_const_dict, debug, temp_dict, add_to_memory, current
+from MemoryBlock import MemoryBlock
 import pprint
 pp = pprint.PrettyPrinter()
 
@@ -61,6 +62,19 @@ temps = {
     'string': {'unused': Set([]), 'used': Set([])}
 }
 next_temp = 1
+
+def clear_temps(mem_temps):
+    global temps, next_temp
+    temps = {
+        'bool': { 'unused': Set([]), 'used': Set([])},
+        'int': {'unused': Set([]), 'used': Set([])},
+        'float': {'unused': Set([]), 'used': Set([])},
+        'char': {'unused': Set([]), 'used': Set([])},
+        'string': {'unused': Set([]), 'used': Set([])}
+    }
+    next_temp = 1
+    mem_temps = MemoryBlock(15000, 16000, 17000, 18000, 19000, 20000)
+
 def get_temp(temp_type, mem_temps):
     global next_temp, temps
     if len( temps[temp_type]['unused'] ) == 0:
@@ -147,7 +161,8 @@ def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps
     if current['scope'] == 'global':
         return_global_temp_operands(op1, type1,  op2, type2)
     else:
-        return_temp_operands(op1, type1,  op2, type2)
+        if not ( operator == '=' and op1 in temps[type1]['used'] ):
+            return_temp_operands(op1, type1,  op2, type2)
 
 
 def check_operation(type1, operator,  type2):

@@ -4,7 +4,7 @@ import logging
 import lexer
 import sys
 from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local, var_dict, func_dict, semantics_cube, constant_dict, get_constant_memory_address
-from quadruples import operators, operands, jumps, quadruples, types, add_quadruple, return_pending_quadruple, print_quadruples, print_operators, print_operands, print_types
+from quadruples import operators, operands, jumps, quadruples, types, add_quadruple, return_pending_quadruple, print_quadruples, print_operators, print_operands, print_types, get_temp, clear_temps
 from MemoryBlock import MemoryBlock
 from copy import deepcopy
 
@@ -171,6 +171,7 @@ def p_suprafunc(p):
     add_quadruple('ENDPROC', -1, -1, -1, -1, mem_temps, mem_global_temps)
 
     clear_current()
+    clear_temps(mem_temps)
     clear_local()
 
 def p_func(p):
@@ -186,6 +187,15 @@ def p_func(p):
     else:
         # note, there might be an error in this line :P
         add_func_to_dict(current['id'], current['type'], deepcopy(current['params']), len(quadruples)-1)
+        add_var_to_dict(
+                'global',
+                current['id'],
+                current['type'],
+                0,
+                0,
+                mem_global
+        )
+
         current['params'] = []
 
 def p_paramsOpt(p):
@@ -406,7 +416,7 @@ def p_termB(p):
 def p_factor(p):
     '''factor : signB constant
               | '(' seen_parentheses hyperexpression ')'
-              | funccall
+              | funccall seen_factor_funccall
               | ID seen_ID dimensionsOpt'''
     if ( len(p) >= 3 ):
         if ( p[2] is 'UNDECLARED_VARIABLE' ):
@@ -415,6 +425,24 @@ def p_factor(p):
     if ( len(p) is 5 ):
         if ( p[4] is ')' ):
             operators.pop()
+
+def p_seen_factor_funccall(p):
+    '''seen_factor_funccall :'''
+    print "SEEN FACTORFUNCCALL: ", current['id'], current['type']
+
+    function_return_variable = var_dict[ 'global' ][ current['id'] ]
+
+    variable = function_return_variable['address']
+    variable_type = function_return_variable['type']
+
+    if (variable_type != 'void'):
+        temp = get_temp( variable_type, mem_temps )
+        add_quadruple('=', temp, variable_type, variable, variable_type, mem_temps, mem_global_temps)
+        operands.append(temp)
+        types.append(variable_type)
+    else:
+        operands.append( function_return_variable['id'] )
+        types.append('void')
 
 def p_seen_parentheses(p):
     '''seen_parentheses :'''
