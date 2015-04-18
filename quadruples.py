@@ -113,7 +113,7 @@ def get_global_temp(temp_type, mem_global_temps):
 
 relational_operators = Set(['<', '>', 'DIFF', 'EQ', 'LTEQ', 'GTEQ'])
 logical_operators = Set(['AND', 'OR'])
-ignored_checks = Set(['PRINT', 'READ', 'INPUT', 'GOTOF', 'GOTO', 'RETURN', 'PARAMETER', 'ERA', 'GOSUB', 'ENDPROC'])
+ignored_checks = Set(['PRINT', 'READ', 'INPUT', 'GOTOF', 'GOTO', 'RETURN', 'PARAMETER', 'ERA', 'GOSUB', 'ENDPROC', 'TRACK', 'FORGET', '#TRACKDECISION', '#FORGETDECISION', 'SHOW'])
 
 def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps):
     print current['scope'], operator, op1, type1, op2 ,type2
@@ -144,6 +144,16 @@ def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps
     elif operator is 'GOSUB':
         quadruples.append( [operator, -1, -1, op1] )
     elif operator is 'ENDPROC':
+        quadruples.append( [operator, -1, -1, op1] )
+    elif operator == 'TRACK':
+        quadruples.append( [operator, -1, -1, op1] )
+    elif operator == 'FORGET':
+        quadruples.append( [operator, -1, -1, op1] )
+    elif operator == '#TRACKDECISION':
+        quadruples.append( ['TRACKDECISION', -1, -1, -1] )
+    elif operator == '#FORGETDECISION':
+        quadruples.append( ['FORGETDECISION', -1, -1, -1] )
+    elif operator == 'SHOW':
         quadruples.append( [operator, -1, -1, op1] )
     else:
         if current['scope'] == 'global':

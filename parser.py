@@ -649,20 +649,35 @@ def p_outputC(p):
 # <localvardirective>
 def p_localvardirective(p):
     '''localvardirective : '#' localvardirectiveB ID'''
+    var_id = p[3]
+    if (var_exists_in_dict(current['scope'], var_id)):
+        if var_dict[ current['scope'] ].get(var_id) is not None:
+            var_data = var_dict[ current['scope'] ][ var_id ]
+        else:
+            var_data = var_dict[ 'global' ][ var_id ]
+        var_address = var_data['address']
+        add_quadruple(p[2], var_address, -1, -1, -1, mem_temps, mem_global_temps)
+    else:
+        print errors['UNDECLARED_VARIABLE']
+        exit(1)
 
 def p_localvardirectiveB(p):
     '''localvardirectiveB : TRACK
                           | FORGET'''
+    p[0] = p[1].upper()
 
 # <localmsgdirective>
 def p_localmsgdirective(p):
     '''localmsgdirective : '#' SHOW SCONST'''
+    add_quadruple(p[2].upper(), p[3], -1, -1, -1, mem_temps, mem_global_temps)
 
 # <localdecisiondirective>
 def p_localdecisiondirective(p):
     '''localdecisiondirective : TRACKDECISION
                               | FORGETDECISION
                               | empty'''
+    if p[1] != "":
+        add_quadruple(p[1].upper(), -1, -1, -1, -1, mem_temps, mem_global_temps)
 
 # <funccall>
 def p_funccall(p):
