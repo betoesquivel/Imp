@@ -34,10 +34,11 @@ memory_dict = {
 
 # <program>
 def p_program(p):
-    '''program : start_quadruple config body'''
+    '''program : config body'''
 
 def p_start_quadruple(p):
     '''start_quadruple :'''
+    jumps.append( len(quadruples) )
     add_quadruple('GOTO', -1, -1, -1, -1, mem_temps, mem_global_temps)
 
 # <config>
@@ -63,7 +64,7 @@ def p_optionsyesno(p):
 
 # <body>
 def p_body(p):
-    '''body : declarationsOpt funcsOpt main funcsOpt'''
+    '''body : declarationsOpt start_quadruple funcsOpt main funcsOpt'''
 
 def p_funcsOpt(p):
     '''funcsOpt : suprafunc funcsOpt
@@ -165,7 +166,8 @@ def p_main(p):
 def p_seen_main(p):
     '''seen_main :'''
     print 'ENTRANDO A MAIN'
-    quadruples[0][3] = len(quadruples)
+    start_quadruple = jumps.pop()
+    quadruples[start_quadruple][3] = len(quadruples)
     current['scope'] = 'local'
 
 # <func>

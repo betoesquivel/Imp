@@ -39,7 +39,6 @@ function createTableFromInstructions() {
 
   var rows = '';
   for (var r = 0, l = instructions.length; r < l; r ++) {
-    console.log('At row: ' + r);
     var instruction = instructions[r];
     var columns = createElementWithString('td', r);
     for (var c = 0, cl = instructions[r].length; c < cl; c ++) {
@@ -235,6 +234,21 @@ function setValueInMemory(value, dir) {
 
 }
 
+// crea un diccionario con:
+// 1) el arreglo de memoria local (deep copy, tiene que ser nuevo)
+// 2) direccion actual en instructions
+// luego le hace push al stack de ejecucion
+function saveFunctionState() {
+
+}
+
+// recibe como parametro un diccionario con el estado de una funcion
+// y actualiza la memoria local y la direccion actual para que siga el programa
+// desde ese estado de funcon
+function setStateFromFunctionState() {
+
+}
+
 function vm() {
 
   for (var i = 0, l = instructions.length; i < l; i++) {
@@ -336,8 +350,8 @@ function vm() {
       case 'GOTO':
         console.log(instruction.join());
         i = instruction[3];
-        i -= 1; // padding for the  i++ in the for
         console.log(i);
+        i -= 1; // padding for the  i++ in the for
         break;
 
       case 'GOTOF':
