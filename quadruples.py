@@ -111,7 +111,7 @@ def get_global_temp(temp_type, mem_global_temps):
     global_temps[temp_type]['used'].add( address )
     return address
 
-relational_operators = Set(['<', '>', 'DIFF', 'EQ', 'LTEQ', 'GTEQ'])
+relational_operators = Set(['<', '>', '<>', '==', '<=', '>='])
 logical_operators = Set(['AND', 'OR'])
 ignored_checks = Set(['PRINT', 'READ', 'INPUT', 'GOTOF', 'GOTO', 'RETURN', 'PARAMETER', 'ERA', 'GOSUB', 'ENDPROC', 'TRACK', 'FORGET', '#TRACKDECISION', '#FORGETDECISION', 'SHOW'])
 
