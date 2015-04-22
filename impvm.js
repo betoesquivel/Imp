@@ -187,15 +187,19 @@ function setValueInMemory(value, dir) {
     case (dir < localDirs[5]) :
       dir -= localDirs[0];
       local[dir] = parsedValue;
+      break;
     case (dir < globalDirs[5]) :
       dir -= globalDirs[0];
       global[dir] = parsedValue;
+      break;
     case (dir < tempDirs[5]) :
       dir -= tempDirs[0];
       temp[dir] = parsedValue;
+      break;
     case (dir < tempGlobalDirs[5]) :
       dir -= tempGlobalDirs[0];
       tempGlobal[dir] = parsedValue;
+      break;
     default:
       console.log("NO ENTRO");
       break;
@@ -208,20 +212,60 @@ function vm() {
   for (var i = 0, l = instructions.length; i < l; i ++) {
     var instruction = instructions[i];
     switch( instruction[0] ) {
-      case '+':
-        console.log(instruction.join());
-        var op1 = getValueFromMemory(Number( instruction[1] ));
-        var op2 = getValueFromMemory(Number( instruction[2] ));
-        setValueInMemory(op1 + op2, Number( instruction[3] ));
-        console.log(getValueFromMemory(instruction[3]));
-        break;
-
       case '=':
         console.log(instruction.join());
         var op2 = getValueFromMemory(Number( instruction[1] ));
         var dirOp1 = Number( instruction[3] );
         setValueInMemory(op2, dirOp1);
         console.log(getValueFromMemory(dirOp1));
+        break;
+
+      case '+':
+        console.log(instruction.join());
+        var op1 = getValueFromMemory(instruction[1]);
+        var op2 = getValueFromMemory(instruction[2]);
+        setValueInMemory(op1 + op2, instruction[3]);
+        console.log(getValueFromMemory(instruction[3]));
+        break;
+
+      case '-':
+        console.log(instruction.join());
+        var op1 = getValueFromMemory(instruction[1]);
+        var op2 = getValueFromMemory(instruction[2]);
+        setValueInMemory(op1 - op2, instruction[3]);
+        console.log(getValueFromMemory(instruction[3]));
+        break;
+
+      case '*':
+        console.log(instruction.join());
+        var op1 = getValueFromMemory(instruction[1]);
+        var op2 = getValueFromMemory(instruction[2]);
+        setValueInMemory(op1 * op2, instruction[3]);
+        console.log(getValueFromMemory(instruction[3]));
+        break;
+
+      case '/':
+        console.log(instruction.join());
+        var op1 = getValueFromMemory(instruction[1]);
+        var op2 = getValueFromMemory(instruction[2]);
+        setValueInMemory(op1 / op2, instruction[3]);
+        console.log(getValueFromMemory(instruction[3]));
+        break;
+
+      case '>':
+        console.log(instruction.join());
+        var op1 = getValueFromMemory(instruction[1]);
+        var op2 = getValueFromMemory(instruction[2]);
+        setValueInMemory(op1 > op2, instruction[3]);
+        console.log(getValueFromMemory(instruction[3]));
+        break;
+
+      case '<':
+        console.log(instruction.join());
+        var op1 = getValueFromMemory(instruction[1]);
+        var op2 = getValueFromMemory(instruction[2]);
+        setValueInMemory(op1 < op2, instruction[3]);
+        console.log(getValueFromMemory(instruction[3]));
         break;
 
       case 'PRINT':
