@@ -3,6 +3,7 @@ import ply.yacc as yacc
 import logging
 import lexer
 import sys
+import json
 from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local, var_dict, func_dict, semantics_cube, constant_dict, get_constant_memory_address
 from quadruples import operators, operands, jumps, quadruples, types, add_quadruple, return_pending_quadruple, print_quadruples, print_operators, print_operands, print_types, get_temp, clear_temps
 from MemoryBlock import MemoryBlock
@@ -160,12 +161,21 @@ def p_suprafunc(p):
     print_current()
     print_func_dict()
     print_var_dict()
-    func_dict[ p[1] ][ 'size_info' ] = {
-            'bools': mem_local.bools[1],
-            'ints': mem_local.ints[1],
-            'floats': mem_local.floats[1],
-            'chars': mem_local.chars[1],
-            'strings': mem_local.strings[1]
+    func_dict[ p[1] ][ 'memory_info' ] = {
+            'vars': {
+                'bools': mem_local.bools[1],
+                'ints': mem_local.ints[1],
+                'floats': mem_local.floats[1],
+                'chars': mem_local.chars[1],
+                'strings': mem_local.strings[1]
+            },
+            'temps': {
+                'bools': mem_temps.bools[1],
+                'ints': mem_temps.ints[1],
+                'floats': mem_temps.floats[1],
+                'chars': mem_temps.chars[1],
+                'strings': mem_temps.strings[1]
+            }
     }
 
     add_quadruple('ENDPROC', -1, -1, -1, -1, mem_temps, mem_global_temps)
@@ -806,6 +816,13 @@ if(len(sys.argv) > 1):
     print string
     logging.basicConfig(filename='example.log', filemode='w', level=logging.DEBUG)
     log = logging.getLogger()
+
     result = parser.parse(string, debug=log)
+
+    output_dict = {'funcs': func_dict, 'quadruples': quadruples , 'constants': constant_dict}
+    output_string = json.dumps(output_dict)
+    output_file = open('executable.js', 'w')
+    output_string = 'var executable = ' + output_string
+    output_file.write(output_string)
 else:
     print "Error"
