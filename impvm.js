@@ -252,6 +252,14 @@ function vm() {
         console.log(getValueFromMemory(instruction[3]));
         break;
 
+      case '<':
+        console.log(instruction.join());
+        var op1 = getValueFromMemory(instruction[1]);
+        var op2 = getValueFromMemory(instruction[2]);
+        setValueInMemory(op1 < op2, instruction[3]);
+        console.log(getValueFromMemory(instruction[3]));
+        break;
+
       case '>':
         console.log(instruction.join());
         var op1 = getValueFromMemory(instruction[1]);
@@ -260,11 +268,27 @@ function vm() {
         console.log(getValueFromMemory(instruction[3]));
         break;
 
-      case '<':
+      case '<=':
         console.log(instruction.join());
         var op1 = getValueFromMemory(instruction[1]);
         var op2 = getValueFromMemory(instruction[2]);
-        setValueInMemory(op1 < op2, instruction[3]);
+        setValueInMemory(op1 <= op2, instruction[3]);
+        console.log(getValueFromMemory(instruction[3]));
+        break;
+
+      case '>=':
+        console.log(instruction.join());
+        var op1 = getValueFromMemory(instruction[1]);
+        var op2 = getValueFromMemory(instruction[2]);
+        setValueInMemory(op1 >= op2, instruction[3]);
+        console.log(getValueFromMemory(instruction[3]));
+        break;
+
+      case '==':
+        console.log(instruction.join());
+        var op1 = getValueFromMemory(instruction[1]);
+        var op2 = getValueFromMemory(instruction[2]);
+        setValueInMemory(op1 === op2, instruction[3]);
         console.log(getValueFromMemory(instruction[3]));
         break;
 
