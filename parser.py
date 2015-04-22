@@ -4,7 +4,7 @@ import logging
 import lexer
 import sys
 import json
-from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local, var_dict, func_dict, semantics_cube, constant_dict, get_constant_memory_address
+from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local, var_dict, func_dict, semantics_cube, constant_dict, get_constant_memory_address, constant_dir_dict
 from quadruples import operators, operands, jumps, quadruples, types, add_quadruple, return_pending_quadruple, print_quadruples, print_operators, print_operands, print_types, get_temp, clear_temps
 from MemoryBlock import MemoryBlock
 from copy import deepcopy
@@ -14,11 +14,21 @@ from copy import deepcopy
 tokens = lexer.tokens
 
 # memory allocation (just variable counters representing: constants and local/global vars)
-mem_local = MemoryBlock(0, 1000, 2000, 3000, 4000, 5000)
-mem_global = MemoryBlock(5000, 6000, 7000, 8000, 9000, 10000)
-mem_constants = MemoryBlock(10000, 11000, 12000, 13000, 14000, 15000)
-mem_temps = MemoryBlock(15000, 16000, 17000, 18000, 19000, 20000)
+mem_local        = MemoryBlock(0, 1000, 2000, 3000, 4000, 5000)
+mem_global       = MemoryBlock(5000, 6000, 7000, 8000, 9000, 10000)
+mem_constants    = MemoryBlock(10000, 11000, 12000, 13000, 14000, 15000)
+mem_temps        = MemoryBlock(15000, 16000, 17000, 18000, 19000, 20000)
 mem_global_temps = MemoryBlock(20000, 21000, 22000, 23000, 24000, 25000)
+
+#bools, ints, floats, chars, strings, limit
+memory_dict = {
+        'local':       [0, 1000, 2000, 3000, 4000, 5000],
+        'global':      [5000, 6000, 7000, 8000, 9000, 10000],
+        'constants':   [10000, 11000, 12000, 13000, 14000, 15000],
+        'temp':        [15000, 16000, 17000, 18000, 19000, 20000],
+        'temp_global': [20000, 21000, 22000, 23000, 24000, 25000]
+
+}
 
 # sintaxis rules
 
@@ -819,7 +829,7 @@ if(len(sys.argv) > 1):
 
     result = parser.parse(string, debug=log)
 
-    output_dict = {'funcs': func_dict, 'quadruples': quadruples , 'constants': constant_dict}
+    output_dict = {'funcs': func_dict, 'quadruples': quadruples , 'constants': constant_dir_dict, 'start_dirs': memory_dict}
     output_string = json.dumps(output_dict)
     output_file = open('executable.js', 'w')
     output_string = 'var executable = ' + output_string
