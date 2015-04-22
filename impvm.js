@@ -40,7 +40,7 @@ function between(x, lower, upper) {
 
 function isBoolAddress(dir) {
 
-  switch (dir) {
+  switch (true) {
 
     case ( between(dir, localDirs[0], localDirs[1]) ):
           return true;
@@ -60,7 +60,7 @@ function isBoolAddress(dir) {
 }
 function isIntAddress(dir) {
 
-  switch (dir) {
+  switch (true) {
 
     case ( between(dir, localDirs[1], localDirs[2]) ):
           return true;
@@ -80,7 +80,7 @@ function isIntAddress(dir) {
 }
 function isFloatAddress(dir) {
 
-  switch (dir) {
+  switch (true) {
 
     case ( between(dir, localDirs[2], localDirs[3]) ):
           return true;
@@ -100,7 +100,7 @@ function isFloatAddress(dir) {
 }
 function isCharAddress(dir) {
 
-  switch (dir) {
+  switch (true) {
 
     case ( between(dir, localDirs[3], localDirs[4]) ):
           return true;
@@ -120,7 +120,7 @@ function isCharAddress(dir) {
 }
 function isStringAddress(dir) {
 
-  switch (dir) {
+  switch (true) {
 
     case ( between(dir, localDirs[4], localDirs[5]) ):
           return true;
@@ -140,7 +140,7 @@ function isStringAddress(dir) {
 }
 
 function parseValueWithAddress(value, dir) {
-  switch (dir) {
+  switch (true) {
 
     case (isCharAddress(dir)):
       return ( IsNumeric(value) ? value : value.charCodeAt(0) );
@@ -155,7 +155,7 @@ function parseValueWithAddress(value, dir) {
 function getValueFromMemory(dir) {
 
   var value;
-  switch (dir) {
+  switch (true) {
     case (dir < localDirs[5]) :
       value = local[dir - localDirs[0]];
       break;
@@ -183,7 +183,7 @@ function setValueInMemory(value, dir) {
 
   var parsedValue = parseValueWithAddress(value, dir);
 
-  switch (dir) {
+  switch (true) {
     case (dir < localDirs[5]) :
       dir -= localDirs[0];
       local[dir] = parsedValue;
@@ -235,4 +235,3 @@ function vm() {
   }
 
 }
-
