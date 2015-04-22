@@ -2,4 +2,7 @@ int x = 1 + 2;
 
 main() {
   print(x);
+  while(cont2 <= 10) {
+      cont2 = cont2 + 1;
+  }
 }
