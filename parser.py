@@ -265,7 +265,7 @@ def p_condition_quadruple(p):
             add_quadruple('GOTOF', op1, -1, -1, -1, mem_temps, mem_global_temps)
             jumps.append(len(quadruples)-1)
         else:
-            print 'se esperaba valor booleano!'
+            print 'se esperaba valor booleano!', type1
             exit(1)
 
 def p_elsecondition_quadruple(p):
@@ -393,8 +393,8 @@ def p_expressionB(p):
                    | LTEQ push_operator exp
                    | GTEQ push_operator exp
                    | empty'''
-    if p[1] is not '':
-        op, op1, type1, op2, type2 = return_pending_quadruple(['<', '>', 'DIFF', 'EQ', 'LTEQ', 'GTEQ'])
+    if p[1] != '':
+        op, op1, type1, op2, type2 = return_pending_quadruple(['<', '>', '<>', '==', '<=', '>='])
         if op is not 'none_pending':
             add_quadruple(op, op1, type1, op2, type2, mem_temps, mem_global_temps)
 
@@ -555,7 +555,7 @@ def p_while_quadruple(p):
             add_quadruple('GOTOF', op1, -1, -1, -1, mem_temps, mem_global_temps)
             jumps.append(len(quadruples)-1)
         else:
-            print 'se esperaba valor booleano!'
+            print 'se esperaba valor booleano!', type1
             exit(1)
 
 def p_endwhile_quadruple(p):

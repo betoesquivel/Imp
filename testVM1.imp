@@ -1,4 +1,5 @@
 int x = 1 + 2;
+int cont2 = 0;
 
 main() {
   print(x);
