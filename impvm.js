@@ -143,7 +143,7 @@ function parseValueWithAddress(value, dir) {
   switch (true) {
 
     case (isCharAddress(dir)):
-      return ( IsNumeric(value) ? value : value.charCodeAt(0) );
+      return ( isNaN(value) ? value.charCodeAt(0) : value );
     case (isStringAddress(dir)):
       return value;
     default:
