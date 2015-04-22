@@ -21,9 +21,37 @@ input = document.getElementById('input');
 vartable = document.getElementById('vartable');
 
 debug['functions'].innerHTML = JSON.stringify(functions);
-debug['instructions'].innerHTML = JSON.stringify(instructions);
+debug['instructions'].innerHTML = createTableFromInstructions();
 debug['constants'].innerHTML = JSON.stringify(constants);
 debug['memory'].innerHTML = JSON.stringify(startDirs);
+
+function createElementWithString(tag, s) {
+
+  var element = '<'+tag+'>';
+  element += s;
+  element += '</'+tag+'>';
+
+  return element;
+
+}
+
+function createTableFromInstructions() {
+
+  var rows = '';
+  for (var r = 0, l = instructions.length; r < l; r ++) {
+    console.log('At row: ' + r);
+    var instruction = instructions[r];
+    var columns = createElementWithString('td', r);
+    for (var c = 0, cl = instructions[r].length; c < cl; c ++) {
+      var instructionValue = instructions[r][c];
+      columns += createElementWithString('td', instructionValue);
+    }
+    rows += createElementWithString('tr', columns);
+  }
+  var table = createElementWithString('table', rows);
+  return table;
+
+}
 
 var local = [];
 var global = [];
@@ -209,13 +237,13 @@ function setValueInMemory(value, dir) {
 
 function vm() {
 
-  for (var i = 0, l = instructions.length; i < l; i ++) {
+  for (var i = 0, l = instructions.length; i < l; i++) {
     var instruction = instructions[i];
     switch( instruction[0] ) {
       case '=':
         console.log(instruction.join());
-        var op2 = getValueFromMemory(Number( instruction[1] ));
-        var dirOp1 = Number( instruction[3] );
+        var op2 = getValueFromMemory(instruction[1]);
+        var dirOp1 = instruction[3];
         setValueInMemory(op2, dirOp1);
         console.log(getValueFromMemory(dirOp1));
         break;
@@ -292,10 +320,36 @@ function vm() {
         console.log(getValueFromMemory(instruction[3]));
         break;
 
+      case '<>':
+        console.log(instruction.join());
+        var op1 = getValueFromMemory(instruction[1]);
+        var op2 = getValueFromMemory(instruction[2]);
+        setValueInMemory(op1 === op2, instruction[3]);
+        console.log(getValueFromMemory(instruction[3]));
+        break;
+
       case 'PRINT':
         console.log(instruction.join());
-        console.log("PRINT TO CONSOLE:" + getValueFromMemory(Number( instruction[3] )) );
+        console.log("PRINT TO CONSOLE:" + getValueFromMemory( instruction[3] ) );
         break;
+
+      case 'GOTO':
+        console.log(instruction.join());
+        i = instruction[3];
+        i -= 1; // padding for the  i++ in the for
+        console.log(i);
+        break;
+
+      case 'GOTOF':
+        console.log(instruction.join());
+        var condition = getValueFromMemory(instruction[1]);
+        if (!condition) {
+          i = instruction[3];
+          console.log('Going to instruction: ' + i);
+          i -= 1; // padding for the  i++ in the for
+        }
+        break;
+
 
       default:
         console.log(instruction.join());

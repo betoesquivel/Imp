@@ -34,7 +34,11 @@ memory_dict = {
 
 # <program>
 def p_program(p):
-    '''program : config body'''
+    '''program : start_quadruple config body'''
+
+def p_start_quadruple(p):
+    '''start_quadruple :'''
+    add_quadruple('GOTO', -1, -1, -1, -1, mem_temps, mem_global_temps)
 
 # <config>
 def p_config(p):
@@ -161,6 +165,7 @@ def p_main(p):
 def p_seen_main(p):
     '''seen_main :'''
     print 'ENTRANDO A MAIN'
+    quadruples[0][3] = len(quadruples)
     current['scope'] = 'local'
 
 # <func>
