@@ -213,7 +213,6 @@ def p_func(p):
         exit(1)
     else:
         # note, there might be an error in this line :P
-        add_func_to_dict(current['id'], current['type'], deepcopy(current['params']), len(quadruples)-1)
         add_var_to_dict(
                 'global',
                 current['id'],
@@ -222,6 +221,7 @@ def p_func(p):
                 0,
                 mem_global
         )
+        add_func_to_dict(current['id'], current['type'], deepcopy(current['params']), len(quadruples), var_dict['global'][current['id']]['address'])
 
         current['params'] = []
 
@@ -808,6 +808,9 @@ def p_params(p):
         exit(1)
     else:
         add_var_to_dict('local', p[2], p[1], 0, 0, mem_local)
+        param = current['params'].pop()
+        param['address'] = var_dict['local'][param['id']]['address']
+        current['params'].append(param)
 
 def p_paramsB(p):
     '''paramsB : ',' params paramsB

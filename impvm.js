@@ -25,237 +25,97 @@ debug['instructions'].innerHTML = createTableFromInstructions();
 debug['constants'].innerHTML = JSON.stringify(constants);
 debug['memory'].innerHTML = JSON.stringify(startDirs);
 
-function createElementWithString(tag, s) {
-
-  var element = '<'+tag+'>';
-  element += s;
-  element += '</'+tag+'>';
-
-  return element;
-
-}
-
-function createTableFromInstructions() {
-
-  var rows = '';
-  for (var r = 0, l = instructions.length; r < l; r ++) {
-    var instruction = instructions[r];
-    var columns = createElementWithString('td', r);
-    for (var c = 0, cl = instructions[r].length; c < cl; c ++) {
-      var instructionValue = instructions[r][c];
-      columns += createElementWithString('td', instructionValue);
-    }
-    rows += createElementWithString('tr', columns);
-  }
-  var table = createElementWithString('table', rows);
-  return table;
-
-}
 
 var local = [];
 var global = [];
 var temp = [];
 var tempGlobal = [];
 
-vm();
 
-function between(x, lower, upper) {
+var executionStack = [];
+var currentAddress = 0;
+var currentFunctionId = 'main';
 
-  return ( x >= lower && x <= upper );
-
-}
-
-function isBoolAddress(dir) {
-
-  switch (true) {
-
-    case ( between(dir, localDirs[0], localDirs[1]) ):
-          return true;
-    case ( between(dir, globalDirs[0], globalDirs[1]) ):
-          return true;
-    case ( between(dir, tempDirs[0], tempDirs[1]) ):
-          return true;
-    case ( between(dir, tempGlobalDirs[0], tempGlobalDirs[1]) ):
-          return true;
-    case ( between(dir, constantDirs[0], constantDirs[1]) ):
-          return true;
-    default:
-          return false;
-
-  }
-
-}
-function isIntAddress(dir) {
-
-  switch (true) {
-
-    case ( between(dir, localDirs[1], localDirs[2]) ):
-          return true;
-    case ( between(dir, globalDirs[1], globalDirs[2]) ):
-          return true;
-    case ( between(dir, tempDirs[1], tempDirs[2]) ):
-          return true;
-    case ( between(dir, tempGlobalDirs[1], tempGlobalDirs[2]) ):
-          return true;
-    case ( between(dir, constantDirs[1], constantDirs[2]) ):
-          return true;
-    default:
-          return false;
-
-  }
-
-}
-function isFloatAddress(dir) {
-
-  switch (true) {
-
-    case ( between(dir, localDirs[2], localDirs[3]) ):
-          return true;
-    case ( between(dir, globalDirs[2], globalDirs[3]) ):
-          return true;
-    case ( between(dir, tempDirs[2], tempDirs[3]) ):
-          return true;
-    case ( between(dir, tempGlobalDirs[2], tempGlobalDirs[3]) ):
-          return true;
-    case ( between(dir, constantDirs[2], constantDirs[3]) ):
-          return true;
-    default:
-          return false;
-
-  }
-
-}
-function isCharAddress(dir) {
-
-  switch (true) {
-
-    case ( between(dir, localDirs[3], localDirs[4]) ):
-          return true;
-    case ( between(dir, globalDirs[3], globalDirs[4]) ):
-          return true;
-    case ( between(dir, tempDirs[3], tempDirs[4]) ):
-          return true;
-    case ( between(dir, tempGlobalDirs[3], tempGlobalDirs[4]) ):
-          return true;
-    case ( between(dir, constantDirs[3], constantDirs[4]) ):
-          return true;
-    default:
-          return false;
-
-  }
-
-}
-function isStringAddress(dir) {
-
-  switch (true) {
-
-    case ( between(dir, localDirs[4], localDirs[5]) ):
-          return true;
-    case ( between(dir, globalDirs[4], globalDirs[5]) ):
-          return true;
-    case ( between(dir, tempDirs[4], tempDirs[5]) ):
-          return true;
-    case ( between(dir, tempGlobalDirs[4], tempGlobalDirs[5]) ):
-          return true;
-    case ( between(dir, constantDirs[4], constantDirs[5]) ):
-          return true;
-    default:
-          return false;
-
-  }
-
-}
-
-function parseValueWithAddress(value, dir) {
-  switch (true) {
-
-    case (isCharAddress(dir)):
-      return ( isNaN(value) ? value.charCodeAt(0) : value );
-    case (isStringAddress(dir)):
-      return value;
-    default:
-      return eval(value);
-
-  }
-}
-
-function getValueFromMemory(dir) {
-
-  var value;
-  switch (true) {
-    case (dir < localDirs[5]) :
-      value = local[dir - localDirs[0]];
-      break;
-    case (dir < globalDirs[5]) :
-      value = global[dir - globalDirs[0]];
-      break;
-    case (dir < constantDirs[5]) :
-      value = constants[dir];
-      break;
-    case (dir < tempDirs[5]) :
-      value = temp[dir - tempDirs[0]];
-      break;
-    case (dir < tempGlobalDirs[5]) :
-      value = tempGlobal[dir - tempGlobalDirs[0]];
-      break;
-    default:
-      console.log("NO ENTRO");
-      break;
-  }
-  return parseValueWithAddress(value, dir);
-
-}
-
-function setValueInMemory(value, dir) {
-
-  var parsedValue = parseValueWithAddress(value, dir);
-
-  switch (true) {
-    case (dir < localDirs[5]) :
-      dir -= localDirs[0];
-      local[dir] = parsedValue;
-      break;
-    case (dir < globalDirs[5]) :
-      dir -= globalDirs[0];
-      global[dir] = parsedValue;
-      break;
-    case (dir < tempDirs[5]) :
-      dir -= tempDirs[0];
-      temp[dir] = parsedValue;
-      break;
-    case (dir < tempGlobalDirs[5]) :
-      dir -= tempGlobalDirs[0];
-      tempGlobal[dir] = parsedValue;
-      break;
-    default:
-      console.log("NO ENTRO");
-      break;
-  }
-
-}
 
 // crea un diccionario con:
 // 1) el arreglo de memoria local (deep copy, tiene que ser nuevo)
 // 2) direccion actual en instructions
 // luego le hace push al stack de ejecucion
-function saveFunctionState() {
+function runtimeSnapshot() {
+  var self = this;
+
+  self.memory = jQuery.extend(true, {}, local);
+  self.address = -1;
+  self.functionId = currentFunctionId;
 
 }
 
-// recibe como parametro un diccionario con el estado de una funcion
-// y actualiza la memoria local y la direccion actual para que siga el programa
-// desde ese estado de funcon
-function setStateFromFunctionState() {
+function saveRuntime() {
+
+  executionStack.push(new runtimeSnapshot());
+
+}
+
+function restoreRuntime() {
+
+  if (executionStack.length > 0) {
+
+    local.length = 0;
+
+    var previousStack = executionStack.pop();
+    local = previousStack.memory;
+    currentAddress = previousStack.address;
+    currentFunctionId = previousStack.functionId;
+
+  }
+
+}
+
+function expandActivationRecord(functionId) {
+
+  saveRuntime();
+  currentFunctionId = functionId;
+  local.length = 0;
+
+}
+
+function goSub(destinationDir) {
+
+  previousStack = executionStack.pop();
+  previousStack.address = currentAddress + 1;
+  executionStack.push(previousStack);
+
+  currentAddress = destinationDir;
+
+}
+
+function parameterAction(value, parameterIndex) {
+
+    var functionData = functions[currentFunctionId];
+    var localParameterAddress = functionData.params[ parameterIndex ].address;
+    setValueInMemory(value, localParameterAddress);
+    console.log(getValueFromMemory(localParameterAddress));
+
+}
+
+function returnAction(value) {
+
+    var functionData = functions[currentFunctionId];
+    var globalFunctionVariableAddress = functionData.address;
+    setValueInMemory(value, globalFunctionVariableAddress);
+    console.log(getValueFromMemory(globalFunctionVariableAddress));
 
 }
 
 function vm() {
 
-  for (var i = 0, l = instructions.length; i < l; i++) {
-    var instruction = instructions[i];
+  for (currentAddress = 0, l = instructions.length; currentAddress < l; currentAddress++) {
+    var instruction = instructions[currentAddress];
+    console.log("\nINSTRUCTION: " + currentAddress);
+    console.log(instruction.join());
+
     switch( instruction[0] ) {
       case '=':
-        console.log(instruction.join());
         var op2 = getValueFromMemory(instruction[1]);
         var dirOp1 = instruction[3];
         setValueInMemory(op2, dirOp1);
@@ -263,7 +123,6 @@ function vm() {
         break;
 
       case '+':
-        console.log(instruction.join());
         var op1 = getValueFromMemory(instruction[1]);
         var op2 = getValueFromMemory(instruction[2]);
         setValueInMemory(op1 + op2, instruction[3]);
@@ -271,7 +130,6 @@ function vm() {
         break;
 
       case '-':
-        console.log(instruction.join());
         var op1 = getValueFromMemory(instruction[1]);
         var op2 = getValueFromMemory(instruction[2]);
         setValueInMemory(op1 - op2, instruction[3]);
@@ -279,7 +137,6 @@ function vm() {
         break;
 
       case '*':
-        console.log(instruction.join());
         var op1 = getValueFromMemory(instruction[1]);
         var op2 = getValueFromMemory(instruction[2]);
         setValueInMemory(op1 * op2, instruction[3]);
@@ -287,7 +144,6 @@ function vm() {
         break;
 
       case '/':
-        console.log(instruction.join());
         var op1 = getValueFromMemory(instruction[1]);
         var op2 = getValueFromMemory(instruction[2]);
         setValueInMemory(op1 / op2, instruction[3]);
@@ -295,7 +151,6 @@ function vm() {
         break;
 
       case '<':
-        console.log(instruction.join());
         var op1 = getValueFromMemory(instruction[1]);
         var op2 = getValueFromMemory(instruction[2]);
         setValueInMemory(op1 < op2, instruction[3]);
@@ -303,7 +158,6 @@ function vm() {
         break;
 
       case '>':
-        console.log(instruction.join());
         var op1 = getValueFromMemory(instruction[1]);
         var op2 = getValueFromMemory(instruction[2]);
         setValueInMemory(op1 > op2, instruction[3]);
@@ -311,7 +165,6 @@ function vm() {
         break;
 
       case '<=':
-        console.log(instruction.join());
         var op1 = getValueFromMemory(instruction[1]);
         var op2 = getValueFromMemory(instruction[2]);
         setValueInMemory(op1 <= op2, instruction[3]);
@@ -319,7 +172,6 @@ function vm() {
         break;
 
       case '>=':
-        console.log(instruction.join());
         var op1 = getValueFromMemory(instruction[1]);
         var op2 = getValueFromMemory(instruction[2]);
         setValueInMemory(op1 >= op2, instruction[3]);
@@ -327,7 +179,6 @@ function vm() {
         break;
 
       case '==':
-        console.log(instruction.join());
         var op1 = getValueFromMemory(instruction[1]);
         var op2 = getValueFromMemory(instruction[2]);
         setValueInMemory(op1 === op2, instruction[3]);
@@ -335,7 +186,6 @@ function vm() {
         break;
 
       case '<>':
-        console.log(instruction.join());
         var op1 = getValueFromMemory(instruction[1]);
         var op2 = getValueFromMemory(instruction[2]);
         setValueInMemory(op1 === op2, instruction[3]);
@@ -343,31 +193,53 @@ function vm() {
         break;
 
       case 'PRINT':
-        console.log(instruction.join());
         console.log("PRINT TO CONSOLE:" + getValueFromMemory( instruction[3] ) );
         break;
 
       case 'GOTO':
-        console.log(instruction.join());
-        i = instruction[3];
-        console.log(i);
-        i -= 1; // padding for the  i++ in the for
+        currentAddress = instruction[3];
+        console.log(currentAddress);
+        currentAddress -= 1; // padding for the  i++ in the for
         break;
 
       case 'GOTOF':
-        console.log(instruction.join());
         var condition = getValueFromMemory(instruction[1]);
         if (!condition) {
-          i = instruction[3];
-          console.log('Going to instruction: ' + i);
-          i -= 1; // padding for the  i++ in the for
+          currentAddress = instruction[3];
+          console.log('Going to instruction: ' + currentAddress);
+          currentAddress -= 1; // padding for the  i++ in the for
         }
         break;
 
+      case 'ERA':
+        expandActivationRecord(instruction[3]);
+        break;
+
+      case 'PARAMETER':
+        var value = getValueFromMemory(instruction[1]);
+        parameterAction(value, instruction[3]);
+        break;
+
+      case 'GOSUB':
+        goSub(instruction[3]);
+        currentAddress -= 1; // padding for the i++ in the for
+        break;
+
+      case 'ENDPROC':
+        restoreRuntime();
+        currentAddress -= 1; // padding for the i++ in the for
+        break;
+
+      case 'RETURN':
+        var value = getValueFromMemory(instruction[3]);
+        returnAction(value);
+        break;
 
       default:
-        console.log(instruction.join());
+        break;
     }
   }
 
 }
+
+vm();

@@ -91,11 +91,12 @@ def func_exists_in_dict(fid):
         return False
 
 
-def add_func_to_dict(fid, ftype, fparams, fdir):
+def add_func_to_dict(fid, ftype, fparams, fdir, faddress):
     func_dict[fid] = {
         'type' : ftype,
         'params' : fparams,
-        'start_dir' : fdir
+        'start_dir' : fdir,
+        'address' : faddress
     }
 
 
