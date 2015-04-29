@@ -133,7 +133,7 @@ function getValueFromMemory(dir) {
       value = constants[dir];
       break;
     case (dir < tempDirs[5]) :
-      value = temp[dir - tempDirs[0]];
+      value = temp [dir - tempDirs[0]];
       break;
     case (dir < tempGlobalDirs[5]) :
       value = tempGlobal[dir - tempGlobalDirs[0]];
