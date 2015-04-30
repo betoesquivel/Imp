@@ -33,6 +33,8 @@ var tempGlobal = [];
 
 
 var executionStack = [];
+var parametersStack = []; // for nested function calls
+var parameters = []; // for function calls
 var currentAddress = 0;
 var currentFunctionId = 'main';
 
@@ -47,6 +49,8 @@ function runtimeSnapshot() {
   self.memory = jQuery.extend(true, {}, local);
   self.address = -1;
   self.functionId = currentFunctionId;
+  self.parametersStack = jQuery.extend(true, [], parametersStack);
+  self.parameters = jQuery.extend(true, [], parameters);
 
 }
 
@@ -60,12 +64,12 @@ function restoreRuntime() {
 
   if (executionStack.length > 0) {
 
-    local.length = 0;
-
     var previousStack = executionStack.pop();
     local = previousStack.memory;
     currentAddress = previousStack.address;
     currentFunctionId = previousStack.functionId;
+    parametersStack = previousStack.parametersStack;
+    parameters = previousStack.parameters;
 
   }
 
@@ -75,7 +79,21 @@ function expandActivationRecord(functionId) {
 
   saveRuntime();
   currentFunctionId = functionId;
-  local.length = 0;
+  parameters.length = 0;
+  // local.length = 0;
+
+}
+
+function loadParametersToLocalMemory() {
+
+    var functionData = functions[currentFunctionId];
+    for (var i = 0, l = parameters.length; i < l; i ++) {
+
+      var value = parameters[i];
+      var localParameterAddress = functionData.params[i].address;
+      setValueInMemory(value, localParameterAddress);
+
+    }
 
 }
 
@@ -86,15 +104,15 @@ function goSub(destinationDir) {
   executionStack.push(previousStack);
 
   currentAddress = destinationDir;
+  local.length = 0;
+  loadParametersToLocalMemory();
 
 }
 
 function parameterAction(value, parameterIndex) {
 
-    var functionData = functions[currentFunctionId];
-    var localParameterAddress = functionData.params[ parameterIndex ].address;
-    setValueInMemory(value, localParameterAddress);
-    console.log(getValueFromMemory(localParameterAddress));
+    parameters[parameterIndex] = value;
+    console.log("Added parameter " + value + " to the parameters array for " + currentFunctionId);
 
 }
 
@@ -104,6 +122,15 @@ function returnAction(value) {
     var globalFunctionVariableAddress = functionData.address;
     setValueInMemory(value, globalFunctionVariableAddress);
     console.log(getValueFromMemory(globalFunctionVariableAddress));
+
+}
+
+function endProcAction() {
+
+  parametersStack.length = 0;
+  parameters.length = 0;
+  local.length = 0;
+  restoreRuntime();
 
 }
 
@@ -226,7 +253,7 @@ function vm() {
         break;
 
       case 'ENDPROC':
-        restoreRuntime();
+        endProcAction();
         currentAddress -= 1; // padding for the i++ in the for
         break;
 

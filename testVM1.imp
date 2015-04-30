@@ -4,6 +4,10 @@ int cont2 = 0;
 main() {
   print(x);
   while(cont2 <= 10) {
+    if ( cont2  == x ){
       cont2 = cont2 + 1;
+      print( "Ya vale x");
+    }
+    cont2 = cont2 + 1;
   }
 }
