@@ -14,6 +14,6 @@ def int fibonacci ( int x ) {
 
 main() {
 
-  print ( fibonacci(5) );
+  print ( fibonacci(3) );
 
 }

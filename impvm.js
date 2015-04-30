@@ -46,7 +46,8 @@ var currentFunctionId = 'main';
 function runtimeSnapshot() {
   var self = this;
 
-  self.memory = jQuery.extend(true, {}, local);
+  self.memory = jQuery.extend(true, [], local);
+  self.tempMemory = jQuery.extend(true, [], temp);
   self.address = -1;
   self.functionId = currentFunctionId;
   self.parametersStack = jQuery.extend(true, [], parametersStack);
@@ -66,6 +67,7 @@ function restoreRuntime() {
 
     var previousStack = executionStack.pop();
     local = previousStack.memory;
+    temp = previousStack.tempMemory;
     currentAddress = previousStack.address;
     currentFunctionId = previousStack.functionId;
     parametersStack = previousStack.parametersStack;
@@ -80,7 +82,6 @@ function expandActivationRecord(functionId) {
   saveRuntime();
   currentFunctionId = functionId;
   parameters.length = 0;
-  // local.length = 0;
 
 }
 
@@ -105,6 +106,7 @@ function goSub(destinationDir) {
 
   currentAddress = destinationDir;
   local.length = 0;
+  temp.length = 0;
   loadParametersToLocalMemory();
 
 }
@@ -130,6 +132,7 @@ function endProcAction() {
   parametersStack.length = 0;
   parameters.length = 0;
   local.length = 0;
+  temp.length = 0;
   restoreRuntime();
 
 }
