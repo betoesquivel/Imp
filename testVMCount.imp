@@ -1,0 +1,15 @@
+def int count(int x) {
+
+  print("I am iteration: ", x);
+  return x + 1;
+
+}
+
+
+main() {
+
+  int initial = 0;
+  int n = count( count ( count (initial) ) );
+  print("The final iteration was: ", n);
+
+}
