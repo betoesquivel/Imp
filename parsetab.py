@@ -182,7 +182,7 @@ _lr_productions = [
   ('return -> RETURN hyperexpression return_quadruple','return',3,'p_return','parser.py',781),
   ('return_quadruple -> <empty>','return_quadruple',0,'p_return_quadruple','parser.py',785),
   ('params -> type ID','params',2,'p_params','parser.py',804),
-  ('paramsB -> , params paramsB','paramsB',3,'p_paramsB','parser.py',813),
-  ('paramsB -> empty','paramsB',1,'p_paramsB','parser.py',814),
-  ('empty -> <empty>','empty',0,'p_empty','parser.py',817),
+  ('paramsB -> , params paramsB','paramsB',3,'p_paramsB','parser.py',816),
+  ('paramsB -> empty','paramsB',1,'p_paramsB','parser.py',817),
+  ('empty -> <empty>','empty',0,'p_empty','parser.py',820),
 ]

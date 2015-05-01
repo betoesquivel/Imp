@@ -1,0 +1,12 @@
+def int sum(int x, int y) {
+
+  return x+y;
+}
+
+
+main() {
+
+  int a = sum(10-1,2)/sum(2-1,1); 
+  print( "Valor de la SUMA TOTAL: " , a);
+
+}

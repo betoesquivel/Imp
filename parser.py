@@ -145,6 +145,7 @@ def p_quadruple_assign(p):
         add_quadruple(op, op1, type1, op2, type2, mem_temps, mem_global_temps)
 
 
+
 def p_declarationC(p):
     '''declarationC : '=' push_operator hyperexpression quadruple_assign declarationD
                     | ',' repush_type declarationB declarationC
@@ -357,6 +358,7 @@ def p_seen_a_funccall(p):
     '''seen_a_funccall :'''
     add_quadruple("ERA", current['id'], -1, -1, -1, mem_temps, mem_global_temps)
 
+
 # <localdirective>
 def p_localdirective(p):
     '''localdirective : localvardirective
@@ -437,6 +439,8 @@ def p_termB(p):
              | '*' push_operator term
              | empty'''
 
+
+
 # our lexer gets the sign with the int in case it has one.
 # And I just found out this is wrong. Removed the sign from the lexer and added it here.
 # <factor>
@@ -457,6 +461,7 @@ def p_seen_factor_funccall(p):
     '''seen_factor_funccall :'''
     print "SEEN FACTORFUNCCALL: ", current['id'], current['type']
 
+    current['isfunc'] = True
     function_return_variable = var_dict[ 'global' ][ current['id'] ]
 
     variable = function_return_variable['address']
@@ -732,6 +737,7 @@ def p_funccall(p):
 
         add_quadruple("GOSUB", called_function['start_dir'], -1, -1, -1, mem_temps, mem_global_temps)
 
+
     #clear_current()
     current['params'] = []
 
@@ -739,10 +745,14 @@ def p_seen_a_factor_funccall(p):
     '''seen_a_factor_funccall :'''
     current['id'] = p[-1]
     add_quadruple("ERA", current['id'], -1, -1, -1, mem_temps, mem_global_temps)
+    # Add the false bottom of the function call
+    if current['isfunc'] :
+        operators.append('[')
 
 def p_funccallB(p):
     '''funccallB : hyperexpression seen_param
                  | empty '''
+
 
 def p_seen_param(p):
     '''seen_param :'''
@@ -765,6 +775,11 @@ def p_seen_param(p):
 def p_funccallC(p):
     '''funccallC : ',' funccallB funccallC
                  | ')' '''
+    print 'termina funcion'
+    # Remove the false bottom of the function call
+    if current['isfunc'] and p[1] == ')':
+        operators.pop()
+
 
 # <dimensions>
 def p_dimensions(p):
