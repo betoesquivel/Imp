@@ -777,8 +777,10 @@ def p_funccallC(p):
                  | ')' '''
     print 'termina funcion'
     # Remove the false bottom of the function call
-    if current['isfunc'] and p[1] == ')':
-        operators.pop()
+    
+    if operators:
+        if current['isfunc'] and p[1] == ')':
+            operators.pop()
 
 
 # <dimensions>
