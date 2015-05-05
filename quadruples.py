@@ -132,7 +132,7 @@ def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps
     elif operator is 'READ':
         quadruples.append( [operator, -1, -1, op1] )
     elif operator is 'GOTOF':
-        quadruples.append( [operator, op1, -1, -1] )
+        quadruples.append( [operator, op1, op2, -1] )
     elif operator is 'GOTO':
         quadruples.append( [operator, -1, -1, op1] )
     elif operator is 'RETURN':

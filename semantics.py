@@ -29,12 +29,38 @@ func_dict = {}
 debug = True
 debug_var_const_dict = {}
 
+def print_local_var_dict():
+    print "\nLOCAL VAR DICT"
+    pp.pprint(local_var_dict)
+
+def print_global_var_dict():
+    print "\nGLOBAL VAR DICT"
+    pp.pprint(global_var_dict)
+
+def add_to_local_var_dict(address, var_id):
+    print 'ADDING TO LOCAL: ', address, var_id
+    local_var_dict[address] = {
+        'id': var_id,
+        'mods': []
+    }
+    print_local_var_dict()
+
+def add_to_global_var_dict(address, var_id):
+    print 'ADDING TO GLOBAL: ', address, var_id
+    global_var_dict[address] = {
+        'id': var_id,
+        'mods': []
+    }
+    print_global_var_dict()
+
 var_dict = {
     'global' : {
      },
     'local' : {
     }
 }
+local_var_dict = {}
+global_var_dict = {}
 
 constant_dict = {
 }
@@ -124,6 +150,11 @@ def add_var_to_dict(vscope, vid, vtype, vdimensionx, vdimensiony, memory):
             'address' : add_to_memory(memory, vtype)
     }
     debug_var_const_dict[ var_dict[vscope][vid]['address'] ] = vid
+    if (vscope == 'local'):
+        add_to_local_var_dict(var_dict[vscope][vid]['address'], vid)
+    else:
+        add_to_global_var_dict(var_dict[vscope][vid]['address'], vid)
+
 
 
 def clear_current():
@@ -137,6 +168,7 @@ def clear_current():
 
 def clear_local():
     var_dict['local'].clear()
+    local_var_dict.clear()
 
 semantics_cube = {
     # logical operators

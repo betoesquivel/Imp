@@ -2,6 +2,8 @@
 var functions = executable['funcs'];
 var instructions = executable['quadruples'];
 var constants = executable['constants'];
+var globals = executable['globals'];
+var decisions = executable['decisions'];
 
 var startDirs = executable['start_dirs'];
 var localDirs = startDirs['local'];
@@ -148,6 +150,17 @@ function vm() {
       case '=':
         var op2 = getValueFromMemory(instruction[1]);
         var dirOp1 = instruction[3];
+        if ( isLocalAddress(dirOp1) ){
+          var variable_object = functions[currentFunctionId].id_addresses[dirOp1];
+          var mod_line = variable_object.mods.shift();
+          console.log("MODIFIED LOCAL VARIABLE AT LINE: " + mod_line);
+          console.log(functions[currentFunctionId].id_addresses[dirOp1]);
+        }else if ( isGlobalAddress(dirOp1) ){
+          var variable_object = globals[dirOp1];
+          var mod_line = variable_object.mods.shift();
+          console.log("MODIFIED GLOBAL VARIABLE AT LINE: " + mod_line);
+          console.log(globals[dirOp1]);
+        }
         setValueInMemory(op2, dirOp1);
         console.log(getValueFromMemory(dirOp1));
         break;
@@ -234,11 +247,17 @@ function vm() {
 
       case 'GOTOF':
         var condition = getValueFromMemory(instruction[1]);
+        var decisionIndex = instruction[2];
+        var decisionType = decisions[decisionIndex].type;
+        var decisionLine = decisions[decisionIndex].line;
         if (!condition) {
           currentAddress = instruction[3];
           console.log('Going to instruction: ' + currentAddress);
           currentAddress -= 1; // padding for the  i++ in the for
         }
+        console.log('DECISION TAKEN');
+        console.log('Decision type: ' + decisionType);
+        console.log('Decision line: ' + decisionLine);
         break;
 
       case 'ERA':

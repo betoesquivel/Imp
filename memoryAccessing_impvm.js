@@ -119,6 +119,41 @@ function parseValueWithAddress(value, dir) {
   }
 }
 
+function isLocalAddress(dir) {
+  return dir < localDirs[5];
+}
+
+function isGlobalAddress(dir) {
+  return dir < globalDirs[5] && dir >= globalDirs[0];
+}
+
+function getRealAddress(dir) {
+
+  var realAddress;
+  switch (true) {
+    case (dir < localDirs[5]) :
+      realAddress = dir - localDirs[0];
+      break;
+    case (dir < globalDirs[5]) :
+      realAddress = dir - globalDirs[0];
+      break;
+    case (dir < constantDirs[5]) :
+      realAddress = dir;
+      break;
+    case (dir < tempDirs[5]) :
+      realAddress =  dir - tempDirs[0];
+      break;
+    case (dir < tempGlobalDirs[5]) :
+      realAddress = dir - tempGlobalDirs[0];
+      break;
+    default:
+      console.log("NO ENTRO");
+      break;
+  }
+  return realAddress;
+
+}
+
 function getValueFromMemory(dir) {
 
   var value;

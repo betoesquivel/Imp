@@ -4,7 +4,7 @@ import logging
 import lexer
 import sys
 import json
-from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local, var_dict, func_dict, semantics_cube, constant_dict, get_constant_memory_address, constant_dir_dict
+from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local, var_dict, func_dict, semantics_cube, constant_dict, get_constant_memory_address, constant_dir_dict, local_var_dict, global_var_dict, print_local_var_dict, print_global_var_dict
 from quadruples import operators, operands, jumps, quadruples, types, add_quadruple, return_pending_quadruple, print_quadruples, print_operators, print_operands, print_types, get_temp, clear_temps
 from MemoryBlock import MemoryBlock
 from copy import deepcopy
@@ -12,6 +12,7 @@ from copy import deepcopy
 
 
 tokens = lexer.tokens
+decisions = []
 
 # memory allocation (just variable counters representing: constants and local/global vars)
 mem_local        = MemoryBlock(0, 1000, 2000, 3000, 4000, 5000)
@@ -27,7 +28,6 @@ memory_dict = {
         'constants':   [10000, 11000, 12000, 13000, 14000, 15000],
         'temp':        [15000, 16000, 17000, 18000, 19000, 20000],
         'temp_global': [20000, 21000, 22000, 23000, 24000, 25000]
-
 }
 
 # sintaxis rules
@@ -86,6 +86,7 @@ def p_declaration(p):
 def p_declarationB(p):
     '''declarationB : ID push_operand dimensionsOpt '''
     current['id'] = p[1]
+    current['line'] = p.lineno(1)
 
     if var_exists_in_dict(current['scope'], current['id']):
         print errors['REPEATED_DECLARATION'].format(current['id'], p.lineno(1))
@@ -143,8 +144,12 @@ def p_quadruple_assign(p):
 
         op = operators.pop()
         add_quadruple(op, op1, type1, op2, type2, mem_temps, mem_global_temps)
-
-
+        print_global_var_dict()
+        print_local_var_dict()
+        if (local_var_dict.get(op1) is not None):
+            local_var_dict[op1]['mods'].append(current['line'])
+        else:
+            global_var_dict[op1]['mods'].append(current['line'])
 
 def p_declarationC(p):
     '''declarationC : '=' push_operator hyperexpression quadruple_assign declarationD
@@ -163,6 +168,22 @@ def p_declarationD(p):
 # <main>
 def p_main(p):
     '''main : MAIN '(' ')' seen_main block'''
+    func_dict[ 'main' ][ 'memory_info' ] = {
+            'vars': {
+                'bools': mem_local.bools[1],
+                'ints': mem_local.ints[1],
+                'floats': mem_local.floats[1],
+                'chars': mem_local.chars[1],
+                'strings': mem_local.strings[1]
+            },
+            'temps': {
+                'bools': mem_temps.bools[1],
+                'ints': mem_temps.ints[1],
+                'floats': mem_temps.floats[1],
+                'chars': mem_temps.chars[1],
+                'strings': mem_temps.strings[1]
+            }
+    }
 
 def p_seen_main(p):
     '''seen_main :'''
@@ -170,6 +191,12 @@ def p_seen_main(p):
     start_quadruple = jumps.pop()
     quadruples[start_quadruple][3] = len(quadruples)
     current['scope'] = 'local'
+    add_func_to_dict('main', 'void', [], len(quadruples), 'no address')
+
+    clear_current()
+    clear_temps(mem_temps)
+    func_dict[ 'main' ][ 'id_addresses' ] = deepcopy( local_var_dict )
+    clear_local()
 
 # <func>
 def p_suprafunc(p):
@@ -200,6 +227,7 @@ def p_suprafunc(p):
 
     clear_current()
     clear_temps(mem_temps)
+    func_dict[ p[1] ][ 'id_addresses' ] = deepcopy( local_var_dict )
     clear_local()
 
 def p_func(p):
@@ -238,9 +266,15 @@ def p_instructionsOpt(p):
     '''instructionsOpt : instruction instructionsOpt
                        | empty'''
 
+def p_id_record_line(p):
+    '''id_record_line : ID'''
+    current['id'] = p[1]
+    current['line'] = p.lineno(1)
+    p[0] = p[1]
+
 # <assign>
 def p_assign(p):
-    '''assign : ID push_operand dimensionsOpt '=' push_operator hyperexpression quadruple_assign'''
+    '''assign : id_record_line push_operand dimensionsOpt '=' push_operator hyperexpression quadruple_assign'''
     current['id'] = p[1]
     if not var_exists_in_dict(current['scope'], current['id']):
         print errors['UNDECLARED_VARIABLE'].format(p[1], p.lineno(1))
@@ -257,7 +291,7 @@ def p_dimensionsOpt(p):
 
 # <condition>
 def p_condition(p):
-    '''condition : IF '(' hyperexpression condition_quadruple ')' block else endcondition_quadruple'''
+    '''condition : register_if '(' hyperexpression condition_quadruple ')' block else endcondition_quadruple'''
 
 # <else>
 def p_else(p):
@@ -270,7 +304,7 @@ def p_condition_quadruple(p):
         type1 = types.pop() if types else -1
         if type1 == 'bool':
             op1 = operands.pop()
-            add_quadruple('GOTOF', op1, -1, -1, -1, mem_temps, mem_global_temps)
+            add_quadruple('GOTOF', op1, -1, len(decisions)-1, -1, mem_temps, mem_global_temps)
             jumps.append(len(quadruples)-1)
         else:
             print 'se esperaba valor booleano!', type1
@@ -309,7 +343,7 @@ def p_instruction(p):
 # <assignfunccall>
 # left factor the assign and funccall rules
 def p_assignfunccall(p):
-    '''assignfunccall : ID seen_funccall push_operand assignfunccallB'''
+    '''assignfunccall : id_record_line push_operand assignfunccallB'''
     current['id'] = p[1]
     if current['isfunc']:
         if func_exists_in_dict(current['id']):
@@ -337,11 +371,6 @@ def p_assignfunccall(p):
         if not var_exists_in_dict(current['scope'], current['id']):
             print errors['UNDECLARED_VARIABLE'].format(current['id'], p.lineno(1))
             exit(1)
-
-def p_seen_funccall(p):
-    '''seen_funccall :'''
-    current['id'] = p[-1]
-    p[0] = p[-1]
 
 def p_pop_operand(p):
     '''pop_operand :'''
@@ -550,9 +579,33 @@ def p_sign(p):
             | '-' """
     p[0] = p[1]
 
+def p_register_if(p):
+    '''register_if : IF'''
+    p[0] = p[1]
+    decisions.append({
+        'line': p.lineno(1),
+        'type': 'if'
+    })
+
+def p_register_while(p):
+    '''register_while : WHILE'''
+    p[0] = p[1]
+    decisions.append( {
+        'line': p.lineno(1),
+        'type': 'while'
+    })
+
+def p_register_for(p):
+    '''register_for : FOR'''
+    p[0] = p[1]
+    decisions.append( {
+        'line': p.lineno(1),
+        'type': 'for'
+    })
+
 # <whileloop>
 def p_whileloop(p):
-    '''whileloop : WHILE init_while '(' hyperexpression ')' while_quadruple block endwhile_quadruple'''
+    '''whileloop : register_while init_while '(' hyperexpression ')' while_quadruple block endwhile_quadruple'''
 
 def p_init_while(p):
     '''init_while :'''
@@ -564,7 +617,7 @@ def p_while_quadruple(p):
         type1 = types.pop() if types else -1
         if type1 == 'bool':
             op1 = operands.pop()
-            add_quadruple('GOTOF', op1, -1, -1, -1, mem_temps, mem_global_temps)
+            add_quadruple('GOTOF', op1, -1, len(decisions)-1, -1, mem_temps, mem_global_temps)
             jumps.append(len(quadruples)-1)
         else:
             print 'se esperaba valor booleano!', type1
@@ -597,7 +650,7 @@ def p_returntype(p):
 
 # <forloop>
 def p_forloop(p):
-    '''forloop : FOR '(' assign ';' init_while hyperexpression for_quadruple ';' hyperexpression for_expression ')' block endfor_quadruple '''
+    '''forloop : register_for '(' assign ';' init_while hyperexpression for_quadruple ';' hyperexpression for_expression ')' block endfor_quadruple '''
 
 # <for_quadruple>
 def p_for_quadruple(p):
@@ -606,7 +659,7 @@ def p_for_quadruple(p):
         type1 = types.pop() if types else -1
         if type1 == 'bool':
             op1 = operands.pop()
-            add_quadruple('GOTOF', op1, -1, -1, -1, mem_temps, mem_global_temps)
+            add_quadruple('GOTOF', op1, -1, len(decisions)-1, -1, mem_temps, mem_global_temps)
             jumps.append(len(quadruples)-1)
             add_quadruple('GOTO', -1, -1, -1, -1, mem_temps, mem_global_temps)
             jumps.append(len(quadruples)-1)
@@ -777,7 +830,7 @@ def p_funccallC(p):
                  | ')' '''
     print 'termina funcion'
     # Remove the false bottom of the function call
-    
+
     if operators:
         if current['isfunc'] and p[1] == ')':
             operators.pop()
@@ -856,7 +909,14 @@ if(len(sys.argv) > 1):
 
     result = parser.parse(string, debug=log)
 
-    output_dict = {'funcs': func_dict, 'quadruples': quadruples , 'constants': constant_dir_dict, 'start_dirs': memory_dict}
+    output_dict = {
+            'funcs': func_dict,
+            'quadruples': quadruples ,
+            'constants': constant_dir_dict,
+            'globals': global_var_dict,
+            'decisions': decisions,
+            'start_dirs': memory_dict
+    }
     output_string = json.dumps(output_dict)
     output_file = open('executable.js', 'w')
     output_string = 'var executable = ' + output_string
