@@ -6,6 +6,7 @@ return a + b;
 
 main() {
   int x = 2;
-  print ( suma(2, 4) + suma(1,8) - suma(x, x) );
-  print (11);
+  int y = suma(1,2) + suma(3, 0);
+  print ( suma(2, 4) + suma(1,8) - suma(x, y) );
+  print (7);
 }
