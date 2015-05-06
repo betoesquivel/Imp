@@ -18,9 +18,6 @@ debug = {
   'constants': document.getElementById('debug-constants'),
   'memory': document.getElementById('debug-memory')
 };
-output = document.getElementById('output');
-input = document.getElementById('input');
-vartable = document.getElementById('vartable');
 
 debug['functions'].innerHTML = JSON.stringify(functions);
 debug['instructions'].innerHTML = createTableFromInstructions();
