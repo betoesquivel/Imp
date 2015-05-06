@@ -143,13 +143,16 @@ def p_quadruple_assign(p):
         type1 = types.pop() if types else -1
 
         op = operators.pop()
-        add_quadruple(op, op1, type1, op2, type2, mem_temps, mem_global_temps)
+        if (local_var_dict.get(op1) is not None):
+            mods_array = local_var_dict[op1]['mods']
+            mods_array.append(current['line'])
+            add_quadruple(op, op1, type1, op2, type2, mem_temps, mem_global_temps, len(mods_array) - 1)
+        else:
+            mods_array = global_var_dict[op1]['mods']
+            mods_array.append(current['line'])
+            add_quadruple(op, op1, type1, op2, type2, mem_temps, mem_global_temps, len(mods_array) - 1)
         print_global_var_dict()
         print_local_var_dict()
-        if (local_var_dict.get(op1) is not None):
-            local_var_dict[op1]['mods'].append(current['line'])
-        else:
-            global_var_dict[op1]['mods'].append(current['line'])
 
 def p_declarationC(p):
     '''declarationC : '=' push_operator hyperexpression quadruple_assign declarationD

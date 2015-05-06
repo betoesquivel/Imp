@@ -115,7 +115,7 @@ relational_operators = Set(['<', '>', '<>', '==', '<=', '>='])
 logical_operators = Set(['AND', 'OR'])
 ignored_checks = Set(['PRINT', 'READ', 'INPUT', 'GOTOF', 'GOTO', 'RETURN', 'PARAMETER', 'ERA', 'GOSUB', 'ENDPROC', 'TRACK', 'FORGET', '#TRACKDECISION', '#FORGETDECISION', 'SHOW'])
 
-def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps):
+def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps, modIndex=0):
     print current['scope'], operator, op1, type1, op2 ,type2
 
     result_type = check_operation(type1, operator, type2)
@@ -126,7 +126,7 @@ def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps
         exit(1)
 
     if operator is '=':
-        quadruples.append( [operator, op2, -1, op1] )
+        quadruples.append( [operator, op2, modIndex, op1] )
     elif operator is 'PRINT':
         quadruples.append( [operator, -1, -1, op1] )
     elif operator is 'READ':

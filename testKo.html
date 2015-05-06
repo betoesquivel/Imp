@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Testing knockout</title>
+  <link rel="stylesheet" href="css/foundation.min.css">
+</head>
+<body>
+  <table>
+    <tbody data-bind="foreach: array">
+      <tr>
+        <td data-bind="text: $data">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div data-bind="text: counter"></div>
+  <script src="js/vendor/jquery.js"></script>
+  <script src="js/foundation.min.js"></script>
+  <script src="js/vendor/knockout-3.3.0.js"></script>
+  <script src="testKo.js"></script>
+</body>
+</html>
