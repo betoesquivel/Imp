@@ -1,9 +1,35 @@
+function Row(values) {
+  var self = this;
+
+  self.values = values;
+
+}
+function TableElement(columns, row) {
+  var self = this;
+
+  self.columnNames = columns;
+  self.rows = ko.observableArray();
+  self.rows.push(row);
+
+  self.addRow = function(values) {
+    self.rows.push(values);
+  };
+
+}
 
 function TrackedItem(id, address) {
   var self = this;
 
   self.name = id;
   self.address = address;
+  //self.value = ko.observable(getValueFromMemory(address));
+  self.lastModLine = -1;
+  /*
+    self.valueChanged = ko.computed(function() {
+    var val = self.value();
+    return true;
+  }, self);
+  */
 
 }
 
@@ -11,6 +37,8 @@ function ImpViewModel() {
   var self = this;
 
   self.trackedVars = ko.observableArray([]);
+
+  self.valuesChanged = ko.observable(true);
 
   self.trackedAddresses = ko.computed( function() {
     var addresses = ko.utils.arrayMap(self.trackedVars(), function(trackedVar) {
@@ -26,11 +54,107 @@ function ImpViewModel() {
     return names;
   }, self);
 
-  self.trackedValues = ko.computed( function() {
+  self.trackedValues = function() {
     var values = [];
     ko.utils.arrayForEach( self.trackedVars(), function(trackedVar) {
       var val = getValueFromMemory(trackedVar.address);
+
+      var next = values.length;
+      if (val) {
+        values[next] = {};
+        values[next].value = val;
+        values[next].line = trackedVar.lastModLine;
+      }else{
+        console.log(trackedVar.name + ' has no value.' );
+      }
     });
-  }, self);
+    var row = new Row(values);
+    return row;
+  };
+
+  self.tables = ko.observableArray([]);
+
+  self.trackNewVar = function(id, address) {
+
+    self.trackedVars.push( new TrackedItem(id, address) );
+
+  }
+
+  self.addNewTableFromTracked = function () {
+
+    var newTable = new TableElement(self.trackedNames(), self.trackedValues());
+    self.tables.push(newTable);
+
+  };
+
+  self.displayMessage = function ( data ) {
+
+    var msg = data.message;
+    var line = data.line;
+    var newMessage = new TableElement(['Message at line: ' + line], new Row( [msg] ));
+    self.tables.push(newMessage);
+    self.addNewTableFromTracked();
+
+  };
+
+  self.displayDecision = function ( data ) {
+
+    var decisionTaken = data.decision;
+    var line = data.line;
+    var decisionType = data.type;
+    var newDecision = new TableElement(['Decision of type ' + decisionType + ' taken at line: ' + line], new Row( [{ 'value': decisionTaken, 'line':line }] ));
+    self.tables.push(newDecision);
+    self.addNewTableFromTracked();
+
+  };
+
+  self.displayStackPosition = function ( data ) {
+
+    var stackPosition = data.stackPosition;
+    var line = data.line;
+    var newStackPositionMessage = new TableElement(['Change of context at line: ' + line], new Row( [{ 'value': stackPosition, 'line':false }] ));
+    self.tables.push(newStackPositionMessage);
+    self.addNewTableFromTracked();
+
+  }
+
+  self.displayReturn = function ( data ) {
+
+    var returnValue = data.returnValue;
+    var line = data.line;
+    var newReturnMessage = new TableElement(['Returning at line: ' + line], new Row( [{ 'value': returnValue, 'line':false }] ));
+    self.tables.push(newReturnMessage);
+
+  }
+
+  self.displayToConsole = function ( data ) {
+
+    var message = data.message;
+    var line = data.line;
+    var newConsoleOutput = new TableElement(['Printing to console at line: ' + line], new Row( [{ 'value': message, 'line':false }] ));
+    self.tables.push(newConsoleOutput);
+    self.addNewTableFromTracked();
+
+  }
+
+  self.varChanged = function (address, line) {
+
+    var lastTable = self.tables()[ self.tables().length - 1 ];
+    var changed = ko.utils.arrayFirst( self.trackedVars(), function(trackedVar) {
+      return trackedVar.address == address;
+    });
+    changed.lastModLine = line;
+    lastTable.addRow( self.trackedValues() );
+
+  }
 
 }
+
+var viewModel = new ImpViewModel();
+ko.applyBindings (viewModel);
+
+viewModel.trackedVars.subscribe(function(changed) {
+
+  viewModel.addNewTableFromTracked();
+
+});

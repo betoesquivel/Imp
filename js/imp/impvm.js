@@ -1,4 +1,3 @@
-
 var functions = executable['funcs'];
 var instructions = executable['quadruples'];
 var constants = executable['constants'];
@@ -39,6 +38,7 @@ var parametersStack = []; // for nested function calls
 var parameters = []; // for function calls
 var currentAddress = 0;
 var currentFunctionId = 'main';
+var stackPosition = 'main'; // holds the name of the current stack position
 
 
 // crea un diccionario con:
@@ -54,6 +54,7 @@ function runtimeSnapshot() {
   self.functionId = currentFunctionId;
   self.parametersStack = jQuery.extend(true, [], parametersStack);
   self.parameters = jQuery.extend(true, [], parameters);
+  self.stackPosition = stackPosition;
 
 }
 
@@ -63,7 +64,7 @@ function saveRuntime() {
 
 }
 
-function restoreRuntime() {
+function restoreRuntime(line) {
 
   if (executionStack.length > 0) {
 
@@ -74,6 +75,12 @@ function restoreRuntime() {
     currentFunctionId = previousStack.functionId;
     parametersStack = previousStack.parametersStack;
     parameters = previousStack.parameters;
+
+    stackPosition = previousStack.stackPosition;
+    data = {};
+    data.stackPosition = stackPosition;
+    data.line = line;
+    viewModel.displayStackPosition( data );
 
   }
 
@@ -100,7 +107,7 @@ function loadParametersToLocalMemory() {
 
 }
 
-function goSub(destinationDir) {
+function goSub(destinationDir, line) {
 
   previousStack = executionStack.pop();
   previousStack.address = currentAddress + 1;
@@ -109,6 +116,13 @@ function goSub(destinationDir) {
   currentAddress = destinationDir;
   local.length = 0;
   temp.length = 0;
+
+  stackPosition += '/' + currentFunctionId + '(' + parameters.join(',') + ')';
+  data = {};
+  data.stackPosition = stackPosition;
+  data.line = line;
+  viewModel.displayStackPosition( data );
+
   loadParametersToLocalMemory();
 
 }
@@ -120,22 +134,27 @@ function parameterAction(value, parameterIndex) {
 
 }
 
-function returnAction(value) {
+function returnAction(value, line) {
 
     var functionData = functions[currentFunctionId];
     var globalFunctionVariableAddress = functionData.address;
     setValueInMemory(value, globalFunctionVariableAddress);
     console.log(getValueFromMemory(globalFunctionVariableAddress));
 
+    data = {};
+    data.returnValue = value;
+    data.line = line;
+    viewModel.displayReturn( data );
+
 }
 
-function endProcAction() {
+function endProcAction(line) {
 
   parametersStack.length = 0;
   parameters.length = 0;
   local.length = 0;
   temp.length = 0;
-  restoreRuntime();
+  restoreRuntime(line);
 
 }
 
@@ -156,11 +175,15 @@ function vm() {
           var mod_line = variable_object.mods[modIndex];
           console.log("MODIFIED LOCAL VARIABLE AT LINE: " + mod_line);
           console.log(functions[currentFunctionId].id_addresses[dirOp1]);
+
+          viewModel.varChanged(dirOp1, mod_line);
         }else if ( isGlobalAddress(dirOp1) ){
           var variable_object = globals[dirOp1];
           var mod_line = variable_object.mods[modIndex];
           console.log("MODIFIED GLOBAL VARIABLE AT LINE: " + mod_line);
           console.log(globals[dirOp1]);
+
+          viewModel.varChanged(dirOp1, mod_line);
         }
         setValueInMemory(op2, dirOp1);
         console.log(getValueFromMemory(dirOp1));
@@ -238,6 +261,10 @@ function vm() {
 
       case 'PRINT':
         console.log("PRINT TO CONSOLE:" + getValueFromMemory( instruction[3] ) );
+        data = {};
+        data.line = instruction[1];
+        data.message = getValueFromMemory(instruction[3]);
+        viewModel.displayToConsole( data );
         break;
 
       case 'GOTO':
@@ -259,10 +286,15 @@ function vm() {
         console.log('DECISION TAKEN');
         console.log('Decision type: ' + decisionType);
         console.log('Decision line: ' + decisionLine);
+        var data = {};
+        data.decision = Boolean( condition );
+        data.line = decisionLine;
+        data.type = decisionType;
+        viewModel.displayDecision(data);
         break;
 
       case 'ERA':
-        expandActivationRecord(instruction[3]);
+        expandActivationRecord(instruction[3], instruction[2]);
         break;
 
       case 'PARAMETER':
@@ -271,19 +303,26 @@ function vm() {
         break;
 
       case 'GOSUB':
-        goSub(instruction[3]);
+        var line = instruction[1];
+        goSub(instruction[3], line);
         currentAddress -= 1; // padding for the i++ in the for
         break;
 
       case 'ENDPROC':
-        endProcAction();
+        endProcAction(instruction[3]);
         currentAddress -= 1; // padding for the i++ in the for
         break;
 
       case 'RETURN':
         var value = getValueFromMemory(instruction[3]);
-        returnAction(value);
+        var line = instruction[1];
+        returnAction(value, line);
         break;
+
+      case 'DECLARE':
+        var id = instruction[1];
+        var address = instruction[3];
+        viewModel.trackNewVar(id, address);
 
       default:
         break;
