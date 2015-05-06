@@ -47,16 +47,47 @@ function ImpViewModel() {
     return addresses;
   }, self);
 
-  self.trackedNames = ko.computed( function() {
-    var names = ko.utils.arrayMap(self.trackedVars(), function(trackedVar) {
+  self.trackedGlobal = ko.computed ( function() {
+    var global = ko.utils.arrayFilter( self.trackedVars(), function (trackedVar) {
+        return isGlobalAddress(trackedVar.address);
+    });
+    return global;
+  }, self);
+
+  self.trackedLocal = ko.computed ( function() {
+    var local = ko.utils.arrayFilter( self.trackedVars(), function (trackedVar) {
+        return isLocalAddress(trackedVar.address);
+    });
+    return local;
+  }, self);
+
+  self.globalNames = ko.computed ( function() {
+
+    var names = ko.utils.arrayMap(self.trackedGlobal(), function(trackedVar) {
       return trackedVar.name;
     });
     return names;
+
   }, self);
+
+  self.localNames = ko.computed ( function() {
+
+    var names = ko.utils.arrayMap(self.trackedLocal(), function(trackedVar) {
+      return trackedVar.name;
+    });
+    return names;
+
+  }, self);
+
+  self.trackedNames = ko.computed( function() {
+    return self.globalNames().concat( self.localNames() );
+  }, self);
+
 
   self.trackedValues = function() {
     var values = [];
-    ko.utils.arrayForEach( self.trackedVars(), function(trackedVar) {
+
+    ko.utils.arrayForEach( self.trackedGlobal(), function(trackedVar) {
       var val = getValueFromMemory(trackedVar.address);
 
       var next = values.length;
@@ -68,6 +99,19 @@ function ImpViewModel() {
         console.log(trackedVar.name + ' has no value.' );
       }
     });
+    ko.utils.arrayForEach( self.trackedLocal(), function(trackedVar) {
+      var val = getValueFromMemory(trackedVar.address);
+
+      var next = values.length;
+      if (val) {
+        values[next] = {};
+        values[next].value = val;
+        values[next].line = trackedVar.lastModLine;
+      }else{
+        console.log(trackedVar.name + ' has no value.' );
+      }
+    });
+
     var row = new Row(values);
     return row;
   };
