@@ -1,3 +1,13 @@
+function getVariableData(id) {
+  var variableData = null;
+  if (id in functions[currentFunctionId]['id_addresses']){
+    variableData = functions[functionId][id];
+  }else{
+    variableData = globals[id];
+  }
+  return variableData;
+}
+
 function Row(values) {
   var self = this;
 
@@ -90,7 +100,16 @@ function ImpViewModel() {
     var values = [];
 
     ko.utils.arrayForEach( self.trackedGlobal(), function(trackedVar) {
-      var val = getValueFromMemory(trackedVar.address);
+      var variableData = getVariableData(trackedVar.name);
+      var val = [];
+      for (var i = 0, l = variableData.size; i < l; i ++) {
+        var v = getValueFromMemory(trackedVar.address + i);
+        val[val.length] = v;
+      }
+
+      if (val.length == 1){
+        val = val[0];
+      }
 
       var next = values.length;
       if (val) {
@@ -102,7 +121,16 @@ function ImpViewModel() {
       }
     });
     ko.utils.arrayForEach( self.trackedLocal(), function(trackedVar) {
-      var val = getValueFromMemory(trackedVar.address);
+      var variableData = getVariableData(trackedVar.name);
+      var val = [];
+      for (var i = 0, l = variableData.size; i < l; i ++) {
+        var v = getValueFromMemory(trackedVar.address + i);
+        val[val.length] = v;
+      }
+
+      if (val.length == 1){
+        val = val[0];
+      }
 
       var next = values.length;
       if (val) {

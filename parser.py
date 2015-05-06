@@ -13,6 +13,7 @@ from copy import deepcopy
 
 tokens = lexer.tokens
 decisions = []
+print_line = -1
 
 # memory allocation (just variable counters representing: constants and local/global vars)
 mem_local        = MemoryBlock(0, 1000, 2000, 3000, 4000, 5000)
@@ -104,6 +105,15 @@ def p_declarationB(p):
         current['dimensiony'] = 0
         operands.pop()
         operands.append(var_dict[ current['scope'] ] [ p[1] ] ['address'])
+        add_quadruple(
+                'DECLARE',
+                current['id'],
+                -1,
+                var_dict[ current['scope'] ][ current['id'] ]['address'],
+                -1,
+                mem_temps,
+                mem_global_temps
+        )
 
 
 def p_push_operand(p):
@@ -187,6 +197,7 @@ def p_main(p):
                 'strings': mem_temps.strings[1]
             }
     }
+    func_dict[ 'main' ][ 'id_addresses' ] = deepcopy( local_var_dict )
 
 def p_seen_main(p):
     '''seen_main :'''
@@ -198,7 +209,6 @@ def p_seen_main(p):
 
     clear_current()
     clear_temps(mem_temps)
-    func_dict[ 'main' ][ 'id_addresses' ] = deepcopy( local_var_dict )
     clear_local()
 
 # <func>
@@ -226,7 +236,7 @@ def p_suprafunc(p):
             }
     }
 
-    add_quadruple('ENDPROC', -1, -1, -1, -1, mem_temps, mem_global_temps)
+    add_quadruple('ENDPROC', p[2], -1, -1, -1, mem_temps, mem_global_temps)
 
     clear_current()
     clear_temps(mem_temps)
@@ -264,6 +274,7 @@ def p_paramsOpt(p):
 # <block>
 def p_block(p):
     '''block : '{' instructionsOpt '}' '''
+    p[0] = p.lineno(3)
 
 def p_instructionsOpt(p):
     '''instructionsOpt : instruction instructionsOpt
@@ -365,7 +376,7 @@ def p_assignfunccall(p):
                         correct_call = False
                     param_count += 1
                 if (not correct_call): exit(1)
-                add_quadruple("GOSUB", called_function['start_dir'], -1, -1, -1, mem_temps, mem_global_temps)
+                add_quadruple("GOSUB", called_function['start_dir'], -1, current['line'], -1, mem_temps, mem_global_temps)
         else:
             print errors['UNDECLARED_FUNCTION'].format(current['id'], p.lineno(1))
             exit(1)
@@ -714,9 +725,16 @@ def p_read_quadruple(p):
 def p_readB(p):
     '''readB : ',' validate_id push_operand read_quadruple readB
               | empty'''
+
+def p_register_print_line(p):
+    '''register_print_line : PRINT'''
+    global print_line
+    print_line = p.lineno(1)
+    p[0] = p[1]
+
 # <output>
 def p_output(p):
-    '''output : PRINT '(' outputB '''
+    '''output : register_print_line '(' outputB '''
 
 def p_outputB(p):
     '''outputB : hyperexpression print_quadruple outputC'''
@@ -728,7 +746,7 @@ def p_print_quadruple(p):
         print_types()
         op1 = operands.pop()
         types.pop()
-        add_quadruple('PRINT', op1, -1, -1, -1, mem_temps, mem_global_temps)
+        add_quadruple('PRINT', op1, -1, print_line, -1, mem_temps, mem_global_temps)
 
 def p_outputC(p):
     '''outputC : ')'
@@ -791,7 +809,7 @@ def p_funccall(p):
 
         if (not correct_call): exit(1)
 
-        add_quadruple("GOSUB", called_function['start_dir'], -1, -1, -1, mem_temps, mem_global_temps)
+        add_quadruple("GOSUB", called_function['start_dir'], -1, p.lineno(1), -1, mem_temps, mem_global_temps)
 
 
     #clear_current()
@@ -839,19 +857,101 @@ def p_funccallC(p):
             operators.pop()
 
 
+def p_seen_dimensionx(p):
+    '''seen_dimensionx :'''
+    #si queiro tener variables diensionadas anidadas, solamente tengo que hacer que dimensionx y dimensiony en current sean una pila
+    #pop operand
+    #pop type
+    #assign dimensionx to current
+    if operands and types:
+        op1 = operands.pop()
+        type1 = types.pop()
+        if var_exists_in_dict(current['scope'], current['id']) and type1 == 'int':
+            #verify quadruple if variable exists
+            dimensionedVar = None
+            if var_dict['local'].get(current['id']) is not None:
+                dimensionedVar = var_dict['local'][current['id']]
+            else:
+                dimensionedVar = var_dict['global'][current['id']]
+            maxValue = dimensionedVar['dimensionx']
+            add_quadruple('VERIFY', op1, -1, maxValue, -1, mem_temps, mem_global_temps)
+            current['dimensionx'] = op1
+        else:
+            print ('FINAL: op1 should be a constant int')
+            if type1 == 'int' and constant_dict.get(op1) is not None:
+                current['dimensionx'] = constant_dict[op1]
+            else:
+                print errors['INVALID_ARRAY_DECLARATION'].format(current['id'], current['line'])
+                exit(1)
+
+def p_seen_dimensiony(p):
+    '''seen_dimensiony :'''
+    #pop operand
+    #pop type
+    #verify quadruple if variable exists
+    #assign dimensiony to current
+    if operands and types and current['dimensiony'] > 0:
+        op1 = operands.pop()
+        type1 = types.pop()
+        if var_exists_in_dict(current['scope'], current['id']) and type1 == 'int':
+            #verify quadruple if variable exists
+            dimensionedVar = None
+            if var_dict['local'].get(current['id']) is not None:
+                dimensionedVar = var_dict['local'][current['id']]
+            else:
+                dimensionedVar = var_dict['global'][current['id']]
+            maxValue = dimensionedVar['dimensiony']
+            add_quadruple('VERIFY', op1, -1, maxValue, -1, mem_temps, mem_global_temps)
+            current['dimensiony'] = op1
+
+        else:
+            print ('FINAL: op1 should be a constant int')
+            if type1 == 'int' and constant_dict.get(op1) is not None:
+                current['dimensiony'] = constant_dict[op1]
+            else:
+                print errors['INVALID_ARRAY_DECLARATION'].format(current['id'], current['line'])
+                exit(1)
+
 # <dimensions>
 def p_dimensions(p):
-    '''dimensions : '[' hyperexpression ']' dimensionsB '''
-    current['dimensionx'] = 1
+    '''dimensions : '[' hyperexpression seen_dimensionx ']' dimensionsB '''
+    if var_exists_in_dict( current['scope'], current['id'] ):
+        # multiply memory addresses of dimensiony and dimensionx
+        dimx_address = current['dimensionx']
+        dimy_address = current['dimensiony'] if current['dimensiony'] > 0 else -1
+        add_quadruple('*', dimx_address, 'int', dimy_address, 'int', mem_temps, mem_global_temps)
+
+        dimensionedVar = None
+        if var_dict['local'].get(current['id']) is not None:
+            dimensionedVar = var_dict['local'][current['id']]
+        else:
+            dimensionedVar = var_dict['global'][current['id']]
+        result_address = operands.pop()
+        base_address = dimensionedVar['address']
+        add_quadruple('SUMDIR', base_address, dimensionedVar['type'], result_address, dimensionedVar['type'], mem_temps, mem_global_temps)
 
 def p_dimensionsB(p):
-    '''dimensionsB : '[' hyperexpression ']'
+    '''dimensionsB : '[' hyperexpression seen_dimensiony ']'
                    | empty '''
-    current['dimensiony'] = ( 1 if p[1] == '[' else 0 )
 
 # <return>
 def p_return(p):
-    '''return : RETURN hyperexpression return_quadruple'''
+    '''return : RETURN hyperexpression'''
+    if operands and types:
+
+        print_operands()
+        print_types()
+
+        op1 = operands.pop()
+        type1 = types.pop()
+
+        print_current()
+
+        if (type1 == func_dict[ current['id'] ]['type']):
+            add_quadruple('RETURN', op1, type1, p.lineno(1), -1, mem_temps, mem_global_temps)
+        else:
+            print 'Error en return type'
+            exit(1)
 
 # <return_quadruple>
 def p_return_quadruple(p):
@@ -867,7 +967,7 @@ def p_return_quadruple(p):
         print_current()
 
         if (type1 == func_dict[ current['id'] ]['type']):
-            add_quadruple('RETURN', op1, type1, -1, -1, mem_temps, mem_global_temps)
+            add_quadruple('RETURN', op1, type1, p.lineno(1), -1, mem_temps, mem_global_temps)
         else:
             print 'Error en return type'
             exit(1)
@@ -904,8 +1004,13 @@ if(len(sys.argv) > 1):
         f = open(sys.argv[2], "r")
         s = f.readlines()
     string = ""
+    code = []
+    lineCounter = 1
     for line in s:
         string += line
+        code.append( {'lineno': lineCounter, 'line': line} )
+        lineCounter += 1
+
     print string
     logging.basicConfig(filename='example.log', filemode='w', level=logging.DEBUG)
     log = logging.getLogger()
@@ -918,7 +1023,8 @@ if(len(sys.argv) > 1):
             'constants': constant_dir_dict,
             'globals': global_var_dict,
             'decisions': decisions,
-            'start_dirs': memory_dict
+            'start_dirs': memory_dict,
+            'code': code
     }
     output_string = json.dumps(output_dict)
     output_file = open('executable.js', 'w')

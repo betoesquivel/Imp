@@ -11,7 +11,8 @@ errors = {
         'UNDECLARED_FUNCTION': 'Undeclared function {0} found at line: {1} ',
         'STACKOVERFLOW': 'Stackoverflow, the program is too big.',
         'PARAMETER_TYPE_MISMATCH': 'Function {0}, expected type {1} and received type {2} in position {3}',
-        'PARAMETER_LENGTH_MISMATCH': 'Function {0}, expected {1} parameters'
+        'PARAMETER_LENGTH_MISMATCH': 'Function {0}, expected {1} parameters',
+        'INVALID_ARRAY_DECLARATION': 'Variable {0} of type array in line {1}, should be declared with constant dimensions.'
 }
 
 current = {
@@ -126,28 +127,32 @@ def add_func_to_dict(fid, ftype, fparams, fdir, faddress):
     }
 
 
-def add_to_memory(memory, mtype):
+def add_to_memory(memory, mtype, num=1):
     if mtype == 'bool':
-        return memory.add_bool()
+        return memory.add_bool(num)
     elif mtype == 'int':
-        return memory.add_int()
+        return memory.add_int(num)
     elif mtype == 'float':
-        return memory.add_float()
+        return memory.add_float(num)
     elif mtype == 'char':
-        return memory.add_char()
+        return memory.add_char(num)
     elif mtype == 'string':
-        return memory.add_string()
+        return memory.add_string(num)
     else:
         print 'Invalid constant type. No memory for it.'
         exit(1)
 
 
 def add_var_to_dict(vscope, vid, vtype, vdimensionx, vdimensiony, memory):
+    num = vdimensionx * vdimensiony if vdimensiony > 0 else vdimensionx
+    num = 1 if num == 0 else num
+
     var_dict[vscope][vid] = {
             'type' : vtype,
             'dimensionx' : vdimensionx,
             'dimensiony' : vdimensiony,
-            'address' : add_to_memory(memory, vtype)
+            'address' : add_to_memory(memory, vtype, num),
+            'size' : num
     }
     debug_var_const_dict[ var_dict[vscope][vid]['address'] ] = vid
     if (vscope == 'local'):

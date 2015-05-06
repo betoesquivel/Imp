@@ -154,24 +154,56 @@ function getRealAddress(dir) {
 
 }
 
-function getValueFromMemory(dir) {
+function parseAddressIfPointer(dir){
+  var s = String(dir);
+  if (s[0] === '*'){
+    return Number(s.substring(1));
+  }else{
+    return false;
+  }
+}
 
+function getValueFromMemory(address) {
+
+  var dir = parseAddressIfPointer(address);
+  var isPointer = false;
+  if (!dir){
+    dir = address;
+  }else{
+    isPointer = true;
+  }
   var value;
   switch (true) {
     case (dir < localDirs[5]) :
       value = local[dir - localDirs[0]];
+      if(isPointer) {
+        value = getValueFromMemory(value);
+        return value;
+      }
       break;
     case (dir < globalDirs[5]) :
       value = global[dir - globalDirs[0]];
+      if (isPointer) {
+        value = getValueFromMemory(value);
+        return value;
+      }
       break;
     case (dir < constantDirs[5]) :
       value = constants[dir];
       break;
     case (dir < tempDirs[5]) :
       value = temp [dir - tempDirs[0]];
+      if (isPointer) {
+        value = getValueFromMemory(value);
+        return value;
+      }
       break;
     case (dir < tempGlobalDirs[5]) :
       value = tempGlobal[dir - tempGlobalDirs[0]];
+      if (isPointer) {
+        value = getValueFromMemory(value);
+        return value;
+      }
       break;
     default:
       console.log("NO ENTRO");
@@ -181,26 +213,61 @@ function getValueFromMemory(dir) {
 
 }
 
-function setValueInMemory(value, dir) {
+function setValueInMemory(value, address) {
 
-  var parsedValue = parseValueWithAddress(value, dir);
+  var dir = parseAddressIfPointer(address);
+  var isPointer = false;
+  if (!dir){
+    dir = address;
+  }else{
+    isPointer = true;
+  }
+
+  var parsedValue = -1;
+  if (isPointer) {
+    parsedValue = parseValueWithAddress(value, dir);
+  }
 
   switch (true) {
     case (dir < localDirs[5]) :
       dir -= localDirs[0];
-      local[dir] = parsedValue;
+      if (!isPointer) {
+        local[dir] = parsedValue;
+      }else {
+        dir = local[dir];
+        setValueInMemory(value, dir);
+        return;
+      }
       break;
     case (dir < globalDirs[5]) :
       dir -= globalDirs[0];
-      global[dir] = parsedValue;
+      if (!isPointer) {
+        global[dir] = parsedValue;
+      }else {
+        dir = global[dir];
+        setValueInMemory(value, dir);
+        return;
+      }
       break;
     case (dir < tempDirs[5]) :
       dir -= tempDirs[0];
-      temp[dir] = parsedValue;
+      if (!isPointer) {
+        temp[dir] = parsedValue;
+      }else {
+        dir = temp[dir];
+        setValueInMemory(value, dir);
+        return;
+      }
       break;
     case (dir < tempGlobalDirs[5]) :
       dir -= tempGlobalDirs[0];
-      tempGlobal[dir] = parsedValue;
+      if (!isPointer) {
+        tempGlobal[dir] = parsedValue;
+      }else {
+        dir = tempGlobal[dir];
+        setValueInMemory(value, dir);
+        return;
+      }
       break;
     default:
       console.log("NO ENTRO");

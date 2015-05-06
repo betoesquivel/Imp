@@ -6,7 +6,66 @@
   <link rel="stylesheet" href="css/foundation.min.css">
 </head>
 <body>
-  <h1>IMP is running :D!</h1>
+  <div class="row">
+    <h1 class="columns">IMP is running :D!</h1>
+  </div>
+  <div class="row">
+
+    <!-- VAR TABLE  -->
+    <div class="large-6 columns" data-bind="foreach: tables" >
+
+        <table class="columns">
+
+          <thead>
+            <tr data-bind="foreach: columnNames">
+              <th data-bind="text: $data"></th>
+            </tr>
+          </thead>
+          <tbody data-bind="foreach: rows">
+            <tr data-bind="foreach: values">
+              <td >
+                <p>
+                  Value: <span data-bind="text: value">val</span>
+                </p>
+                <p data-bind="visible: line">
+                  Line: <span data-bind="text: line">line</span>
+                </p>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+
+    </div>
+    <!-- VAR TABLE  -->
+    <!-- CODE  -->
+    <div class="large-6 columns" >
+
+        <table class="columns">
+
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>LOC</th>
+            </tr>
+          </thead>
+          <tbody data-bind="foreach: codeLines">
+            <tr >
+              <td data-bind="text: lineno">
+                Code goes here.
+              </td>
+              <td data-bind="text: line">
+                Code goes here.
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+
+    </div>
+    <!-- CODE  -->
+
+  </div>
 
   <div id="debug">
     <h2>Functions</h2>
@@ -19,18 +78,6 @@
     <p id="debug-memory"></p>
   </div>
 
-  <h2>Output</h2>
-  <div id="output">
-  </div>
-
-  <h2>Input</h2>
-  <div id="input">
-  </div>
-
-  <h2>Var table</h2>
-  <div id="vartable">
-  </div>
-
   <script type="text/javascript" src="executable.js"></script>
   <script type="text/javascript" src="js/vendor/jquery.js"></script>
   <script type="text/javascript" src="js/vendor/knockout-3.3.0.js"></script>
@@ -38,6 +85,7 @@
 
   <script type="text/javascript" src="js/imp/domManipulation_impvm.js"></script>
   <script type="text/javascript" src="js/imp/memoryAccessing_impvm.js"></script>
+  <script type="text/javascript" src="js/imp/viewModel_impvm.js"></script>
   <script type="text/javascript" src="js/imp/impvm.js"></script>
 </body>
 </html>

@@ -113,7 +113,7 @@ def get_global_temp(temp_type, mem_global_temps):
 
 relational_operators = Set(['<', '>', '<>', '==', '<=', '>='])
 logical_operators = Set(['AND', 'OR'])
-ignored_checks = Set(['PRINT', 'READ', 'INPUT', 'GOTOF', 'GOTO', 'RETURN', 'PARAMETER', 'ERA', 'GOSUB', 'ENDPROC', 'TRACK', 'FORGET', '#TRACKDECISION', '#FORGETDECISION', 'SHOW'])
+ignored_checks = Set(['PRINT', 'READ', 'INPUT', 'GOTOF', 'GOTO', 'RETURN', 'PARAMETER', 'ERA', 'GOSUB', 'ENDPROC', 'TRACK', 'FORGET', '#TRACKDECISION', '#FORGETDECISION', 'SHOW', 'DECLARE', 'VERIFY', 'SUMDIR'])
 
 def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps, modIndex=0):
     print current['scope'], operator, op1, type1, op2 ,type2
@@ -121,29 +121,28 @@ def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps
     result_type = check_operation(type1, operator, type2)
 
     if result_type is 'error':
-        print 'Error, tonto!'
         print 'No se puede hacer la operacion con los tipos: {0}, {1}, {2}'.format(type1, operator, type2)
         exit(1)
 
     if operator is '=':
         quadruples.append( [operator, op2, modIndex, op1] )
-    elif operator is 'PRINT':
+    elif operator == 'PRINT':
+        quadruples.append( [operator, op2, -1, op1] )
+    elif operator == 'READ':
         quadruples.append( [operator, -1, -1, op1] )
-    elif operator is 'READ':
-        quadruples.append( [operator, -1, -1, op1] )
-    elif operator is 'GOTOF':
+    elif operator == 'GOTOF':
         quadruples.append( [operator, op1, op2, -1] )
-    elif operator is 'GOTO':
+    elif operator == 'GOTO':
         quadruples.append( [operator, -1, -1, op1] )
-    elif operator is 'RETURN':
-        quadruples.append( [operator, -1, -1, op1] )
-    elif operator is 'PARAMETER':
+    elif operator == 'RETURN':
+        quadruples.append( [operator, op2, -1, op1] )
+    elif operator == 'PARAMETER':
         quadruples.append( [operator, op1, -1, op2] )
-    elif operator is 'ERA':
+    elif operator == 'ERA':
         quadruples.append( [operator, -1, -1, op1] )
-    elif operator is 'GOSUB':
-        quadruples.append( [operator, -1, -1, op1] )
-    elif operator is 'ENDPROC':
+    elif operator == 'GOSUB':
+        quadruples.append( [operator, op2, -1, op1] )
+    elif operator == 'ENDPROC':
         quadruples.append( [operator, -1, -1, op1] )
     elif operator == 'TRACK':
         quadruples.append( [operator, -1, -1, op1] )
@@ -155,6 +154,20 @@ def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps
         quadruples.append( ['FORGETDECISION', -1, -1, -1] )
     elif operator == 'SHOW':
         quadruples.append( [operator, -1, -1, op1] )
+    elif operator == 'DECLARE':
+        quadruples.append( [operator, op1, -1, op2] )
+    elif operator == 'VERIFY':
+        quadruples.append( [operator, op1, -1, op2] )
+    elif operator == 'SUMDIR':
+        result_type = type1
+        if current['scope'] == 'global':
+            temp = get_global_temp(result_type, mem_global_temps)
+        else:
+            temp = get_temp(result_type, mem_temps)
+
+        quadruples.append( ['+', op1, op2, temp] )
+        operands.append('*'+str( temp ))
+        types.append(type1)
     else:
         if current['scope'] == 'global':
             temp = get_global_temp(result_type, mem_global_temps)
@@ -196,8 +209,17 @@ def check_operation(type1, operator,  type2):
             result_type = semantics_cube.get( (type2, operator, type1) , 'error')
         return result_type
 
+def parse_to_temp_address_if_necessary(value):
+    s = str(value)
+    if s[0] == '*':
+        return int(s[1:])
+    else:
+        return int(s)
+
 def return_temp_operands(op1, type1,  op2, type2):
     ''' Note: We are asuming IDs that are introduced by the user cant be t[0-9] '''
+    op1 = parse_to_temp_address_if_necessary(op1)
+    op2 = parse_to_temp_address_if_necessary(op2)
     if type1 != -1 and op1 in temps[type1]['used']:
         temps[type1]['used'].remove( op1 )
         temps[type1]['unused'].add( op1 )
@@ -207,6 +229,8 @@ def return_temp_operands(op1, type1,  op2, type2):
 
 def return_global_temp_operands(op1, type1,  op2, type2):
     ''' Note: We are asuming IDs that are introduced by the user cant be t[0-9] '''
+    op1 = parse_to_temp_address_if_necessary(op1)
+    op2 = parse_to_temp_address_if_necessary(op2)
     if type1 != -1 and op1 in global_temps[type1]['used']:
         global_temps[type1]['used'].remove( op1 )
         global_temps[type1]['unused'].add( op1 )
@@ -232,6 +256,6 @@ def return_pending_quadruple(operator_list):
             op1 = operands.pop()
             type1 = types.pop()
         else:
-             operators.append (top_op)
+            operators.append (top_op)
 
     return op, op1, type1, op2, type2
