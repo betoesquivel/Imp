@@ -36,6 +36,8 @@ function TrackedItem(id, address) {
 function ImpViewModel() {
   var self = this;
 
+  self.codeLines = ko.observableArray([]);
+
   self.trackedVars = ko.observableArray([]);
 
   self.valuesChanged = ko.observable(true);

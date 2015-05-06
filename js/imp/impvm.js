@@ -3,6 +3,7 @@ var instructions = executable['quadruples'];
 var constants = executable['constants'];
 var globals = executable['globals'];
 var decisions = executable['decisions'];
+var codeLines = executable['code'];
 
 var startDirs = executable['start_dirs'];
 var localDirs = startDirs['local'];
@@ -26,6 +27,7 @@ debug['instructions'].innerHTML = createTableFromInstructions();
 debug['constants'].innerHTML = JSON.stringify(constants);
 debug['memory'].innerHTML = JSON.stringify(startDirs);
 
+viewModel.codeLines(codeLines);
 
 var local = [];
 var global = [];
