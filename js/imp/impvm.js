@@ -55,6 +55,7 @@ function runtimeSnapshot() {
   self.parametersStack = jQuery.extend(true, [], parametersStack);
   self.parameters = jQuery.extend(true, [], parameters);
   self.stackPosition = stackPosition;
+  self.trackedLocal = viewModel.trackedLocal();
 
 }
 
@@ -76,11 +77,16 @@ function restoreRuntime(line) {
     parametersStack = previousStack.parametersStack;
     parameters = previousStack.parameters;
 
+    viewModel.clearLocalVariables();
+
     stackPosition = previousStack.stackPosition;
     data = {};
     data.stackPosition = stackPosition;
     data.line = line;
     viewModel.displayStackPosition( data );
+
+    var trackedLocal = previousStack.trackedLocal;
+    viewModel.batchLoadLocalVariables(trackedLocal);
 
   }
 
@@ -115,6 +121,7 @@ function goSub(destinationDir, line) {
 
   currentAddress = destinationDir;
   local.length = 0;
+  viewModel.clearLocalVariables();
   temp.length = 0;
 
   stackPosition += '/' + currentFunctionId + '(' + parameters.join(',') + ')';

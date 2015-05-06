@@ -64,7 +64,7 @@ function ImpViewModel() {
   self.globalNames = ko.computed ( function() {
 
     var names = ko.utils.arrayMap(self.trackedGlobal(), function(trackedVar) {
-      return trackedVar.name;
+      return 'G:'+trackedVar.name;
     });
     return names;
 
@@ -73,7 +73,7 @@ function ImpViewModel() {
   self.localNames = ko.computed ( function() {
 
     var names = ko.utils.arrayMap(self.trackedLocal(), function(trackedVar) {
-      return trackedVar.name;
+      return 'L:'+trackedVar.name;
     });
     return names;
 
@@ -160,7 +160,7 @@ function ImpViewModel() {
     self.tables.push(newStackPositionMessage);
     self.addNewTableFromTracked();
 
-  }
+  };
 
   self.displayReturn = function ( data ) {
 
@@ -169,7 +169,7 @@ function ImpViewModel() {
     var newReturnMessage = new TableElement(['Returning at line: ' + line], new Row( [{ 'value': returnValue, 'line':false }] ));
     self.tables.push(newReturnMessage);
 
-  }
+  };
 
   self.displayToConsole = function ( data ) {
 
@@ -179,7 +179,7 @@ function ImpViewModel() {
     self.tables.push(newConsoleOutput);
     self.addNewTableFromTracked();
 
-  }
+  };
 
   self.varChanged = function (address, line) {
 
@@ -190,7 +190,21 @@ function ImpViewModel() {
     changed.lastModLine = line;
     lastTable.addRow( self.trackedValues() );
 
-  }
+  };
+
+  self.clearLocalVariables = function () {
+    self.trackedVars.remove( function(trackedVar) {
+      return isLocalAddress(trackedVar.address);
+    });
+  };
+
+  self.batchLoadLocalVariables = function (localVariables) {
+
+    var newTracked = self.trackedGlobal();
+    var newTracked = newTracked.concat( localVariables );
+    self.trackedVars( newTracked );
+
+  };
 
 }
 
