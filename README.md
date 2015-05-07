@@ -14,7 +14,7 @@ Testing the parser:
 1. Navigate into the repository in terminal.
 2. Execute the command
 ```
- env/bin/python parser.py -f test.imp
+ venv/bin/python parser.py -f tests/test.imp
 ```
 _*Note*: You can send any test file to the parser._
 
