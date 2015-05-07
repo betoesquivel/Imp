@@ -337,7 +337,7 @@ function vm() {
         if ( index >= size ){
           throw new Error("Stack overflow! Dude!");
         }else{
-          console.log(index + ' is withing size: ' + size);
+          console.log(index + ' is within size: ' + size);
         }
         break;
 

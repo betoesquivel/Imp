@@ -908,14 +908,14 @@ def p_seen_dimensiony(p):
                 print errors['INVALID_ARRAY_DECLARATION'].format(current['dimensionid'], current['line'])
                 exit(1)
 
-# <new_dimension>
-def p_new_dimension(p):
-    '''new_dimension :'''
+# <save_dimension_id>
+def p_save_dimension_id(p):
+    '''save_dimension_id :'''
     current['dimensionid'] = current['id']
 
 # <dimensions>
 def p_dimensions(p):
-    '''dimensions : '[' new_dimension hyperexpression seen_dimensionx ']' dimensionsB '''
+    '''dimensions : '[' save_dimension_id hyperexpression seen_dimensionx ']' dimensionsB '''
     if var_exists_in_dict( current['scope'], current['dimensionid'] ):
         # multiply memory addresses of dimensiony and dimensionx
         dimx_index_address = current['dimensionx']
@@ -933,6 +933,8 @@ def p_dimensions(p):
         row_offset_address = operands.pop()
         types.pop()
 
+        if (dimy_index_address == -1):
+            row_offset_address = dimx_index_address
         add_quadruple('COLUMNOFFSET', dimy_index_address, 'int', row_offset_address, 'int', mem_temps, mem_global_temps)
         offset_address = operands.pop()
         types.pop()

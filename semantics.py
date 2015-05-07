@@ -129,7 +129,8 @@ def add_func_to_dict(fid, ftype, fparams, fdir, faddress):
     }
 
 
-def add_to_memory(memory, mtype, num=1):
+def add_to_memory(memory, mtype='void', num=1):
+    print mtype
     if mtype == 'bool':
         return memory.add_bool(num)
     elif mtype == 'int':
@@ -141,8 +142,7 @@ def add_to_memory(memory, mtype, num=1):
     elif mtype == 'string':
         return memory.add_string(num)
     else:
-        print 'Invalid constant type. No memory for it.'
-        exit(1)
+        print 'Void'
 
 
 def add_var_to_dict(vscope, vid, vtype, vdimensionx, vdimensiony, memory):
