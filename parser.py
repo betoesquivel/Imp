@@ -939,6 +939,8 @@ def p_dimensions(p):
         offset_address = operands.pop()
         types.pop()
 
+        operands.pop() if operands else -1
+        types.pop() if types else -1
         add_quadruple('SUMDIR', base_address, dimensionedVar['type'], offset_address, dimensionedVar['type'], mem_temps, mem_global_temps)
 
 def p_dimensionsB(p):
