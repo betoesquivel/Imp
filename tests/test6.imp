@@ -1,9 +1,21 @@
 main() {
   int b = 8;
-  int c[8];
+  int c[2][3];
   int x = 2;
+  int i = 0;
+  int j = 0;
+  int counter = 0;
 
-  c[2] = 3;
+  while ( i < 2 ) {
+    j = 0;
+    while (j < 3) {
+      c[i][j] = counter;
+      counter = counter + 1;
+      j = j + 1;
+    }
+    i = i + 1;
+  }
 
-  print (c[2]);
+  print (c[1][2]);
+  print (counter);
 }

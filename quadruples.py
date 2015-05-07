@@ -114,7 +114,7 @@ def get_global_temp(temp_type, mem_global_temps):
 
 relational_operators = Set(['<', '>', '<>', '==', '<=', '>='])
 logical_operators = Set(['AND', 'OR'])
-ignored_checks = Set(['PRINT', 'READ', 'INPUT', 'GOTOF', 'GOTO', 'RETURN', 'PARAMETER', 'ERA', 'GOSUB', 'ENDPROC', 'TRACK', 'FORGET', '#TRACKDECISION', '#FORGETDECISION', 'SHOW', 'DECLARE', 'VERIFY', 'SUMDIR'])
+ignored_checks = Set(['PRINT', 'READ', 'INPUT', 'GOTOF', 'GOTO', 'RETURN', 'PARAMETER', 'ERA', 'GOSUB', 'ENDPROC', 'TRACK', 'FORGET', '#TRACKDECISION', '#FORGETDECISION', 'SHOW', 'DECLARE', 'VERIFY', 'SUMDIR', 'ROWOFFSET', 'COLUMNOFFSET'])
 
 def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps, modIndex=0):
     print current['scope'], operator, op1, type1, op2 ,type2
@@ -159,6 +159,26 @@ def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps
         quadruples.append( [operator, op1, -1, op2] )
     elif operator == 'VERIFY':
         quadruples.append( [operator, op1, -1, op2] )
+    elif operator == 'ROWOFFSET':
+        result_type = type1
+        if current['scope'] == 'global':
+            temp = get_global_temp(result_type, mem_global_temps)
+        else:
+            temp = get_temp(result_type, mem_temps)
+
+        quadruples.append( ['ROWOFFSET', op1, op2, temp] )
+        operands.append( temp )
+        types.append(result_type)
+    elif operator == 'COLUMNOFFSET':
+        result_type = type1
+        if current['scope'] == 'global':
+            temp = get_global_temp(result_type, mem_global_temps)
+        else:
+            temp = get_temp(result_type, mem_temps)
+
+        quadruples.append( ['COLUMNOFFSET', op1, op2, temp] )
+        operands.append(temp)
+        types.append(result_type)
     elif operator == 'SUMDIR':
         result_type = type1
         if current['scope'] == 'global':

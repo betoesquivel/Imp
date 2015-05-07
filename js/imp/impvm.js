@@ -348,6 +348,20 @@ function vm() {
         setValueInMemory( baseDir + offset, tempAddress );
         break;
 
+      case 'ROWOFFSET':
+        var index = getValueFromMemory(instruction[1]);
+        var size = instruction[2];
+        var tempAddress = instruction[3];
+        setValueInMemory( index * size, tempAddress );
+        break;
+
+      case 'COLUMNOFFSET':
+        var index = getValueFromMemory(instruction[1]);
+        var rowOffset = getValueFromMemory(instruction[2]);
+        var tempAddress = instruction[3];
+        setValueInMemory( index + rowOffset, tempAddress );
+        break;
+
       default:
         break;
     }

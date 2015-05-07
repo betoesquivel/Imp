@@ -175,7 +175,7 @@ function getValueFromMemory(address) {
   }
   var value;
   if (dir < 0) {
-    return dir * -1;
+    return 0;
   }
   switch (true) {
     case (dir < localDirs[5]) :

@@ -497,7 +497,7 @@ def p_factor(p):
     '''factor : signB constant
               | '(' seen_parentheses hyperexpression ')'
               | funccall seen_factor_funccall
-              | ID seen_ID dimensionsOpt'''
+              | id_record_line seen_ID dimensionsOpt'''
     if ( len(p) >= 3 ):
         if ( p[2] is 'UNDECLARED_VARIABLE' ):
             print errors['UNDECLARED_VARIABLE'].format(p[1], p.lineno(1))
@@ -868,12 +868,13 @@ def p_seen_dimensionx(p):
     if operands and types:
         op1 = operands.pop()
         type1 = types.pop()
-        if var_exists_in_dict(current['scope'], current['id']) and type1 == 'int':
+        if var_exists_in_dict(current['scope'], current['dimensionid']) and type1 == 'int':
             dimensionedVar = None
-            if var_dict['local'].get(current['id']) is not None:
-                dimensionedVar = var_dict['local'][current['id']]
+            if var_dict['local'].get(current['dimensionid']) is not None:
+                dimensionedVar = var_dict['local'][current['dimensionid']]
             else:
-                dimensionedVar = var_dict['global'][current['id']]
+                dimensionedVar = var_dict['global'][current['dimensionid']]
+            print_current()
             maxValue = dimensionedVar['dimensionx']
             add_quadruple('VERIFY', op1, -1, maxValue, -1, mem_temps, mem_global_temps)
             current['dimensionx'] = op1
@@ -881,7 +882,7 @@ def p_seen_dimensionx(p):
             if type1 == 'int' and constant_dir_dict.get(op1) is not None:
                 current['dimensionx'] = constant_dir_dict[op1]
             else:
-                print errors['INVALID_ARRAY_DECLARATION'].format(current['id'], current['line'])
+                print errors['INVALID_ARRAY_DECLARATION'].format(current['dimensionid'], current['line'])
                 exit(1)
 
 def p_seen_dimensiony(p):
@@ -889,13 +890,13 @@ def p_seen_dimensiony(p):
     if operands and types and current['dimensionx'] > 0:
         op1 = operands.pop()
         type1 = types.pop()
-        if var_exists_in_dict(current['scope'], current['id']) and type1 == 'int':
+        if var_exists_in_dict(current['scope'], current['dimensionid']) and type1 == 'int':
             #verify quadruple if variable exists
             dimensionedVar = None
-            if var_dict['local'].get(current['id']) is not None:
-                dimensionedVar = var_dict['local'][current['id']]
+            if var_dict['local'].get(current['dimensionid']) is not None:
+                dimensionedVar = var_dict['local'][current['dimensionid']]
             else:
-                dimensionedVar = var_dict['global'][current['id']]
+                dimensionedVar = var_dict['global'][current['dimensionid']]
             maxValue = dimensionedVar['dimensiony']
             add_quadruple('VERIFY', op1, -1, maxValue, -1, mem_temps, mem_global_temps)
             current['dimensiony'] = op1
@@ -904,26 +905,39 @@ def p_seen_dimensiony(p):
             if type1 == 'int' and constant_dir_dict.get(op1) is not None:
                 current['dimensiony'] = constant_dir_dict[op1]
             else:
-                print errors['INVALID_ARRAY_DECLARATION'].format(current['id'], current['line'])
+                print errors['INVALID_ARRAY_DECLARATION'].format(current['dimensionid'], current['line'])
                 exit(1)
+
+# <new_dimension>
+def p_new_dimension(p):
+    '''new_dimension :'''
+    current['dimensionid'] = current['id']
 
 # <dimensions>
 def p_dimensions(p):
-    '''dimensions : '[' hyperexpression seen_dimensionx ']' dimensionsB '''
-    if var_exists_in_dict( current['scope'], current['id'] ):
+    '''dimensions : '[' new_dimension hyperexpression seen_dimensionx ']' dimensionsB '''
+    if var_exists_in_dict( current['scope'], current['dimensionid'] ):
         # multiply memory addresses of dimensiony and dimensionx
-        dimx_address = current['dimensionx']
-        dimy_address = current['dimensiony'] if current['dimensiony'] > 0 else -1
-        add_quadruple('*', dimx_address, 'int', dimy_address, 'int', mem_temps, mem_global_temps)
+        dimx_index_address = current['dimensionx']
+        dimy_index_address = current['dimensiony'] if current['dimensiony'] > 0 else -1
 
         dimensionedVar = None
-        if var_dict['local'].get(current['id']) is not None:
-            dimensionedVar = var_dict['local'][current['id']]
+        if var_dict['local'].get(current['dimensionid']) is not None:
+            dimensionedVar = var_dict['local'][current['dimensionid']]
         else:
-            dimensionedVar = var_dict['global'][current['id']]
-        result_offset = operands.pop()
+            dimensionedVar = var_dict['global'][current['dimensionid']]
         base_address = dimensionedVar['address']
-        add_quadruple('SUMDIR', base_address, dimensionedVar['type'], result_offset, dimensionedVar['type'], mem_temps, mem_global_temps)
+        dimy_size = dimensionedVar['dimensiony']
+
+        add_quadruple('ROWOFFSET', dimx_index_address, 'int', dimy_size, 'int', mem_temps, mem_global_temps)
+        row_offset_address = operands.pop()
+        types.pop()
+
+        add_quadruple('COLUMNOFFSET', dimy_index_address, 'int', row_offset_address, 'int', mem_temps, mem_global_temps)
+        offset_address = operands.pop()
+        types.pop()
+
+        add_quadruple('SUMDIR', base_address, dimensionedVar['type'], offset_address, dimensionedVar['type'], mem_temps, mem_global_temps)
 
 def p_dimensionsB(p):
     '''dimensionsB : '[' hyperexpression seen_dimensiony ']'
