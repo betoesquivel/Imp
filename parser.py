@@ -5,7 +5,7 @@ import lexer
 import sys
 import json
 from semantics import current, add_var_to_dict, add_func_to_dict, var_exists_in_dict, func_exists_in_dict, print_current, print_var_dict, print_func_dict, errors, clear_current, clear_local, var_dict, func_dict, semantics_cube, constant_dict, get_constant_memory_address, constant_dir_dict, local_var_dict, global_var_dict, print_local_var_dict, print_global_var_dict
-from quadruples import operators, operands, jumps, quadruples, types, add_quadruple, return_pending_quadruple, print_quadruples, print_operators, print_operands, print_types, get_temp, clear_temps
+from quadruples import operators, operands, jumps, quadruples, types, add_quadruple, return_pending_quadruple, print_quadruples, print_operators, print_operands, print_types, get_temp, clear_temps, parse_to_temp_address_if_necessary, parse_to_base_address_if_necessary
 from MemoryBlock import MemoryBlock
 from copy import deepcopy
 
@@ -85,7 +85,7 @@ def p_declaration(p):
         types.pop()
 
 def p_declarationB(p):
-    '''declarationB : ID push_operand dimensionsOpt '''
+    '''declarationB : id_record_line push_operand dimensionsOpt '''
     current['id'] = p[1]
     current['line'] = p.lineno(1)
 
@@ -138,6 +138,7 @@ def p_push_operator(p):
     '''push_operator :'''
     operators.append(p[-1])
 
+
 def p_quadruple_assign(p):
     '''quadruple_assign :'''
     print "assigning a quadruple... "
@@ -152,13 +153,18 @@ def p_quadruple_assign(p):
         op1 = operands.pop() if operands else -1
         type1 = types.pop() if types else -1
 
+        base = parse_to_base_address_if_necessary(op1)
+       # op1 = parse_to_temp_address_if_necessary(op1)
+       # op2 = parse_to_temp_address_if_necessary(op2)
+        print 'CHANGE THEM STUFFF'
         op = operators.pop()
-        if (local_var_dict.get(op1) is not None):
-            mods_array = local_var_dict[op1]['mods']
+        if (local_var_dict.get(base) is not None):
+            mods_array = local_var_dict[base]['mods']
             mods_array.append(current['line'])
             add_quadruple(op, op1, type1, op2, type2, mem_temps, mem_global_temps, len(mods_array) - 1)
         else:
-            mods_array = global_var_dict[op1]['mods']
+            print global_var_dict
+            mods_array = global_var_dict[base]['mods']
             mods_array.append(current['line'])
             add_quadruple(op, op1, type1, op2, type2, mem_temps, mem_global_temps, len(mods_array) - 1)
         print_global_var_dict()
@@ -859,15 +865,10 @@ def p_funccallC(p):
 
 def p_seen_dimensionx(p):
     '''seen_dimensionx :'''
-    #si queiro tener variables diensionadas anidadas, solamente tengo que hacer que dimensionx y dimensiony en current sean una pila
-    #pop operand
-    #pop type
-    #assign dimensionx to current
     if operands and types:
         op1 = operands.pop()
         type1 = types.pop()
         if var_exists_in_dict(current['scope'], current['id']) and type1 == 'int':
-            #verify quadruple if variable exists
             dimensionedVar = None
             if var_dict['local'].get(current['id']) is not None:
                 dimensionedVar = var_dict['local'][current['id']]
@@ -877,20 +878,15 @@ def p_seen_dimensionx(p):
             add_quadruple('VERIFY', op1, -1, maxValue, -1, mem_temps, mem_global_temps)
             current['dimensionx'] = op1
         else:
-            print ('FINAL: op1 should be a constant int')
-            if type1 == 'int' and constant_dict.get(op1) is not None:
-                current['dimensionx'] = constant_dict[op1]
+            if type1 == 'int' and constant_dir_dict.get(op1) is not None:
+                current['dimensionx'] = constant_dir_dict[op1]
             else:
                 print errors['INVALID_ARRAY_DECLARATION'].format(current['id'], current['line'])
                 exit(1)
 
 def p_seen_dimensiony(p):
     '''seen_dimensiony :'''
-    #pop operand
-    #pop type
-    #verify quadruple if variable exists
-    #assign dimensiony to current
-    if operands and types and current['dimensiony'] > 0:
+    if operands and types and current['dimensionx'] > 0:
         op1 = operands.pop()
         type1 = types.pop()
         if var_exists_in_dict(current['scope'], current['id']) and type1 == 'int':
@@ -905,9 +901,8 @@ def p_seen_dimensiony(p):
             current['dimensiony'] = op1
 
         else:
-            print ('FINAL: op1 should be a constant int')
-            if type1 == 'int' and constant_dict.get(op1) is not None:
-                current['dimensiony'] = constant_dict[op1]
+            if type1 == 'int' and constant_dir_dict.get(op1) is not None:
+                current['dimensiony'] = constant_dir_dict[op1]
             else:
                 print errors['INVALID_ARRAY_DECLARATION'].format(current['id'], current['line'])
                 exit(1)
@@ -926,9 +921,9 @@ def p_dimensions(p):
             dimensionedVar = var_dict['local'][current['id']]
         else:
             dimensionedVar = var_dict['global'][current['id']]
-        result_address = operands.pop()
+        result_offset = operands.pop()
         base_address = dimensionedVar['address']
-        add_quadruple('SUMDIR', base_address, dimensionedVar['type'], result_address, dimensionedVar['type'], mem_temps, mem_global_temps)
+        add_quadruple('SUMDIR', base_address, dimensionedVar['type'], result_offset, dimensionedVar['type'], mem_temps, mem_global_temps)
 
 def p_dimensionsB(p):
     '''dimensionsB : '[' hyperexpression seen_dimensiony ']'

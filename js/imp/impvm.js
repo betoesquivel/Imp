@@ -329,6 +329,24 @@ function vm() {
         var id = instruction[1];
         var address = instruction[3];
         viewModel.trackNewVar(id, address);
+        break;
+
+      case 'VERIFY':
+        var index = getValueFromMemory(instruction[1]);
+        var size = instruction[3];
+        if ( index >= size ){
+          throw new Error("Stack overflow! Dude!");
+        }else{
+          console.log(index + ' is withing size: ' + size);
+        }
+        break;
+
+      case 'SUMDIR':
+        var baseDir = instruction[1];
+        var offset = getValueFromMemory(instruction[2]);
+        var tempAddress = instruction[3];
+        setValueInMemory( baseDir + offset, tempAddress );
+        break;
 
       default:
         break;

@@ -1,4 +1,9 @@
 main() {
   int b = 8;
   int c[8];
+  int x = 2;
+
+  c[2] = 3;
+
+  print (c[2]);
 }

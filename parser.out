@@ -22,7 +22,7 @@ Rule 16    funcsOpt -> empty
 Rule 17    declarationsOpt -> declaration declarationsOpt
 Rule 18    declarationsOpt -> empty
 Rule 19    declaration -> type push_type declarationB declarationC
-Rule 20    declarationB -> ID push_operand dimensionsOpt
+Rule 20    declarationB -> id_record_line push_operand dimensionsOpt
 Rule 21    push_operand -> <empty>
 Rule 22    push_type -> <empty>
 Rule 23    repush_type -> <empty>
@@ -200,7 +200,7 @@ FORGET               : 143
 FORGETDECISION       : 146
 GTEQ                 : 80
 ICONST               : 107
-ID                   : 20 34 40 95 131 141 148 162
+ID                   : 34 40 95 131 141 148 162
 IF                   : 113
 INT                  : 120
 LTEQ                 : 79
@@ -271,7 +271,7 @@ funccallC            : 62 148 153
 funcsOpt             : 14 14 15
 hyperexpression      : 26 41 42 45 69 93 116 126 126 137 150 157 158 160
 hyperexpressionB     : 68
-id_record_line       : 41 60
+id_record_line       : 20 41 60
 init_while           : 116 126
 instruction          : 38
 instructionsOpt      : 37 38
@@ -747,11 +747,13 @@ state 30
 state 31
 
     (19) declaration -> type push_type . declarationB declarationC
-    (20) declarationB -> . ID push_operand dimensionsOpt
+    (20) declarationB -> . id_record_line push_operand dimensionsOpt
+    (40) id_record_line -> . ID
 
-    ID              shift and go to state 38
+    ID              shift and go to state 39
 
-    declarationB                   shift and go to state 39
+    id_record_line                 shift and go to state 38
+    declarationB                   shift and go to state 40
 
 state 32
 
@@ -775,7 +777,7 @@ state 33
     DEF             shift and go to state 36
 
     suprafunc                      shift and go to state 33
-    funcsOpt                       shift and go to state 40
+    funcsOpt                       shift and go to state 41
     empty                          shift and go to state 37
     func                           shift and go to state 35
 
@@ -784,18 +786,18 @@ state 34
     (14) body -> declarationsOpt start_quadruple funcsOpt . main funcsOpt
     (31) main -> . MAIN ( ) seen_main block
 
-    MAIN            shift and go to state 41
+    MAIN            shift and go to state 42
 
-    main                           shift and go to state 42
+    main                           shift and go to state 43
 
 state 35
 
     (33) suprafunc -> func . block
     (37) block -> . { instructionsOpt }
 
-    {               shift and go to state 43
+    {               shift and go to state 44
 
-    block                          shift and go to state 44
+    block                          shift and go to state 45
 
 state 36
 
@@ -807,14 +809,14 @@ state 36
     (122) type -> . STRING
     (123) type -> . BOOL
 
-    VOID            shift and go to state 45
+    VOID            shift and go to state 46
     INT             shift and go to state 16
     FLOAT           shift and go to state 17
     STRING          shift and go to state 15
     BOOL            shift and go to state 18
 
-    returntype                     shift and go to state 46
-    type                           shift and go to state 47
+    returntype                     shift and go to state 47
+    type                           shift and go to state 48
 
 state 37
 
@@ -826,7 +828,7 @@ state 37
 
 state 38
 
-    (20) declarationB -> ID . push_operand dimensionsOpt
+    (20) declarationB -> id_record_line . push_operand dimensionsOpt
     (21) push_operand -> .
 
     [               reduce using rule 21 (push_operand -> .)
@@ -834,22 +836,33 @@ state 38
     ,               reduce using rule 21 (push_operand -> .)
     ;               reduce using rule 21 (push_operand -> .)
 
-    push_operand                   shift and go to state 48
+    push_operand                   shift and go to state 49
 
 state 39
+
+    (40) id_record_line -> ID .
+
+    (               reduce using rule 40 (id_record_line -> ID .)
+    [               reduce using rule 40 (id_record_line -> ID .)
+    =               reduce using rule 40 (id_record_line -> ID .)
+    ,               reduce using rule 40 (id_record_line -> ID .)
+    ;               reduce using rule 40 (id_record_line -> ID .)
+
+
+state 40
 
     (19) declaration -> type push_type declarationB . declarationC
     (26) declarationC -> . = push_operator hyperexpression quadruple_assign declarationD
     (27) declarationC -> . , repush_type declarationB declarationC
     (28) declarationC -> . ;
 
-    =               shift and go to state 52
-    ,               shift and go to state 49
-    ;               shift and go to state 50
+    =               shift and go to state 53
+    ,               shift and go to state 50
+    ;               shift and go to state 51
 
-    declarationC                   shift and go to state 51
+    declarationC                   shift and go to state 52
 
-state 40
+state 41
 
     (15) funcsOpt -> suprafunc funcsOpt .
 
@@ -857,14 +870,14 @@ state 40
     MAIN            reduce using rule 15 (funcsOpt -> suprafunc funcsOpt .)
 
 
-state 41
+state 42
 
     (31) main -> MAIN . ( ) seen_main block
 
-    (               shift and go to state 53
+    (               shift and go to state 54
 
 
-state 42
+state 43
 
     (14) body -> declarationsOpt start_quadruple funcsOpt main . funcsOpt
     (15) funcsOpt -> . suprafunc funcsOpt
@@ -877,11 +890,11 @@ state 42
     DEF             shift and go to state 36
 
     suprafunc                      shift and go to state 33
-    funcsOpt                       shift and go to state 54
+    funcsOpt                       shift and go to state 55
     func                           shift and go to state 35
     empty                          shift and go to state 37
 
-state 43
+state 44
 
     (37) block -> { . instructionsOpt }
     (38) instructionsOpt -> . instruction instructionsOpt
@@ -937,19 +950,19 @@ state 43
   ! shift/reduce conflict for TRACKDECISION resolved as shift
   ! shift/reduce conflict for FORGETDECISION resolved as shift
     }               reduce using rule 165 (empty -> .)
-    RETURN          shift and go to state 55
-    READ            shift and go to state 56
-    ID              shift and go to state 78
-    PRINT           shift and go to state 60
+    RETURN          shift and go to state 56
+    READ            shift and go to state 57
+    ID              shift and go to state 39
+    PRINT           shift and go to state 61
     INT             shift and go to state 16
     FLOAT           shift and go to state 17
     STRING          shift and go to state 15
     BOOL            shift and go to state 18
-    IF              shift and go to state 67
-    WHILE           shift and go to state 59
-    FOR             shift and go to state 63
-    #               shift and go to state 62
-    TRACKDECISION   shift and go to state 65
+    IF              shift and go to state 68
+    WHILE           shift and go to state 60
+    FOR             shift and go to state 64
+    #               shift and go to state 63
+    TRACKDECISION   shift and go to state 66
     FORGETDECISION  shift and go to state 82
 
   ! RETURN          [ reduce using rule 165 (empty -> .) ]
@@ -967,29 +980,29 @@ state 43
   ! TRACKDECISION   [ reduce using rule 165 (empty -> .) ]
   ! FORGETDECISION  [ reduce using rule 165 (empty -> .) ]
 
-    assignfunccall                 shift and go to state 57
-    id_record_line                 shift and go to state 58
-    whileloop                      shift and go to state 61
-    localvardirective              shift and go to state 64
-    localmsgdirective              shift and go to state 66
+    assignfunccall                 shift and go to state 58
+    id_record_line                 shift and go to state 59
+    whileloop                      shift and go to state 62
+    localvardirective              shift and go to state 65
+    localmsgdirective              shift and go to state 67
     type                           shift and go to state 14
-    empty                          shift and go to state 68
-    forloop                        shift and go to state 69
-    return                         shift and go to state 70
-    register_for                   shift and go to state 71
-    read                           shift and go to state 72
-    register_if                    shift and go to state 73
-    instructionsOpt                shift and go to state 74
-    register_while                 shift and go to state 75
-    localdirective                 shift and go to state 76
-    declaration                    shift and go to state 77
+    empty                          shift and go to state 69
+    forloop                        shift and go to state 70
+    return                         shift and go to state 71
+    register_for                   shift and go to state 72
+    read                           shift and go to state 73
+    register_if                    shift and go to state 74
+    instructionsOpt                shift and go to state 75
+    register_while                 shift and go to state 76
+    localdirective                 shift and go to state 77
+    declaration                    shift and go to state 78
     condition                      shift and go to state 79
     register_print_line            shift and go to state 80
     instruction                    shift and go to state 81
     localdecisiondirective         shift and go to state 83
     output                         shift and go to state 84
 
-state 44
+state 45
 
     (33) suprafunc -> func block .
 
@@ -998,30 +1011,30 @@ state 44
     $end            reduce using rule 33 (suprafunc -> func block .)
 
 
-state 45
+state 46
 
     (124) returntype -> VOID .
 
     ID              reduce using rule 124 (returntype -> VOID .)
 
 
-state 46
+state 47
 
     (34) func -> DEF returntype . ID ( paramsOpt )
 
     ID              shift and go to state 85
 
 
-state 47
+state 48
 
     (125) returntype -> type .
 
     ID              reduce using rule 125 (returntype -> type .)
 
 
-state 48
+state 49
 
-    (20) declarationB -> ID push_operand . dimensionsOpt
+    (20) declarationB -> id_record_line push_operand . dimensionsOpt
     (43) dimensionsOpt -> . dimensions
     (44) dimensionsOpt -> . empty
     (157) dimensions -> . [ hyperexpression seen_dimensionx ] dimensionsB
@@ -1036,7 +1049,7 @@ state 48
     dimensionsOpt                  shift and go to state 88
     empty                          shift and go to state 89
 
-state 49
+state 50
 
     (27) declarationC -> , . repush_type declarationB declarationC
     (23) repush_type -> .
@@ -1045,7 +1058,7 @@ state 49
 
     repush_type                    shift and go to state 90
 
-state 50
+state 51
 
     (28) declarationC -> ; .
 
@@ -1068,7 +1081,7 @@ state 50
     }               reduce using rule 28 (declarationC -> ; .)
 
 
-state 51
+state 52
 
     (19) declaration -> type push_type declarationB declarationC .
 
@@ -1091,7 +1104,7 @@ state 51
     }               reduce using rule 19 (declaration -> type push_type declarationB declarationC .)
 
 
-state 52
+state 53
 
     (26) declarationC -> = . push_operator hyperexpression quadruple_assign declarationD
     (24) push_operator -> .
@@ -1108,21 +1121,21 @@ state 52
 
     push_operator                  shift and go to state 91
 
-state 53
+state 54
 
     (31) main -> MAIN ( . ) seen_main block
 
     )               shift and go to state 92
 
 
-state 54
+state 55
 
     (14) body -> declarationsOpt start_quadruple funcsOpt main funcsOpt .
 
     $end            reduce using rule 14 (body -> declarationsOpt start_quadruple funcsOpt main funcsOpt .)
 
 
-state 55
+state 56
 
     (160) return -> RETURN . hyperexpression
     (68) hyperexpression -> . superexpression hyperexpressionB
@@ -1162,21 +1175,21 @@ state 55
     exp                            shift and go to state 105
     expression                     shift and go to state 106
 
-state 56
+state 57
 
     (130) read -> READ . ( validate_id push_operand read_quadruple readB )
 
     (               shift and go to state 107
 
 
-state 57
+state 58
 
     (51) instruction -> assignfunccall . ;
 
     ;               shift and go to state 108
 
 
-state 58
+state 59
 
     (60) assignfunccall -> id_record_line . push_operand assignfunccallB
     (21) push_operand -> .
@@ -1187,21 +1200,21 @@ state 58
 
     push_operand                   shift and go to state 109
 
-state 59
+state 60
 
     (114) register_while -> WHILE .
 
     (               reduce using rule 114 (register_while -> WHILE .)
 
 
-state 60
+state 61
 
     (135) register_print_line -> PRINT .
 
     (               reduce using rule 135 (register_print_line -> PRINT .)
 
 
-state 61
+state 62
 
     (57) instruction -> whileloop .
 
@@ -1222,7 +1235,7 @@ state 61
     }               reduce using rule 57 (instruction -> whileloop .)
 
 
-state 62
+state 63
 
     (141) localvardirective -> # . localvardirectiveB ID
     (144) localmsgdirective -> # . SHOW SCONST
@@ -1235,14 +1248,14 @@ state 62
 
     localvardirectiveB             shift and go to state 113
 
-state 63
+state 64
 
     (115) register_for -> FOR .
 
     (               reduce using rule 115 (register_for -> FOR .)
 
 
-state 64
+state 65
 
     (65) localdirective -> localvardirective .
 
@@ -1263,7 +1276,7 @@ state 64
     }               reduce using rule 65 (localdirective -> localvardirective .)
 
 
-state 65
+state 66
 
     (145) localdecisiondirective -> TRACKDECISION .
 
@@ -1284,7 +1297,7 @@ state 65
     }               reduce using rule 145 (localdecisiondirective -> TRACKDECISION .)
 
 
-state 66
+state 67
 
     (67) localdirective -> localmsgdirective .
 
@@ -1305,14 +1318,14 @@ state 66
     }               reduce using rule 67 (localdirective -> localmsgdirective .)
 
 
-state 67
+state 68
 
     (113) register_if -> IF .
 
     (               reduce using rule 113 (register_if -> IF .)
 
 
-state 68
+state 69
 
     (39) instructionsOpt -> empty .
     (147) localdecisiondirective -> empty .
@@ -1337,7 +1350,7 @@ state 68
   ! }               [ reduce using rule 147 (localdecisiondirective -> empty .) ]
 
 
-state 69
+state 70
 
     (58) instruction -> forloop .
 
@@ -1358,42 +1371,42 @@ state 69
     }               reduce using rule 58 (instruction -> forloop .)
 
 
-state 70
+state 71
 
     (53) instruction -> return . ;
 
     ;               shift and go to state 114
 
 
-state 71
+state 72
 
     (126) forloop -> register_for . ( assign ; init_while hyperexpression for_quadruple ; hyperexpression for_expression ) block endfor_quadruple
 
     (               shift and go to state 115
 
 
-state 72
+state 73
 
     (54) instruction -> read . ;
 
     ;               shift and go to state 116
 
 
-state 73
+state 74
 
     (45) condition -> register_if . ( hyperexpression condition_quadruple ) block else endcondition_quadruple
 
     (               shift and go to state 117
 
 
-state 74
+state 75
 
     (37) block -> { instructionsOpt . }
 
     }               shift and go to state 118
 
 
-state 75
+state 76
 
     (116) whileloop -> register_while . init_while ( hyperexpression ) while_quadruple block endwhile_quadruple
     (117) init_while -> .
@@ -1402,7 +1415,7 @@ state 75
 
     init_while                     shift and go to state 119
 
-state 76
+state 77
 
     (59) instruction -> localdirective .
 
@@ -1423,7 +1436,7 @@ state 76
     }               reduce using rule 59 (instruction -> localdirective .)
 
 
-state 77
+state 78
 
     (55) instruction -> declaration .
 
@@ -1442,15 +1455,6 @@ state 77
     TRACKDECISION   reduce using rule 55 (instruction -> declaration .)
     FORGETDECISION  reduce using rule 55 (instruction -> declaration .)
     }               reduce using rule 55 (instruction -> declaration .)
-
-
-state 78
-
-    (40) id_record_line -> ID .
-
-    [               reduce using rule 40 (id_record_line -> ID .)
-    =               reduce using rule 40 (id_record_line -> ID .)
-    (               reduce using rule 40 (id_record_line -> ID .)
 
 
 state 79
@@ -1537,19 +1541,19 @@ state 81
   ! shift/reduce conflict for TRACKDECISION resolved as shift
   ! shift/reduce conflict for FORGETDECISION resolved as shift
     }               reduce using rule 165 (empty -> .)
-    RETURN          shift and go to state 55
-    READ            shift and go to state 56
-    ID              shift and go to state 78
-    PRINT           shift and go to state 60
+    RETURN          shift and go to state 56
+    READ            shift and go to state 57
+    ID              shift and go to state 39
+    PRINT           shift and go to state 61
     INT             shift and go to state 16
     FLOAT           shift and go to state 17
     STRING          shift and go to state 15
     BOOL            shift and go to state 18
-    IF              shift and go to state 67
-    WHILE           shift and go to state 59
-    FOR             shift and go to state 63
-    #               shift and go to state 62
-    TRACKDECISION   shift and go to state 65
+    IF              shift and go to state 68
+    WHILE           shift and go to state 60
+    FOR             shift and go to state 64
+    #               shift and go to state 63
+    TRACKDECISION   shift and go to state 66
     FORGETDECISION  shift and go to state 82
 
   ! RETURN          [ reduce using rule 165 (empty -> .) ]
@@ -1567,22 +1571,22 @@ state 81
   ! TRACKDECISION   [ reduce using rule 165 (empty -> .) ]
   ! FORGETDECISION  [ reduce using rule 165 (empty -> .) ]
 
-    assignfunccall                 shift and go to state 57
-    id_record_line                 shift and go to state 58
-    whileloop                      shift and go to state 61
-    localvardirective              shift and go to state 64
-    localmsgdirective              shift and go to state 66
+    assignfunccall                 shift and go to state 58
+    id_record_line                 shift and go to state 59
+    whileloop                      shift and go to state 62
+    localvardirective              shift and go to state 65
+    localmsgdirective              shift and go to state 67
     type                           shift and go to state 14
-    empty                          shift and go to state 68
-    forloop                        shift and go to state 69
-    return                         shift and go to state 70
-    register_for                   shift and go to state 71
-    read                           shift and go to state 72
-    register_if                    shift and go to state 73
+    empty                          shift and go to state 69
+    forloop                        shift and go to state 70
+    return                         shift and go to state 71
+    register_for                   shift and go to state 72
+    read                           shift and go to state 73
+    register_if                    shift and go to state 74
     instructionsOpt                shift and go to state 121
-    register_while                 shift and go to state 75
-    localdirective                 shift and go to state 76
-    declaration                    shift and go to state 77
+    register_while                 shift and go to state 76
+    localdirective                 shift and go to state 77
+    declaration                    shift and go to state 78
     condition                      shift and go to state 79
     register_print_line            shift and go to state 80
     instruction                    shift and go to state 81
@@ -1710,11 +1714,11 @@ state 87
 
 state 88
 
-    (20) declarationB -> ID push_operand dimensionsOpt .
+    (20) declarationB -> id_record_line push_operand dimensionsOpt .
 
-    =               reduce using rule 20 (declarationB -> ID push_operand dimensionsOpt .)
-    ,               reduce using rule 20 (declarationB -> ID push_operand dimensionsOpt .)
-    ;               reduce using rule 20 (declarationB -> ID push_operand dimensionsOpt .)
+    =               reduce using rule 20 (declarationB -> id_record_line push_operand dimensionsOpt .)
+    ,               reduce using rule 20 (declarationB -> id_record_line push_operand dimensionsOpt .)
+    ;               reduce using rule 20 (declarationB -> id_record_line push_operand dimensionsOpt .)
 
 
 state 89
@@ -1743,10 +1747,12 @@ state 89
 state 90
 
     (27) declarationC -> , repush_type . declarationB declarationC
-    (20) declarationB -> . ID push_operand dimensionsOpt
+    (20) declarationB -> . id_record_line push_operand dimensionsOpt
+    (40) id_record_line -> . ID
 
-    ID              shift and go to state 38
+    ID              shift and go to state 39
 
+    id_record_line                 shift and go to state 38
     declarationB                   shift and go to state 125
 
 state 91
@@ -2149,7 +2155,7 @@ state 115
     (41) assign -> . id_record_line push_operand dimensionsOpt = push_operator hyperexpression quadruple_assign
     (40) id_record_line -> . ID
 
-    ID              shift and go to state 78
+    ID              shift and go to state 39
 
     id_record_line                 shift and go to state 162
     assign                         shift and go to state 163
@@ -2356,9 +2362,9 @@ state 125
     (27) declarationC -> . , repush_type declarationB declarationC
     (28) declarationC -> . ;
 
-    =               shift and go to state 52
-    ,               shift and go to state 49
-    ;               shift and go to state 50
+    =               shift and go to state 53
+    ,               shift and go to state 50
+    ;               shift and go to state 51
 
     declarationC                   shift and go to state 173
 
@@ -2377,7 +2383,7 @@ state 127
     (31) main -> MAIN ( ) seen_main . block
     (37) block -> . { instructionsOpt }
 
-    {               shift and go to state 43
+    {               shift and go to state 44
 
     block                          shift and go to state 175
 
@@ -2397,9 +2403,9 @@ state 128
     GTEQ            reduce using rule 92 (factor -> signB constant .)
     AND             reduce using rule 92 (factor -> signB constant .)
     OR              reduce using rule 92 (factor -> signB constant .)
-    )               reduce using rule 92 (factor -> signB constant .)
     ,               reduce using rule 92 (factor -> signB constant .)
     ;               reduce using rule 92 (factor -> signB constant .)
+    )               reduce using rule 92 (factor -> signB constant .)
     ]               reduce using rule 92 (factor -> signB constant .)
 
 
@@ -2607,9 +2613,9 @@ state 136
     GTEQ            reduce using rule 94 (factor -> funccall seen_factor_funccall .)
     AND             reduce using rule 94 (factor -> funccall seen_factor_funccall .)
     OR              reduce using rule 94 (factor -> funccall seen_factor_funccall .)
-    )               reduce using rule 94 (factor -> funccall seen_factor_funccall .)
     ,               reduce using rule 94 (factor -> funccall seen_factor_funccall .)
     ;               reduce using rule 94 (factor -> funccall seen_factor_funccall .)
+    )               reduce using rule 94 (factor -> funccall seen_factor_funccall .)
     ]               reduce using rule 94 (factor -> funccall seen_factor_funccall .)
 
 
@@ -2861,10 +2867,10 @@ state 152
     (71) superexpression -> expression superexpressionB .
 
     OR              reduce using rule 71 (superexpression -> expression superexpressionB .)
-    ,               reduce using rule 71 (superexpression -> expression superexpressionB .)
-    )               reduce using rule 71 (superexpression -> expression superexpressionB .)
     ;               reduce using rule 71 (superexpression -> expression superexpressionB .)
     ]               reduce using rule 71 (superexpression -> expression superexpressionB .)
+    ,               reduce using rule 71 (superexpression -> expression superexpressionB .)
+    )               reduce using rule 71 (superexpression -> expression superexpressionB .)
 
 
 state 153
@@ -3284,18 +3290,18 @@ state 183
 
     -               reduce using rule 87 (term -> factor seen_factor termB .)
     +               reduce using rule 87 (term -> factor seen_factor termB .)
-    AND             reduce using rule 87 (term -> factor seen_factor termB .)
-    OR              reduce using rule 87 (term -> factor seen_factor termB .)
-    ;               reduce using rule 87 (term -> factor seen_factor termB .)
-    ]               reduce using rule 87 (term -> factor seen_factor termB .)
-    ,               reduce using rule 87 (term -> factor seen_factor termB .)
-    )               reduce using rule 87 (term -> factor seen_factor termB .)
     <               reduce using rule 87 (term -> factor seen_factor termB .)
     >               reduce using rule 87 (term -> factor seen_factor termB .)
     DIFF            reduce using rule 87 (term -> factor seen_factor termB .)
     EQ              reduce using rule 87 (term -> factor seen_factor termB .)
     LTEQ            reduce using rule 87 (term -> factor seen_factor termB .)
     GTEQ            reduce using rule 87 (term -> factor seen_factor termB .)
+    AND             reduce using rule 87 (term -> factor seen_factor termB .)
+    OR              reduce using rule 87 (term -> factor seen_factor termB .)
+    ;               reduce using rule 87 (term -> factor seen_factor termB .)
+    ]               reduce using rule 87 (term -> factor seen_factor termB .)
+    ,               reduce using rule 87 (term -> factor seen_factor termB .)
+    )               reduce using rule 87 (term -> factor seen_factor termB .)
 
 
 state 184
@@ -3436,9 +3442,9 @@ state 188
     GTEQ            reduce using rule 95 (factor -> ID seen_ID dimensionsOpt .)
     AND             reduce using rule 95 (factor -> ID seen_ID dimensionsOpt .)
     OR              reduce using rule 95 (factor -> ID seen_ID dimensionsOpt .)
-    )               reduce using rule 95 (factor -> ID seen_ID dimensionsOpt .)
     ,               reduce using rule 95 (factor -> ID seen_ID dimensionsOpt .)
     ;               reduce using rule 95 (factor -> ID seen_ID dimensionsOpt .)
+    )               reduce using rule 95 (factor -> ID seen_ID dimensionsOpt .)
     ]               reduce using rule 95 (factor -> ID seen_ID dimensionsOpt .)
 
 
@@ -4003,9 +4009,9 @@ state 217
     GTEQ            reduce using rule 93 (factor -> ( seen_parentheses hyperexpression ) .)
     AND             reduce using rule 93 (factor -> ( seen_parentheses hyperexpression ) .)
     OR              reduce using rule 93 (factor -> ( seen_parentheses hyperexpression ) .)
-    )               reduce using rule 93 (factor -> ( seen_parentheses hyperexpression ) .)
     ,               reduce using rule 93 (factor -> ( seen_parentheses hyperexpression ) .)
     ;               reduce using rule 93 (factor -> ( seen_parentheses hyperexpression ) .)
+    )               reduce using rule 93 (factor -> ( seen_parentheses hyperexpression ) .)
     ]               reduce using rule 93 (factor -> ( seen_parentheses hyperexpression ) .)
 
 
@@ -4419,7 +4425,7 @@ state 238
     (45) condition -> register_if ( hyperexpression condition_quadruple ) . block else endcondition_quadruple
     (37) block -> . { instructionsOpt }
 
-    {               shift and go to state 43
+    {               shift and go to state 44
 
     block                          shift and go to state 263
 
@@ -4590,10 +4596,12 @@ state 246
 state 247
 
     (29) declarationD -> , repush_type . declarationB declarationC
-    (20) declarationB -> . ID push_operand dimensionsOpt
+    (20) declarationB -> . id_record_line push_operand dimensionsOpt
+    (40) id_record_line -> . ID
 
-    ID              shift and go to state 38
+    ID              shift and go to state 39
 
+    id_record_line                 shift and go to state 38
     declarationB                   shift and go to state 268
 
 state 248
@@ -4870,7 +4878,7 @@ state 264
     (116) whileloop -> register_while init_while ( hyperexpression ) while_quadruple . block endwhile_quadruple
     (37) block -> . { instructionsOpt }
 
-    {               shift and go to state 43
+    {               shift and go to state 44
 
     block                          shift and go to state 279
 
@@ -4904,9 +4912,9 @@ state 268
     (27) declarationC -> . , repush_type declarationB declarationC
     (28) declarationC -> . ;
 
-    =               shift and go to state 52
-    ,               shift and go to state 49
-    ;               shift and go to state 50
+    =               shift and go to state 53
+    ,               shift and go to state 50
+    ;               shift and go to state 51
 
     declarationC                   shift and go to state 281
 
@@ -5191,7 +5199,7 @@ state 286
     (46) else -> ELSE elsecondition_quadruple . block
     (37) block -> . { instructionsOpt }
 
-    {               shift and go to state 43
+    {               shift and go to state 44
 
     block                          shift and go to state 293
 
@@ -5329,7 +5337,7 @@ state 296
     (126) forloop -> register_for ( assign ; init_while hyperexpression for_quadruple ; hyperexpression for_expression ) . block endfor_quadruple
     (37) block -> . { instructionsOpt }
 
-    {               shift and go to state 43
+    {               shift and go to state 44
 
     block                          shift and go to state 297
 
@@ -5379,20 +5387,20 @@ state 298
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for RETURN in state 43 resolved as shift
-WARNING: shift/reduce conflict for READ in state 43 resolved as shift
-WARNING: shift/reduce conflict for ID in state 43 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 43 resolved as shift
-WARNING: shift/reduce conflict for INT in state 43 resolved as shift
-WARNING: shift/reduce conflict for FLOAT in state 43 resolved as shift
-WARNING: shift/reduce conflict for STRING in state 43 resolved as shift
-WARNING: shift/reduce conflict for BOOL in state 43 resolved as shift
-WARNING: shift/reduce conflict for IF in state 43 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 43 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 43 resolved as shift
-WARNING: shift/reduce conflict for # in state 43 resolved as shift
-WARNING: shift/reduce conflict for TRACKDECISION in state 43 resolved as shift
-WARNING: shift/reduce conflict for FORGETDECISION in state 43 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 44 resolved as shift
+WARNING: shift/reduce conflict for READ in state 44 resolved as shift
+WARNING: shift/reduce conflict for ID in state 44 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 44 resolved as shift
+WARNING: shift/reduce conflict for INT in state 44 resolved as shift
+WARNING: shift/reduce conflict for FLOAT in state 44 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 44 resolved as shift
+WARNING: shift/reduce conflict for BOOL in state 44 resolved as shift
+WARNING: shift/reduce conflict for IF in state 44 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 44 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 44 resolved as shift
+WARNING: shift/reduce conflict for # in state 44 resolved as shift
+WARNING: shift/reduce conflict for TRACKDECISION in state 44 resolved as shift
+WARNING: shift/reduce conflict for FORGETDECISION in state 44 resolved as shift
 WARNING: shift/reduce conflict for RETURN in state 81 resolved as shift
 WARNING: shift/reduce conflict for READ in state 81 resolved as shift
 WARNING: shift/reduce conflict for ID in state 81 resolved as shift
@@ -5407,5 +5415,5 @@ WARNING: shift/reduce conflict for FOR in state 81 resolved as shift
 WARNING: shift/reduce conflict for # in state 81 resolved as shift
 WARNING: shift/reduce conflict for TRACKDECISION in state 81 resolved as shift
 WARNING: shift/reduce conflict for FORGETDECISION in state 81 resolved as shift
-WARNING: reduce/reduce conflict in state 68 resolved using rule (instructionsOpt -> empty)
-WARNING: rejected rule (localdecisiondirective -> empty) in state 68
+WARNING: reduce/reduce conflict in state 69 resolved using rule (instructionsOpt -> empty)
+WARNING: rejected rule (localdecisiondirective -> empty) in state 69

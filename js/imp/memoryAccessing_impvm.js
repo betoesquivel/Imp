@@ -156,8 +156,9 @@ function getRealAddress(dir) {
 
 function parseAddressIfPointer(dir){
   var s = String(dir);
-  if (s[0] === '*'){
-    return Number(s.substring(1));
+  if (s.contains('*')){
+    var dirs = s.split('*');
+    return Number(dirs[1]);
   }else{
     return false;
   }
@@ -173,6 +174,9 @@ function getValueFromMemory(address) {
     isPointer = true;
   }
   var value;
+  if (dir < 0) {
+    return dir * -1;
+  }
   switch (true) {
     case (dir < localDirs[5]) :
       value = local[dir - localDirs[0]];
@@ -224,7 +228,7 @@ function setValueInMemory(value, address) {
   }
 
   var parsedValue = -1;
-  if (isPointer) {
+  if (!isPointer) {
     parsedValue = parseValueWithAddress(value, dir);
   }
 

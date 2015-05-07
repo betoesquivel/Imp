@@ -37,6 +37,7 @@ def print_quadruples():
     for q in quadruples:
         print i, debug_quadruple(q) if debug else q
         i += 1
+
 def is_number(s):
     if s is None: return False
     try:
@@ -165,8 +166,8 @@ def add_quadruple(operator, op1, type1,  op2, type2, mem_temps, mem_global_temps
         else:
             temp = get_temp(result_type, mem_temps)
 
-        quadruples.append( ['+', op1, op2, temp] )
-        operands.append('*'+str( temp ))
+        quadruples.append( ['SUMDIR', op1, op2, temp] )
+        operands.append(str( op1 )+'*'+str( temp ))
         types.append(type1)
     else:
         if current['scope'] == 'global':
@@ -211,10 +212,19 @@ def check_operation(type1, operator,  type2):
 
 def parse_to_temp_address_if_necessary(value):
     s = str(value)
-    if s[0] == '*':
-        return int(s[1:])
+    if '*' in s:
+        dirs = s.split('*')
+        return int( dirs[1] )
     else:
-        return int(s)
+        return value
+
+def parse_to_base_address_if_necessary(value):
+    s = str(value)
+    if '*' in s:
+        dirs = s.split('*')
+        return int( dirs[0] )
+    else:
+        return value
 
 def return_temp_operands(op1, type1,  op2, type2):
     ''' Note: We are asuming IDs that are introduced by the user cant be t[0-9] '''

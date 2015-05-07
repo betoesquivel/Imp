@@ -38,19 +38,21 @@ def print_global_var_dict():
     print "\nGLOBAL VAR DICT"
     pp.pprint(global_var_dict)
 
-def add_to_local_var_dict(address, var_id):
-    print 'ADDING TO LOCAL: ', address, var_id
+def add_to_local_var_dict(address, var_id, size):
+    print 'ADDING TO LOCAL: ', address, var_id, size
     local_var_dict[address] = {
         'id': var_id,
-        'mods': []
+        'mods': [],
+        'size': size
     }
     print_local_var_dict()
 
-def add_to_global_var_dict(address, var_id):
-    print 'ADDING TO GLOBAL: ', address, var_id
+def add_to_global_var_dict(address, var_id, size):
+    print 'ADDING TO GLOBAL: ', address, var_id, size
     global_var_dict[address] = {
         'id': var_id,
-        'mods': []
+        'mods': [],
+        'size': size
     }
     print_global_var_dict()
 
@@ -144,7 +146,8 @@ def add_to_memory(memory, mtype, num=1):
 
 
 def add_var_to_dict(vscope, vid, vtype, vdimensionx, vdimensiony, memory):
-    num = vdimensionx * vdimensiony if vdimensiony > 0 else vdimensionx
+    print vdimensiony
+    num = int( vdimensionx ) * int( vdimensiony ) if int( vdimensiony ) > 0 else int( vdimensionx )
     num = 1 if num == 0 else num
 
     var_dict[vscope][vid] = {
@@ -156,9 +159,9 @@ def add_var_to_dict(vscope, vid, vtype, vdimensionx, vdimensiony, memory):
     }
     debug_var_const_dict[ var_dict[vscope][vid]['address'] ] = vid
     if (vscope == 'local'):
-        add_to_local_var_dict(var_dict[vscope][vid]['address'], vid)
+        add_to_local_var_dict(var_dict[vscope][vid]['address'], vid, num)
     else:
-        add_to_global_var_dict(var_dict[vscope][vid]['address'], vid)
+        add_to_global_var_dict(var_dict[vscope][vid]['address'], vid, num)
 
 
 
