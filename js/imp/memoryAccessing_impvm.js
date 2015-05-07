@@ -156,7 +156,7 @@ function getRealAddress(dir) {
 
 function parseAddressIfPointer(dir){
   var s = String(dir);
-  if (s.contains('*')){
+  if (s.indexOf('*') != -1){
     var dirs = s.split('*');
     return Number(dirs[1]);
   }else{
