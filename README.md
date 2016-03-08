@@ -6,7 +6,7 @@ can't help you.*
 
 To install, input the following command in terminal.
 ```
- Clone the repository: git clone https://www.github.com/betoesquivel.git
+ Clone the repository: git clone https://www.github.com/Imp.git
 ```
 
 Testing the parser:
