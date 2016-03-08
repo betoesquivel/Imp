@@ -1012,6 +1012,7 @@ def p_error(p):
 
 parser = yacc.yacc()
 
+s = ''
 if(len(sys.argv) > 1):
     if sys.argv[1] == "-f":
         f = open(sys.argv[2], "r")
